@@ -1,21 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { View, Text, StatusBar } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
+import CustomDrawer from './navigation/CustomDrawer';
+import { createStackNavigator } from '@react-navigation/stack'
+import {createStore, applyMiddleware } from 'redux'; 
+import { Provider } from 'react-redux';
+// import thunk from 'redux-thunk;'
+import rootReducer from "./stores/rootReducer";
+import ReduxThunk from 'redux-thunk'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+const Stack = createStackNavigator();
+
+const store = createStore(
+    rootReducer,
+    applyMiddleware(ReduxThunk)
   );
+
+const App = () => {
+    return (
+        <Provider store={store}>
+            <NavigationContainer>
+            <StatusBar barStyle="light-content" />
+                <Stack.Navigator
+                    screenOptions={{
+                        headerShown: false
+                    }}
+                    initialRouteName={'Notice Board'}
+                >
+                    <Stack.Screen
+                        name="Notice Board"
+                        component={CustomDrawer}
+                    />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </Provider>
+    )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App
