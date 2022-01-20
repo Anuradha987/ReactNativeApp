@@ -74,7 +74,7 @@ return(
         <View style={styles.imageRowRow}>
           <View style={styles.imageRow}>
             <Image
-              source={require("../assets/images/avatar-1.jpg")}
+              source={require(".../assets/images/avatar-1.jpg")}
               resizeMode="contain"
               style={styles.image}
             ></Image>
@@ -115,7 +115,7 @@ return(
 
     <View style={styles.rect3}>
       <Image
-        source={require("../assets/images/avatar-1.jpg")}
+        source={require(".../assets/images/avatar-1.jpg")}
         resizeMode="contain"
         style={styles.image2}
       ></Image>

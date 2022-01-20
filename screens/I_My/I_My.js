@@ -21,7 +21,7 @@ const I_My = () => {
       <ImageBackground
         style={styles.receivedReqList}
         imageStyle={styles.receivedReqList_imageStyle}
-        source={require("../assets/images/Gradient_U0mLOhY.png")}
+        source={require(".../assets/images/Gradient_U0mLOhY.png")}
       > {/* order requests */}
         <View style={styles.orderRequestslblStack}>
           <Text style={styles.orderRequestslbl}>Order Requests</Text>
@@ -38,7 +38,7 @@ const I_My = () => {
             <View style={styles.senderProPicRow}>
                {/* Pro pic of requ sender */}
               <Image
-                source={require("../assets/images/istockphoto-523147245-612x612.jpg")}
+                source={require(".../assets/images/istockphoto-523147245-612x612.jpg")}
                 resizeMode="cover"
                 style={styles.senderProPic}
               ></Image>
@@ -93,7 +93,7 @@ const I_My = () => {
       <ImageBackground
         style={styles.myItemDetails}
         imageStyle={styles.myItemDetails_imageStyle}
-        source={require("../assets/images/Gradient_U0mLOhY.png")}
+        source={require(".../assets/images/Gradient_U0mLOhY.png")}
       >
         <View style={styles.publishDateRow}>
           {/* publish date */}
@@ -118,7 +118,7 @@ const I_My = () => {
 
         <Text style={styles.pageNo}>2.</Text>
         <Image
-          source={require("../assets/images/pizza.jpg")}
+          source={require(".../assets/images/pizza.jpg")}
           resizeMode="cover"
           style={styles.itemImage}
         ></Image>

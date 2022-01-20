@@ -16,16 +16,16 @@ import { NavigationContainer } from '@react-navigation/native';
 
 
 function PendingReq() {
-  return (
+  // return (
 
-  );
+  // );
 }
   
 
 
 function CompletedReq() {
-  return (
-  );
+  // return (
+  // );
 }
 
 const Tab = createMaterialTopTabNavigator();

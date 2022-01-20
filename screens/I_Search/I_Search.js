@@ -28,7 +28,7 @@ const I_Search = () => {
               <View style={styles.cateRoundRow}>
                 <View style={styles.cateRound}>
                   <Image
-                    source={require("../assets/images/pineapple_96px.png")}
+                    source={require(".../assets/images/pineapple_96px.png")}
                     resizeMode="contain"
                     style={styles.cateIcon2}
                   ></Image>
@@ -71,7 +71,7 @@ const I_Search = () => {
               <ImageBackground
                 style={styles.products1}
                 imageStyle={styles.products1_imageStyle}
-                source={require("../assets/images/Gradient_WcvXyL2.png")}
+                source={require(".../assets/images/Gradient_WcvXyL2.png")}
               >
                 <View style={styles.productName1StackStack}>
                   <View style={styles.productName1Stack}>
@@ -79,7 +79,7 @@ const I_Search = () => {
                     <Text style={styles.productName1}>Avocado</Text>
                      {/* product category icon*/}
                     <Image
-                      source={require("../assets/images/foods.png")}
+                      source={require(".../assets/images/foods.png")}
                       resizeMode="contain"
                       style={styles.cateIcon1}
                     ></Image>
@@ -96,7 +96,7 @@ const I_Search = () => {
 
               {/* Product Image */}
               <ImageBackground
-                source={require("../assets/images/organic-avocados.jpg")}
+                source={require(".../assets/images/organic-avocados.jpg")}
                 resizeMode="cover"
                 style={styles.productImage1}
                 imageStyle={styles.productImage1_imageStyle}
@@ -116,13 +116,13 @@ const I_Search = () => {
               <ImageBackground
                 style={styles.products2}
                 imageStyle={styles.products2_imageStyle}
-                source={require("../assets/images/Gradient_WcvXyL2.png")}
+                source={require(".../assets/images/Gradient_WcvXyL2.png")}
               >
                 <View style={styles.productName2StackStack}>
                   <View style={styles.productName2Stack}>
                     <Text style={styles.productName2}>Avocado</Text>
                     <Image
-                      source={require("../assets/images/foods.png")}
+                      source={require(".../assets/images/foods.png")}
                       resizeMode="contain"
                       style={styles.cateIcon3}
                     ></Image>
@@ -138,7 +138,7 @@ const I_Search = () => {
                 </View>
               </ImageBackground>
               <ImageBackground
-                source={require("../assets/images/organic-avocados.jpg")}
+                source={require(".../assets/images/organic-avocados.jpg")}
                 resizeMode="cover"
                 style={styles.productImage2}
                 imageStyle={styles.productImage2_imageStyle}
@@ -167,13 +167,13 @@ const I_Search = () => {
             <ImageBackground
               style={styles.products3}
               imageStyle={styles.products3_imageStyle}
-              source={require("../assets/images/Gradient_WcvXyL2.png")}
+              source={require(".../assets/images/Gradient_WcvXyL2.png")}
             >
               <View style={styles.productName3StackStack}>
                 <View style={styles.productName3Stack}>
                   <Text style={styles.productName3}>Avocado</Text>
                   <Image
-                    source={require("../assets/images/foods.png")}
+                    source={require(".../assets/images/foods.png")}
                     resizeMode="contain"
                     style={styles.cateIcon4}
                   ></Image>
@@ -185,7 +185,7 @@ const I_Search = () => {
               <Text style={styles.rs30102}>Rs.30 / 100g</Text>
             </ImageBackground>
             <ImageBackground
-              source={require("../assets/images/organic-avocados.jpg")}
+              source={require(".../assets/images/organic-avocados.jpg")}
               resizeMode="cover"
               style={styles.productImage3}
               imageStyle={styles.productImage3_imageStyle}

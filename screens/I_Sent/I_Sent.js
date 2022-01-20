@@ -79,7 +79,7 @@ const I_Sent = () => {
             </View>
             {/* item image */}
             <Image
-              source={require("../assets/images/shoes2.jpg")}
+              source={require(".../assets/images/shoes2.jpg")}
               resizeMode="cover"
               style={styles.itemImage}
             ></Image>
