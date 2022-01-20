@@ -7,7 +7,6 @@ import {
   ScrollView,
   Text,
   Image,
-  SafeAreaView
 } from "react-native";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import FeatherIcon from "react-native-vector-icons/Feather";
@@ -16,7 +15,7 @@ import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommun
 
 const I_Sent = () => {
     return (
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
       <View style={styles.searchingBarColumn}>
         {/* search bar */}
         <View style={styles.searchingBar}>
@@ -79,7 +78,7 @@ const I_Sent = () => {
             </View>
             {/* item image */}
             <Image
-              source={require(".../assets/images/shoes2.jpg")}
+              source={require("./../../assets/images/shoes.jpg")}
               resizeMode="cover"
               style={styles.itemImage}
             ></Image>
@@ -92,7 +91,7 @@ const I_Sent = () => {
           </View>
         </ScrollView>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

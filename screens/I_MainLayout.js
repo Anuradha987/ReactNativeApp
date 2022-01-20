@@ -13,11 +13,11 @@ import { I_Approvals, I_Sent, I_My, I_Requests, I_Search } from '.';
 
 const TabButton = ({label, icon, isFocused, onPress, outerContainerStyle, innerContainerStyle}) => {
     return(
-        <TouchableWithoutFeedback onPress={onPress}>
-            <Animated.View style={[{flex:1, alignItems: 'center', justifyContent: 'center'}, outerContainerStyle]}>
+        <TouchableWithoutFeedback onPress={onPress} >
+            <Animated.View style={[{flex:1, alignItems: 'center', justifyContent: 'center',}, outerContainerStyle]}>
 
                 {/* another animated.view used to animate the bottom bar buttons in orange color */}
-                <Animated.View style={[{flexDirection:'row', height: 50, width:'80%', alignItems: 'center', justifyContent: 'center', borderRadius: 25}, innerContainerStyle]}>
+                <Animated.View style={[{flexDirection:'row', height: 50, width:'80%', alignItems: 'center', justifyContent: 'center', borderRadius: 25,}, innerContainerStyle]}>
                     <Image source={icon} 
                            style={{ width: 20, height: 20, tintColor: isFocused? COLORS.white : COLORS.gray}}
                     />
@@ -254,7 +254,7 @@ const I_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelecte
 
             {/* Footer */}
             
-            <View style={{height: 65, justifyContent:'flex-end'}}>
+            <View style={{height: 65, justifyContent:'flex-end',bottom:0}}>
 
                 {/* shadow above the bottom tab navigator */}
                 <LinearGradient  start = {{ x:0 , y:0 }} end = {{ x:0 , y:2 }}

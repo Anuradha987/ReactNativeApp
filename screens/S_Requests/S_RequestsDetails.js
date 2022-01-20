@@ -17,12 +17,12 @@ const S_RequestsDetails = () => {
           <ImageBackground
             style={styles.contactInfoBox}
             imageStyle={styles.contactInfoBox_imageStyle}
-            source={require("../assets/images/Gradient_j4NfJ5t.png")}
+            source={require("./../../assets/images/Gradient_j4NfJ5t.png")}
           >
             <View style={styles.senderImageRow}>
                 {/* req sender's profile pic  */}
               <Image
-                source={require("../assets/images/avatar-1.jpg")}
+                source={require("./../../assets/images/avatar-1.jpg")}
                 resizeMode="contain"
                 style={styles.senderImage}
               ></Image>

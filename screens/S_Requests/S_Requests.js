@@ -46,7 +46,7 @@ const S_Requests = () => {
         <TouchableOpacity style={styles.serviceReqSentMe}>
           <View style={styles.senderImageRow}>
             <Image
-              source={require(".../assets/images/avatar-1.jpg")}
+              source={require("./../../assets/images/avatar-1.jpg")}
               resizeMode="contain"
               style={styles.senderImage}
             ></Image>

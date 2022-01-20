@@ -18,7 +18,7 @@ const S_My = () => {
       <ImageBackground
         style={styles.myServiceDetails}
         imageStyle={styles.myServiceDetails_imageStyle}
-        source={require(".../assets/images/Gradient_U0mLOhY.png")}
+        source={require("./../../assets/images/Gradient_U0mLOhY.png")}
       >
         <View style={styles.endWrapperFillerRow}>
           <View style={styles.endWrapperFiller}></View>
@@ -69,7 +69,7 @@ const S_My = () => {
         <ImageBackground
           style={styles.myServiceDetailsNew}
           imageStyle={styles.myServiceDetailsNew_imageStyle}
-          source={require(".../assets/images/Gradient_U0mLOhY.png")}
+          source={require("./../../assets/images/Gradient_U0mLOhY.png")}
         >
           <TextInput
             placeholder="Title"

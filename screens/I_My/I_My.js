@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
-  SafeAreaView
 } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -16,29 +15,24 @@ import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 
 const I_My = () => {
     return (
-        <SafeAreaView style={styles.container}>
-          {/* order info at bottom */}
+      <View style={styles.container}>
       <ImageBackground
         style={styles.receivedReqList}
         imageStyle={styles.receivedReqList_imageStyle}
-        source={require(".../assets/images/Gradient_U0mLOhY.png")}
-      > {/* order requests */}
+        source={require("./../../assets/images/Gradient_U0mLOhY.png")}
+      >
         <View style={styles.orderRequestslblStack}>
           <Text style={styles.orderRequestslbl}>Order Requests</Text>
-          {/* notification */}
           <View style={styles.notificationCircle}>
             <View style={styles.noOfNotificationFiller}></View>
             <Text style={styles.noOfNotification}>10</Text>
           </View>
         </View>
-
-        {/* Item order request info */}
         <TouchableOpacity style={styles.reqInfoCard}>
           <View style={styles.reqSenderInfo}>
             <View style={styles.senderProPicRow}>
-               {/* Pro pic of requ sender */}
               <Image
-                source={require(".../assets/images/istockphoto-523147245-612x612.jpg")}
+                source={require("./../../assets/images/istockphoto-523147245-612x612.jpg")}
                 resizeMode="cover"
                 style={styles.senderProPic}
               ></Image>
@@ -47,28 +41,23 @@ const I_My = () => {
             <View style={styles.senderProPicRowFiller}></View>
             <Text style={styles.sendTime}>13 mins ago</Text>
           </View>
-
           <View style={styles.amountlblStackRowRow}>
             <View style={styles.amountlblStackRow}>
               <View style={styles.amountlblStack}>
-              {/* Amount */}
                 <Text style={styles.amountlbl}>Amount</Text>
                 <Text style={styles.colonMark1}>:</Text>
               </View>
               <Text style={styles.amountOrdered}>2 Large Pizza</Text>
             </View>
             <View style={styles.amountlblStackRowFiller}></View>
-            {/* Decline Btn */}
             <TouchableOpacity style={styles.reqDeclineBtn}>
               <View style={styles.declineFiller}></View>
               <Text style={styles.decline}>Decline</Text>
             </TouchableOpacity>
           </View>
-          
           <View style={styles.returningDateOrExchangedForlblStackRowRow}>
             <View style={styles.returningDateOrExchangedForlblStackRow}>
               <View style={styles.returningDateOrExchangedForlblStack}>
-                {/* Returning or exchanging for */}
                 <Text style={styles.returningDateOrExchangedForlbl}>
                   Returning Date
                 </Text>
@@ -79,8 +68,6 @@ const I_My = () => {
             <View
               style={styles.returningDateOrExchangedForlblStackRowFiller}
             ></View>
-            
-              {/* Accept Btn */}
             <TouchableOpacity style={styles.reqAcceptBtn}>
               <View style={styles.acceptFiller}></View>
               <Text style={styles.accept}>Accept</Text>
@@ -88,24 +75,19 @@ const I_My = () => {
           </View>
         </TouchableOpacity>
       </ImageBackground>
-
-  {/* Order placement in top */}
       <ImageBackground
         style={styles.myItemDetails}
         imageStyle={styles.myItemDetails_imageStyle}
-        source={require(".../assets/images/Gradient_U0mLOhY.png")}
+        source={require("./../../assets/images/Gradient_U0mLOhY.png")}
       >
         <View style={styles.publishDateRow}>
-          {/* publish date */}
           <Text style={styles.publishDate}>12/12/2021</Text>
           <View style={styles.publishDateFiller}></View>
           <View style={styles.editBtnRow}>
-            {/* edit order */}
             <TouchableOpacity style={styles.editBtn}>
               <View style={styles.editIconFiller}></View>
               <FeatherIcon name="edit" style={styles.editIcon}></FeatherIcon>
             </TouchableOpacity>
-            {/* delete order */}
             <TouchableOpacity style={styles.deleteBtn}>
               <View style={styles.delIconFiller}></View>
               <MaterialCommunityIconsIcon
@@ -115,10 +97,9 @@ const I_My = () => {
             </TouchableOpacity>
           </View>
         </View>
-
         <Text style={styles.pageNo}>2.</Text>
         <Image
-          source={require(".../assets/images/pizza.jpg")}
+          source={require("./../../assets/images/pizza.jpg")}
           resizeMode="cover"
           style={styles.itemImage}
         ></Image>
@@ -137,10 +118,8 @@ const I_My = () => {
           <View style={styles.forCashlblFiller}></View>
           <Text style={styles.price}>Rs.30 /100g</Text>
         </View>
-        </ImageBackground>
-
-    {/* searching bar */}
-       <View style={styles.searchingBarStack}>
+      </ImageBackground>
+      <View style={styles.searchingBarStack}>
         <View style={styles.searchingBar}>
           <View style={styles.searchIconFiller}></View>
           <EvilIconsIcon
@@ -157,7 +136,7 @@ const I_My = () => {
           style={styles.serviceSearch}
         ></TextInput>
       </View>
-    </SafeAreaView>
+    </View>
     )
 }
 

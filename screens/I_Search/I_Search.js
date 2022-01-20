@@ -8,196 +8,187 @@ import {
   TextInput,
   TouchableOpacity,
   ImageBackground, 
-  SafeAreaView
 } from "react-native";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
+import { useFonts } from 'expo-font';
 
 const I_Search = () => {
+  const [loaded] = useFonts({
+    poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
+  });
+  
+  if (!loaded) {
+    return null;
+  }
+
     return (
-        <SafeAreaView style={styles.container}>
-
-        {/* product categoty */}
-        <View style={styles.scrollbar}>           
-          <ScrollView
-            horizontal={true}
-            contentContainerStyle={styles.scrollbar_contentContainerStyle}
-          >
-            <View style={styles.categories}>
-              <View style={styles.cateRoundRow}>
-                <View style={styles.cateRound}>
-                  <Image
-                    source={require(".../assets/images/pineapple_96px.png")}
-                    resizeMode="contain"
-                    style={styles.cateIcon2}
-                  ></Image>
-                </View>
-                <Text style={styles.cateName2}>All</Text>
+      <View style={styles.container}>
+      <View style={styles.scrollbar}>
+        <ScrollView
+          horizontal={true}
+          contentContainerStyle={styles.scrollbar_contentContainerStyle}
+        >
+          <View style={styles.categories}>
+            <View style={styles.cateRoundRow}>
+              <View style={styles.cateRound}>
+                <Image
+                  source={require("./../../assets/images/pineapple_96px.png")}
+                  resizeMode="contain"
+                  style={styles.cateIcon2}
+                ></Image>
               </View>
-            </View>
-          </ScrollView>
-        </View>
-
-        {/* Searching bar */}
-        <View style={styles.searchingBarRow}>
-          <View style={styles.searchingBar}>
-            <TextInput
-              placeholder="Search a service..."
-              returnKeyType="go"
-              placeholderTextColor="rgba(194,97,250,1)"
-              selectionColor="rgba(250,245,245,1)"
-              clearButtonMode="while-editing"
-              style={styles.serviceSearch}
-            ></TextInput>
-            <EvilIconsIcon
-              name="search"
-              style={styles.searchIcon}
-            ></EvilIconsIcon>
-          </View>
-          <TouchableOpacity style={styles.filterBtn}>
-            <View style={styles.filterIconFiller}></View>
-            <FontAwesomeIcon
-              name="filter"
-              style={styles.filterIcon}
-            ></FontAwesomeIcon>
-          </TouchableOpacity>
-        </View>
-
-{/* Product 1 */}
-        <View style={styles.product1GroupRow}>
-          <View style={styles.product1Group}>
-            <View style={styles.products1Stack}>
-              <ImageBackground
-                style={styles.products1}
-                imageStyle={styles.products1_imageStyle}
-                source={require(".../assets/images/Gradient_WcvXyL2.png")}
-              >
-                <View style={styles.productName1StackStack}>
-                  <View style={styles.productName1Stack}>
-                      {/* Product name */}
-                    <Text style={styles.productName1}>Avocado</Text>
-                     {/* product category icon*/}
-                    <Image
-                      source={require(".../assets/images/foods.png")}
-                      resizeMode="contain"
-                      style={styles.cateIcon1}
-                    ></Image>
-                  </View>
-                   {/* product category name*/}
-                  <Text style={styles.cateName1}>
-                    Electronics &amp; Electrics
-                  </Text>
-                </View>
-                <Text style={styles.available}>Available</Text>
-                <Text style={styles.tradingMethod1}>For Cash</Text>
-                <Text style={styles.rs30100G}>Rs.30 / 100g</Text>
-              </ImageBackground>
-
-              {/* Product Image */}
-              <ImageBackground
-                source={require(".../assets/images/organic-avocados.jpg")}
-                resizeMode="cover"
-                style={styles.productImage1}
-                imageStyle={styles.productImage1_imageStyle}
-              > {/* heart icon*/}
-                <IoniconsIcon
-                  name="md-heart"
-                  style={styles.favIcon1}
-                ></IoniconsIcon>
-              </ImageBackground>
+              <Text style={styles.cateName2}>All</Text>
             </View>
           </View>
-
-{/* Product 2 */}
-          <View style={styles.product1GroupFiller}></View>
-          <View style={styles.product2}>
-            <View style={styles.products2Stack}>
-              <ImageBackground
-                style={styles.products2}
-                imageStyle={styles.products2_imageStyle}
-                source={require(".../assets/images/Gradient_WcvXyL2.png")}
-              >
-                <View style={styles.productName2StackStack}>
-                  <View style={styles.productName2Stack}>
-                    <Text style={styles.productName2}>Avocado</Text>
-                    <Image
-                      source={require(".../assets/images/foods.png")}
-                      resizeMode="contain"
-                      style={styles.cateIcon3}
-                    ></Image>
-                  </View>
-                  <Text style={styles.cateName3}>
-                    Electronics &amp; Electrics
-                  </Text>
-                </View>
-                <Text style={styles.notAvailable}>Not Available</Text>
-                <View style={styles.forBarterStack}>
-                  <Text style={styles.forBarter}>For Barter</Text>
-                  <Text style={styles.rs30101}>Rs.30 / 100g</Text>
-                </View>
-              </ImageBackground>
-              <ImageBackground
-                source={require(".../assets/images/organic-avocados.jpg")}
-                resizeMode="cover"
-                style={styles.productImage2}
-                imageStyle={styles.productImage2_imageStyle}
-              >
-                <IoniconsIcon
-                  name="md-heart"
-                  style={styles.favIcon2}
-                ></IoniconsIcon>
-              </ImageBackground>
-            </View>
-          </View>
+        </ScrollView>
+      </View>
+      <View style={styles.searchingBarRow}>
+        <View style={styles.searchingBar}>
+          <TextInput
+            placeholder="Search a service..."
+            returnKeyType="go"
+            placeholderTextColor="rgba(194,97,250,1)"
+            selectionColor="rgba(250,245,245,1)"
+            clearButtonMode="while-editing"
+            style={styles.serviceSearch}
+          ></TextInput>
+          <EvilIconsIcon
+            name="search"
+            style={styles.searchIcon}
+          ></EvilIconsIcon>
         </View>
-
-{/* Add new request */}
-        <View style={styles.addNewReqStack}>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate("NewReqForm")}
-            style={styles.addNewReq}
-          ></TouchableOpacity>
-          <Text style={styles.add}>+</Text>
-        </View>
-
-{/* Product 3 */}
-        <View style={styles.product3}>
-          <View style={styles.products3Stack}>
+        <TouchableOpacity style={styles.filterBtn}>
+          <View style={styles.filterIconFiller}></View>
+          <FontAwesomeIcon
+            name="filter"
+            style={styles.filterIcon}
+          ></FontAwesomeIcon>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.product1GroupRow}>
+        <View style={styles.product1Group}>
+          <View style={styles.products1Stack}>
             <ImageBackground
-              style={styles.products3}
-              imageStyle={styles.products3_imageStyle}
-              source={require(".../assets/images/Gradient_WcvXyL2.png")}
+              style={styles.products1}
+              imageStyle={styles.products1_imageStyle}
+              source={require("./../../assets/images/Gradient_WcvXyL2.png")}
             >
-              <View style={styles.productName3StackStack}>
-                <View style={styles.productName3Stack}>
-                  <Text style={styles.productName3}>Avocado</Text>
+              <View style={styles.productName1StackStack}>
+                <View style={styles.productName1Stack}>
+                  <Text style={styles.productName1}>Avocado</Text>
                   <Image
-                    source={require(".../assets/images/foods.png")}
+                    source={require("./../../assets/icons/foods.png")}
                     resizeMode="contain"
-                    style={styles.cateIcon4}
+                    style={styles.cateIcon1}
                   ></Image>
                 </View>
-                <Text style={styles.cateName4}>Electronics &amp; Electrics</Text>
+                <Text style={styles.cateName1}>
+                  Electronics &amp; Electrics
+                </Text>
               </View>
-              <Text style={styles.available2}>Available</Text>
-              <Text style={styles.forBorrow}>For Borrow</Text>
-              <Text style={styles.rs30102}>Rs.30 / 100g</Text>
+              <Text style={styles.available}>Available</Text>
+              <Text style={styles.tradingMethod1}>For Cash</Text>
+              <Text style={styles.rs30100G}>Rs.30 / 100g</Text>
             </ImageBackground>
             <ImageBackground
-              source={require(".../assets/images/organic-avocados.jpg")}
+              source={require("./../../assets/images/organic-avocados.jpg")}
               resizeMode="cover"
-              style={styles.productImage3}
-              imageStyle={styles.productImage3_imageStyle}
+              style={styles.productImage1}
+              imageStyle={styles.productImage1_imageStyle}
             >
               <IoniconsIcon
                 name="md-heart"
-                style={styles.favIcon3}
+                style={styles.favIcon1}
               ></IoniconsIcon>
             </ImageBackground>
           </View>
         </View>
-      </SafeAreaView>
+        <View style={styles.product1GroupFiller}></View>
+        <View style={styles.product2}>
+          <View style={styles.products2Stack}>
+            <ImageBackground
+              style={styles.products2}
+              imageStyle={styles.products2_imageStyle}
+              source={require("./../../assets/images/Gradient_WcvXyL2.png")}
+            >
+              <View style={styles.productName2StackStack}>
+                <View style={styles.productName2Stack}>
+                  <Text style={styles.productName2}>Avocado</Text>
+                  <Image
+                    source={require("./../../assets/icons/foods.png")}
+                    resizeMode="contain"
+                    style={styles.cateIcon3}
+                  ></Image>
+                </View>
+                <Text style={styles.cateName3}>
+                  Electronics &amp; Electrics
+                </Text>
+              </View>
+              <Text style={styles.notAvailable}>Not Available</Text>
+              <View style={styles.forBarterStack}>
+                <Text style={styles.forBarter}>For Barter</Text>
+                <Text style={styles.rs30101}>Rs.30 / 100g</Text>
+              </View>
+            </ImageBackground>
+            <ImageBackground
+              source={require("./../../assets/images/organic-avocados.jpg")}
+              resizeMode="cover"
+              style={styles.productImage2}
+              imageStyle={styles.productImage2_imageStyle}
+            >
+              <IoniconsIcon
+                name="md-heart"
+                style={styles.favIcon2}
+              ></IoniconsIcon>
+            </ImageBackground>
+          </View>
+        </View>
+      </View>
+      <View style={styles.addNewReqStack}>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate("NewReqForm")}
+          style={styles.addNewReq}
+        ></TouchableOpacity>
+        <Text style={styles.add}>+</Text>
+      </View>
+      <View style={styles.product3}>
+        <View style={styles.products3Stack}>
+          <ImageBackground
+            style={styles.products3}
+            imageStyle={styles.products3_imageStyle}
+            source={require("./../../assets/images/Gradient_WcvXyL2.png")}
+          >
+            <View style={styles.productName3StackStack}>
+              <View style={styles.productName3Stack}>
+                <Text style={styles.productName3}>Avocado</Text>
+                <Image
+                  source={require("./../../assets/icons/foods.png")}
+                  resizeMode="contain"
+                  style={styles.cateIcon4}
+                ></Image>
+              </View>
+              <Text style={styles.cateName4}>Electronics &amp; Electrics</Text>
+            </View>
+            <Text style={styles.available2}>Available</Text>
+            <Text style={styles.forBorrow}>For Borrow</Text>
+            <Text style={styles.rs30102}>Rs.30 / 100g</Text>
+          </ImageBackground>
+          <ImageBackground
+            source={require("./../../assets/images/organic-avocados.jpg")}
+            resizeMode="cover"
+            style={styles.productImage3}
+            imageStyle={styles.productImage3_imageStyle}
+          >
+            <IoniconsIcon
+              name="md-heart"
+              style={styles.favIcon3}
+            ></IoniconsIcon>
+          </ImageBackground>
+        </View>
+      </View>
+    </View>
     );
   }
   
@@ -253,7 +244,7 @@ const I_Search = () => {
       marginLeft: 2
     },
     cateName2: {
-      fontFamily: "poppins-regular",
+      fontFamily: "poppinsregular",
       color: "#121212",
       fontSize: 12,
       marginLeft: 8,
@@ -286,7 +277,7 @@ const I_Search = () => {
       marginRight: 9
     },
     serviceSearch: {
-      fontFamily: "poppins-regular",
+      fontFamily: "poppinsregular",
       color: "rgba(255,255,255,1)",
       height: 52,
       opacity: 0.43,
@@ -365,7 +356,7 @@ const I_Search = () => {
       top: 0,
       left: 0,
       position: "absolute",
-      fontFamily: "poppins-regular",
+      fontFamily: "poppinsregular",
       color: "rgba(255,255,255,1)",
       fontSize: 18
     },
@@ -387,7 +378,7 @@ const I_Search = () => {
       top: 28,
       left: 27,
       position: "absolute",
-      fontFamily: "poppins-regular",
+      fontFamily: "poppinsregular",
       color: "#ebd670",
       fontSize: 10
     },
@@ -398,14 +389,14 @@ const I_Search = () => {
       marginLeft: 11
     },
     available: {
-      fontFamily: "poppins-regular",
+      fontFamily: "poppinsregular",
       color: "rgba(8,255,0,1)",
       fontSize: 13,
       marginTop: 3,
       marginLeft: 10
     },
     tradingMethod1: {
-      fontFamily: "poppins-regular",
+      fontFamily: "poppinsregular",
       color: "rgba(221,160,248,1)",
       fontSize: 24,
       width: 142,
@@ -414,7 +405,7 @@ const I_Search = () => {
       marginLeft: 11
     },
     rs30100G: {
-      fontFamily: "poppins-regular",
+      fontFamily: "poppinsregular",
       color: "rgba(255,255,255,1)",
       fontSize: 16,
       marginLeft: 11
@@ -471,7 +462,7 @@ const I_Search = () => {
       top: 0,
       left: 0,
       position: "absolute",
-      fontFamily: "poppins-regular",
+      fontFamily: "poppinsregular",
       color: "rgba(255,255,255,1)",
       fontSize: 18
     },
@@ -493,7 +484,7 @@ const I_Search = () => {
       top: 28,
       left: 27,
       position: "absolute",
-      fontFamily: "poppins-regular",
+      fontFamily: "poppinsregular",
       color: "#ebd670",
       fontSize: 10
     },
@@ -504,7 +495,7 @@ const I_Search = () => {
       marginLeft: 11
     },
     notAvailable: {
-      fontFamily: "poppins-regular",
+      fontFamily: "poppinsregular",
       color: "rgba(255,130,130,1)",
       fontSize: 13,
       marginTop: 3,
@@ -514,7 +505,7 @@ const I_Search = () => {
       top: 0,
       left: 1,
       position: "absolute",
-      fontFamily: "poppins-regular",
+      fontFamily: "poppinsregular",
       color: "rgba(221,160,248,1)",
       fontSize: 24,
       width: 142,
@@ -524,7 +515,7 @@ const I_Search = () => {
       top: 36,
       left: 0,
       position: "absolute",
-      fontFamily: "poppins-regular",
+      fontFamily: "poppinsregular",
       color: "rgba(255,255,255,1)",
       fontSize: 16,
       width: 142,
@@ -590,7 +581,7 @@ const I_Search = () => {
     add: {
       top: 0,
       position: "absolute",
-      fontFamily: "poppins-regular",
+      fontFamily: "poppinsregular",
       color: "rgba(255,255,255,1)",
       fontSize: 60,
       height: 70,
@@ -632,7 +623,7 @@ const I_Search = () => {
       top: 0,
       left: 0,
       position: "absolute",
-      fontFamily: "poppins-regular",
+      fontFamily: "poppinsregular",
       color: "rgba(255,255,255,1)",
       fontSize: 18
     },
@@ -654,7 +645,7 @@ const I_Search = () => {
       top: 28,
       left: 27,
       position: "absolute",
-      fontFamily: "poppins-regular",
+      fontFamily: "poppinsregular",
       color: "#ebd670",
       fontSize: 10
     },
@@ -665,14 +656,14 @@ const I_Search = () => {
       marginLeft: 11
     },
     available2: {
-      fontFamily: "poppins-regular",
+      fontFamily: "poppinsregular",
       color: "rgba(8,255,0,1)",
       fontSize: 13,
       marginTop: 4,
       marginLeft: 13
     },
     forBorrow: {
-      fontFamily: "poppins-regular",
+      fontFamily: "poppinsregular",
       color: "rgba(221,160,248,1)",
       fontSize: 24,
       width: 142,
@@ -681,7 +672,7 @@ const I_Search = () => {
       marginLeft: 12
     },
     rs30102: {
-      fontFamily: "poppins-regular",
+      fontFamily: "poppinsregular",
       color: "rgba(255,255,255,1)",
       fontSize: 16,
       marginTop: 1,

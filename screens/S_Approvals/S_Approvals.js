@@ -9,23 +9,24 @@ import {
   Image
 } from "react-native";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
-import CupertinoSegmentWithTwoTabs from "../components/CupertinoSegmentWithTwoTabs";
+import CupertinoSegmentWithTwoTabs from "./../../components/CupertinoSegmentWithTwoTabs";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import { NavigationContainer } from '@react-navigation/native';
-
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 
 function PendingReq() {
-  // return (
-
-  // );
+   return (
+<View><Text>Pending</Text></View>
+   );
 }
   
 
 
 function CompletedReq() {
-  // return (
-  // );
+  return (
+    <View><Text>Completed</Text></View>
+  );
 }
 
 const Tab = createMaterialTopTabNavigator();
@@ -61,7 +62,7 @@ const S_Approvals = () => {
    </View> 
   )
 }
-
+const styles = StyleSheet.create({});
 export default S_Approvals
 
 
