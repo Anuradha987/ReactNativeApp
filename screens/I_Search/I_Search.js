@@ -7,13 +7,101 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  ImageBackground, 
+  ImageBackground, TouchableWithoutFeedback
 } from "react-native";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import { useFonts } from 'expo-font';
+import { LinearGradient } from 'expo-linear-gradient';
+import { FlatList } from "react-native-gesture-handler";
+import { dummyData } from '../../constants';
 
+function itemList(){
+  <View>
+    <FlatList data = {dummyData.itemsSearchList}
+    keyExtractor={(item) => `${item.id}`}
+    showsHorizontalScrollIndicator={true}
+
+    renderItem = {({item, index}) => {
+      return(
+        <TouchableWithoutFeedback style={styles.product1Group}>
+        <View style={styles.products1Stack}>
+        <LinearGradient
+      colors={['#3b3b4a', '#212126', '#3b3b4a']}
+      style={styles.products1}> 
+            <View style={styles.productName1StackStack}>
+              <View style={styles.productName1Stack}>
+                <Text style={styles.productName1}>Avocado</Text>
+                <Image
+                  source={require("./../../assets/icons/foods.png")}
+                  resizeMode="contain"
+                  style={styles.cateIcon1}
+                ></Image>
+              </View>
+              <Text style={styles.cateName1}>
+                Electronics &amp; Electrics
+              </Text>
+            </View>
+            <Text style={styles.available}>Available</Text>
+            <Text style={styles.tradingMethod1}>For Cash</Text>
+            <Text style={styles.rs30100G}>Rs.30 / 100g</Text>
+          {/* </ImageBackground> */}
+          </LinearGradient>
+          <ImageBackground
+            source={require("./../../assets/images/organic-avocados.jpg")}
+            resizeMode="cover"
+            style={styles.productImage1}
+            imageStyle={styles.productImage1_imageStyle}
+          >
+            <IoniconsIcon
+              name="md-heart"
+              style={styles.favIcon1}
+            ></IoniconsIcon>
+          </ImageBackground>
+        </View>
+      </TouchableWithoutFeedback>
+      )}}
+    />
+</View>
+}
+
+
+function categoryList() {
+return(
+  <View>
+        <FlatList 
+        data = {dummyData.categories}
+        keyExtractor={(item) => `${item.id}`}
+        showsHorizontalScrollIndicator={true}
+        horizontal
+        style={styles.scrollbar}
+        renderItem = {({item, index}) => {
+          return(
+            // <View style={styles.scrollbar}>
+            // <ScrollView
+            //   horizontal={true}
+            //   contentContainerStyle={styles.scrollbar_contentContainerStyle}
+            // >          
+              <View style={styles.categories}>
+                <View style={styles.cateRoundRow}>
+                  <View style={styles.cateRound}>
+                    <Image
+                      source={item.icon}
+                      resizeMode="contain"
+                      style={styles.cateIcon2}
+                    ></Image>
+                  </View>
+                  <Text style={styles.cateName2}>{item.name}</Text>
+                </View>
+              </View>
+          //   </ScrollView>
+          // </View>
+          )}}
+      />
+  </View>
+)
+}
 const I_Search = () => {
   const [loaded] = useFonts({
     poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
@@ -25,11 +113,14 @@ const I_Search = () => {
 
     return (
       <View style={styles.container}>
-      <View style={styles.scrollbar}>
+
+        {/* horizontal scroll bar */}
+        {categoryList()}
+      {/* <View style={styles.scrollbar}>
         <ScrollView
           horizontal={true}
           contentContainerStyle={styles.scrollbar_contentContainerStyle}
-        >
+        >          
           <View style={styles.categories}>
             <View style={styles.cateRoundRow}>
               <View style={styles.cateRound}>
@@ -43,13 +134,15 @@ const I_Search = () => {
             </View>
           </View>
         </ScrollView>
-      </View>
+      </View> */}
+
+      {/* search bar */}
       <View style={styles.searchingBarRow}>
         <View style={styles.searchingBar}>
           <TextInput
             placeholder="Search a service..."
             returnKeyType="go"
-            placeholderTextColor="rgba(194,97,250,1)"
+            placeholderTextColor="#9c8df0"
             selectionColor="rgba(250,245,245,1)"
             clearButtonMode="while-editing"
             style={styles.serviceSearch}
@@ -67,15 +160,66 @@ const I_Search = () => {
           ></FontAwesomeIcon>
         </TouchableOpacity>
       </View>
-      <View style={styles.product1GroupRow}>
-        <View style={styles.product1Group}>
+
+     
+
+    <View style={styles.product1GroupRow}>
+    {/* <View> */}
+    <FlatList 
+        data = {dummyData.itemsSearchList}
+        numColumns={2}
+        keyExtractor={(item) => `${item.id}`}
+        showsHorizontalScrollIndicator={true}
+
+    renderItem = {({item, index}) => {
+      return(
+        <TouchableWithoutFeedback style={styles.product1Group}>
           <View style={styles.products1Stack}>
+          <LinearGradient
+        
+        colors={['#3b3b4a', '#212126', '#3b3b4a']}
+        style={styles.products1}>  
+             <View style={styles.productName1StackStack}>
+                <View style={styles.productName1Stack}>
+                  <Text style={styles.productName1}>{item.itemName}</Text>
+                  <Image
+                    source={item.categoryIcon}
+                    resizeMode="contain"
+                    style={styles.cateIcon1}
+                  ></Image>
+                </View>
+                <Text style={styles.cateName1}>
+                  {item.cateName}
+                </Text>
+              </View>
+              <Text style={styles.available}>{item.availability}</Text>
+              <Text style={styles.tradingMethod1}>{item.tradeMethod}</Text>
+              <Text style={styles.rs30100G}>{item.price} / {item.quantity}</Text>
+            {/* </ImageBackground> */}
+        </LinearGradient>
             <ImageBackground
-              style={styles.products1}
-              imageStyle={styles.products1_imageStyle}
-              source={require("./../../assets/images/Gradient_WcvXyL2.png")}
+              source={item.itemImage}
+              resizeMode="cover"
+              style={styles.productImage1}
+              imageStyle={styles.productImage1_imageStyle}
             >
-              <View style={styles.productName1StackStack}>
+              <IoniconsIcon
+                name="md-heart"
+                style={styles.favIcon1}
+              ></IoniconsIcon>
+            </ImageBackground>
+          </View>
+        </TouchableWithoutFeedback> 
+      ); 
+       }} /> 
+
+{/* <TouchableWithoutFeedback style={styles.product1Group}>
+          <View style={styles.products1Stack}>
+          <LinearGradient
+        
+        colors={['#3b3b4a', '#212126', '#3b3b4a']}
+        style={styles.products1}>  
+             <View style={styles.productName1StackStack}>
                 <View style={styles.productName1Stack}>
                   <Text style={styles.productName1}>Avocado</Text>
                   <Image
@@ -91,7 +235,8 @@ const I_Search = () => {
               <Text style={styles.available}>Available</Text>
               <Text style={styles.tradingMethod1}>For Cash</Text>
               <Text style={styles.rs30100G}>Rs.30 / 100g</Text>
-            </ImageBackground>
+           
+         </LinearGradient>
             <ImageBackground
               source={require("./../../assets/images/organic-avocados.jpg")}
               resizeMode="cover"
@@ -104,8 +249,11 @@ const I_Search = () => {
               ></IoniconsIcon>
             </ImageBackground>
           </View>
-        </View>
-        <View style={styles.product1GroupFiller}></View>
+        </TouchableWithoutFeedback>  */}
+
+
+{/* product 2 */}
+        {/* <View style={styles.product1GroupFiller}></View>
         <View style={styles.product2}>
           <View style={styles.products2Stack}>
             <ImageBackground
@@ -144,8 +292,10 @@ const I_Search = () => {
               ></IoniconsIcon>
             </ImageBackground>
           </View>
-        </View>
+        </View> */}
+
       </View>
+
       <View style={styles.addNewReqStack}>
         <TouchableOpacity
           onPress={() => props.navigation.navigate("NewReqForm")}
@@ -153,7 +303,9 @@ const I_Search = () => {
         ></TouchableOpacity>
         <Text style={styles.add}>+</Text>
       </View>
-      <View style={styles.product3}>
+
+{/* Product 3 */}
+      {/* <View style={styles.product3}>
         <View style={styles.products3Stack}>
           <ImageBackground
             style={styles.products3}
@@ -187,30 +339,34 @@ const I_Search = () => {
             ></IoniconsIcon>
           </ImageBackground>
         </View>
-      </View>
+      </View> */}
+      
+
     </View>
+
+    
     );
   }
-  
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: "rgba(21,31,40,1)"
     },
     scrollbar: {
-      height: 35,
+      height: 40,
       borderWidth: 1,
       borderColor: "#000000",
-      marginTop: 113
+      marginTop: 100,
     },
     scrollbar_contentContainerStyle: {
       width: 390,
       height: 35
     },
     categories: {
-      width: 102,
+      width: 120,
       height: 35,
-      backgroundColor: "rgba(200,128,255,1)",
+      backgroundColor: "#9c8df0",
       borderRadius: 15,
       shadowColor: "rgba(0,0,0,1)",
       shadowOffset: {
@@ -246,9 +402,10 @@ const I_Search = () => {
     cateName2: {
       fontFamily: "poppinsregular",
       color: "#121212",
-      fontSize: 12,
-      marginLeft: 8,
-      marginTop: 6
+      fontSize: 10,
+      marginLeft: 4,
+      marginTop: 0, 
+      textAlignVertical: 'center'
     },
     cateRoundRow: {
       height: 30,
@@ -278,16 +435,16 @@ const I_Search = () => {
     },
     serviceSearch: {
       fontFamily: "poppinsregular",
-      color: "rgba(255,255,255,1)",
+      color: "#fff",
       height: 52,
-      opacity: 0.43,
+      opacity: 0.75,
       fontSize: 15,
       flex: 1,
       marginRight: 7,
-      marginLeft: 11
+      marginLeft: 11,
     },
     searchIcon: {
-      color: "rgba(194,97,250,1)",
+      color: "#9c8df0",
       fontSize: 29,
       height: 32,
       width: 29,
@@ -316,7 +473,7 @@ const I_Search = () => {
       flexDirection: "row"
     },
     filterIcon: {
-      color: "rgba(194,97,250,1)",
+      color: "#9c8df0",
       fontSize: 33,
       height: 33,
       width: 26,
@@ -346,7 +503,7 @@ const I_Search = () => {
         width: 3,
         height: 3
       },
-      elevation: 30,
+      elevation: 0,
       shadowOpacity: 1,
       shadowRadius: 10,
       overflow: "hidden"
@@ -397,7 +554,7 @@ const I_Search = () => {
     },
     tradingMethod1: {
       fontFamily: "poppinsregular",
-      color: "rgba(221,160,248,1)",
+      color: "#9c8df0",
       fontSize: 24,
       width: 142,
       height: 37,
@@ -424,7 +581,7 @@ const I_Search = () => {
       color: "rgba(249,43,85,1)",
       fontSize: 24,
       height: 26,
-      width: 19,
+      width: 26,
       marginTop: 9,
       marginLeft: 135
     },
@@ -574,7 +731,7 @@ const I_Search = () => {
         width: 0,
         height: 0
       },
-      elevation: 15,
+      elevation: 30,
       shadowOpacity: 0.5,
       shadowRadius: 5
     },
@@ -592,13 +749,13 @@ const I_Search = () => {
       width: 70,
       height: 81,
       alignSelf: "flex-end",
-      marginTop: 393,
+      marginTop: 0,
       marginRight: 30
     },
     product3: {
       width: 169,
       height: 318,
-      marginTop: -433,
+      marginTop: 20,
       marginLeft: 16
     },
     products3: {

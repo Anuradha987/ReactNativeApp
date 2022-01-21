@@ -10,98 +10,98 @@ const myProfile = {
 const categories = [
     {
         id: 1,
-        name: "Food & Drinks",
-        icon: icons.burger
+        name: "All",
+        icon: require("../assets/icons/all.png")
     },
     {
         id: 2,
-        name: "Home & Gardening",
-        icon: icons.cherry
+        name: "Agriculture",
+        icon: require("../assets/icons/Agricultural.png")
     },
     {
-        id: 3,
-        name: "Health & Medication",
-        icon: icons.rice
+        id: 23,
+        name: "Business &\nFinance",
+        icon: require("../assets/icons/business.png")
     },
     {
         id: 4,
-        name: "Business & Finance",
-        icon: icons.rice
+        name: "Clothing &\nFashion",
+        icon: require("../assets/icons/Clothes.png")
     },
     {
         id: 5,
-        name: "Sports & Fitness",
-        icon: icons.rice
+        name: "Computing &\nMobile",
+        icon: require("../assets/icons/computing.png")
     },
     {
         id: 6,
-        name: "Clothing & Fashion",
-        icon: icons.rice
+        name: "Educational",
+        icon: require("../assets/icons/Education.png")
     },
     {
         id: 7,
-        name: "Educational",
-        icon: icons.rice
+        name: "Electronics &\nElectrics",
+        icon: require("../assets/icons/Electronics.png")
     },
     {
         id: 8,
-        name: "Computing, Mobile & Technology",
-        icon: icons.rice
+        name: "Entertainment",
+        icon: require("../assets/icons/Entertainment.png")
     },
     {
         id: 9,
-        name: "Electronic & Electrics",
-        icon: icons.rice
+        name: "Environment",
+        icon: require("../assets/icons/Environment.png")
     },
-    // {
-    //     id: 10,
-    //     name: "Lifestyle",
-    //     icon: icons.rice
-    // },
+    {
+        id: 10,
+        name: "Food &\nDrinks",
+        icon: require("../assets/icons/foods.png")
+    },
     {
         id: 11,
-        name: "Entertainment",
-        icon: icons.rice
+        name: "Health &\nMedication",
+        icon: require("../assets/icons/Health.png")
     },
     {
         id: 12,
-        name: "Photography",
-        icon: icons.rice
+        name: "Home &\nGardening",
+        icon: require("../assets/icons/homeGarden.png")
     },
     {
         id: 13,
-        name: "Agricultural",
-        icon: icons.rice
+        name: "Kids",
+        icon: require("../assets/icons/Kids.png")
     },
     {
         id: 14,
-        name: "Traveling & Vehicles",
-        icon: icons.rice
+        name: "Law",
+        icon: require("../assets/icons/Law.png")
     },
     {
         id: 15,
-        name: "Kids",
-        icon: icons.rice
+        name: "Pets",
+        icon: require("../assets/icons/pets.png")
     },
     {
         id: 16,
-        name: "Environment",
-        icon: icons.rice
+        name: "Photography",
+        icon: require("../assets/icons/photography.png")
     },
     {
         id: 17,
-        name: "Law",
-        icon: icons.rice
+        name: "Sports &\nFitness",
+        icon: require("../assets/icons/Sports.png")
     },
     {
         id: 18,
-        name: "Pets",
-        icon: icons.rice
+        name: "Traveling &\nVehicles",
+        icon: require("../assets/icons/Traveling.png")
     },
     {
         id: 19,
         name: "Other",
-        icon: icons.rice
+        icon: require("../assets/icons/other.png")
     },
 ]
 
@@ -853,6 +853,41 @@ const ApprovedItemReq = [
         }
 ]
 
+const itemsSearchList =[
+    {
+        id: 1, 
+        itemName: "Avocado", 
+        itemImage : require("../assets/images/organic-avocados.jpg"),
+        categoryIcon : require("../assets/icons/foods.png"),
+        cateName: "Food & Drinks",
+        availability: "Available",
+        tradeMethod: "For Cash", 
+        price : "Rs.30", 
+        quantity: "100g"
+    },
+    {
+        id: 2, 
+        itemName: "Pizza", 
+        itemImage : require("../assets/images/pizza.jpg"),
+        categoryIcon : require("../assets/icons/foods.png"),
+        cateName: "Food & Drinks",
+        availability: "Not Available",
+        tradeMethod: "For Cash", 
+        price : "Rs.1030", 
+        quantity: "1"
+    },
+    {
+        id: 3, 
+        itemName: "UMYOGO Women's Running", 
+        itemImage : require("../assets/images/shoes.jpg"),
+        categoryIcon : require("../assets/icons/Clothes.png"),
+        cateName: "Sports & Fitness",
+        availability: "Available",
+        tradeMethod: "Rent", 
+        price : "Rs.250", 
+        quantity: "1 day"
+    },
+]
 
 export default {
     myProfile,
@@ -864,4 +899,5 @@ export default {
     sentSerReq,
     searchItems,
     itemsRequestList, 
+    itemsSearchList,
 }

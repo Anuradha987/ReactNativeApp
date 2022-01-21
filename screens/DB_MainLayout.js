@@ -21,7 +21,7 @@ const DB_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelect
         <Animated.View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor:'#1B2131', ...drawerAnimationStyle}} >
             {/* Header */}
             <Header 
-                containerStyle={{height: 50, paddingHorizontal: SIZES.padding, marginTop: 40, alignItems:'center', }}
+                containerStyle={{height: 30, paddingHorizontal: SIZES.padding, marginTop: 25,marginBottom:5, alignItems:'center', }}
                 // title ={selectedTab.toUpperCase()}
                 title ="DASHBOARD"
 
