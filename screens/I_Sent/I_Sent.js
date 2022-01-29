@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
       width: 3,
       height: 2
     },
-    elevation: 18,
+    elevation: 0,
     shadowOpacity: 1,
     shadowRadius: 6,
     right: 0,

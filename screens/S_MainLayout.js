@@ -256,11 +256,11 @@ const S_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelecte
 
 
     return (
-        <Animated.View style={{ flex: 1,backgroundColor:'#1B2131', ...drawerAnimationStyle}} >
+        <Animated.View style={{ flex: 1,backgroundColor:"rgba(21,31,40,1)", ...drawerAnimationStyle}} >
             
             {/* Header */}
             <Header 
-                containerStyle={{height: 50, paddingHorizontal: SIZES.padding, marginTop: 40, alignItems:'center'}}
+                containerStyle={{height: 50, paddingHorizontal: SIZES.padding, marginTop: 15, alignItems:'center'}}
                 title ={selectedTab.toUpperCase()}
 
                 leftComponent ={

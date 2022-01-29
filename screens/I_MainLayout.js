@@ -199,7 +199,7 @@ const I_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelecte
         }, [selectedTab] )        
 
     return (
-        <Animated.View style={{ flex: 1,backgroundColor:'rgba(21,31,40,1)', ...drawerAnimationStyle}} >
+        <Animated.View style={{ flex: 1,backgroundColor:"rgba(21,31,40,1)", ...drawerAnimationStyle}} >
             {/* Header */}
             <Header 
                 containerStyle={{height: 30, paddingHorizontal: SIZES.padding, marginTop: 25, marginBottom:5, alignItems:'center'}}

@@ -18,7 +18,7 @@ const DB_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelect
 
 //#181938
     return (
-        <Animated.View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor:'#1B2131', ...drawerAnimationStyle}} >
+        <Animated.View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor:"rgba(21,31,40,1)", ...drawerAnimationStyle}} >
             {/* Header */}
             <Header 
                 containerStyle={{height: 30, paddingHorizontal: SIZES.padding, marginTop: 25,marginBottom:5, alignItems:'center', }}

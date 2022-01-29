@@ -3,69 +3,81 @@ import {
   StyleSheet,
   View,
   ImageBackground,
-  TouchableOpacity,
   Text,
-  TextInput
+  TouchableOpacity,
+  Image,
+  TextInput,
+  Dimensions,
+  FlatList,
+  Animated
 } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
+import { LinearGradient } from 'expo-linear-gradient';
+import { dummyData } from "../../constants";
 
 const S_My = () => {
     return (
       <View style={styles.container}>
-      <ImageBackground
-        style={styles.myServiceDetails}
-        imageStyle={styles.myServiceDetails_imageStyle}
-        source={require("./../../assets/images/Gradient_U0mLOhY.png")}
-      >
-        <View style={styles.endWrapperFillerRow}>
-          <View style={styles.endWrapperFiller}></View>
-          <View style={styles.editBtnRow}>
-            {/* edit btn */}
-            <TouchableOpacity style={styles.editBtn}>
-              <View style={styles.editIconFiller}></View>
-              <FeatherIcon name="edit" style={styles.editIcon}></FeatherIcon>
-            </TouchableOpacity>
-            {/* delete btn */}
-            <TouchableOpacity style={styles.deleteBtn}>
-              <View style={styles.delIconFiller}></View>
-              <MaterialCommunityIconsIcon
-                name="delete-sweep"
-                style={styles.delIcon}
-              ></MaterialCommunityIconsIcon>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <Text style={styles.pageNo}>2.</Text>
-        <Text style={styles.serviceTitle}>Making School uniforms</Text>
-        <Text style={styles.description}>
-          I sew school uniforms for girls and boys who goes toDarmapala Collage,
-          Mahinda Rajapaksha Collage, Lumbini Collage. {"\n"}
-          {"\n"}Available after 6 PM every weekday.
-        </Text>
-        <View style={styles.cateIconRow}>
-          <EntypoIcon name="home" style={styles.cateIcon}></EntypoIcon>
-          <Text style={styles.cateName}>Clothes &amp; Fashion</Text>
-        </View>
-      </ImageBackground>
-
-      {/* search bar */}
-      <View style={styles.searchingBar}>
-        <TextInput
-          placeholder="Search a service..."
-          returnKeyType="go"
-          placeholderTextColor="rgba(194,97,250,1)"
-          selectionColor="rgba(250,245,245,1)"
-          clearButtonMode="while-editing"
-          style={styles.serviceSearch}
-        ></TextInput>
-        <EvilIconsIcon name="search" style={styles.searchIcon}></EvilIconsIcon>
-      </View>
-
+      <FlatList 
+                keyExtractor={(item) => `${item.id}`}
+                showsVerticalScrollIndicator={true}
+                ListHeaderComponent={
+                  <View>
+                    <Animated.FlatList 
+                      data={dummyData.myServicesList}
+                      keyExtractor={(item) => `${item.id}`}
+                      showsHorizontalScrollIndicator={true}
+                      horizontal
+                      snapToAlignment='center'
+                      pagingEnabled
+                      snapToInterval={412}
+                      decelerationRate={'fast'}
+                      renderItem={({ item, index }) => {
+                        return (
+                          <LinearGradient
+                          colors={['#3b3b4a', '#212126', '#3b3b4a']}
+                          style={styles.myServiceDetails}
+                        >
+                    <View style={styles.endWrapperFillerRow}>
+                      <View style={styles.endWrapperFiller}></View>
+                      <View style={styles.editBtnRow}>
+                      
+                        <TouchableOpacity style={styles.editBtn}>
+                          <View style={styles.editIconFiller}></View>
+                          <FeatherIcon name="edit" style={styles.editIcon}></FeatherIcon>
+                        </TouchableOpacity>
+                        
+                        <TouchableOpacity style={styles.deleteBtn}>
+                          <View style={styles.delIconFiller}></View>
+                          <MaterialCommunityIconsIcon
+                            name="delete-sweep"
+                            style={styles.delIcon}
+                          ></MaterialCommunityIconsIcon>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                    <Text style={styles.pageNo}>{item.pageNo}.</Text>
+                    <Text style={styles.serviceTitle}>{item.serviceTitle}</Text>
+                    <Text style={styles.description}>{item.description}</Text>
+                    <View style={styles.cateIconRow}>
+                      <Image
+                          source={item.cateIcon}
+                          resizeMode="contain"
+                          style={styles.cateIcon}
+                        ></Image>
+                      <Text style={styles.cateName}>{item.cateName}</Text>
+                    </View>
+                    </LinearGradient>
+                        )}}
+                    />
+                  </View>
+                }/>
+  
       {/* add new service details.  */}
-      <View style={styles.myServiceDetailsNewStack}>
+      {/* <View style={styles.myServiceDetailsNewStack}>
         <ImageBackground
           style={styles.myServiceDetailsNew}
           imageStyle={styles.myServiceDetailsNew_imageStyle}
@@ -95,7 +107,7 @@ const S_My = () => {
             placeholderTextColor="rgba(156,59,203,1)"
             style={styles.categorytxt}
           ></TextInput>
-          {/* done btn */}
+          {/* 
           <TouchableOpacity style={styles.donebtn}>
             <Text style={styles.done}>DONE</Text>
           </TouchableOpacity>
@@ -106,7 +118,7 @@ const S_My = () => {
           experts with...
         </Text>
         
-      </View>
+      </View> */}
     </View>
   );
 }
@@ -114,22 +126,24 @@ const S_My = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(15,30,69,1)"
+    backgroundColor: "rgba(21,31,40,1)"
   },
   myServiceDetails: {
+    width:365,
+    marginHorizontal: 10,
     height: 453,
     shadowColor: "rgba(0,0,0,1)",
     shadowOffset: {
       width: 3,
       height: 3
     },
-    elevation: 30,
+    elevation: 0,
     shadowOpacity: 1,
     shadowRadius: 10,
     borderWidth: 0,
     borderColor: "#000000",
     borderRadius: 19,
-    marginTop: 133,
+    marginTop: 30,
     marginLeft: 23,
     marginRight: 24,
     overflow: "hidden"
@@ -248,43 +262,6 @@ const styles = StyleSheet.create({
     marginTop: 25,
     marginLeft: 19,
     marginRight: 19
-  },
-  searchingBar: {
-    height: 52,
-    borderWidth: 0,
-    borderColor: "rgba(31,30,30,0.43)",
-    borderRadius: 8,
-    backgroundColor: "rgba(75,81,101,0.43)",
-    shadowColor: "rgba(16,16,16,1)",
-    shadowOffset: {
-      width: 3,
-      height: 3
-    },
-    elevation: 15,
-    shadowOpacity: 0.59,
-    shadowRadius: 5,
-    flexDirection: "row",
-    marginTop: -548,
-    marginLeft: 16,
-    marginRight: 16
-  },
-  serviceSearch: {
-    fontFamily: "poppins-regular",
-    color: "rgba(255,255,255,1)",
-    height: 52,
-    opacity: 0.43,
-    fontSize: 15,
-    flex: 1,
-    marginRight: 12,
-    marginLeft: 11
-  },
-  searchIcon: {
-    color: "rgba(194,97,250,1)",
-    fontSize: 29,
-    width: 30,
-    height: 32,
-    marginRight: 10,
-    marginTop: 10
   },
   myServiceDetailsNew: {
     top: 0,

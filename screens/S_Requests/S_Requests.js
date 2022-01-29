@@ -120,7 +120,7 @@ const S_Requests = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "rgba(15,30,69,1)"
+      backgroundColor:"rgba(21,31,40,1)"
     },
     searchingBar: {
       height: 52,
