@@ -123,11 +123,12 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "rgba(228,154,247,1)",
     borderRadius: 15,
-    width: 164
+    width: 164, 
+    
   },
   requestStatusFiller: {
     flex: 1,
-    flexDirection: "row"
+    flexDirection: "row", 
   },
   editBtn: {
     width: 40,

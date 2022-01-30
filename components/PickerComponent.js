@@ -18,72 +18,32 @@ export default class PickerComponent extends Component {
         
         this.state = {
           requestStatus: 'All', 
-          language: 'haxe',
-          firstLanguage: 'java',
-          secondLanguage: 'js',
         }
       }
   render() {
     return (
         <View>
-                    <Picker
+        <Picker
           style={styles.picker} itemStyle={styles.pickerItem}
-          selectedValue={this.state.language}
-          onValueChange={(itemValue) => this.setState({language: itemValue})}
+          selectedValue={this.state.requestStatus}
+          onValueChange={(itemValue) => this.setState({requestStatus: itemValue})}
         >
-          <Picker.Item label="Java" value="java" />
-          <Picker.Item label="JavaScript" value="js" />
-          <Picker.Item label="Python" value="python" />
-          <Picker.Item label="Haxe" value="haxe" />
+          <Picker.Item label="All" value="All" />
+          <Picker.Item label="Accepted" value="Accepted" />
+          <Picker.Item label="Pending" value="Pending" />
+          <Picker.Item label="Rejected" value="Rejected" />
+          <Picker.Item label="Completed" value="Completed" />
         </Picker>
         </View>
     );
   }
 }
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      flexDirection: 'column',
-      alignItems: 'center',
-      padding: 20,
-      backgroundColor: 'white',
-    },
-    title: {
-      fontSize: 18,
-      fontWeight: 'bold',
-      marginTop: 20,
-      marginBottom: 10,
-    },
     picker: {
+      color:'#DDDDDD',
       width: 200,
-      backgroundColor: '#FFF0E0',
-      borderColor: 'black',
-      borderWidth: 1,
-    },
-    pickerItem: {
-      color: 'red'
-    },
-    onePicker: {
-      width: 200,
-      height: 44,
-      backgroundColor: '#FFF0E0',
-      borderColor: 'black',
-      borderWidth: 1,
-    },
-    onePickerItem: {
-      height: 44,
-      color: 'red'
-    },
-    twoPickers: {
-      width: 200,
-      height: 88,
-      backgroundColor: '#FFF0E0',
-      borderColor: 'black',
-      borderWidth: 1,
-    },
-    twoPickerItems: {
-      height: 88,
-      color: 'red'
+     bottom:7, 
+     left:5
     },
   });
   
