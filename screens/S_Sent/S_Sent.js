@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -7,9 +7,9 @@ import {
   ScrollView,
   Text,
   FlatList,
-  Animated, 
-  Image, 
-  Picker 
+  Animated,
+  Image,
+  Picker
 } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -22,93 +22,114 @@ import PickerComponent from "../../components/PickerComponent";
 //details about upcoming pending services that you have accepted.
 //msgs from others. 
 //your services graphs, eranings.  
-    
+
 
 const S_Sent = () => {
-    return (
-      
-      <View style={styles.container}>
+  // for the requests status 
+  const [selectedValue, setSelectedValue] = useState("All");
+  return (
 
-      <View style={styles.requestStatusRowColumn}>
-        <View style={styles.requestStatusRow}>
-          <View style={styles.requestStatus}>
-          <PickerComponent></PickerComponent>
-          </View>
-          <View style={styles.requestStatusFiller}></View> 
-          
-
-          <View style={styles.editBtnRow}>
-            <TouchableOpacity style={styles.editBtn}>
-              <View style={styles.editReqIconFiller}></View>
-              <FeatherIcon name="edit" style={styles.editReqIcon}></FeatherIcon>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.deleteBtn}>
-              <View style={styles.delReqIconFiller}></View>
-              <MaterialCommunityIconsIcon
-                name="delete-sweep"
-                style={styles.delReqIcon}
-              ></MaterialCommunityIconsIcon>
-            </TouchableOpacity>
-          </View>
-          
-        </View>
-
-        <View style={styles.searchingBar}>
-          <TextInput
-            placeholder="Search a service..."
-            returnKeyType="go"
-            placeholderTextColor="rgba(194,97,250,1)"
-            selectionColor="rgba(250,245,245,1)"
-            clearButtonMode="while-editing"
-            style={styles.serviceSearch}
-          ></TextInput>
-          <EvilIconsIcon
-            name="search"
-            style={styles.searchIcon}
-          ></EvilIconsIcon>
-        </View>
-
-      </View>
-
-
-      <View style={styles.scrollArea}>
-        <FlatList
-        data={dummyData.myServicesList}
-        keyExtractor={(item) => `${item.id}`}
+    <View style={styles.container}>
+      <FlatList
         showsVerticalScrollIndicator={true}
-        renderItem={({ item, index }) => {
-          return (
-        <View contentContainerStyle={styles.scrollArea_contentContainerStyle}>
-          <TouchableOpacity style={styles.serviceReqSent}>
-            <Text style={styles.reqTitle}>Water Line is Broken</Text>
-            <View style={styles.cateIconRow}>
-            <Image
-                  source={item.cateIcon}
-                  resizeMode="contain"
-                  style={styles.cateIcon}
-                ></Image>
-              <View style={styles.categoryStack}>
-                <Text style={styles.cateName}>Home &amp; Garden</Text>
-                <Text style={styles.sentDate}>02/04/2021</Text>
+        ListHeaderComponent={
+          <View>
+            <View style={styles.requestStatusRowColumn}>
+              <View style={styles.requestStatusRow}>
+
+                <View style={styles.requestStatus}>
+                  <Picker itemStyle={{ backgroundColor: '#000' }}
+                    selectedValue={selectedValue}
+                    dropdownIconColor={'#DDDDDD'}
+                    style={{ color: '#DDDDDD', bottom: 7, left: 5 }}
+                    onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                  >
+                    {/* https://reactnative.dev/docs/picker */}
+                    <Picker.Item label="All" value="All" />
+                    <Picker.Item label="Accepted" value="Accepted" />
+                    <Picker.Item label="Pending" value="Pending" />
+                    <Picker.Item label="Rejected" value="Rejected" />
+                    <Picker.Item label="Completed" value="Completed" />
+                  </Picker>
+
+                </View>
+                <View style={styles.requestStatusFiller}></View>
+
+
+                <View style={styles.editBtnRow}>
+                  <TouchableOpacity style={styles.editBtn}>
+                    <View style={styles.editReqIconFiller}></View>
+                    <FeatherIcon name="edit" style={styles.editReqIcon}></FeatherIcon>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity style={styles.deleteBtn}>
+                    <View style={styles.delReqIconFiller}></View>
+                    <MaterialCommunityIconsIcon
+                      name="delete-sweep"
+                      style={styles.delReqIcon}
+                    ></MaterialCommunityIconsIcon>
+                  </TouchableOpacity>
+                </View>
+
               </View>
-            </View>
-            <View style={styles.sentToColumnRow}>
-              <View style={styles.sentToColumn}>
-                <Text style={styles.sentTo}>To: Sunil Ariyarathna</Text>
-                <Text style={styles.statusPending}>Status: Pending</Text>
+
+              <View style={styles.searchingBar}>
+                <TextInput
+                  placeholder="Search a service..."
+                  returnKeyType="go"
+                  placeholderTextColor="#9c8df0"
+                  selectionColor="rgba(250,245,245,1)"
+                  clearButtonMode="while-editing"
+                  style={styles.serviceSearch}
+                ></TextInput>
+                <EvilIconsIcon
+                  name="search"
+                  style={styles.searchIcon}
+                ></EvilIconsIcon>
               </View>
-              <View style={styles.sentToColumnFiller}></View>
-              <View
-                gradientImage="Gradient_w5ZSEt2.png"
-                style={styles.priority}
-              ></View>
+
             </View>
-          </TouchableOpacity>
-        </View>
-          )}}/>
-      </View>
-      <View style={{marginTop:110}}></View>
+
+
+            <View style={styles.scrollArea}>
+              <FlatList
+                data={dummyData.servicesRequestsSent}
+                keyExtractor={(item) => `${item.id}`}
+                showsVerticalScrollIndicator={true}
+                renderItem={({ item, index }) => {
+                  return (
+                    <View contentContainerStyle={styles.scrollArea_contentContainerStyle}>
+                      <TouchableOpacity style={styles.serviceReqSent}>
+                        <Text style={styles.reqTitle}>{item.reqTitle}</Text>
+                        <View style={styles.cateIconRow}>
+                          <Image
+                            source={item.cateIcon}
+                            resizeMode="contain"
+                            style={styles.cateIcon}
+                          ></Image>
+                          <View style={styles.categoryStack}>
+                            <Text style={styles.cateName}>{item.cateName}</Text>
+                            <Text style={styles.sentDate}>{item.sentDate}</Text>
+                          </View>
+                        </View>
+                        <View style={styles.sentToColumnRow}>
+                          <View style={styles.sentToColumn}>
+                            <Text style={styles.sentTo}>To: {item.sentTo}</Text>
+                            <Text style={styles.reqStatus}>Status: {item.reqStatus}</Text>
+                          </View>
+                          <View style={styles.sentToColumnFiller}></View>
+                          <View
+                            gradientImage="Gradient_w5ZSEt2.png"
+                            style={styles.priority}
+                          ></View>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                  )
+                }} />
+            </View>
+            <View style={{ marginTop: 110 }}></View>
+          </View>} />
     </View>
   );
 }
@@ -121,14 +142,14 @@ const styles = StyleSheet.create({
   requestStatus: {
     height: 40,
     borderWidth: 2,
-    borderColor: "rgba(228,154,247,1)",
+    borderColor: "#9c8df0",
     borderRadius: 15,
-    width: 164, 
-    
+    width: 164,
+
   },
   requestStatusFiller: {
     flex: 1,
-    flexDirection: "row", 
+    flexDirection: "row",
   },
   editBtn: {
     width: 40,
@@ -151,7 +172,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   editReqIcon: {
-    color: "rgba(235,112,210,1)",
+    color: "rgba(235,212,210,1)",
     fontSize: 25,
     height: 25,
     width: 25,
@@ -192,7 +213,8 @@ const styles = StyleSheet.create({
   requestStatusRow: {
     height: 40,
     flexDirection: "row",
-    marginTop: 83,
+    marginTop: 65,
+    //83
     marginRight: 1
   },
   searchingBar: {
@@ -206,29 +228,29 @@ const styles = StyleSheet.create({
       width: 3,
       height: 3
     },
-    elevation: 15,
-    shadowOpacity: 0.59,
+    elevation: 0,
+    shadowOpacity: 1,
     shadowRadius: 5,
     flexDirection: "row",
-    marginTop: -123
+    marginTop: -122
   },
   serviceSearch: {
     fontFamily: "poppins-regular",
-    color: "rgba(255,255,255,1)",
+    color: "#fff",
     height: 52,
-    opacity: 0.43,
+    opacity: 0.75,
     fontSize: 15,
     flex: 1,
-    marginRight: 13,
-    marginLeft: 11
+    marginRight: 7,
+    marginLeft: 11,
   },
   searchIcon: {
-    color: "rgba(194,97,250,1)",
+    color: "#9c8df0",
     fontSize: 29,
     height: 32,
     width: 29,
     marginRight: 10,
-    marginTop: 10
+    marginTop: 13
   },
   requestStatusRowColumn: {
     marginTop: 38,
@@ -259,7 +281,7 @@ const styles = StyleSheet.create({
     elevation: 100,
     shadowOpacity: 0.83,
     shadowRadius: 6,
-    marginBottom:10
+    marginBottom: 10
   },
   reqTitle: {
     fontFamily: "poppins-regular",
@@ -271,8 +293,8 @@ const styles = StyleSheet.create({
   cateIcon: {
     color: "rgba(220,162,76,1)",
     fontSize: 14,
-    width: 11,
-    height: 15
+    width: 18,
+    height: 18,
   },
   cateName: {
     top: 1,
@@ -309,7 +331,7 @@ const styles = StyleSheet.create({
     color: "rgba(197,212,196,1)",
     fontSize: 13
   },
-  statusPending: {
+  reqStatus: {
     fontFamily: "poppins-regular",
     color: "rgba(191,190,191,1)",
     fontSize: 13
@@ -322,8 +344,8 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   priority: {
-    width: 24,
-    height: 24,
+    width: 14,
+    height: 14,
     borderRadius: 12,
     backgroundColor: "rgba(255,51,51,1)",
     marginTop: 2

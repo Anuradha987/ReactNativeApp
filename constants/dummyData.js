@@ -105,95 +105,29 @@ const categories = [
     },
 ]
 
-const hamburger = {
-    id: 1,
-    name: "Hamburger",
-    description: "Chicken patty hamburger",
-    categories: [1, 2],
-    price: 15.99,
-    calories: 78,
-    isFavourite: true,
-    image: require("../assets/dummyData/hamburger.png")
-}
-
-const hotTacos = {
-    id: 2,
-    name: "Hot Tacos",
-    description: "Mexican tortilla & tacos",
-    categories: [1, 3],
-    price: 10.99,
-    calories: 78,
-    isFavourite: false,
-    image: require("../assets/dummyData/hot_tacos.png")
-}
-
-const vegBiryani = {
-    id: 3,
-    name: "Veg Biryani",
-    description: "Indian Vegetable Biryani",
-    categories: [1, 2, 3],
-    price: 10.99,
-    calories: 78,
-    isFavourite: true,
-    image: require("../assets/dummyData/veg_biryani.png")
-}
-
-const wrapSandwich = {
-    id: 4,
-    name: "Wrap Sandwich",
-    description: "Grilled vegetables sandwich",
-    categories: [1, 2],
-    price: 10.99,
-    calories: 78,
-    isFavourite: true,
-    image: require("../assets/dummyData/wrap_sandwich.png")
-}
-
-const menu = [
+const transactionMethod= [
     {
-        id: 1,
-        name: "Featured",
-        list: [
-            hamburger, hotTacos, vegBiryani,
-        ]
+        id:1,
+        for: 'Cash'
     },
     {
-        id: 2,
-        name: "Nearby you",
-        list: [
-            hamburger, vegBiryani, wrapSandwich,
-        ]
-    },
+        id:2, 
+        for: 'Barter'
+    }, 
     {
-        id: 3,
-        name: "Popular",
-        list: [
-            hamburger, hotTacos, wrapSandwich,
-        ]
-    },
+        id:3,
+        for: 'Free'
+    }, 
     {
-        id: 4,
-        name: "Newest",
-        list: [
-            hamburger, hotTacos, vegBiryani,
-        ]
-    },
+        id:4,
+        for: 'Rent'
+    }, 
     {
-        id: 5,
-        name: "Trending",
-        list: [
-            hamburger, vegBiryani, wrapSandwich,
-        ]
-    },
-    {
-        id: 6,
-        name: "Recommended",
-        list: [
-            hamburger, hotTacos, wrapSandwich,
-        ]
-    },
-
+        id:5, 
+        for: 'Borrow'
+    }
 ]
+
 const priorityCategory = [
     {
         id: 1,
@@ -224,282 +158,139 @@ const priorityCategory = [
     var currentDate = date + '/' + month + '/' + year 
     + ' ' + hours + ':' + min + ':' + sec
 
-const servicesRequestList =[
+const recieveRequestForMe =[
     {
         id: 1,
-        title: 'Create a website',
+        senderImage: require("../assets/images/avatar-1.jpg"),
+        sendingDate: '45min',
+        senderName: 'Natasha Perera', 
+        reqTitle: 'Preparing Birthday Cake', 
+        cateIcon: require("../assets/icons/foods.png"),
+        cateName: 'Food & Drinks',
         description: "i need to create a website for my university project",
-        profilePic: require("../assets/dummyData/wrap_sandwich.png"),
-        closingDate: '18/06/2021', 
-        publisherName:"Mike Mike", 
-        postedDate: "45min",
-        serviceCategory: "categories", 
-        priorityCategory: [1],
-       // accept: 
-        toMe: 'Yes', 
-        approvedDate:  date+"/"+ month+"/"+ year
+        priority: 'High',
+        toMe: 'Yes',
+
     },
-    {
+    {       
         id: 2,
-        title: 'Repair the iron',
+        senderImage: require("../assets/images/avatar-1.jpg"),
+        sendingDate: '13h',
+        senderName: 'Snadra Aros', 
+        reqTitle: 'Repair the iron', 
+        cateIcon: require("../assets/icons/Electronics.png"),
+        cateName: 'Electronics & Electrics',
         description: "The iron is brocken. Someone please help to make it",
-        profilePic: require("../assets/dummyData/wrap_sandwich.png"),
-        closingDate: "03/06/2021",
-        publisherName:"Snadra Aros", 
-        postedDate:"13h",
-        serviceCategory: "okwd",
-        priorityCategory: [3],
-       // accept: 
-        toMe: 'No'        
+        priority: 'High',
+        toMe: 'Yes',
     },
     {
         id: 3,
-        title: 'Need a garden chair',
+        senderImage: require("../assets/images/avatar-1.jpg"),
+        sendingDate: '10/06/21',
+        senderName: 'Damayanthi Wijeweera', 
+        reqTitle: 'Need a garden chair', 
+        cateIcon: require("../assets/icons/homeGarden.png"),
+        cateName: 'Home & Gardening',
         description: "My house require a garden chair to be made. if anyone can, please accept my request",
-        profilePic: require("../assets/dummyData/wrap_sandwich.png"),
-        closingDate: '10/06/2021', 
-        publisherName:"Damayanthi Wijeweera", 
-        postedDate: "08/12",
-        serviceCategory: "oisef", 
-        priorityCategory: [2],
-       // accept: 
-        toMe: 'No'        
+        priority: 'Low',
+        toMe: 'Yes',
     },
     
-    {
+    {        
         id: 4,
-        title: 'Need a garden chair',
-        description: "My house require a garden chair to be made. if anyone can, please accept my request",
-        profilePic: require("../assets/dummyData/wrap_sandwich.png"),
-        closingDate: '11/06/2021', 
-        publisherName:"Akila Shrimal", 
-        postedDate: '07/12',
-        serviceCategory: "oiasdj", 
-        priorityCategory: [1],
-       // accept: 
-        toMe: 'No'        
+        senderImage: require("../assets/images/avatar-1.jpg"),
+        sendingDate: '11/06/21',
+        senderName: 'Akila Shrimal', 
+        reqTitle: 'Chilliy plants', 
+        cateIcon: require("../assets/icons/Agricultural.png"),
+        cateName: 'Agriculture',
+        description: "I need chilly plants. Please let me know if you have.",
+        priority: 'Medium',
+        toMe: 'Yes',
     },
     {
         id: 5,
-        title: 'Need a garden chair',
+        senderImage: require("../assets/images/avatar-1.jpg"),
+        sendingDate: '11/06/21',
+        senderName: 'Akila Shrimal', 
+        reqTitle: 'Need a garden chair', 
+        cateIcon: require("../assets/icons/homeGarden.png"),
+        cateName: 'Home & Gardening',
         description: "My house require a garden chair to be made. if anyone can, please accept my request",
-        profilePic: require("../assets/dummyData/wrap_sandwich.png"),
-        closingDate: '13/06/2021', 
-        publisherName:"Akila Shrimal", 
-        postedDate: '07/12',
-        serviceCategory: "oiasdj", 
-        priorityCategory: [1],
-       // accept: 
-        toMe: 'No'        
+        priority: 'Medium',
+        toMe: 'Yes',
     },
-
 ]
 
-const ApprovedServReq = [
+const OtherRecieveRequest =[
     {
-        //accepted date is taken as the title
-    title : (currentDate.toString()),
-    data: [
-        {
-            id: 1,
-            title: 'Create a website',
-            description: "i need to create a website for my university project",
-            profilePic: require("../assets/dummyData/wrap_sandwich.png"),
-            closingDate: '18/06/2021', 
-            publisherName:"Mike Mike", 
-            postedDate: "45min",
-            serviceCategory: "categories", 
-            priorityCategory: [1],
-           // accept: 
-            toMe: 'Yes', 
-        },
-        {
-            id: 2,
-            title: 'Repair the iron',
-            description: "The iron is brocken. Someone please help to make it",
-            profilePic: require("../assets/dummyData/wrap_sandwich.png"),
-            closingDate: '10/06/2021',
-            publisherName:"Snadra Aros", 
-            postedDate:"13h",
-            serviceCategory: "okwd",
-            priorityCategory: [3],
-           // accept: 
-            toMe: 'No'        
-        },
-        {
-            id: 3,
-            title: 'Need a garden chair',
-            description: "My house requires a garden chair to be made. if anyone can, please accept my request",
-            profilePic: require("../assets/dummyData/wrap_sandwich.png"),
-            closingDate: '10/06/2021', 
-            publisherName:"Damayanthi Wijeweera", 
-            postedDate: "08/12",
-            serviceCategory: "oisef", 
-            priorityCategory: [2],
-        // accept: 
-            toMe: 'No'      
-        }, 
-        {
-            id: 4,
-            title: 'Need a garden chair',
-            description: "My house requires a garden chair to be made. if anyone can, please accept my request",
-            profilePic: require("../assets/dummyData/wrap_sandwich.png"),
-            closingDate: '13/06/2021', 
-            publisherName:"Akila Shrimal", 
-            postedDate: '07/12',
-            serviceCategory: "oiasdj", 
-            priorityCategory: [1],
-           // accept: 
-            toMe: 'No'        
-        },
-    ]
+        id: 1,
+        senderImage: require("../assets/images/avatar-1.jpg"),
+        sendingDateOther: '45min',
+        senderName: 'Natasha Perera', 
+        reqTitleOthers: 'Website Development', 
+        cateIconOthers: require("../assets/icons/Clothes.png"),
+        CateNameOther: 'Food & Drinks',
+        description: "i need to create a website for my university project",
+        priority: 'High',
+        toMe: 'No',
+
+    },
+    {       
+        id: 2,
+        senderImage: require("../assets/images/avatar-1.jpg"),
+        sendingDateOther: '13h',
+        senderName: 'Snadra Aros', 
+        reqTitleOthers: 'Repair the iron', 
+        cateIconOthers: require("../assets/icons/Electronics.png"),
+        CateNameOther: 'Electronics & Electrics',
+        description: "The iron is brocken. Someone please help to make it",
+        priority: 'High',
+        toMe: 'No',
     },
     {
-        title : '6/7/2021',
-        data: [
-            {
-                id: 1,
-                title: 'Create a website',
-                description: "i need to create a website for my university project",
-                profilePic: require("../assets/dummyData/wrap_sandwich.png"),
-                closingDate: '07/06.2021', 
-                publisherName:"Mike Mike", 
-                postedDate: "45min",
-                serviceCategory: "Computing & Technology", 
-                priorityCategory: [1],
-               // accept: 
-                toMe: 'Yes', 
-            },
-            {
-                id: 2,
-                title: 'Repair the iron',
-                description: "The iron is brocken. Someone please help to make it",
-                profilePic: require("../assets/dummyData/wrap_sandwich.png"),
-                closingDate: '10/06/2021',
-                publisherName:"Snadra Aros", 
-                postedDate:"13h",
-                serviceCategory: "ELectronics and Electricals",
-                priorityCategory: [3],
-               // accept: 
-                toMe: 'No'        
-            },
-            {
-                id: 3,
-                title: 'Need a garden chair',
-                description: "My house requires a garden chair to be made. if anyone can, please accept my request",
-                profilePic: require("../assets/dummyData/wrap_sandwich.png"),
-                closingDate: '11/06/2021', 
-                publisherName:"Damayanthi Wijeweera", 
-                postedDate: "08/12",
-                serviceCategory: "oisef", 
-                priorityCategory: [2],
-            // accept: 
-                toMe: 'No'      
-            }, 
-            {
-                id: 4,
-                title: 'Need a garden chair',
-                description: "My house requires a garden chair to be made. if anyone can, please accept my request",
-                profilePic: require("../assets/dummyData/wrap_sandwich.png"),
-                closingDate: '12/06/2021', 
-                publisherName:"Akila Shrimal", 
-                postedDate: '07/12',
-                serviceCategory: "oiasdj", 
-                priorityCategory: [1],
-               // accept: 
-                toMe: 'No'        
-            },
-        ]
-        }
+        id: 3,
+        senderImage: require("../assets/images/avatar-1.jpg"),
+        sendingDateOther: '10/06/21',
+        senderName: 'Damayanthi Wijeweera', 
+        reqTitleOthers: 'Need a garden chair', 
+        cateIconOthers: require("../assets/icons/homeGarden.png"),
+        CateNameOther: 'Home & Gardening',
+        description: "My house require a garden chair to be made. if anyone can, please accept my request",
+        priority: 'Low',
+        toMe: 'No',
+    },
+    
+    {        
+        id: 4,
+        senderImage: require("../assets/images/avatar-1.jpg"),
+        sendingDateOther: '11/06/21',
+        senderName: 'Akila Shrimal', 
+        reqTitleOthers: 'Need a garden chair', 
+        cateIconOthers: require("../assets/icons/homeGarden.png"),
+        CateNameOther: 'Home & Gardening',
+        description: "My house require a garden chair to be made. if anyone can, please accept my request",
+        priority: 'Medium',
+        toMe: 'No',
+    },
+    {
+        id: 5,
+        senderImage: require("../assets/images/avatar-1.jpg"),
+        sendingDateOther: '11/06/21',
+        senderName: 'Akila Shrimal', 
+        reqTitleOthers: 'Need a garden chair', 
+        cateIconOthers: require("../assets/icons/Agricultural.png"),
+        CateNameOther: 'Agriculture',
+        description: "I am searching for some chilly plants to plant. If anyone has, please let me know.",
+        priority: 'Medium',
+        toMe: 'No',
+    },
 ]
 
-const sentSerReq=[
-{
+
     //details about the requests that i had sent to others. title, to whom (specific person/to everyone) , category, priority, description, status(accepted, pending, finish, or rejected if it has been sent to specific person), publish date, accepted date, ending date
     //reviews and others comments, rates(start) about the services that you've provided to others.  
-    
-    //published date is here
-    title : '06/07/2021',
-    data: [
-        {
-            id: 1,
-            title: 'Need a garden chair',
-            description: "My house requires a garden chair to be made. if anyone can, please accept my request",
-            profilePic: require("../assets/dummyData/wrap_sandwich.png"),
-            closingDate: '12/06/2021',
-            serviceCategory: "House and Garden",  
-            priorityCategory: [1],
-            status: "pending",
-            totalViews: 14,
-            toWhome:'everyone', 
-
-        },
-        {
-            id: 2,
-            title: 'Need a garden chair',
-            description: "My house requires a garden chair to be made. if anyone can, please accept my request",
-            profilePic: require("../assets/dummyData/wrap_sandwich.png"),
-            closingDate: '12/06/2021', 
-            serviceCategory: "House and Garden", 
-            priorityCategory: [3],
-            status: "pending",
-            totalViews: 14,
-            toWhome:'Amith Perera', 
-
-        },{
-            id: 3,
-            title: 'Need a garden chair',
-            description: "My house requires a garden chair to be made. if anyone can, please accept my request",
-            profilePic: require("../assets/dummyData/wrap_sandwich.png"),
-            closingDate: '12/06/2021', 
-            serviceCategory: "House and Garden", 
-            priorityCategory: [1],
-            status: "pending",
-            totalViews: 14,
-            toWhome:'Sampath Silva', 
-
-        },{
-            id: 4,
-            title: 'Need a garden chair',
-            description: "My house requires a garden chair to be made. if anyone can, please accept my request",
-            profilePic: require("../assets/dummyData/wrap_sandwich.png"),
-            closingDate: '12/06/2021', 
-            serviceCategory: "House and Garden", 
-            priorityCategory: [2],
-            status: "pending",
-            totalViews: 14,
-            toWhome:'everyone', 
-
-        },
-    ]
-}
-]
-
-// ------------------------------------------------------------------------------------------------------
-//Data for the Items pages
-
-const transactionMethod= [
-    {
-        id:1,
-        for: 'Cash'
-    },
-    {
-        id:2, 
-        for: 'Barter'
-    }, 
-    {
-        id:3,
-        for: 'Free'
-    }, 
-    {
-        id:4,
-        for: 'Rent'
-    }, 
-    {
-        id:5, 
-        for: 'Borrow'
-    }
-]
 
 const searchItems =[
     {
@@ -1100,20 +891,17 @@ const myServicesList = [
 const servicesRequestsSent=[
     {
         id: 1,
-        reqTitle: "My house requires a garden chair to be made. if anyone can, please accept my request",
+        reqTitle: "Need a garden chair",
+        description: "My house requires a garden chair to be made. if anyone can, please accept my request",
         cateIcon : require("../assets/icons/Clothes.png"),
-        cateName: "Clothes &amp; Fashion",
-        sentDate: '02/04/2021',
+        cateName: "Clothes & Fashion",
+        sentDate: '02/04/21',
         sentTo: 'Sunil Ariyarathna',
-        statusPending: 'Pending',
+        reqStatus: 'Accepted',
 
         profilePic: require("../assets/dummyData/wrap_sandwich.png"),
         closingDate: '12/06/2021',
-        serviceCategory: "House and Garden",  
-        priorityCategory: [1],
-        status: "pending",
         totalViews: 14,
-        toWhome:'everyone', 
 
     },
     {
@@ -1121,65 +909,52 @@ const servicesRequestsSent=[
         reqTitle: 'Need a garden chair',
         description: "My house requires a garden chair to be made. if anyone can, please accept my request",
         cateIcon : require("../assets/icons/Clothes.png"),
-        cateName: "Clothes &amp; Fashion",
-        sentDate: '02/04/2021',
-        sentTo: 'Sunil Ariyarathna',
-        statusPending: 'Pending',
+        cateName: "Clothes & Fashion",
+        sentDate: '02/04/21',
+        sentTo: 'Amith Perera',
+        reqStatus: 'Pending',
 
         profilePic: require("../assets/dummyData/wrap_sandwich.png"),
-        closingDate: '12/06/2021', 
-        serviceCategory: "House and Garden", 
-        priorityCategory: [3],
-        status: "pending",
+        closingDate: '12/06/21', 
         totalViews: 14,
-        toWhome:'Amith Perera', 
 
     },{
         id: 3,
         reqTitle: 'Need a garden chair',
         description: "My house requires a garden chair to be made. if anyone can, please accept my request",
         cateIcon : require("../assets/icons/Clothes.png"),
-        cateName: "Clothes &amp; Fashion",
-        sentDate: '02/04/2021',
-        sentTo: 'Sunil Ariyarathna',
-        statusPending: 'Pending',
+        cateName: "Clothes & Fashion",
+        sentDate: '02/04/21',
+        sentTo: 'Sampath Silva',
+        reqStatus: 'Rejected',
 
         profilePic: require("../assets/dummyData/wrap_sandwich.png"),
-        closingDate: '12/06/2021', 
-        serviceCategory: "House and Garden", 
-        priorityCategory: [1],
-        status: "pending",
+        closingDate: '12/06/21', 
         totalViews: 14,
-        toWhome:'Sampath Silva', 
 
     },{
         id: 4,
         reqTitle: 'Need a garden chair',
         description: "My house requires a garden chair to be made. if anyone can, please accept my request",
         cateIcon : require("../assets/icons/Clothes.png"),
-        cateName: "Clothes &amp; Fashion",
-        sentDate: '02/04/2021',
-        sentTo: 'Sunil Ariyarathna',
-        statusPending: 'Pending',
+        cateName: "Clothes & Fashion",
+        sentDate: '02/04/21',
+        sentTo: 'Everyone',
+        reqStatus: 'Completed',
         
         profilePic: require("../assets/dummyData/wrap_sandwich.png"),
-        closingDate: '12/06/2021', 
-        serviceCategory: "House and Garden", 
-        priorityCategory: [2],
-        status: "pending",
-        totalViews: 14,
-        toWhome:'everyone', 
+        closingDate: '12/06/21',
+        totalViews: 14, 
 
     },
 ]
 export default {
     myProfile,
-    categories,
-    menu,
+    categories,    
+    transactionMethod,
     priorityCategory,
-    servicesRequestList,
-    ApprovedServReq,
-    sentSerReq,
+    recieveRequestForMe,
+    OtherRecieveRequest,
     searchItems,
     itemsRequestList, 
     itemsSearchList,

@@ -7,6 +7,7 @@ import {
   ScrollView,
   Text,
   Image,
+  FlatList,
 } from "react-native";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import FeatherIcon from "react-native-vector-icons/Feather";
@@ -16,6 +17,10 @@ import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommun
 const I_Sent = () => {
     return (
       <View style={styles.container}>
+              {/* <FlatList data={dummyData}
+        showsVerticalScrollIndicator={true}
+        ListHeaderComponent={
+          <View> </View>} /> */}
       <View style={styles.searchingBarColumn}>
         {/* search bar */}
         <View style={styles.searchingBar}>

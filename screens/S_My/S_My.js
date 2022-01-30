@@ -119,6 +119,7 @@ const S_My = () => {
         </Text>
         
       </View> */}
+      
     </View>
   );
 }
@@ -174,7 +175,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   editIcon: {
-    color: "rgba(235,112,210,1)",
+    color: "rgba(235,212,210,1)",
     fontSize: 25,
     height: 25,
     width: 26,
@@ -242,7 +243,7 @@ const styles = StyleSheet.create({
     color: "rgba(59,57,57,1)",
     textAlign: "justify",
     marginTop: 29,
-    marginLeft: 27
+    marginHorizontal: 20
   },
   cateIcon: {
     color: "rgba(79,77,77,1)",
@@ -260,7 +261,7 @@ const styles = StyleSheet.create({
     height: 22,
     flexDirection: "row",
     marginTop: 25,
-    marginLeft: 19,
+    marginLeft: 20,
     marginRight: 19
   },
   myServiceDetailsNew: {

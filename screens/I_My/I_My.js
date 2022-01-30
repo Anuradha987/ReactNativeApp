@@ -164,6 +164,7 @@ const I_My = () => {
           </View>
         }
       />
+      <View style={{ marginTop: 155 }}></View>
     </View>
 
   )

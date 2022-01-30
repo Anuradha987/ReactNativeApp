@@ -166,7 +166,8 @@ const I_Search = (props) => {
         <Text style={styles.add}>+</Text>
       </View>
 
-      <View style={{ backgroundColor: "#fff", margin: 50, height: 700 }}></View>
+      {/* <View style={{ backgroundColor: "#fff", margin: 50, height: 700 }}></View> */}
+      <View style={{ marginTop: 160 }}></View>
     </View>
 
 
@@ -180,11 +181,11 @@ const styles = StyleSheet.create({
   },
   scrollbar: {
     height: 38,
-    marginTop: 97,
+    marginTop: 97
   },
   scrollbar_contentContainerStyle: {
     width: 390,
-    height: 35,
+    height: 35
   },
   categories: {
     width: 120,
@@ -253,7 +254,7 @@ const styles = StyleSheet.create({
       height: 3
     },
     elevation: 0,
-    shadowOpacity: 0.59,
+    shadowOpacity: 1,
     shadowRadius: 5,
     flexDirection: "row",
     flex: 1,
@@ -275,7 +276,7 @@ const styles = StyleSheet.create({
     height: 32,
     width: 29,
     marginRight: 12,
-    marginTop: 11
+    marginTop: 13
   },
   filterBtn: {
     width: 52,
@@ -290,7 +291,7 @@ const styles = StyleSheet.create({
       height: 3
     },
     elevation: 15,
-    shadowOpacity: 0.59,
+    shadowOpacity:1,
     shadowRadius: 5,
     flexDirection: "row"
   },
@@ -306,9 +307,16 @@ const styles = StyleSheet.create({
     marginRight: 14,
     marginTop: 10
   },
+  searchingBarRow: {
+    height: 52,
+    flexDirection: "row",
+    marginTop: -110,
+    marginLeft: 16,
+    marginRight: 16
+  },
   product1Group: {
     width: 169,
-    height: 317,
+    height: 317
   },
   products1: {
     top: 0,
