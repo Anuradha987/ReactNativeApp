@@ -51,7 +51,7 @@ const S_Requests = () => {
             <FlatList data={dummyData.recieveRequestForMe}
               horizontal
               keyExtractor={(item) => `${item.id}`}
-              showsHorizontalScrollIndicator={true}
+              showsHorizontalScrollIndicator={false}
 
               renderItem={({ item, index }) => {
                 return (

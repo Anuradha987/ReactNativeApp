@@ -36,7 +36,7 @@ const S_Sent = () => {
           <View>
             <View style={styles.requestStatusRowColumn}>
               <View style={styles.requestStatusRow}>
-
+                
                 <View style={styles.requestStatus}>
                   <Picker itemStyle={{ backgroundColor: '#000' }}
                     selectedValue={selectedValue}
@@ -98,7 +98,8 @@ const S_Sent = () => {
                 showsVerticalScrollIndicator={true}
                 renderItem={({ item, index }) => {
                   return (
-                    <View contentContainerStyle={styles.scrollArea_contentContainerStyle}>
+                    // <View style={styles.scrollArea_contentContainerStyle}>
+                    <View>
                       <TouchableOpacity style={styles.serviceReqSent}>
                         <Text style={styles.reqTitle}>{item.reqTitle}</Text>
                         <View style={styles.cateIconRow}>

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -8,94 +8,125 @@ import {
   Text,
   Image,
   FlatList,
+  Picker,
 } from "react-native";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import { dummyData } from "../../constants";
 
-
+// Item orders that have been sent
 const I_Sent = () => {
-    return (
-      <View style={styles.container}>
-              {/* <FlatList data={dummyData}
+  const [selectedValue, setSelectedValue] = useState("All");
+  return (
+    <View style={styles.container}>
+      <FlatList
         showsVerticalScrollIndicator={true}
         ListHeaderComponent={
-          <View> </View>} /> */}
-      <View style={styles.searchingBarColumn}>
-        {/* search bar */}
-        <View style={styles.searchingBar}>
-          <TextInput
-            placeholder="Search a service..."
-            returnKeyType="go"
-            placeholderTextColor="rgba(194,97,250,1)"
-            selectionColor="rgba(250,245,245,1)"
-            clearButtonMode="while-editing"
-            style={styles.serviceSearch}
-          ></TextInput>
-          <EvilIconsIcon
-            name="search"
-            style={styles.searchIcon}
-          ></EvilIconsIcon>
-        </View>
-        <View style={styles.requestStatusRow}>
-          <View style={styles.requestStatus}></View>
-          <View style={styles.requestStatusFiller}></View>
-          {/* edit btn */}
-          <View style={styles.editBtnRow}>
-            <TouchableOpacity style={styles.editBtn}>
-              <View style={styles.editReqIconFiller}></View>
-              <FeatherIcon name="edit" style={styles.editReqIcon}></FeatherIcon>
-            </TouchableOpacity>
-            {/* delete btn */}
-            <TouchableOpacity style={styles.deleteBtn}>
-              <View style={styles.delReqIconFiller}></View>
-              <MaterialCommunityIconsIcon
-                name="delete-sweep"
-                style={styles.delReqIcon}
-              ></MaterialCommunityIconsIcon>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-      <View style={styles.scrollArea}>
-
-        {/* item details  */}
-        <ScrollView
-          contentContainerStyle={styles.scrollArea_contentContainerStyle}
-        >
-          <View style={styles.itemDetailsCardStack}>
-            <View style={styles.itemDetailsCard}>
-              {/* item name */}
-              <Text style={styles.reqTitle}>UMYOGO Women&#39;s Runni...</Text>
-
-              <View style={styles.cateNameStack}>
-                {/* item category */}
-                <Text style={styles.cateName}>Sports &amp; Fitness</Text>
-                <MaterialCommunityIconsIcon
-                  name="human-handsup"
-                  style={styles.cateIcon}
-                ></MaterialCommunityIconsIcon>
+          <View>
+            <View style={styles.searchingBarColumn}>
+              {/* search bar */}
+              <View style={styles.searchingBar}>
+                <TextInput
+                  placeholder="Search a service..."
+                  returnKeyType="go"
+                  placeholderTextColor="#9c8df0"
+                  selectionColor="rgba(250,245,245,1)"
+                  clearButtonMode="while-editing"
+                  style={styles.serviceSearch}
+                ></TextInput>
+                <EvilIconsIcon
+                  name="search"
+                  style={styles.searchIcon}
+                ></EvilIconsIcon>
               </View>
 
-              <Text style={styles.reqStatus}>Pending</Text>
-              <Text style={styles.priceperUnit}>Rs. 250 / 1 day</Text>
-              <Text style={styles.transactionMethod}>Rent</Text>
+              <View style={styles.requestStatusRow}>
+                <View style={styles.requestStatus}>
+                  <Picker itemStyle={{ backgroundColor: '#000' }}
+                    selectedValue={selectedValue}
+                    dropdownIconColor={'#DDDDDD'}
+                    style={{ color: '#DDDDDD', bottom: 7, left: 5 }}
+                    onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                  >
+                    {/* https://reactnative.dev/docs/picker */}
+                    <Picker.Item label="All" value="All" />
+                    <Picker.Item label="Accepted" value="Accepted" />
+                    <Picker.Item label="Pending" value="Pending" />
+                    <Picker.Item label="Rejected" value="Rejected" />
+                    <Picker.Item label="Completed" value="Completed" />
+                  </Picker>
+                </View>
+                <View style={styles.requestStatusFiller}></View>
+
+
+                {/* edit btn */}
+                <View style={styles.editBtnRow}>
+                  <TouchableOpacity style={styles.editBtn}>
+                    <View style={styles.editReqIconFiller}></View>
+                    <FeatherIcon name="edit" style={styles.editReqIcon}></FeatherIcon>
+                  </TouchableOpacity>
+                  {/* delete btn */}
+                  <TouchableOpacity style={styles.deleteBtn}>
+                    <View style={styles.delReqIconFiller}></View>
+                    <MaterialCommunityIconsIcon
+                      name="delete-sweep"
+                      style={styles.delReqIcon}
+                    ></MaterialCommunityIconsIcon>
+                  </TouchableOpacity>
+                </View>
+              </View>
             </View>
-            {/* item image */}
-            <Image
-              source={require("./../../assets/images/shoes.jpg")}
-              resizeMode="cover"
-              style={styles.itemImage}
-            ></Image>
-            <View style={styles.orderDetails}>
-              <View style={styles.amountReturningDateFiller}></View>
-              <Text style={styles.amountReturningDate}>
-                2 Pairs - For 2 days
-              </Text>
+
+
+            <View style={styles.scrollArea}>
+              <FlatList
+                data={dummyData.servicesRequestsSent}
+                keyExtractor={(item) => `${item.id}`}
+                showsVerticalScrollIndicator={true}
+                renderItem={({ item, index }) => {
+                  return (
+                       // <View style={styles.scrollArea_contentContainerStyle}>
+                    <View >
+                      {/* item details  */}
+                      <TouchableOpacity style={styles.itemDetailsCardStack}>
+                        <View style={styles.itemDetailsCard}>
+                          {/* item name */}
+                          <Text style={styles.reqTitle}>UMYOGO Women&#39;s Runni...</Text>
+
+                          <View style={styles.cateNameStack}>
+                            {/* item category */}
+                            <Text style={styles.cateName}>Sports &amp; Fitness</Text>
+                          <Image
+                            source={item.cateIcon}
+                            resizeMode="contain"
+                            style={styles.cateIcon}
+                          ></Image>
+                          </View>
+
+                          <Text style={styles.reqStatus}>Pending</Text>
+                          <Text style={styles.priceperUnit}>Rs. 250 / 1 day</Text>
+                          <Text style={styles.transactionMethod}>Rent</Text>
+                        </View>
+                        {/* item image */}
+                        <Image
+                          source={require("./../../assets/images/shoes.jpg")}
+                          resizeMode="cover"
+                          style={styles.itemImage}
+                        ></Image>
+                        <View style={styles.orderDetails}>
+                          <View style={styles.amountReturningDateFiller}></View>
+                          <Text style={styles.amountReturningDate}>
+                            2 Pairs - For 2 days
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                  )
+                }} />
             </View>
-          </View>
-        </ScrollView>
-      </View>
+            <View style={{ marginTop: 100 }}></View>
+          </View>} />
     </View>
   );
 }
@@ -116,23 +147,24 @@ const styles = StyleSheet.create({
       width: 3,
       height: 3
     },
-    elevation: 15,
-    shadowOpacity: 0.59,
+    elevation: 0,
+    shadowOpacity: 1,
     shadowRadius: 5,
-    flexDirection: "row"
+    flexDirection: "row",
+
   },
   serviceSearch: {
     fontFamily: "poppins-regular",
-    color: "rgba(255,255,255,1)",
+    color: "#fff",
     height: 52,
-    opacity: 0.43,
+    opacity: 0.75,
     fontSize: 15,
     flex: 1,
     marginRight: 13,
-    marginLeft: 11
+    marginLeft: 11,
   },
   searchIcon: {
-    color: "rgba(194,97,250,1)",
+    color: "#9c8df0",
     fontSize: 29,
     width: 29,
     height: 32,
@@ -142,9 +174,9 @@ const styles = StyleSheet.create({
   requestStatus: {
     height: 40,
     borderWidth: 2,
-    borderColor: "rgba(228,154,247,1)",
+    borderColor: "#9c8df0",
     borderRadius: 15,
-    width: 172
+    width: 164,
   },
   requestStatusFiller: {
     flex: 1,
@@ -171,7 +203,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   editReqIcon: {
-    color: "rgba(235,112,210,1)",
+    color: "rgba(235,212,210,1)",
     fontSize: 25,
     height: 25,
     width: 25,
@@ -213,10 +245,11 @@ const styles = StyleSheet.create({
     height: 40,
     flexDirection: "row",
     marginTop: 31,
+    //marginTop: 65,
     marginRight: 1
   },
   searchingBarColumn: {
-    marginTop: 38,
+    marginTop: 25,
     marginLeft: 16,
     marginRight: 15
   },
@@ -225,7 +258,7 @@ const styles = StyleSheet.create({
     borderColor: "#000000",
     flex: 1,
     marginBottom: 50,
-    marginTop: 40,
+    marginTop: 20,
     marginLeft: 12,
     marginRight: 12
   },
@@ -248,7 +281,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 6,
     right: 0,
-    alignItems: "flex-end"
+    alignItems: "flex-end", 
   },
   reqTitle: {
     fontFamily: "poppins-regular",
@@ -300,7 +333,7 @@ const styles = StyleSheet.create({
   },
   transactionMethod: {
     fontFamily: "poppins-500",
-    color: "rgba(220,147,245,1)",
+    color: "#9c8df0",
     textAlign: "center",
     fontSize: 13,
     alignSelf: "flex-start",
@@ -315,13 +348,16 @@ const styles = StyleSheet.create({
     borderRadius: 20
   },
   orderDetails: {
-    top: 134,
+    top: 133,
     width: 222,
     height: 44,
     position: "absolute",
-    backgroundColor: "rgba(179,35,215,1)",
+    backgroundColor: "#9c8df0",
     right: 1,
-    flexDirection: "row"
+    flexDirection: "row",
+    borderBottomRightRadius:15,
+    borderTopLeftRadius:15, 
+    paddingRight:5
   },
   amountReturningDateFiller: {
     flex: 1,
@@ -335,7 +371,7 @@ const styles = StyleSheet.create({
     marginTop: 11
   },
   itemDetailsCardStack: {
-    height: 178
+    height: 178, marginBottom:10
   }
 });
 export default I_Sent
