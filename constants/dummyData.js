@@ -132,18 +132,46 @@ const priorityCategory = [
     {
         id: 1,
         priority: 'high',
-        color: 'red',
+        color: 'rgba(255,51,51,1)',
     },
     {
         id: 2,
         priority: 'medium', 
-        color: 'yellow',
+        color: 'rgba(222,255,0,1)',
     },
     {
         id: 3,
         priority: 'low', 
-        color: 'green',
+        color: 'rgba(71,214,56,1)',
     }
+]
+
+const orderOrRequestStatus=[
+    {
+        //When user click on the accept button on a recieved request/order
+        id:1, 
+        reqStatus: "Accepted",
+    }, 
+    {
+        //When the recieved request/order hasn't accepted or rejected by anyone. Simply when you publish a request or an order, its initial status willbe saved as 'Pending'
+        id:2, 
+        reqStatus: "Pending",
+    }, 
+    {
+        //WHen the user click on the rejected btn on a recieved request/order
+        id:3, 
+        reqStatus: "Rejected",
+    }, 
+    {
+        //When the user click on the complete btn after accepting the received request/order.
+        id:4, 
+        reqStatus: "Completed",
+    }, 
+    {
+        //When the user click on Cancel btn after accepting the received request/order. Simply, user accepted the request. But he/she unable to complete it. 
+        id:5, 
+        reqStatus: "Canceled",
+    }, 
 ]
 
 
@@ -428,7 +456,7 @@ const itemsRequestList =[
     {
         id:1, 
         itemName: 'Van',
-        description:"Need a small bus for 2 days that facilities for 28 members. If anyone interested, please inform me.",
+        description:"Need a small bus for 2 days for 28 people. If anyone like to rent a bus, please inform me.",
         profilePic: require("../assets/dummyData/wrap_sandwich.png"),
         publisherName:"Pavan Maduranga",
         publishedDate:"13/10/2021",
@@ -948,11 +976,75 @@ const servicesRequestsSent=[
 
     },
 ]
+
+const itemOrdersSent=[
+    {
+        id:1, 
+        reqTitle: 'UMYOGO Women & Runni...',
+        cateName: 'Sports & Fitness', 
+        cateIcon:  require("../assets/icons/Clothes.png"),
+        reqStatus: 'Pending',
+        price: 'Rs. 250', 
+        quantity: '1 day',
+        transactionMethod: 'Rent',
+        itemImage:  require("../assets/images/shoes.jpg"),
+        amountReturningDate: '2 Pairs - For 2 days',
+    },    
+    {
+        id:2, 
+        reqTitle: 'Samsung phone charger',
+        cateName: 'Computer & Mobile', 
+        cateIcon:  require("../assets/icons/computing.png"),
+        reqStatus: 'Approved',
+        price: '-', 
+        quantity: '-',
+        transactionMethod: 'Borrow',
+        itemImage:  require("../assets/images/samsung_adaptive_fast_charger_2_1533813223.jpg"),
+        amountReturningDate: '1 Charger - Tomorrow',
+    },
+    {
+        id:3, 
+        reqTitle: 'Avocado',
+        cateName: 'Food & Drinks', 
+        cateIcon:  require("../assets/icons/foods.png"),
+        reqStatus: 'Rejected',
+        price: 'Rs. 30', 
+        quantity: '100g',
+        transactionMethod: 'For Cash',
+        itemImage:  require("../assets/images/organic-avocados.jpg"),
+        amountReturningDate: '150g',
+    },
+    {
+        id:4, 
+        reqTitle: "Lady's Blouse",
+        cateName: 'Clothing & Fashion', 
+        cateIcon:  require("../assets/icons/Clothes.png"),
+        reqStatus: 'Completed',
+        price: '-', 
+        quantity: '-',
+        transactionMethod: 'Free',
+        itemImage:  require("../assets/images/istockphoto-653003428-612x612.jpg"),
+        amountReturningDate: '5 Blouses',
+    },
+    {
+        id:5, 
+        reqTitle: 'Hawaiian-Pizza',
+        cateName: 'Food & Drinks', 
+        cateIcon:  require("../assets/icons/foods.png"),
+        reqStatus: 'Canceled',
+        price: 'Rs. 1350', 
+        quantity: '1',
+        transactionMethod: 'Cash',
+        itemImage:  require("../assets/images/pizza.jpg"),
+        amountReturningDate: '2 Large Pizzas',
+    },
+]
 export default {
     myProfile,
     categories,    
     transactionMethod,
     priorityCategory,
+    orderOrRequestStatus,
     recieveRequestForMe,
     OtherRecieveRequest,
     searchItems,
@@ -963,4 +1055,5 @@ export default {
     completedReceieveServicesRequests,
     myServicesList,
     servicesRequestsSent,
+    itemOrdersSent,
 }

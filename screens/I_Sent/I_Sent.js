@@ -55,6 +55,7 @@ const I_Sent = () => {
                     <Picker.Item label="Pending" value="Pending" />
                     <Picker.Item label="Rejected" value="Rejected" />
                     <Picker.Item label="Completed" value="Completed" />
+                    <Picker.Item label="Canceled" value="Canceled" />
                   </Picker>
                 </View>
                 <View style={styles.requestStatusFiller}></View>
@@ -81,7 +82,7 @@ const I_Sent = () => {
 
             <View style={styles.scrollArea}>
               <FlatList
-                data={dummyData.servicesRequestsSent}
+                data={dummyData.itemOrdersSent}
                 keyExtractor={(item) => `${item.id}`}
                 showsVerticalScrollIndicator={true}
                 renderItem={({ item, index }) => {
@@ -92,32 +93,33 @@ const I_Sent = () => {
                       <TouchableOpacity style={styles.itemDetailsCardStack}>
                         <View style={styles.itemDetailsCard}>
                           {/* item name */}
-                          <Text style={styles.reqTitle}>UMYOGO Women&#39;s Runni...</Text>
+                          <Text style={styles.reqTitle}>{item.reqTitle}</Text>
 
                           <View style={styles.cateNameStack}>
                             {/* item category */}
-                            <Text style={styles.cateName}>Sports &amp; Fitness</Text>
-                          <Image
+                            <Text style={styles.cateName}><Image
                             source={item.cateIcon}
                             resizeMode="contain"
                             style={styles.cateIcon}
-                          ></Image>
+                          ></Image>  {item.cateName}</Text>                 
                           </View>
+                     
+                          
 
-                          <Text style={styles.reqStatus}>Pending</Text>
-                          <Text style={styles.priceperUnit}>Rs. 250 / 1 day</Text>
-                          <Text style={styles.transactionMethod}>Rent</Text>
+                          <Text style={styles.reqStatus}>{item.reqStatus}</Text>
+                          <Text style={styles.priceperUnit}>{item.price} / {item.quantity}</Text>
+                          <Text style={styles.transactionMethod}>{item.transactionMethod}</Text>
                         </View>
                         {/* item image */}
                         <Image
-                          source={require("./../../assets/images/shoes.jpg")}
+                          source={item.itemImage}
                           resizeMode="cover"
                           style={styles.itemImage}
                         ></Image>
                         <View style={styles.orderDetails}>
                           <View style={styles.amountReturningDateFiller}></View>
                           <Text style={styles.amountReturningDate}>
-                            2 Pairs - For 2 days
+                            {item.amountReturningDate}
                           </Text>
                         </View>
                       </TouchableOpacity>
@@ -254,7 +256,7 @@ const styles = StyleSheet.create({
     marginRight: 15
   },
   scrollArea: {
-    borderWidth: 1,
+    borderWidth: 0,
     borderColor: "#000000",
     flex: 1,
     marginBottom: 50,
@@ -295,25 +297,20 @@ const styles = StyleSheet.create({
     position: "absolute",
     fontFamily: "poppins-regular",
     color: "#70d6eb",
-    textAlign: "right",
     top: 0,
     fontSize: 11,
-    right: 0
+    right: 0,
   },
   cateIcon: {
-    top: 1,
-    position: "absolute",
-    color: "rgba(112,214,235,1)",
-    fontSize: 14,
-    right: 95,
-    height: 15,
-    width: 14
+    height: 18,
+    width: 18
   },
   cateNameStack: {
-    width: 166,
-    height: 16,
-    marginTop: 1,
-    marginRight: 9
+    //width: 166,
+    height: 20,
+    top:1,
+    marginTop: -5,
+    marginRight: 9, 
   },
   reqStatus: {
     fontFamily: "poppins-regular",
@@ -321,7 +318,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     textAlign: "right",
     marginTop: 2,
-    marginRight: 8
+    marginRight: 8,
   },
   priceperUnit: {
     fontFamily: "poppins-regular",
@@ -329,7 +326,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 12,
     alignSelf: "flex-start",
-    marginTop: 5
+    marginTop: 5, 
+    marginLeft:12
   },
   transactionMethod: {
     fontFamily: "poppins-500",
@@ -337,7 +335,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 13,
     alignSelf: "flex-start",
-    marginLeft: 9
+    marginLeft: 13
   },
   itemImage: {
     top: 0,
@@ -368,7 +366,8 @@ const styles = StyleSheet.create({
     color: "rgba(255,255,255,1)",
     textAlign: "center",
     marginRight: 1,
-    marginTop: 11
+    marginTop: 11, 
+    width: 220,
   },
   itemDetailsCardStack: {
     height: 178, marginBottom:10

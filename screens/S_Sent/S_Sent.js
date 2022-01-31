@@ -50,6 +50,7 @@ const S_Sent = () => {
                     <Picker.Item label="Pending" value="Pending" />
                     <Picker.Item label="Rejected" value="Rejected" />
                     <Picker.Item label="Completed" value="Completed" />
+                    <Picker.Item label="Canceled" value="Canceled" />
                   </Picker>
 
                 </View>

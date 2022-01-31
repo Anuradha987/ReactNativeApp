@@ -137,7 +137,7 @@ const I_Search = (props) => {
                     </View>
                     <Text style={styles.available}>{item.availability}</Text>
                     <Text style={styles.tradingMethod1}>{item.tradeMethod}</Text>
-                    <Text style={styles.rs30100G}>{item.price} / {item.quantity}</Text>
+                    <Text style={styles.pricePerUnit}>{item.price} / {item.quantity}</Text>
                     {/* </ImageBackground> */}
                   </LinearGradient>
                   <ImageBackground
@@ -388,7 +388,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginLeft: 11
   },
-  rs30100G: {
+  pricePerUnit: {
     fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     fontSize: 16,
