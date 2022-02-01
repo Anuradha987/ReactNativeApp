@@ -15,7 +15,7 @@ import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { dummyData } from "../../constants";
 
-// Item orders that have been sent
+//Order history. Item orders that have been sent/ Item that have been bought (items buy)
 const I_Sent = () => {
   const [selectedValue, setSelectedValue] = useState("All");
   return (

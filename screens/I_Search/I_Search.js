@@ -115,7 +115,7 @@ const I_Search = (props) => {
           renderItem={({ item, index }) => {
             return (
               <TouchableWithoutFeedback style={styles.product1Group}
-                onPress={() => navigation.navigate("DB_MainLayout")}
+                onPress={() =>navigation.navigate('ViewItems')}
               >
                 <View style={styles.products1Stack}>
                   <LinearGradient
@@ -160,7 +160,7 @@ const I_Search = (props) => {
 
       <View style={styles.addNewReqStack}>
         <TouchableOpacity
-          onPress={() => props.navigation.navigate("NewReqForm")}
+          // onPress={() => props.navigation.navigate("NewReqForm")}
           style={styles.addNewReq}
         ></TouchableOpacity>
         <Text style={styles.add}>+</Text>

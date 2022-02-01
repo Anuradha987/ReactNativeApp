@@ -172,6 +172,11 @@ const orderOrRequestStatus=[
         id:5, 
         reqStatus: "Canceled",
     }, 
+    {
+        //When the sender cancel the request or the order by simply clicking on the cancel order button, the status is set to cancelled by you. 
+        id:5, 
+        reqStatus: "Cancelled By You",
+    }, 
 ]
 
 
@@ -699,7 +704,7 @@ const itemsSearchList =[
         id: 3, 
         itemName: "UMYOGO Women's Running", 
         itemImage : require("../assets/images/shoes.jpg"),
-        categoryIcon : require("../assets/icons/Clothes.png"),
+        categoryIcon : require("../assets/icons/Sports.png"),
         cateName: "Sports & Fitness",
         availability: "Available",
         tradeMethod: "Rent", 
@@ -982,7 +987,7 @@ const itemOrdersSent=[
         id:1, 
         reqTitle: 'UMYOGO Women & Runni...',
         cateName: 'Sports & Fitness', 
-        cateIcon:  require("../assets/icons/Clothes.png"),
+        cateIcon:  require("../assets/icons/Sports.png"),
         reqStatus: 'Pending',
         price: 'Rs. 250', 
         quantity: '1 day',
@@ -1039,6 +1044,60 @@ const itemOrdersSent=[
         amountReturningDate: '2 Large Pizzas',
     },
 ]
+
+
+const itemSalesHistory =[
+    {
+        id: 1, 
+        itemTitle: "UMYOGO Women's Runni...",
+        cateName: 'Sports & Fitness',
+        cateIcon: require("../assets/icons/Sports.png"),
+        price: "Rs. 250", 
+        unit: '1 day', 
+        transactionMethod: 'Rent', 
+        itemImage: require("../assets/images/shoes.jpg"),
+    },
+    {
+        id: 2, 
+        itemTitle: "Hondai Car",
+        cateName: 'Travelling & Vehicles',
+        cateIcon: require("../assets/icons/Traveling.png"),
+        price: "Rs. 5500", 
+        unit: '1 day', 
+        transactionMethod: 'Rent', 
+        itemImage: require("../assets/images/download.jpg"),
+    },
+    {
+        id: 3, 
+        itemTitle: "Lady's Blouse",
+        cateName: 'Clothing & Fashion',
+        cateIcon: require("../assets/icons/Clothes.png"),
+        price: "-", 
+        unit: '-', 
+        transactionMethod: 'Free', 
+        itemImage:require("../assets/images/istockphoto-653003428-612x612.jpg"),
+    },
+    {
+        id: 4, 
+        itemTitle: "Pineapple",
+        cateName: 'Food & Drinks',
+        cateIcon: require("../assets/icons/foods.png"),
+        price: "Coconut", 
+        unit: '-', 
+        transactionMethod: 'Barter', 
+        itemImage: require("../assets/images/pineapple.jpg"),
+    },
+    {
+        id: 5, 
+        itemTitle: 'Samsung phone charger',
+        cateName: 'Computer & Mobile', 
+        cateIcon: require("../assets/icons/computing.png"),
+        price: "-", 
+        unit: '-', 
+        transactionMethod: 'Borrow', 
+        itemImage: require("../assets/images/samsung_adaptive_fast_charger_2_1533813223.jpg"),
+    },
+]
 export default {
     myProfile,
     categories,    
@@ -1056,4 +1115,5 @@ export default {
     myServicesList,
     servicesRequestsSent,
     itemOrdersSent,
+    itemSalesHistory,
 }
