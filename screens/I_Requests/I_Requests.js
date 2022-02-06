@@ -13,7 +13,8 @@ import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommun
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import {dummyData} from '../../constants';
 
-// Details about items/products that have been sold to others in the past are displayed on here. The topic of the page should changed to I_SalesHistory. 
+//The topic of the page should changed to I_SalesHistory. 
+// Details about items/products that have been sold to others in the past are displayed on here. 
 
 const I_Requests = () => {
     return (

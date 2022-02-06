@@ -5,18 +5,25 @@ import {
   Image,
   ImageBackground,
   Text,
-  TouchableOpacity
+  TouchableOpacity, 
+  TouchableHighlight
 } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import MapView from "react-native-maps";
 import EntypoIcon from "react-native-vector-icons/Entypo";
-import FixedFooterOrderItem from "../components/FixedFooterOrderItem";
+import FixedFooterOrderItem from "./../../components/FixedFooterOrderItem";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
+import { SliderBox } from "react-native-image-slider-box";
+import ImageSlider from 'react-native-image-slider';
+import { useNavigation } from '@react-navigation/native';
+import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 
-function ViewItems(props) {
+function ViewItems() {
+
   return (
-    <View style={styles.container}>
+  <View style={styles.container}>
+
       <View style={styles.productImageStack}>
         <ImageBackground
           source={require("./../../assets/images/organic-avocados.jpg")}
@@ -72,7 +79,7 @@ function ViewItems(props) {
             <View style={styles.forCashlblFiller}></View>
             <Text style={styles.price}>Rs.30 /100g</Text>
           </View>
-          <Text style={styles.br}>━━━━━━━━━━━━━━━━━━━━━━━━━</Text>
+          <View style ={{height: 1, marginVertical: 9, marginHorizontal: 12, backgroundColor: "rgba(175,172,172,1)",}}></View>
           <View style={styles.contactGroups}>
             <TouchableOpacity style={styles.addFavBtn}></TouchableOpacity>
             <FeatherIcon name="heart" style={styles.favIcon}></FeatherIcon>
@@ -91,7 +98,7 @@ function ViewItems(props) {
           </View>
           <View style={styles.mapViewStackStack}>
             <View style={styles.mapViewStack}>
-              <MapView
+               <MapView
                 provider={MapView.PROVIDER_GOOGLE}
                 initialRegion={{
                   latitude: 37.78825,
@@ -107,7 +114,7 @@ function ViewItems(props) {
                 style={styles.locationIcon}
               ></EntypoIcon>
               <Image
-                source={require("./../../assets/images/_110435139_parsa.jpg")}
+                source={require("./../../assets/images/avatar-1.jpg")}
                 resizeMode="contain"
                 style={styles.userLocation}
               ></Image>
@@ -132,7 +139,7 @@ function ViewItems(props) {
                     <View style={styles.productNameStack}>
                       <Text style={styles.productName}>Avocado</Text>
                       <Image
-                        source={require("./../../assets/images/foods.png")}
+                        source={require("./../../assets/icons/foods.png")}
                         resizeMode="contain"
                         style={styles.cateIcon1}
                       ></Image>
@@ -791,5 +798,5 @@ const styles = StyleSheet.create({
   }
 });
 
-
 export default ViewItems;
+

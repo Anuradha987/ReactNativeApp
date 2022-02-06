@@ -38,8 +38,7 @@ const S_RequestsDetails = () => {
                   ></EntypoIcon>
                   <View style={styles.longitudeStackColumn}>
                     <View style={styles.longitudeStack}>
-                      <Text style={styles.longitude}>6.927079 ,</Text>
-                      <Text style={styles.latitude}>79.861244</Text>
+                      <Text style={styles.longitude}>6.927079 , 79.861244</Text>
                     </View>
                     <Text style={styles.clickToViewOnMap}>
                       Click to view on the Map
@@ -133,15 +132,11 @@ const S_RequestsDetails = () => {
         shadowRadius: 7,
         borderWidth: 1,
         borderColor: "#000000",
-        width: 328,
         marginTop: 178,
-        marginLeft: 30,
+        marginHorizontal: 30,
         overflow: "hidden"
       },
-      contactInfoBox_imageStyle: {
-        width: 326,
-        height: 165
-      },
+      contactInfoBox_imageStyle: { },
       senderImage: {
         width: 80,
         height: 80,
@@ -412,7 +407,7 @@ const S_RequestsDetails = () => {
         color: "rgba(242,69,69,1)",
         fontSize: 12,
         textAlign: "center",
-        marginRight: 2,
+        width: 83,
         marginTop: 11
       },
       reqAcceptBtn: {
@@ -440,7 +435,7 @@ const S_RequestsDetails = () => {
         color: "rgba(8,255,0,1)",
         textAlign: "center",
         fontSize: 12,
-        marginRight: 2,
+        width: 83,
         marginTop: 12
       },
       reqDeleteBtnRow: {
@@ -451,7 +446,7 @@ const S_RequestsDetails = () => {
         height: 41,
         flexDirection: "row",
         marginTop: 24,
-        marginLeft: 164,
+        marginLeft: 110,
         marginRight: 44
       }
     });

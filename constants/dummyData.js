@@ -470,7 +470,6 @@ const itemsRequestList =[
         quantity: 1,
         itemCategory: "Travelling & Vehicles",
         toMe: 'No', 
-        for: 'Rent',
     },
     {
         id:2, 

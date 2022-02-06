@@ -102,21 +102,6 @@ const B_bottom_tabs = [
     },
 ]
 
-const delivery_time = [
-    {
-        id: 1,
-        label: "10 Mins",
-    },
-    {
-        id: 2,
-        label: "20 Mins"
-    },
-    {
-        id: 3,
-        label: "30 Mins"
-    }
-]
-
 const ratings = [
     {
         id: 1,
@@ -140,47 +125,11 @@ const ratings = [
     }
 ]
 
-const tags = [
-    {
-        id: 1,
-        label: "Burger"
-    },
-    {
-        id: 2,
-        label: "Fast Food"
-    },
-    {
-        id: 3,
-        label: "Pizza"
-    },
-    {
-        id: 4,
-        label: "Asian"
-    },
-    {
-        id: 5,
-        label: "Dessert"
-    },
-    {
-        id: 6,
-        label: "Breakfast"
-    },
-    {
-        id: 7,
-        label: "Vegetable"
-    },
-    {
-        id: 8,
-        label: "Taccos"
-    }
-]
 
 export default {
     screens,
     S_bottom_tabs,
     I_bottom_tabs,
     B_bottom_tabs,
-    delivery_time,
     ratings,
-    tags
 }

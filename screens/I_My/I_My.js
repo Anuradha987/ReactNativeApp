@@ -173,8 +173,8 @@ const I_My = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    //backgroundColor: "rgba(21,31,40,1)",
+    //backgroundColor: "#fff",
+    backgroundColor: "rgba(21,31,40,1)",
   },
   receivedReqList: {
     width: 365,

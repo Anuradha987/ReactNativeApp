@@ -15,22 +15,21 @@ import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import { useFonts } from 'expo-font';
 import { LinearGradient } from 'expo-linear-gradient';
 import { FlatList } from "react-native-gesture-handler";
-import { dummyData } from '../../constants';
+import { dummyData} from '../../constants';
 import { useNavigation } from '@react-navigation/native';
-
 const windowHeight = Dimensions.get('screen').height;
+ import ViewItems from "./ViewItems";
+import 'react-native-gesture-handler';
+ import appNavigaiton from './../../navigation/appNavigaiton';
 
-// function onSelectCategory(selectedCatergory){
-//   let categoryList = categories.filter(a=> a.selectedCatergoryId.includes(selectedCatergory.id))
-//   setSelectedCategoryId(selectedCatergory)
-// }
+const I_Search = () => {
 
-
-const I_Search = (props) => {
-  const navigation = useNavigation();
-
+   const navigation = useNavigation();
   const [selectedCatergoryId, setSelectedCategoryId] = React.useState(dummyData.categories)
   
+const pressHandler = () => {
+  navigation.navigate('ViewItems')
+}
   function onSelectCategory(category) {
     let categoryList = dummyData.categories.filter(a => a.selectedCatergoryId.includes(category.id))
     setSelectedCategoryId(categoryList)    
@@ -40,11 +39,12 @@ const I_Search = (props) => {
   const [loaded] = useFonts({
     poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
   });
-
+  
   if (!loaded) {
     return null;
   }
   return (
+    
     <View style={styles.container}>
       <View>
         {/* horizontal scroll bar */}
@@ -114,8 +114,10 @@ const I_Search = (props) => {
 
           renderItem={({ item, index }) => {
             return (
+              
               <TouchableWithoutFeedback style={styles.product1Group}
-                onPress={() =>navigation.navigate('ViewItems')}
+              // pressHandler
+                   onPress = {pressHandler}
               >
                 <View style={styles.products1Stack}>
                   <LinearGradient
@@ -160,10 +162,10 @@ const I_Search = (props) => {
 
       <View style={styles.addNewReqStack}>
         <TouchableOpacity
-          // onPress={() => props.navigation.navigate("NewReqForm")}
+          //  onPress={() =>props.navigation.navigate("ViewItems")}
           style={styles.addNewReq}
         ></TouchableOpacity>
-        <Text style={styles.add}>+</Text>
+        {/* <Text style={styles.add}>+</Text> */}
       </View>
 
       {/* <View style={{ backgroundColor: "#fff", margin: 50, height: 700 }}></View> */}
@@ -688,4 +690,5 @@ const styles = StyleSheet.create({
   }
 });
 
-export default I_Search
+export default I_Search;
+
