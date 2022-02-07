@@ -49,7 +49,14 @@ function MyProfile(props) {
                   resizeMode="cover"
                   style={styles.coverImage}
                   imageStyle={styles.coverImage_imageStyle}>
-                  <View style={styles.backBtn}></View>
+
+                <TouchableOpacity style={styles.backBtn}
+                    onPress={()=> navigation.goBack()}>
+                   <MaterialIconsIcon
+                      name="arrow_back"
+                      style={styles.backIcon}></MaterialIconsIcon>
+                </TouchableOpacity>
+
                 </ImageBackground>
                 <Image
                   source={require('./../assets/images/_110435139_parsa.jpg')}
@@ -199,9 +206,18 @@ const styles = StyleSheet.create({
   backBtn: {
     width: 40,
     height: 40,
-    backgroundColor: '#E6E6E6',
     marginTop: 19,
     marginLeft: 20,
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    borderWidth: 1, 
+    borderColor:'#BBBDC1', 
+    borderRadius: 12,  
+  },
+  backIcon:{
+    color: '#BBBDC1', 
+    fontSize: 30,
+    bottom:4,
   },
   profileImage: {
     top: 134,
@@ -306,7 +322,25 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginHorizontal: 15,
   },
-  
+  emailRow: {
+    flexDirection: 'row',
+    marginLeft: 15,
+  },
+  emailIcon: {
+    fontSize: 18,
+    height: 24,
+    width: 24,
+    color: 'rgba(176,176,176,1)',
+    marginTop: 20,
+    marginLeft: 15,
+  },
+  userEmail: {
+    fontFamily: 'poppinsregular',
+    color: 'rgba(176,176,176,1)',
+    textAlign: 'justify',
+    marginTop: 20,
+    marginHorizontal: 5,
+  },
   viewOnTheMap: {
     fontFamily: 'poppins700',
     color: 'rgba(212,212,212,1)',

@@ -50,7 +50,13 @@ function UserProfile(props) {
             style={styles.coverImage}
             imageStyle={styles.coverImage_imageStyle}
           >
-            <View style={styles.backBtn}></View>
+           <TouchableOpacity style={styles.backBtn}
+                             onPress={()=> navigation.goBack()}>
+             <MaterialIconsIcon
+                name="arrow_back"
+                style={styles.backIcon}></MaterialIconsIcon>
+          </TouchableOpacity>
+
           </ImageBackground>
           <Image
             source={require("../assets/images/_110435139_parsa.jpg")}
@@ -86,6 +92,12 @@ function UserProfile(props) {
         to dialog services. Small description of my self.
       </Text>
 
+      <View style={styles.emailRow}>
+              <MaterialIconsIcon
+                name="mail"
+                style={styles.emailIcon}></MaterialIconsIcon>
+              <Text style={styles.userEmail}>jjhbkb@gmail.com</Text>
+            </View>
 
       <View style={styles.contactGroups}>
         <TouchableOpacity style={styles.addFavBtn}></TouchableOpacity>
@@ -193,9 +205,18 @@ rect1Row: { backgroundColor: 'white', height: 43, marginTop: 769 },
   backBtn: {
     width: 40,
     height: 40,
-    backgroundColor: "#E6E6E6",
     marginTop: 19,
-    marginLeft: 20
+    marginLeft: 20,
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    borderWidth: 1, 
+    borderColor:'#BBBDC1', 
+    borderRadius: 12,  
+  },
+  backIcon:{
+    color: '#BBBDC1', 
+    fontSize: 30,
+    bottom:4,
   },
   profileImage: {
     top: 134,
@@ -299,6 +320,25 @@ rect1Row: { backgroundColor: 'white', height: 43, marginTop: 769 },
     textAlign: "justify",
    marginTop: 20,
     marginHorizontal: 15,
+  },
+  emailRow: {
+    flexDirection: 'row',
+    marginLeft: 15,
+  },
+  emailIcon: {
+    fontSize: 18,
+    height: 24,
+    width: 24,
+    color: 'rgba(176,176,176,1)',
+    marginTop: 20,
+    marginLeft: 15,
+  },
+  userEmail: {
+    fontFamily: 'poppinsregular',
+    color: 'rgba(176,176,176,1)',
+    textAlign: 'justify',
+    marginTop: 20,
+    marginHorizontal: 5,
   },
   contactGroups: {
     height: 50,
