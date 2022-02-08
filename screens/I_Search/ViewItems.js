@@ -6,56 +6,88 @@ import {
   ImageBackground,
   Text,
   TouchableOpacity, 
-  TouchableHighlight
+  TouchableHighlight, 
+  Dimensions, 
+  FlatList, 
 } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
-import MapView from "react-native-maps";
+//import MapView from "react-native-maps";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import FixedFooterOrderItem from "./../../components/FixedFooterOrderItem";
+import MaterialIconsIcon from 'react-native-vector-icons/MaterialIcons';
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
-import { SliderBox } from "react-native-image-slider-box";
-import ImageSlider from 'react-native-image-slider';
+//import { SliderBox } from "react-native-image-slider-box";
+//import ImageSlider from 'react-native-image-slider';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useFonts } from 'expo-font';
+import dummyData from './../../constants/dummyData'
+const windowHeight = Dimensions.get('screen').height;
+const windowWidth = Dimensions.get('window').width;
 
-function ViewItems() {
 
+function ViewItems({navigation}) {
+    //poppins insert
+  const [loaded] = useFonts({
+    poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
+    poppins700: require('./../../assets/fonts/poppins-700.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
   return (
   <View style={styles.container}>
-
-      <View style={styles.productImageStack}>
-        <ImageBackground
+      <FlatList 
+        showsVerticalScrollIndicator={true}
+        ListHeaderComponent={
+       <View style={{height:1350}}>
+        <View style={styles.productImageStack}>
+          <ImageBackground
           source={require("./../../assets/images/organic-avocados.jpg")}
           resizeMode="cover"
           style={styles.productImage}
           imageStyle={styles.productImage_imageStyle}
         >
-          <View style={styles.backBtn}></View>
+
+            <TouchableOpacity style={styles.backBtn}
+              onPress={()=> navigation.goBack()}>
+              <MaterialIconsIcon
+                name="ArrowBack"
+                style={styles.backIcon}></MaterialIconsIcon>
+            </TouchableOpacity>
+
           <View style={styles.userImageCircleRow}>
-            <View style={styles.userImageCircle}>
+          
+            <TouchableOpacity style={styles.userImageCircle}> 
               <Image
                 source={require("./../../assets/images/avatar-1.jpg")}
                 resizeMode="contain"
                 style={styles.userImage}
               ></Image>
-            </View>
+            </TouchableOpacity>    
+
             <View style={styles.slidingDots}>
               <View style={styles.rect2}></View>
               <View style={styles.rect3}></View>
               <View style={styles.rect4}></View>
               <View style={styles.rect5}></View>
               <View style={styles.rect6}></View>
-            </View>
+            </View>    
           </View>
-        </ImageBackground>
-        <View style={styles.userDetails}>
-          <View style={styles.userNameStack}>
-            <Text style={styles.userName}>Natasha Perera</Text>
-            <Text style={styles.loremIpsum}>21/12/20</Text>
+         </ImageBackground>
+
+          <View style={styles.userDetails}>
+            <View style={styles.userNameStack}>
+              <Text style={styles.userName}>Natasha Perera</Text>
+              <Text style={styles.posetedDate}>21/12/20</Text>
           </View>
         </View>
-        <View style={styles.itemDetails}>
+
+            <View style={styles.anemanda}>
+  
           <Text style={styles.itemName}>Avocado</Text>
           <View style={styles.cateIconRow}>
             <Image
@@ -77,38 +109,38 @@ function ViewItems() {
           <View style={styles.forCashlblRow}>
             <Text style={styles.forCashlbl}>For Cash</Text>
             <View style={styles.forCashlblFiller}></View>
-            <Text style={styles.price}>Rs.30 /100g</Text>
+            <Text style={styles.price}>Rs.30/100g</Text>
           </View>
+
           <View style ={{height: 1, marginVertical: 9, marginHorizontal: 12, backgroundColor: "rgba(175,172,172,1)",}}></View>
+
+
           <View style={styles.contactGroups}>
-            <TouchableOpacity style={styles.addFavBtn}></TouchableOpacity>
-            <FeatherIcon name="heart" style={styles.favIcon}></FeatherIcon>
-            <TouchableOpacity style={styles.callBtn}></TouchableOpacity>
-            <FeatherIcon name="phone" style={styles.callIcon}></FeatherIcon>
-            <TouchableOpacity style={styles.msgBtn}></TouchableOpacity>
+            <TouchableOpacity style={styles.addFavBtn}>
+            <FeatherIcon name="heart" style={styles.favIcon}></FeatherIcon></TouchableOpacity>
+
+            <TouchableOpacity style={styles.callBtn}>
+            <FeatherIcon name="phone" style={styles.callIcon}></FeatherIcon></TouchableOpacity>
+
+            <TouchableOpacity style={styles.msgBtn}>
             <FeatherIcon
               name="message-square"
               style={styles.msgIcon}
             ></FeatherIcon>
-            <TouchableOpacity style={styles.sendReqBtn}></TouchableOpacity>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.sendReqBtn}>
             <FontAwesomeIcon
               name="share-square-o"
               style={styles.sendReqIcon}
             ></FontAwesomeIcon>
+            </TouchableOpacity>
           </View>
+
+
           <View style={styles.mapViewStackStack}>
             <View style={styles.mapViewStack}>
-               <MapView
-                provider={MapView.PROVIDER_GOOGLE}
-                initialRegion={{
-                  latitude: 37.78825,
-                  longitude: -122.4324,
-                  latitudeDelta: 0.0922,
-                  longitudeDelta: 0.0421
-                }}
-                customMapStyle={[]}
-                style={styles.mapView}
-              ></MapView>
+
               <EntypoIcon
                 name="location-pin"
                 style={styles.locationIcon}
@@ -118,23 +150,50 @@ function ViewItems() {
                 resizeMode="contain"
                 style={styles.userLocation}
               ></Image>
-              <FixedFooterOrderItem
+             {/* <FixedFooterOrderItem
                 style={styles.fixedFooterOrderItem}
-              ></FixedFooterOrderItem>
+              ></FixedFooterOrderItem>*/}
             </View>
             <Text style={styles.viewOnTheMap}>View on the map</Text>
           </View>
+
+
+
+
           <View style={styles.rect1}>
             <Text style={styles.similarResults}>Similar results</Text>
           </View>
-          <View style={styles.product1SimilarItemsRow}>
-            <View style={styles.product1SimilarItems}>
-              <View style={styles.productsCardStack}>
+
+      
+
+<FlatList
+          data={dummyData.itemsSearchList}
+          keyExtractor={(item) => `${item.id}`}
+          showsHorizontalScrollIndicator={false}
+          horizontal
+style={{marginHorizontal:10,}}
+          renderItem={({ item, index }) => {
+            return ( 
+
+            <View >
+            <View style={styles.productsCardStack}>
+                <LinearGradient
+                    colors={['#3b3b4a', '#212126', '#3b3b4a']}
+                    style={styles.productsCard}
+                  >
+
                 <ImageBackground
-                  style={styles.productsCard}
-                  imageStyle={styles.productsCard_imageStyle}
-                  source={require("./../../assets/images/Gradient_WcvXyL2.png")}
+                  source={require("./../../assets/images/organic-avocados.jpg")}
+                  resizeMode="cover"
+                  style={styles.productImage1}
+                  imageStyle={styles.productImage1_imageStyle}
                 >
+                  <IoniconsIcon
+                    name="md-heart"
+                    style={styles.favIcon1}
+                  ></IoniconsIcon>
+                </ImageBackground>
+
                   <View style={styles.productNameStackStack}>
                     <View style={styles.productNameStack}>
                       <Text style={styles.productName}>Avocado</Text>
@@ -152,61 +211,24 @@ function ViewItems() {
                     <Text style={styles.transactionMethod1}>For Cash</Text>
                     <Text style={styles.price1}>Rs.30/100g</Text>
                   </View>
-                </ImageBackground>
-                <ImageBackground
-                  source={require("./../../assets/images/organic-avocados.jpg")}
-                  resizeMode="cover"
-                  style={styles.productImage1}
-                  imageStyle={styles.productImage1_imageStyle}
-                >
-                  <IoniconsIcon
-                    name="md-heart"
-                    style={styles.favIcon1}
-                  ></IoniconsIcon>
-                </ImageBackground>
-              </View>
+                </LinearGradient>
+
+
+
             </View>
-            <View style={styles.product2}>
-              <View style={styles.productsCard1Stack}>
-                <ImageBackground
-                  style={styles.productsCard1}
-                  imageStyle={styles.productsCard1_imageStyle}
-                  source={require("./../../assets/images/Gradient_WcvXyL2.png")}
-                >
-                  <View style={styles.productName1StackStack}>
-                    <View style={styles.productName1Stack}>
-                      <Text style={styles.productName1}>Avocado</Text>
-                      <Image
-                        source={require("./../../assets/icons/foods.png")}
-                        resizeMode="contain"
-                        style={styles.cateIcon2}
-                      ></Image>
-                    </View>
-                    <Text style={styles.cateName2}>
-                      Electronics &amp; Electrics
-                    </Text>
-                  </View>
-                  <View style={styles.transactionMethod2Stack}>
-                    <Text style={styles.transactionMethod2}>For Cash</Text>
-                    <Text style={styles.price2}>Rs.30/100g</Text>
-                  </View>
-                </ImageBackground>
-                <ImageBackground
-                  source={require("./../../assets/images/organic-avocados.jpg")}
-                  resizeMode="cover"
-                  style={styles.productImage2}
-                  imageStyle={styles.productImage2_imageStyle}
-                >
-                  <IoniconsIcon
-                    name="md-heart"
-                    style={styles.favIcon2}
-                  ></IoniconsIcon>
-                </ImageBackground>
-              </View>
             </View>
-          </View>
+)}}/>
+              
+
+       
         </View>
-      </View>
+
+
+
+        </View>
+<View style={{marginTop:110}}></View>
+       </View>
+      }/>
     </View>
   );
 }
@@ -214,28 +236,37 @@ function ViewItems() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(21,31,40,1)"
+    backgroundColor: "rgba(21,31,40,1)", elevation:0,
   },
   productImage: {
     top: 0,
     left: 0,
-    height: 392,
-    position: "absolute",
+    height: 340,
     right: 0
   },
   productImage_imageStyle: {},
-  backBtn: {
+ backBtn: {
     width: 40,
     height: 40,
-    backgroundColor: "#E6E6E6",
-    marginTop: 37,
-    marginLeft: 15
+    marginTop: 19,
+    marginLeft: 20,
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    borderWidth: 1, 
+    borderColor:'#BBBDC1', 
+    borderRadius: 12,  
+  },
+   backIcon:{
+    color: '#BBBDC1', 
+    fontSize: 30,
+    bottom:4,
   },
   userImageCircle: {
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: "rgba(31,31,31,1)"
+    backgroundColor: "#9c8df0",
+    elevation:1,
   },
   userImage: {
     width: 35,
@@ -247,8 +278,8 @@ const styles = StyleSheet.create({
     width: 88,
     height: 10,
     flexDirection: "row",
-    justifyContent: "space-between",
-    marginLeft: 79,
+    justifyContent: "space-between", alignItems:'center',
+    marginLeft:80,
     marginTop: 2
   },
   rect2: {
@@ -284,63 +315,65 @@ const styles = StyleSheet.create({
   userImageCircleRow: {
     height: 50,
     flexDirection: "row",
-    marginTop: 264,
+    marginTop: 240,
     marginLeft: 24,
     marginRight: 149
   },
   userDetails: {
-    top: 365,
+    top: 325,
     left: 0,
-    height: 193,
+    marginBottom:0,
+    height: 70,
     position: "absolute",
-    backgroundColor: "rgba(210,171,250,1)",
-    borderRadius: 36,
-    right: 0
+    backgroundColor: "#9c8df0",
+    borderTopRightRadius: 36,
+    borderTopLeftRadius:36, 
+    right: 0, 
+    bottom:0,
   },
   userName: {
     top: 0,
     left: 0,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
-    right: 100
+    right: 100, 
+    marginHorizontal:30,
   },
-  loremIpsum: {
+  posetedDate: {
     top: 0,
-    left: 236,
+    left: 320,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     textAlign: "right"
   },
   userNameStack: {
     height: 21,
     marginTop: 21,
-    marginLeft: 31,
-    marginRight: 21
   },
-  itemDetails: {
-    left: 0,
-    position: "absolute",
-    backgroundColor: "rgba(21,31,40,1)",
-    borderRadius: 36,
-    bottom: 0,
-    right: 0,
-    top: 418
+  anemanda:{
+    backgroundColor:"rgba(21,31,40,1)", 
+    top:30,
+    borderTopRightRadius:36, 
+    borderTopLeftRadius:36, 
+    width: windowWidth,
+    padding:5 
   },
   itemName: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     fontSize: 22,
-    marginTop: 33,
-    marginLeft: 31
+    marginTop: 15,
+    marginLeft: 31, 
+    marginRight:15, 
   },
   cateIcon: {
     width: 17,
     height: 17
   },
   cateName: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(235,214,112,1)",
     fontSize: 12,
     marginLeft: 15
@@ -353,7 +386,7 @@ const styles = StyleSheet.create({
     marginRight: 29
   },
   itemDescription: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(199,199,199,1)",
     textAlign: "justify",
     fontSize: 14,
@@ -362,7 +395,7 @@ const styles = StyleSheet.create({
     marginRight: 20
   },
   totalAmountlbl: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)"
   },
   totalAmountlblFiller: {
@@ -370,7 +403,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   totalAmount: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     textAlign: "right"
   },
@@ -382,36 +415,30 @@ const styles = StyleSheet.create({
     marginRight: 50
   },
   forCashlbl: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     width: 162,
-    height: 16
+    height: 25
   },
   forCashlblFiller: {
     flex: 1,
     flexDirection: "row"
   },
   price: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(160,135,186,1)",
     width: 140,
     textAlign: "right",
     fontSize: 16,
-    height: 16
+    height: 25, 
   },
   forCashlblRow: {
-    height: 16,
+    height:25, 
     flexDirection: "row",
     marginTop: 18,
+    marginBottom: 20,
     marginLeft: 38,
-    marginRight: 50
-  },
-  br: {
-    fontFamily: "roboto-regular",
-    color: "rgba(175,172,172,1)",
-    marginTop: 17,
-    marginLeft: 16,
-    marginRight: 12
+    marginRight: 50, 
   },
   contactGroups: {
     height: 50,
@@ -430,7 +457,7 @@ const styles = StyleSheet.create({
       width: 3,
       height: 4
     },
-    elevation: 12,
+    elevation: 0,
     shadowOpacity: 0.25,
     shadowRadius: 4,
     borderRadius: 15
@@ -453,14 +480,14 @@ const styles = StyleSheet.create({
       width: 3,
       height: 4
     },
-    elevation: 12,
+    elevation: 0,
     shadowOpacity: 0.25,
     shadowRadius: 4,
     borderRadius: 15
   },
   callIcon: {
     top: 10,
-    left: 97,
+    left: 10,
     position: "absolute",
     color: "rgba(112,235,161,1)",
     fontSize: 30,
@@ -476,14 +503,14 @@ const styles = StyleSheet.create({
       width: 3,
       height: 4
     },
-    elevation: 12,
+    elevation: 0,
     shadowOpacity: 0.25,
     shadowRadius: 4,
     borderRadius: 15
   },
   msgIcon: {
     top: 10,
-    left: 182,
+    left: 10,
     position: "absolute",
     color: "rgba(112,214,235,1)",
     fontSize: 30,
@@ -499,14 +526,14 @@ const styles = StyleSheet.create({
       width: 3,
       height: 4
     },
-    elevation: 12,
+    elevation: 0,
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    borderRadius: 15
+    borderRadius: 15, alignItems:'center',
   },
   sendReqIcon: {
-    top: 13,
-    left: 270,
+    top: 10,
+    left: 12,
     position: "absolute",
     color: "rgba(235,214,112,1)",
     fontSize: 30,
@@ -549,40 +576,37 @@ const styles = StyleSheet.create({
     left: 0,
     height: 139,
     position: "absolute",
-    right: 0
+    right: 0, 
   },
   viewOnTheMap: {
     top: 0,
     left: 29,
     position: "absolute",
-    fontFamily: "poppins-700",
+    fontFamily: "poppins700",
     color: "rgba(212,212,212,1)"
   },
   mapViewStackStack: {
-    height: 139,
-    marginTop: 29
+    backgroundColor:'white',
+    height: 150,
+    marginTop: 30, 
+    marginBottom:30, 
   },
   rect1: {
     height: 55,
-    shadowColor: "rgba(28,28,28,1)",
+    shadowColor: "black",
     shadowOffset: {
-      width: 3,
-      height: 3
+      width: 10,
+      height: 10
     },
     elevation: 45,
     shadowOpacity: 1,
     shadowRadius: 15,
-    marginTop: 37
   },
   similarResults: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     marginTop: 17,
     marginLeft: 21
-  },
-  product1SimilarItems: {
-    width: 155,
-    height: 278
   },
   productsCard: {
     top: 1,
@@ -599,14 +623,19 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 10,
     left: 0,
-    overflow: "hidden"
+    overflow: "hidden", 
+ 
   },
-  productsCard_imageStyle: {},
+  productsCardStack: {
+    width: 154,
+    height: 279,
+    marginRight:15,
+  },
   productName: {
     top: 0,
     left: 0,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     fontSize: 16
   },
@@ -628,7 +657,7 @@ const styles = StyleSheet.create({
     top: 27,
     left: 22,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(235,214,112,1)",
     fontSize: 10
   },
@@ -642,22 +671,22 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(221,160,248,1)",
     fontSize: 18
   },
   price1: {
-    top: 24,
+    top: 27,
     left: 2,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     fontSize: 13
   },
   transactionMethod1Stack: {
     width: 134,
     height: 44,
-    marginTop: 13,
+    marginTop: 7,
     marginLeft: 9
   },
   productImage1: {
@@ -667,134 +696,20 @@ const styles = StyleSheet.create({
     height: 166,
     position: "absolute",
     borderRadius: 20,
-    overflow: "hidden"
+    overflow: "hidden", 
   },
   productImage1_imageStyle: {},
   favIcon1: {
     color: "rgba(249,43,85,1)",
     fontSize: 24,
     height: 26,
-    width: 19,
+    width: 26,
     marginTop: 9,
     marginLeft: 124
-  },
-  productsCardStack: {
-    width: 154,
-    height: 279
-  },
-  product2: {
-    width: 155,
-    height: 278,
-    marginLeft: 10
-  },
-  productsCard1: {
-    top: 1,
-    width: 154,
-    height: 278,
-    position: "absolute",
-    borderRadius: 20,
-    shadowColor: "rgba(32,32,32,1)",
-    shadowOffset: {
-      width: 3,
-      height: 3
-    },
-    elevation: 30,
-    shadowOpacity: 1,
-    shadowRadius: 10,
-    left: 0,
-    overflow: "hidden"
-  },
-  productsCard1_imageStyle: {},
-  productName1: {
-    top: 0,
-    left: 0,
-    position: "absolute",
-    fontFamily: "poppins-regular",
-    color: "rgba(255,255,255,1)",
-    fontSize: 16
-  },
-  cateIcon2: {
-    top: 23,
-    left: 1,
-    width: 17,
-    height: 17,
-    position: "absolute"
-  },
-  productName1Stack: {
-    top: 0,
-    left: 0,
-    width: 138,
-    height: 40,
-    position: "absolute"
-  },
-  cateName2: {
-    top: 27,
-    left: 22,
-    position: "absolute",
-    fontFamily: "poppins-regular",
-    color: "rgba(235,214,112,1)",
-    fontSize: 10
-  },
-  productName1StackStack: {
-    width: 142,
-    height: 41,
-    marginTop: 171,
-    marginLeft: 7
-  },
-  transactionMethod2: {
-    top: 0,
-    left: 0,
-    position: "absolute",
-    fontFamily: "poppins-regular",
-    color: "rgba(221,160,248,1)",
-    fontSize: 18
-  },
-  price2: {
-    top: 24,
-    left: 2,
-    position: "absolute",
-    fontFamily: "poppins-regular",
-    color: "rgba(255,255,255,1)",
-    fontSize: 13
-  },
-  transactionMethod2Stack: {
-    width: 134,
-    height: 44,
-    marginTop: 13,
-    marginLeft: 9
-  },
-  productImage2: {
-    top: 0,
-    left: 0,
-    width: 154,
-    height: 166,
-    position: "absolute",
-    borderRadius: 20,
-    overflow: "hidden"
-  },
-  productImage2_imageStyle: {},
-  favIcon2: {
-    color: "rgba(249,43,85,1)",
-    fontSize: 24,
-    height: 26,
-    width: 19,
-    marginTop: 9,
-    marginLeft: 124
-  },
-  productsCard1Stack: {
-    width: 154,
-    height: 279
-  },
-  product1SimilarItemsRow: {
-    height: 278,
-    flexDirection: "row",
-    marginTop: 32,
-    marginLeft: 16,
-    marginRight: 54
   },
   productImageStack: {
     flex: 1,
-    marginBottom: -1
+    marginBottom: -1,
   }
 });
 

@@ -1,3 +1,5 @@
+//https://mui.com/components/rating/ -- rating
+
 import { icons, images } from "./";
 import {Text,View,} from 'react-native';
 

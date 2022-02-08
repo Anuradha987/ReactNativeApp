@@ -162,7 +162,7 @@ const S_Approvals = ({ navigation }) => {
         <Text style={styles.priority}>Priority :</Text>
       </View>
 
-      {/* Pending and completed requests */}
+      {/* Not Completed (after accepting) and completed requests */}
       <NavigationContainer independent={true} >
         <Tab.Navigator
           screenOptions={{
@@ -173,7 +173,7 @@ const S_Approvals = ({ navigation }) => {
             tabBarStyle: { backgroundColor: "rgba(21,31,40,1)", marginTop: 25, shadowOpacity: 1, shadowColor: "rgba(16,16,16,1)", elevation: 3, shadowOffset: { width: 3, height: 3 } },
           }}
         >
-          <Tab.Screen name="Pending" component={PendingReq} />
+          <Tab.Screen name="Not Completed" component={PendingReq} />
           <Tab.Screen name="Completed" component={CompletedReq} />
         </Tab.Navigator>
       </NavigationContainer>
