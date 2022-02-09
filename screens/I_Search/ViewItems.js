@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
-//import MapView from "react-native-maps";
+import MapView from "react-native-maps";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import FixedFooterOrderItem from "./../../components/FixedFooterOrderItem";
 import MaterialIconsIcon from 'react-native-vector-icons/MaterialIcons';
@@ -55,8 +55,9 @@ function ViewItems({navigation}) {
             <TouchableOpacity style={styles.backBtn}
               onPress={()=> navigation.goBack()}>
               <MaterialIconsIcon
-                name="ArrowBack"
+                name="arrow_back"
                 style={styles.backIcon}></MaterialIconsIcon>
+               {/*} <span class="material-icons">arrow_back</span>*/}
             </TouchableOpacity>
 
           <View style={styles.userImageCircleRow}>
@@ -140,7 +141,17 @@ function ViewItems({navigation}) {
 
           <View style={styles.mapViewStackStack}>
             <View style={styles.mapViewStack}>
-
+              <MapView
+                provider={MapView.PROVIDER_GOOGLE}
+                initialRegion={{
+                  latitude: 37.78825,
+                  longitude: -122.4324,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421
+                }}
+                customMapStyle={[]}
+                style={styles.mapView}
+              ></MapView>
               <EntypoIcon
                 name="location-pin"
                 style={styles.locationIcon}
@@ -150,9 +161,7 @@ function ViewItems({navigation}) {
                 resizeMode="contain"
                 style={styles.userLocation}
               ></Image>
-             {/* <FixedFooterOrderItem
-                style={styles.fixedFooterOrderItem}
-              ></FixedFooterOrderItem>*/}
+            
             </View>
             <Text style={styles.viewOnTheMap}>View on the map</Text>
           </View>
@@ -229,6 +238,10 @@ style={{marginHorizontal:10,}}
 <View style={{marginTop:110}}></View>
        </View>
       }/>
+
+       <FixedFooterOrderItem
+                style={styles.fixedFooterOrderItem}
+              ></FixedFooterOrderItem>
     </View>
   );
 }
@@ -566,10 +579,10 @@ const styles = StyleSheet.create({
   },
   fixedFooterOrderItem: {
     position: "absolute",
-    top: 0,
+    bottom: 0,
     left: 0,
     height: 55,
-    width: 390
+    width: windowWidth,
   },
   mapViewStack: {
     top: 0,
@@ -586,7 +599,6 @@ const styles = StyleSheet.create({
     color: "rgba(212,212,212,1)"
   },
   mapViewStackStack: {
-    backgroundColor:'white',
     height: 150,
     marginTop: 30, 
     marginBottom:30, 
