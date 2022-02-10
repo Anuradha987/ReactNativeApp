@@ -5,19 +5,48 @@ import {
   Text,
   ScrollView,
   ImageBackground,
-  Image
+  Image, 
+  Dimensions,
+  FlatList, 
+  TouchableOpacity,
 } from "react-native";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import FeatherIcon from "react-native-vector-icons/Feather";
+import MaterialIconsIcon from 'react-native-vector-icons/MaterialIcons';
+import { useFonts } from 'expo-font';
+const windowHeight = Dimensions.get('screen').height;
+const windowWidth = Dimensions.get('screen').width;
 
-function SSentDetailsAfterAccepting(props) {
+function SSentDetailsAfterAccepting({navigation}) {
+        //poppins insert
+  const [loaded] = useFonts({
+    poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
+    poppins700: require('./../../assets/fonts/poppins-700.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
   return (
     <View style={styles.container}>
-      <View style={styles.backBtn1Row}>
-        <View style={styles.backBtn1}></View>
-        <Text style={styles.servicesRequest}>Services Request</Text>
-      </View>
+      <FlatList 
+        showsVerticalScrollIndicator={true}
+        ListHeaderComponent={ <View> 
+
+        {/* header */}
+          <View style={styles.backBtnRow}>
+
+                  <TouchableOpacity style={styles.backBtn}
+                   onPress={()=> navigation.goBack()}>
+                    <MaterialIconsIcon
+                      name="arrow_back"
+                      style={styles.backIcon}></MaterialIconsIcon>
+                  </TouchableOpacity>
+
+            <Text style={styles.servicesRequest}>Request Details</Text>
+          </View>
+
       <View style={styles.scrollAreaStack}>
         <View style={styles.scrollArea}>
           <ScrollView
@@ -52,16 +81,19 @@ function SSentDetailsAfterAccepting(props) {
                 <Text style={styles.statuslbl}>Status :</Text>
                 <Text style={styles.viewslbl}>Views :</Text>
               </View>
-              <Text style={styles.status}>17</Text>
-              <Text style={styles.completed2}>Completed</Text>
+              <Text style={styles.views}>17</Text>
+              <Text style={styles.status}>Completed</Text>
             </View>
+
             <View style={styles.group1Row}>
+            
               <View style={styles.group1}>
                 <Text style={styles.postedDatelbl}>Posted Date :</Text>
                 <Text style={styles.acceptedBylbl}>Accepted By :</Text>
                 <Text style={styles.acceptedOnlbl}>Accepted On :</Text>
                 <Text style={styles.completedOnlbl}>Completed On :</Text>
               </View>
+
               <View style={styles.postedDateColumn}>
                 <Text style={styles.postedDate}>20/12/2021</Text>
                 <Text style={styles.acceptedBy}>Manoja Gamage</Text>
@@ -73,7 +105,7 @@ function SSentDetailsAfterAccepting(props) {
         </View>
 
 
-        <ImageBackground
+        {/*<ImageBackground
           style={styles.ratingPanel}
           imageStyle={styles.ratingPanel_imageStyle}
           source={require("./../../assets/images/Gradient_KeixSfJ.png")}
@@ -98,10 +130,11 @@ function SSentDetailsAfterAccepting(props) {
             <FeatherIcon name="star" style={styles.star4}></FeatherIcon>
             <FeatherIcon name="star" style={styles.star5}></FeatherIcon>
           </View>
-        </ImageBackground>
+        </ImageBackground> */}
 
 
       </View>
+      </View>}/>
     </View>
   );
 }
@@ -111,38 +144,57 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "rgba(15,30,69,1)"
   },
-  backBtn1: {
+      backIcon:{
+        color: '#BBBDC1', 
+        fontSize: 30,
+        bottom:4,
+      },
+      // backBtnRow: {
+      //   height: 40,
+      //   flexDirection: "row",
+      //   marginTop: -300,
+      //   marginLeft: 15,
+      //   marginRight: 69,
+      // },
+
+  backBtn: {
     width: 40,
     height: 40,
-    backgroundColor: "#E6E6E6"
+    marginTop: 0,
+    marginLeft: 20,
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    borderWidth: 1, 
+    borderColor:'#BBBDC1', 
+    borderRadius: 12,  
   },
   servicesRequest: {
-    fontFamily: "poppins-regular",
-    color: "rgba(255,255,255,1)",
+    fontFamily: "poppinsregular",
     textAlign: "center",
-    marginLeft: 22,
-    marginTop: 10
+    marginLeft: 60,
+    marginTop: 5, 
+    color: "#9c8df0",
+    fontSize:18, letterSpacing:0.5, fontWeight: "bold"
   },
-  backBtn1Row: {
+  backBtnRow: {
     height: 40,
     flexDirection: "row",
     marginTop: 37,
     marginLeft: 15,
-    marginRight: 76
+    marginRight: 15,
   },
   scrollArea: {
     left: 0,
-    height: 969,
+    //height: 969,
     position: "absolute",
     right: 0,
     top: 0,
-    backgroundColor: "rgba(15,30,69,1)"
   },
   scrollArea_contentContainerStyle: {
-    height: 969
+    height: 800
   },
   reqTitle: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(216,148,255,1)",
     fontSize: 20,
     marginTop: 26,
@@ -160,7 +212,7 @@ const styles = StyleSheet.create({
   reqDescription: {
     top: 0,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(205,204,204,1)",
     textAlign: "justify",
     left: 0,
@@ -177,7 +229,7 @@ const styles = StyleSheet.create({
     top: 132,
     left: 48,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(220,162,76,1)",
     fontSize: 14
   },
@@ -188,7 +240,7 @@ const styles = StyleSheet.create({
     marginRight: 26
   },
   prioritylbl: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(210,205,205,1)"
   },
   priorityColor: {
@@ -200,7 +252,7 @@ const styles = StyleSheet.create({
     marginTop: 4
   },
   priorityLevel: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(210,205,205,1)",
     marginLeft: 8
   },
@@ -212,13 +264,13 @@ const styles = StyleSheet.create({
     marginRight: 14
   },
   tolbl: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(210,205,205,1)"
   },
   toWhome: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(210,205,205,1)",
-    marginLeft: 33
+    marginLeft: 90
   },
   tolblRow: {
     height: 21,
@@ -228,7 +280,7 @@ const styles = StyleSheet.create({
     marginRight: 14
   },
   attachmentslbl: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(210,205,205,1)",
     marginTop: 36,
     marginLeft: 31
@@ -244,33 +296,33 @@ const styles = StyleSheet.create({
   group2: {
     top: 0,
     left: 0,
-    width: 138,
+    width: 338,
     height: 52,
     position: "absolute",
-    justifyContent: "space-between"
+    justifyContent: "space-between", 
   },
   statuslbl: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(210,205,205,1)",
     width: 138
   },
   viewslbl: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(210,205,205,1)",
     width: 138
   },
-  status: {
-    top: 33,
-    left: 129,
+  views: {
+    top: 28,
+    left: 140,
     position: "absolute",
-    fontFamily: "poppins-regular",
-    color: "rgba(210,205,205,1)"
+    fontFamily: "poppinsregular",
+    color: "rgba(210,205,205,1)", 
   },
-  completed2: {
+  status: {
     top: 0,
-    left: 129,
+    left: 140,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(210,205,205,1)"
   },
   group2Stack: {
@@ -280,59 +332,58 @@ const styles = StyleSheet.create({
     marginLeft: 32
   },
   group1: {
-    width: 118,
-    height: 128
+    width: 130,
+    height: 128, 
   },
   postedDatelbl: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(210,205,205,1)",
     height: 21,
-    width: 110
   },
   acceptedBylbl: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(210,205,205,1)",
     height: 21,
-    width: 110,
     marginTop: 15
   },
   acceptedOnlbl: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(210,205,205,1)",
     height: 21,
-    width: 110,
     marginTop: 14
   },
   completedOnlbl: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(210,205,205,1)",
     height: 21,
-    width: 110,
-    marginTop: 15
+    marginTop: 15, 
   },
   postedDate: {
-    fontFamily: "poppins-regular",
-    color: "rgba(210,205,205,1)"
+    fontFamily: "poppinsregular",
+    color: "rgba(210,205,205,1)",
+    height: 21,
+    //width: 110,
   },
   acceptedBy: {
-    fontFamily: "poppins-700",
+    fontFamily: "poppins700",
     color: "rgba(210,205,205,1)",
-    marginTop: 15
+    marginTop: 15,
+    height: 21, 
   },
   acceptedDate: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(210,205,205,1)",
     marginTop: 14,
     marginLeft: 1
   },
   completedDate: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(210,205,205,1)",
-    marginTop: 15,
-    marginLeft: 1
+    marginTop: 10,
+    height: 21, 
   },
   postedDateColumn: {
-    width: 238,
+    width: 245,
     marginLeft: 11
   },
   group1Row: {
@@ -378,14 +429,14 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   loremIpsum1: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "#121212",
     textAlign: "center",
     marginTop: 7,
     marginLeft: 8
   },
   acceptedUserName1: {
-    fontFamily: "poppins-700",
+    fontFamily: "poppins700",
     color: "#121212",
     textAlign: "center",
     marginLeft: 12
@@ -419,8 +470,8 @@ const styles = StyleSheet.create({
     fontSize: 40
   },
   scrollAreaStack: {
-    height: 1032,
-    marginTop: 29
+    height: 850,
+    marginTop: 20, 
   }
 });
 

@@ -5,10 +5,10 @@ import {
   Image,
   ImageBackground,
   Text,
-  TouchableOpacity, 
-  TouchableHighlight, 
-  Dimensions, 
-  FlatList, 
+  TouchableOpacity,
+  TouchableHighlight,
+  Dimensions,
+  FlatList,
 } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
@@ -28,8 +28,8 @@ const windowHeight = Dimensions.get('screen').height;
 const windowWidth = Dimensions.get('window').width;
 
 
-function ViewItems({navigation}) {
-    //poppins insert
+function ViewItems({ navigation }) {
+  //poppins insert
   const [loaded] = useFonts({
     poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
     poppins700: require('./../../assets/fonts/poppins-700.ttf'),
@@ -39,209 +39,197 @@ function ViewItems({navigation}) {
     return null;
   }
   return (
-  <View style={styles.container}>
-      <FlatList 
+    <View style={styles.container}>
+      <FlatList
         showsVerticalScrollIndicator={true}
         ListHeaderComponent={
-       <View style={{height:1350}}>
-        <View style={styles.productImageStack}>
-          <ImageBackground
-          source={require("./../../assets/images/organic-avocados.jpg")}
-          resizeMode="cover"
-          style={styles.productImage}
-          imageStyle={styles.productImage_imageStyle}
-        >
+          <View style={{ height: 1350 }}>
+            <View style={styles.productImageStack}>
+              <ImageBackground
+                source={require("./../../assets/images/organic-avocados.jpg")}
+                resizeMode="cover"
+                style={styles.productImage}
+                imageStyle={styles.productImage_imageStyle}
+              >
 
-            <TouchableOpacity style={styles.backBtn}
-              onPress={()=> navigation.goBack()}>
-              <MaterialIconsIcon
-                name="arrow_back"
-                style={styles.backIcon}></MaterialIconsIcon>
-               {/*} <span class="material-icons">arrow_back</span>*/}
-            </TouchableOpacity>
+                <TouchableOpacity style={styles.backBtn}
+                  onPress={() => navigation.goBack()}>
+                  <MaterialIconsIcon
+                    name="arrow_back"
+                    style={styles.backIcon}></MaterialIconsIcon>
+                  {/*} <span class="material-icons">arrow_back</span>*/}
+                </TouchableOpacity>
 
-          <View style={styles.userImageCircleRow}>
-          
-            <TouchableOpacity style={styles.userImageCircle}> 
-              <Image
-                source={require("./../../assets/images/avatar-1.jpg")}
-                resizeMode="contain"
-                style={styles.userImage}
-              ></Image>
-            </TouchableOpacity>    
+                <View style={styles.userImageCircleRow}>
 
-            <View style={styles.slidingDots}>
-              <View style={styles.rect2}></View>
-              <View style={styles.rect3}></View>
-              <View style={styles.rect4}></View>
-              <View style={styles.rect5}></View>
-              <View style={styles.rect6}></View>
-            </View>    
-          </View>
-         </ImageBackground>
+                  <TouchableOpacity style={styles.userImageCircle}>
+                    <Image
+                      source={require("./../../assets/images/avatar-1.jpg")}
+                      resizeMode="contain"
+                      style={styles.userImage}
+                    ></Image>
+                  </TouchableOpacity>
 
-          <View style={styles.userDetails}>
-            <View style={styles.userNameStack}>
-              <Text style={styles.userName}>Natasha Perera</Text>
-              <Text style={styles.posetedDate}>21/12/20</Text>
-          </View>
-        </View>
-
-            <View style={styles.anemanda}>
-  
-          <Text style={styles.itemName}>Avocado</Text>
-          <View style={styles.cateIconRow}>
-            <Image
-              source={require("./../../assets/icons/foods.png")}
-              resizeMode="contain"
-              style={styles.cateIcon}
-            ></Image>
-            <Text style={styles.cateName}>Food &amp; Drinks</Text>
-          </View>
-          <Text style={styles.itemDescription}>
-            Fresh avocado that plucked from our home garden. 500g harvest have
-            been collected.A description about the product thatuser sells.
-          </Text>
-          <View style={styles.totalAmountlblRow}>
-            <Text style={styles.totalAmountlbl}>Total Amount</Text>
-            <View style={styles.totalAmountlblFiller}></View>
-            <Text style={styles.totalAmount}>550g</Text>
-          </View>
-          <View style={styles.forCashlblRow}>
-            <Text style={styles.forCashlbl}>For Cash</Text>
-            <View style={styles.forCashlblFiller}></View>
-            <Text style={styles.price}>Rs.30/100g</Text>
-          </View>
-
-          <View style ={{height: 1, marginVertical: 9, marginHorizontal: 12, backgroundColor: "rgba(175,172,172,1)",}}></View>
-
-
-          <View style={styles.contactGroups}>
-            <TouchableOpacity style={styles.addFavBtn}>
-            <FeatherIcon name="heart" style={styles.favIcon}></FeatherIcon></TouchableOpacity>
-
-            <TouchableOpacity style={styles.callBtn}>
-            <FeatherIcon name="phone" style={styles.callIcon}></FeatherIcon></TouchableOpacity>
-
-            <TouchableOpacity style={styles.msgBtn}>
-            <FeatherIcon
-              name="message-square"
-              style={styles.msgIcon}
-            ></FeatherIcon>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.sendReqBtn}>
-            <FontAwesomeIcon
-              name="share-square-o"
-              style={styles.sendReqIcon}
-            ></FontAwesomeIcon>
-            </TouchableOpacity>
-          </View>
-
-
-          <View style={styles.mapViewStackStack}>
-            <View style={styles.mapViewStack}>
-              <MapView
-                provider={MapView.PROVIDER_GOOGLE}
-                initialRegion={{
-                  latitude: 37.78825,
-                  longitude: -122.4324,
-                  latitudeDelta: 0.0922,
-                  longitudeDelta: 0.0421
-                }}
-                customMapStyle={[]}
-                style={styles.mapView}
-              ></MapView>
-              <EntypoIcon
-                name="location-pin"
-                style={styles.locationIcon}
-              ></EntypoIcon>
-              <Image
-                source={require("./../../assets/images/avatar-1.jpg")}
-                resizeMode="contain"
-                style={styles.userLocation}
-              ></Image>
-            
-            </View>
-            <Text style={styles.viewOnTheMap}>View on the map</Text>
-          </View>
-
-
-
-
-          <View style={styles.rect1}>
-            <Text style={styles.similarResults}>Similar results</Text>
-          </View>
-
-      
-
-<FlatList
-          data={dummyData.itemsSearchList}
-          keyExtractor={(item) => `${item.id}`}
-          showsHorizontalScrollIndicator={false}
-          horizontal
-style={{marginHorizontal:10,}}
-          renderItem={({ item, index }) => {
-            return ( 
-
-            <View >
-            <View style={styles.productsCardStack}>
-                <LinearGradient
-                    colors={['#3b3b4a', '#212126', '#3b3b4a']}
-                    style={styles.productsCard}
-                  >
-
-                <ImageBackground
-                  source={require("./../../assets/images/organic-avocados.jpg")}
-                  resizeMode="cover"
-                  style={styles.productImage1}
-                  imageStyle={styles.productImage1_imageStyle}
-                >
-                  <IoniconsIcon
-                    name="md-heart"
-                    style={styles.favIcon1}
-                  ></IoniconsIcon>
-                </ImageBackground>
-
-                  <View style={styles.productNameStackStack}>
-                    <View style={styles.productNameStack}>
-                      <Text style={styles.productName}>Avocado</Text>
-                      <Image
-                        source={require("./../../assets/icons/foods.png")}
-                        resizeMode="contain"
-                        style={styles.cateIcon1}
-                      ></Image>
-                    </View>
-                    <Text style={styles.cateName1}>
-                      Electronics &amp; Electrics
-                    </Text>
+                  <View style={styles.slidingDots}>
+                    <View style={styles.rect2}></View>
+                    <View style={styles.rect3}></View>
+                    <View style={styles.rect4}></View>
+                    <View style={styles.rect5}></View>
+                    <View style={styles.rect6}></View>
                   </View>
-                  <View style={styles.transactionMethod1Stack}>
-                    <Text style={styles.transactionMethod1}>For Cash</Text>
-                    <Text style={styles.price1}>Rs.30/100g</Text>
+                </View>
+              </ImageBackground>
+
+              <View style={styles.userDetails}>
+                <View style={styles.userNameStack}>
+                  <Text style={styles.userName}>Natasha Perera</Text>
+                  <Text style={styles.posetedDate}>21/12/20</Text>
+                </View>
+              </View>
+
+              <View style={styles.anemanda}>
+
+                <Text style={styles.itemName}>Avocado</Text>
+                <View style={styles.cateIconRow}>
+                  <Image
+                    source={require("./../../assets/icons/foods.png")}
+                    resizeMode="contain"
+                    style={styles.cateIcon}
+                  ></Image>
+                  <Text style={styles.cateName}>Food &amp; Drinks</Text>
+                </View>
+                <Text style={styles.itemDescription}>
+                  Fresh avocado that plucked from our home garden. 500g harvest have
+                  been collected.A description about the product thatuser sells.
+                </Text>
+                <View style={styles.totalAmountlblRow}>
+                  <Text style={styles.totalAmountlbl}>Total Amount</Text>
+                  <View style={styles.totalAmountlblFiller}></View>
+                  <Text style={styles.totalAmount}>550g</Text>
+                </View>
+                <View style={styles.forCashlblRow}>
+                  <Text style={styles.forCashlbl}>For Cash</Text>
+                  <View style={styles.forCashlblFiller}></View>
+                  <Text style={styles.price}>Rs.30/100g</Text>
+                </View>
+
+                <View style={{ height: 1, marginVertical: 9, marginHorizontal: 12, backgroundColor: "rgba(175,172,172,1)", }}></View>
+
+
+                <View style={styles.contactGroups}>
+                  <TouchableOpacity style={styles.addFavBtn}>
+                    <FeatherIcon name="heart" style={styles.favIcon}></FeatherIcon></TouchableOpacity>
+
+                  <TouchableOpacity style={styles.callBtn}>
+                    <FeatherIcon name="phone" style={styles.callIcon}></FeatherIcon></TouchableOpacity>
+
+                  <TouchableOpacity style={styles.msgBtn}>
+                    <FeatherIcon
+                      name="message-square"
+                      style={styles.msgIcon}
+                    ></FeatherIcon>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity style={styles.sendReqBtn}>
+                    <FontAwesomeIcon
+                      name="share-square-o"
+                      style={styles.sendReqIcon}
+                    ></FontAwesomeIcon>
+                  </TouchableOpacity>
+                </View>
+
+
+                <View style={styles.mapViewStackStack}>
+                  <View style={styles.mapViewStack}>
+                    <MapView
+                      provider={MapView.PROVIDER_GOOGLE}
+                      initialRegion={{
+                        latitude: 37.78825,
+                        longitude: -122.4324,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421
+                      }}
+                      customMapStyle={[]}
+                      style={styles.mapView}
+                    ></MapView>
+                    <EntypoIcon
+                      name="location-pin"
+                      style={styles.locationIcon}
+                    ></EntypoIcon>
+                    <Image
+                      source={require("./../../assets/images/avatar-1.jpg")}
+                      resizeMode="contain"
+                      style={styles.userLocation}
+                    ></Image>
+
                   </View>
-                </LinearGradient>
+                  <Text style={styles.viewOnTheMap}>View on the map</Text>
+                </View>
 
+                <View style={styles.rect1}>
+                  <Text style={styles.similarResults}>Similar results</Text>
+                </View>
 
+                <FlatList
+                  data={dummyData.itemsSearchList}
+                  keyExtractor={(item) => `${item.id}`}
+                  showsHorizontalScrollIndicator={false}
+                  horizontal
+                  style={{ marginHorizontal: 10, }}
+                  renderItem={({ item, index }) => {
+                    return (
 
+                      <View >
+                        <TouchableOpacity style={styles.productsCardStack}>
+                          <LinearGradient
+                            colors={['#3b3b4a', '#212126', '#3b3b4a']}
+                            style={styles.productsCard}
+                          >
+
+                            <ImageBackground
+                              source={require("./../../assets/images/organic-avocados.jpg")}
+                              resizeMode="cover"
+                              style={styles.productImage1}
+                              imageStyle={styles.productImage1_imageStyle}
+                            >
+                              <IoniconsIcon
+                                name="md-heart"
+                                style={styles.favIcon1}
+                              ></IoniconsIcon>
+                            </ImageBackground>
+
+                            <View style={styles.productNameStackStack}>
+                              <View style={styles.productNameStack}>
+                                <Text style={styles.productName}>Avocado</Text>
+                                <Image
+                                  source={require("./../../assets/icons/foods.png")}
+                                  resizeMode="contain"
+                                  style={styles.cateIcon1}
+                                ></Image>
+                              </View>
+                              <Text style={styles.cateName1}>
+                                Electronics &amp; Electrics
+                              </Text>
+                            </View>
+                            <View style={styles.transactionMethod1Stack}>
+                              <Text style={styles.transactionMethod1}>For Cash</Text>
+                              <Text style={styles.price1}>Rs.30/100g</Text>
+                            </View>
+                          </LinearGradient>
+
+                        </TouchableOpacity>
+                      </View>
+                    )
+                  }} />
+              </View>
             </View>
-            </View>
-)}}/>
-              
+            <View style={{ marginTop: 110 }}></View>
+          </View>
+        } />
 
-       
-        </View>
-
-
-
-        </View>
-<View style={{marginTop:110}}></View>
-       </View>
-      }/>
-
-       <FixedFooterOrderItem
-                style={styles.fixedFooterOrderItem}
-              ></FixedFooterOrderItem>
+      <FixedFooterOrderItem
+        style={styles.fixedFooterOrderItem}
+      ></FixedFooterOrderItem>
     </View>
   );
 }
@@ -249,7 +237,7 @@ style={{marginHorizontal:10,}}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(21,31,40,1)", elevation:0,
+    backgroundColor: "rgba(21,31,40,1)", elevation: 0,
   },
   productImage: {
     top: 0,
@@ -258,28 +246,28 @@ const styles = StyleSheet.create({
     right: 0
   },
   productImage_imageStyle: {},
- backBtn: {
+  backBtn: {
     width: 40,
     height: 40,
     marginTop: 19,
     marginLeft: 20,
-    alignItems: 'center', 
-    justifyContent: 'center', 
-    borderWidth: 1, 
-    borderColor:'#BBBDC1', 
-    borderRadius: 12,  
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#BBBDC1',
+    borderRadius: 12,
   },
-   backIcon:{
-    color: '#BBBDC1', 
+  backIcon: {
+    color: '#BBBDC1',
     fontSize: 30,
-    bottom:4,
+    bottom: 4,
   },
   userImageCircle: {
     width: 50,
     height: 50,
     borderRadius: 25,
     backgroundColor: "#9c8df0",
-    elevation:1,
+    elevation: 1,
   },
   userImage: {
     width: 35,
@@ -291,8 +279,8 @@ const styles = StyleSheet.create({
     width: 88,
     height: 10,
     flexDirection: "row",
-    justifyContent: "space-between", alignItems:'center',
-    marginLeft:80,
+    justifyContent: "space-between", alignItems: 'center',
+    marginLeft: 80,
     marginTop: 2
   },
   rect2: {
@@ -335,14 +323,14 @@ const styles = StyleSheet.create({
   userDetails: {
     top: 325,
     left: 0,
-    marginBottom:0,
+    marginBottom: 0,
     height: 70,
     position: "absolute",
     backgroundColor: "#9c8df0",
     borderTopRightRadius: 36,
-    borderTopLeftRadius:36, 
-    right: 0, 
-    bottom:0,
+    borderTopLeftRadius: 36,
+    right: 0,
+    bottom: 0,
   },
   userName: {
     top: 0,
@@ -350,8 +338,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
-    right: 100, 
-    marginHorizontal:30,
+    right: 100,
+    marginHorizontal: 30,
   },
   posetedDate: {
     top: 0,
@@ -365,21 +353,21 @@ const styles = StyleSheet.create({
     height: 21,
     marginTop: 21,
   },
-  anemanda:{
-    backgroundColor:"rgba(21,31,40,1)", 
-    top:30,
-    borderTopRightRadius:36, 
-    borderTopLeftRadius:36, 
+  anemanda: {
+    backgroundColor: "rgba(21,31,40,1)",
+    top: 30,
+    borderTopRightRadius: 36,
+    borderTopLeftRadius: 36,
     width: windowWidth,
-    padding:5 
+    padding: 5
   },
   itemName: {
     fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     fontSize: 22,
     marginTop: 15,
-    marginLeft: 31, 
-    marginRight:15, 
+    marginLeft: 31,
+    marginRight: 15,
   },
   cateIcon: {
     width: 17,
@@ -443,15 +431,15 @@ const styles = StyleSheet.create({
     width: 140,
     textAlign: "right",
     fontSize: 16,
-    height: 25, 
+    height: 25,
   },
   forCashlblRow: {
-    height:25, 
+    height: 25,
     flexDirection: "row",
     marginTop: 18,
     marginBottom: 20,
     marginLeft: 38,
-    marginRight: 50, 
+    marginRight: 50,
   },
   contactGroups: {
     height: 50,
@@ -542,7 +530,7 @@ const styles = StyleSheet.create({
     elevation: 0,
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    borderRadius: 15, alignItems:'center',
+    borderRadius: 15, alignItems: 'center',
   },
   sendReqIcon: {
     top: 10,
@@ -589,7 +577,7 @@ const styles = StyleSheet.create({
     left: 0,
     height: 139,
     position: "absolute",
-    right: 0, 
+    right: 0,
   },
   viewOnTheMap: {
     top: 0,
@@ -600,8 +588,8 @@ const styles = StyleSheet.create({
   },
   mapViewStackStack: {
     height: 150,
-    marginTop: 30, 
-    marginBottom:30, 
+    marginTop: 30,
+    marginBottom: 30,
   },
   rect1: {
     height: 55,
@@ -635,13 +623,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 10,
     left: 0,
-    overflow: "hidden", 
- 
+    overflow: "hidden",
+
   },
   productsCardStack: {
     width: 154,
     height: 279,
-    marginRight:15,
+    marginRight: 15,
   },
   productName: {
     top: 0,
@@ -708,7 +696,7 @@ const styles = StyleSheet.create({
     height: 166,
     position: "absolute",
     borderRadius: 20,
-    overflow: "hidden", 
+    overflow: "hidden",
   },
   productImage1_imageStyle: {},
   favIcon1: {

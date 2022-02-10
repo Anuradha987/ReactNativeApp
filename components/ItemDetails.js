@@ -6,7 +6,7 @@ function ItemDetails(props) {
     <TouchableOpacity style={[styles.container, props.style]}>
       <View style={styles.imageRow}>
         <Image
-          source={require("../assets/images/shoes1.jpg")}
+          source={require("../assets/images/shoes.jpg")}
           resizeMode="cover"
           style={styles.image}
         ></Image>

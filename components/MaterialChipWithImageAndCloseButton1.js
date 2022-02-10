@@ -6,7 +6,7 @@ function MaterialChipWithImageAndCloseButton1(props) {
   return (
     <View style={[styles.container, props.style]}>
       <Image
-        source={require("../assets/images/cardImage1.png")}
+        source={require("../assets/images/cardImage.png")}
         style={styles.leftImage}
       ></Image>
       <Text style={styles.chipText}>Example Chip</Text>
