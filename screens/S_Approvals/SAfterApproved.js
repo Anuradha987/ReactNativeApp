@@ -104,7 +104,7 @@ function SAfterApproved({ navigation }) {
             </View>
 
             <View style={styles.toRow}>
-              <Text style={styles.to}>To :</Text>
+              <Text style={styles.tolbl}>To :</Text>
               <Text style={styles.toWhom}>Public</Text>
             </View>
 
@@ -369,9 +369,9 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(194,163,254,1)',
     marginTop: 16,
     marginLeft: 37,
-    marginRight: 38,
+    marginRight: 37,
   },
-  to: {
+  tolbl: {
     fontFamily: 'poppinsregular',
     color: 'rgba(214,214,214,1)',
     width: 62, 
