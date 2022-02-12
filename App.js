@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 // import thunk from 'redux-thunk;'
 import rootReducer from "./stores/rootReducer";
 import ReduxThunk from 'redux-thunk'
+import {ViewItems} from './screens/index';
 
 const Stack = createStackNavigator();
 
@@ -21,16 +22,11 @@ const App = () => {
         <Provider store={store}>
             <NavigationContainer>
             <StatusBar barStyle="light-content" />
-                <Stack.Navigator
-                    screenOptions={{
-                        headerShown: false
-                    }}
-                    initialRouteName={'Notice Board'}
+                <Stack.Navigator screenOptions={{ headerShown: false }}
+                                 initialRouteName={'Notice Board'}
                 >
-                    <Stack.Screen
-                        name="Notice Board"
-                        component={CustomDrawer}
-                    />
+                    <Stack.Screen name="Notice Board" component={CustomDrawer} />
+                    <Stack.Screen name="ViewItems" component={ViewItems} />
                 </Stack.Navigator>
             </NavigationContainer>
         </Provider>
