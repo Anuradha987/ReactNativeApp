@@ -21,7 +21,7 @@ const categories = [
         icon: require("../assets/icons/Agricultural.png")
     },
     {
-        id: 23,
+        id: 3,
         name: "Business &\nFinance",
         icon: require("../assets/icons/business.png")
     },
@@ -155,7 +155,8 @@ const orderOrRequestStatus=[
         reqStatus: "Accepted",
     }, 
     {
-        //When the recieved request/order hasn't accepted or rejected by anyone. Simply when you publish a request or an order, its initial status willbe saved as 'Pending'
+        //When the recieved request/order hasn't accepted or rejected by anyone. 
+        //Simply when you publish a request or an order, its initial status willbe saved as 'Pending'
         id:2, 
         reqStatus: "Pending",
     }, 

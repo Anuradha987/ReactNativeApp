@@ -12,8 +12,9 @@ import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import { dummyData } from "../../constants";
+import { useNavigation } from '@react-navigation/native';
 
-const S_Requests = () => {
+const S_Requests = ({Navigation}) => {
   return (
     <View style={styles.container}>
       <FlatList 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { createDrawerNavigator, DrawerContentScrollView} from '@react-navigation/drawer'
-import {DB_MainLayout, S_MainLayout, B_MainLayout, I_MainLayout} from '../screens'; 
+import {DB_MainLayout, S_MainLayout, B_MainLayout, I_MainLayout, I_Search, ViewItems} from '../screens'; 
 import {COLORS, FONTS, SIZES, constants, icons, dummyData} from '../constants';
 import Animated from 'react-native-reanimated';
 import { connect } from 'react-redux';
@@ -49,7 +49,7 @@ const CustomDrawerContent = ({navigation, selectedTab, setSelectedTab}) => {
 
                 {/* profile */}
                 <TouchableOpacity style={{flexDirection: 'row', marginTop: SIZES.radius, alignItems: 'center',}}
-                                  onPress={()=> console.log('profile')}
+                                  onPress={()=> navigation.navigate('MyProfile')}
                 >
                     <Image source={dummyData.myProfile?.profile_image}
                            style ={{width: 50, height:50, borderRadius: SIZES.radius }}
@@ -227,6 +227,7 @@ function drawerColor(){
                 <Drawer.Screen name="B_MainLayout">
                     {props => <B_MainLayout {...props} drawerAnimationStyle = {animatedStyle} />}
                 </Drawer.Screen>
+
                 {/* ------------------------------------------------------------------------------------------------------------------ */}
             </Drawer.Navigator>
         </View>

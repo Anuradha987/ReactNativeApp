@@ -60,10 +60,12 @@ import B_Approvals from './B_Approvals/B_Approvals'
 
 
 import S_RequestsDetails from './S_Requests/S_RequestsDetails';
+import ViewItems from './I_Search/ViewItems';
 
 export {
     DB_MainLayout,
     S_RequestsDetails,
+    ViewItems,
 
     S_MainLayout,
     S_Search,

@@ -41,6 +41,7 @@ const I_Requests = () => {
             data={dummyData.itemSalesHistory}
             keyExtractor={(item) => `${item.id}`}
             showsVerticalScrollIndicator={true}
+            //onPress = {()=> naviga}
             renderItem={({ item, index }) => {
                 return (
                     <View>

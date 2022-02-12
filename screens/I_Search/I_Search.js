@@ -22,7 +22,7 @@ const windowHeight = Dimensions.get('screen').height;
 import 'react-native-gesture-handler';
  import appNavigaiton from './../../navigation/appNavigaiton';
 
-const I_Search = () => {
+const I_Search = (props) => {
 
    const navigation = useNavigation();
   const [selectedCatergoryId, setSelectedCategoryId] = React.useState(dummyData.categories)
@@ -162,7 +162,7 @@ const pressHandler = () => {
 
       <View style={styles.addNewReqStack}>
         <TouchableOpacity
-          //  onPress={() =>props.navigation.navigate("ViewItems")}
+            onPress={() =>navigation.navigate("ViewItems")}
           style={styles.addNewReq}
         ></TouchableOpacity>
         {/* <Text style={styles.add}>+</Text> */}
