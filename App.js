@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 // import thunk from 'redux-thunk;'
 import rootReducer from "./stores/rootReducer";
 import ReduxThunk from 'redux-thunk'
-import {ViewItems} from './screens/index';
+import {SSentDetailsAfterAccepting,ViewItems, SAfterApproved, SAfterCompleted, S_RequestsDetails, MyProfile, NewReqForm, UserProfile, } from './screens/index';
 
 const Stack = createStackNavigator();
 
@@ -26,7 +26,9 @@ const App = () => {
                                  initialRouteName={'Notice Board'}
                 >
                     <Stack.Screen name="Notice Board" component={CustomDrawer} />
+
                     <Stack.Screen name="ViewItems" component={ViewItems} />
+                    <Stack.Screen name="NewReqForm" component={NewReqForm} />
                 </Stack.Navigator>
             </NavigationContainer>
         </Provider>

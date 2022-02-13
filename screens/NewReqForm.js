@@ -48,7 +48,7 @@ function NewReqForm(props) {
       <TextInput
         placeholder=""
         clearButtonMode="while-editing"
-        maxLength={"null"}
+       // maxLength={"null"}
         numberOfLines={4}
         multiline={true}
         autoCapitalize="sentences"
@@ -60,7 +60,7 @@ function NewReqForm(props) {
         placeholder=""
         clearButtonMode="while-editing"
         returnKeyType="next"
-        maxLength={"null"}
+        //maxLength={"null"}
         style={styles.placeholder3}
       ></TextInput>
       <Text style={styles.priority}>Priority *</Text>
@@ -69,7 +69,7 @@ function NewReqForm(props) {
         placeholder=""
         clearButtonMode="while-editing"
         returnKeyType="done"
-        maxLength={"null"}
+       // maxLength={"null"}
         style={styles.locationtxt}
       ></TextInput>
       <Text style={styles.attachmentslbl}>Attachments</Text>
@@ -77,7 +77,7 @@ function NewReqForm(props) {
         <TextInput
           placeholder=""
           returnKeyType="done"
-          maxLength={"null"}
+         // maxLength={"null"}
           style={styles.attachmentstxt}
         ></TextInput>
         <MaterialChipWithImageAndCloseButton
@@ -275,7 +275,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "rgba(255,0,246,1)",
     left: 0,
-    inlineImageLeft: "",
     fontSize: 15
   },
   materialChipWithImageAndCloseButton: {

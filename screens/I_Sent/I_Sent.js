@@ -90,7 +90,10 @@ const I_Sent = () => {
                        // <View style={styles.scrollArea_contentContainerStyle}>
                     <View >
                       {/* item details  */}
-                      <TouchableOpacity style={styles.itemDetailsCardStack}>
+                      <TouchableOpacity style={styles.itemDetailsCardStack}
+                                        onPress={()=>{}}  //press viewitems
+                                        onLongPress={()=>{}} //edit,cancel or delete order popup boxes
+                      >
                         <View style={styles.itemDetailsCard}>
                           {/* item name */}
                           <Text style={styles.reqTitle}>{item.reqTitle}</Text>

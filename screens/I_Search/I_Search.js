@@ -22,14 +22,11 @@ const windowHeight = Dimensions.get('screen').height;
 import 'react-native-gesture-handler';
  import appNavigaiton from './../../navigation/appNavigaiton';
 
-const I_Search = (props) => {
+const I_Search = () => {
 
-   const navigation = useNavigation();
+    const navigation = useNavigation();
   const [selectedCatergoryId, setSelectedCategoryId] = React.useState(dummyData.categories)
-  
-const pressHandler = () => {
-  navigation.navigate('ViewItems')
-}
+
   function onSelectCategory(category) {
     let categoryList = dummyData.categories.filter(a => a.selectedCatergoryId.includes(category.id))
     setSelectedCategoryId(categoryList)    
@@ -58,7 +55,8 @@ const pressHandler = () => {
             return (
               <TouchableOpacity style={[styles.categories, selectedCatergoryId == item.id && styles.SelectedCategories]}
                 // onPress={() => {setSelectedCategoryId(item.id)}}
-                onPress={() => onSelectCategory(item)}
+                // onPress={() => onSelectCategory(item)}
+                onPress ={()=>navigation.navigate('ViewItems')}
               >
                 <View style={styles.cateRoundRow}>
                   <View style={styles.cateRound}>
@@ -115,10 +113,7 @@ const pressHandler = () => {
           renderItem={({ item, index }) => {
             return (
               
-              <TouchableWithoutFeedback style={styles.product1Group}
-              // pressHandler
-                   onPress = {pressHandler}
-              >
+              <TouchableWithoutFeedback style={styles.product1Group}>
                 <View style={styles.products1Stack}>
                   <LinearGradient
                     colors={['#3b3b4a', '#212126', '#3b3b4a']}
@@ -162,7 +157,7 @@ const pressHandler = () => {
 
       <View style={styles.addNewReqStack}>
         <TouchableOpacity
-            onPress={() =>navigation.navigate("ViewItems")}
+            onPress={() =>navigation.navigate("NewReqForm")}
           style={styles.addNewReq}
         ></TouchableOpacity>
         {/* <Text style={styles.add}>+</Text> */}

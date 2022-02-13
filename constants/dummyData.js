@@ -177,7 +177,7 @@ const orderOrRequestStatus=[
     }, 
     {
         //When the sender cancel the request or the order by simply clicking on the cancel order button, the status is set to cancelled by you. 
-        id:5, 
+        id:6, 
         reqStatus: "Cancelled By You",
     }, 
 ]
