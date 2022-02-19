@@ -12,6 +12,7 @@ import {
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialIconsIcon from 'react-native-vector-icons/MaterialIcons';
+import Icon from "react-native-vector-icons/SimpleLineIcons";
 import { useFonts } from 'expo-font';
 const windowHeight = Dimensions.get('screen').height;
 const windowWidth = Dimensions.get('screen').width;
@@ -87,9 +88,7 @@ return(
 
               <TouchableOpacity style={styles.backBtn}
                 onPress={()=> navigation.goBack()}>
-                <MaterialIconsIcon
-                  name="arrow_back"
-                  style={styles.backIcon}></MaterialIconsIcon>
+                  <Icon name="arrow-left" style={styles.backIcon}></Icon>
               </TouchableOpacity>
 
         <Text style={styles.servicesRequest}>Request Details</Text>
@@ -148,7 +147,7 @@ return(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgba(15,30,69,1)',
+    backgroundColor: 'rgba(21,31,40,1)',
   },
   contactInfoBox: {
     height: 167,
@@ -297,8 +296,7 @@ const styles = StyleSheet.create({
   },
   backIcon:{
     color: '#BBBDC1', 
-    fontSize: 30,
-    bottom:4,
+    fontSize: 20,
   },
   servicesRequest: {
     fontFamily: "poppinsregular",

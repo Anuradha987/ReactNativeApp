@@ -17,6 +17,7 @@ import { useFonts } from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import Icon from "react-native-vector-icons/SimpleLineIcons";
 import I_My from './I_My/I_My';
 import S_My from './S_My/S_My';
 
@@ -52,9 +53,7 @@ function UserProfile(props) {
           >
            <TouchableOpacity style={styles.backBtn}
                              onPress={()=> navigation.goBack()}>
-             <MaterialIconsIcon
-                name="arrow_back"
-                style={styles.backIcon}></MaterialIconsIcon>
+             <Icon name="arrow-left" style={styles.backIcon}></Icon>
           </TouchableOpacity>
 
           </ImageBackground>
@@ -215,8 +214,7 @@ rect1Row: { backgroundColor: 'white', height: 43, marginTop: 769 },
   },
   backIcon:{
     color: '#BBBDC1', 
-    fontSize: 30,
-    bottom:4,
+    fontSize: 20,
   },
   profileImage: {
     top: 134,

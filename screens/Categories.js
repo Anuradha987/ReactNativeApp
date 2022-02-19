@@ -4,6 +4,7 @@ import { useFonts } from 'expo-font';
 import dummyData from '../constants/dummyData'
 const windowHeight = Dimensions.get('screen').height;
 const windowWidth = Dimensions.get('window').width;
+import Icon from "react-native-vector-icons/SimpleLineIcons";
 
 function Categories(props) {
     //poppins insert
@@ -19,7 +20,10 @@ function Categories(props) {
     <View style={styles.container}>
 
       <View style={styles.backBtnRow}>
-        <View style={styles.backBtn}></View>
+      <TouchableOpacity style={styles.backBtn}
+                  onPress={() => navigation.goBack()}>
+                  <Icon name="arrow-left" style={styles.backIcon}></Icon>
+      </TouchableOpacity>
         <Text style={styles.text}>Categories</Text>
       </View>
 
@@ -138,7 +142,17 @@ const styles = StyleSheet.create({
   backBtn: {
     width: 40,
     height: 40,
-    backgroundColor: "#E6E6E6"
+    marginTop: 0,
+    marginLeft: 20,
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    borderWidth: 1, 
+    borderColor:'#BBBDC1', 
+    borderRadius: 12, 
+  },
+  backIcon:{
+    color: '#BBBDC1', 
+    fontSize: 20,
   },
 });
 

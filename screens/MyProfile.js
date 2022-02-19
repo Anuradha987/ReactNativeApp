@@ -14,6 +14,7 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import MapView from 'react-native-maps';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import MaterialIconsIcon from 'react-native-vector-icons/MaterialIcons';
+import Icon from "react-native-vector-icons/SimpleLineIcons";
 import { useFonts } from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -52,9 +53,7 @@ function MyProfile(props) {
 
                 <TouchableOpacity style={styles.backBtn}
                     onPress={()=> navigation.goBack()}>
-                   <MaterialIconsIcon
-                      name="arrow_back"
-                      style={styles.backIcon}></MaterialIconsIcon>
+                        <Icon name="arrow-left" style={styles.backIcon}></Icon>
                 </TouchableOpacity>
 
                 </ImageBackground>
@@ -192,7 +191,7 @@ function MyProfile(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgba(15,30,69,1)',
+    backgroundColor: 'rgba(21,31,40,1)',
   },
   rect1Row: {height: 43, marginTop: 769 },
   coverImage: {
@@ -216,8 +215,7 @@ const styles = StyleSheet.create({
   },
   backIcon:{
     color: '#BBBDC1', 
-    fontSize: 30,
-    bottom:4,
+    fontSize: 20,
   },
   profileImage: {
     top: 134,

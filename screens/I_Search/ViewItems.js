@@ -16,6 +16,7 @@ import MapView from "react-native-maps";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import FixedFooterOrderItem from "./../../components/FixedFooterOrderItem";
 import MaterialIconsIcon from 'react-native-vector-icons/MaterialIcons';
+import Icon from "react-native-vector-icons/SimpleLineIcons";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
 //import { SliderBox } from "react-native-image-slider-box";
 //import ImageSlider from 'react-native-image-slider';
@@ -54,10 +55,7 @@ function ViewItems({ navigation }) {
 
                 <TouchableOpacity style={styles.backBtn}
                   onPress={() => navigation.goBack()}>
-                  <MaterialIconsIcon
-                    name="arrow_back"
-                    style={styles.backIcon}></MaterialIconsIcon>
-                  {/*} <span class="material-icons">arrow_back</span>*/}
+                  <Icon name="arrow-left" style={styles.backIcon}></Icon>
                 </TouchableOpacity>
 
                 <View style={styles.userImageCircleRow}>
@@ -259,8 +257,7 @@ const styles = StyleSheet.create({
   },
   backIcon: {
     color: '#BBBDC1',
-    fontSize: 30,
-    bottom: 4,
+    fontSize: 20,
   },
   userImageCircle: {
     width: 50,
