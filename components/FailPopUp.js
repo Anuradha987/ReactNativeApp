@@ -2,23 +2,22 @@ import React, { Component } from "react";
 import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
 
-function SuccessPopUp(props) {
+function FailPopUp(props) {
   return (
     <View style={[styles.container, props.style]}>
       
   <View style={styles.box}> 
   <TouchableOpacity style={styles.closeBtnStack}><Icon name="circle-with-cross" style={styles.closeBtn}></Icon></TouchableOpacity>
-      <View style={styles.successImageStack}>
+      <View style={styles.failureImageStack}>
           <Image
-            source={require("../assets/images/success1.png")}
+            source={require("../assets/images/faiure1.png")}
             resizeMode="contain"
-            style={styles.successImage}
+            style={styles.failureImage}
           ></Image>    
       </View>
       
-      <Text style={styles.successMsg}>
-        Your request has been sent. Wait a few moments for the owner&#39;s
-        approval.
+      <Text style={styles.failureMsg}>
+        Oops...Something went wrong. {"\n"}Try again!
       </Text>
       <TouchableOpacity style={styles.okBtn}>
         <Text style={styles.okCool}>OK. COOL!</Text>
@@ -44,39 +43,40 @@ box:{
   top:20,
   width:'90%'
 },
-closeBtnStack:{
+closeBtnStack:
+{
   flexDirection:'row',
   alignSelf:'flex-end', 
   right:-20,
   top:-20,
 },
 closeBtn: {
-  color: "#63f066",
+  color: "#f76d6e",
   fontSize: 50,
   right: 8, 
 },
-successImageStack: {
+failureImageStack: {
   top:-20,
   height: 200,
   alignItems:'center', 
 },
-successImage: {
+failureImage: {
   width: 295,
   height: 180,
-  position: "absolute",
+  //position: "absolute",
 },
-successMsg: {
+failureMsg: {
   fontFamily: "poppins-regular",
   color: "rgba(188,188,188,1)",
-  textAlign: "justify",
-  marginHorizontal: 24
+  //textAlign: "justify",
+  marginHorizontal: 4
 },
 okBtn: {
   height: 46,
-  backgroundColor: "#63f066",
+  backgroundColor: "#f76d6e",
   borderRadius: 25,
   width: 200,
-  shadowColor: "rgba(99,240,102,1)",
+  shadowColor: "rgba(247,109,110,1)",
   shadowOffset: {
     width: 0,
     height: 0
@@ -95,4 +95,4 @@ okCool: {
 }
 });
 
-export default SuccessPopUp;
+export default FailPopUp;
