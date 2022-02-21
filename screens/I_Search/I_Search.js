@@ -43,6 +43,7 @@ const I_Search = () => {
   return (
     
     <View style={styles.container}>
+      
       <View>
         {/* horizontal scroll bar */}
         <FlatList
@@ -135,6 +136,7 @@ const I_Search = () => {
                     <Text style={styles.available}>{item.availability}</Text>
                     <Text style={styles.tradingMethod1}>{item.tradeMethod}</Text>
                     <Text style={styles.pricePerUnit}>{item.price} / {item.quantity}</Text>
+
                     {/* </ImageBackground> */}
                   </LinearGradient>
                   <ImageBackground

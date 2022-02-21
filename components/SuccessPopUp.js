@@ -1,8 +1,19 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
+import { useFonts } from 'expo-font';
 
 function SuccessPopUp(props) {
+    //poppins insert
+    const [loaded] = useFonts({
+      poppinsregular: require('../assets/fonts/Poppins-Regular.ttf'),
+      poppins700: require('../assets/fonts/poppins-700.ttf'),
+    });
+  
+    if (!loaded) {
+      return null;
+    }
+
   return (
     <View style={[styles.container, props.style]}>
       
@@ -66,7 +77,7 @@ successImage: {
   position: "absolute",
 },
 successMsg: {
-  fontFamily: "poppins-regular",
+  fontFamily: "poppinsregular",
   color: "rgba(188,188,188,1)",
   textAlign: "justify",
   marginHorizontal: 24
@@ -88,7 +99,7 @@ okBtn: {
   alignSelf:'center', 
 },
 okCool: {
-  fontFamily: "poppins-700",
+  fontFamily: "poppins700",
   color: "rgba(255,255,255,1)",
   textAlign: "center",
   marginTop: 14,

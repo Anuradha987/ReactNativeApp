@@ -6,18 +6,27 @@ import {
   TextInput,
   TouchableOpacity,
   Text,
-  Image
+  Image, 
 } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import mapStyle from "../../constants/MapStyle";
+import { dummyData} from '../../constants';
 
 const S_Search = ({ navigation, route }) => {
 
   const [selectedPlace, setSelectedPlace] = React.useState(null)
   const [selectedHotel, setSelectedHotel] = React.useState(null)
+
+  const [selectedCatergoryId, setSelectedCategoryId] = React.useState(dummyData.categories)
+
+  function onSelectCategory(category) {
+    let categoryList = dummyData.categories.filter(a => a.selectedCatergoryId.includes(category.id))
+    setSelectedCategoryId(categoryList)    
+  }
 
   // React.useEffect(() => {
   //   let { selectedPlace } = route.params;
@@ -26,6 +35,37 @@ const S_Search = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
+
+      <View>
+        {/* horizontal scroll bar */}
+        <FlatList
+          data={dummyData.categories}
+          keyExtractor={(item) => `${item.id}`}
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          style={styles.scrollbar}
+          renderItem={({ item, index }) => {
+            return (
+              <TouchableOpacity style={[styles.categories, selectedCatergoryId == item.id && styles.SelectedCategories]}
+                // onPress={() => {setSelectedCategoryId(item.id)}}
+                // onPress={() => onSelectCategory(item)}
+                onPress ={()=>navigation.navigate('ViewItems')}
+              >
+                <View style={styles.cateRoundRow}>
+                  <View style={styles.cateRound}>
+                    <Image
+                      source={item.icon}
+                      resizeMode="contain"
+                      style={styles.cateIcon2}
+                    ></Image>
+                  </View>
+                  <Text style={styles.cateName2}>{item.name}</Text>
+                </View>
+              </TouchableOpacity>
+            )
+          }}
+        />
+      </View>
 
       {/* search bar */}
       <View style={styles.searchingBarRow}>
@@ -85,6 +125,7 @@ const S_Search = ({ navigation, route }) => {
           ))} */}
         </MapView>
 
+
         {/* new request */}
         <TouchableOpacity
           onPress={() => props.navigation.navigate("NewReqForm")}
@@ -93,7 +134,7 @@ const S_Search = ({ navigation, route }) => {
         <Text style={styles.add}>+</Text>
 
         {/* expert pop up box */}
-        <TouchableOpacity style={styles.button}>
+        <View style={styles.button}>
           <View style={styles.endWrapperFiller}></View>
           <View style={styles.imageRowRowColumn}>
             <View style={styles.imageRowRow}>
@@ -117,6 +158,7 @@ const S_Search = ({ navigation, route }) => {
               <Text style={styles.service5Title}>Service 5 Title</Text>
               <Text style={styles.service4Title}>Service 4 Title</Text>
             </View>
+
             <View style={styles.rect}>
               <View style={styles.iconRow}>
                 {/* rate */}
@@ -124,18 +166,18 @@ const S_Search = ({ navigation, route }) => {
                   name="star"
                   style={styles.icon}
                 ></FontAwesomeIcon>
-                <Text style={styles.loremIpsum}>4.1</Text>
+                <Text style={styles.userRating}>4.1</Text>
               </View>
               <View style={styles.iconRowFiller}></View>
               <View style={styles.icon2Row}>
                 {/* expert contact */}
-                <FeatherIcon name="phone" style={styles.icon2}></FeatherIcon>
-                <FeatherIcon name="message-square" style={styles.icon3}></FeatherIcon>
-                <FontAwesomeIcon name="share-square-o" style={styles.icon4}></FontAwesomeIcon>
+                <FeatherIcon name="phone" style={styles.callIcon}></FeatherIcon>
+                <FeatherIcon name="message-square" style={styles.messageIcon}></FeatherIcon>
+                <FontAwesomeIcon name="share-square-o" style={styles.requestIcon}></FontAwesomeIcon>
               </View>
             </View>
           </View>
-        </TouchableOpacity>
+        </View>
 
 
         <View style={styles.rect3}>
@@ -148,6 +190,7 @@ const S_Search = ({ navigation, route }) => {
 
 
       </View>
+      
       <View style={{marginTop:160}}></View>
     </View>
   );
@@ -157,6 +200,68 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "rgba(21,31,40,1)"
+  }, 
+  scrollbar: {
+    height: 38,
+    marginTop: 97
+  },
+  scrollbar_contentContainerStyle: {
+    width: 390,
+    height: 35
+  }, categories: {
+    width: 120,
+    height: 35,
+    backgroundColor: "#9c8df0",
+    borderRadius: 15,
+    shadowColor: "rgba(0,0,0,1)",
+    shadowOffset: {
+      width: 3,
+      height: 3
+    },
+    elevation: 9,
+    shadowOpacity: 0.25,
+    shadowRadius: 3,
+    flexDirection: "row",
+    marginLeft: 11
+  },
+  SelectedCategories: {
+    backgroundColor: '#fff',
+  },
+  cateRound: {
+    width: 30,
+    height: 30,
+    backgroundColor: "rgba(81,81,81,0.69)",
+    borderRadius: 15,
+    shadowColor: "rgba(122,121,121,1)",
+    shadowOffset: {
+      width: 3,
+      height: 3
+    },
+    elevation: 15,
+    shadowOpacity: 1,
+    shadowRadius: 5
+  },
+  cateIcon2: {
+    width: 25,
+    height: 25,
+    marginTop: 2,
+    marginLeft: 2
+  },
+  cateName2: {
+    fontFamily: "poppinsregular",
+    color: "#121212",
+    fontSize: 10,
+    marginLeft: 4,
+    marginTop: -1,
+    textAlignVertical: 'center'
+  },
+  cateRoundRow: {
+    height: 30,
+    flexDirection: "row",
+    flex: 1,
+    marginRight: 2,
+    marginLeft: 3,
+    marginTop: 3
   },
   searchingBar: {
     height: 52,
@@ -226,15 +331,17 @@ const styles = StyleSheet.create({
   searchingBarRow: {
     height: 52,
     flexDirection: "row",
-    marginTop: 22,
+    marginTop: -110,
     marginLeft: 16,
     marginRight: 16
   },
   mapView: {
-    position: "absolute",
+   // position: "absolute",
+    flex:1,
     top: 0,
     left: 0,
-    height: 644,
+    //height: 644,
+    marginBottom:72,
     right: 0
   },
   addNewReq: {
@@ -273,14 +380,15 @@ const styles = StyleSheet.create({
     left: 8,
     position: "absolute",
     backgroundColor: "rgba(23,29,47,0.92)",
-    // backgroundColor: 'rgba(0, 0, 0, 0.5)',
     borderRadius: 6,
     borderWidth: 1,
     borderColor: "#000000",
-    height: 181,
-    bottom: 7,
+    height: 170,
+    bottom: 75,
     overflow: "scroll",
-    right: 118
+    right: 118, 
+    width:270, 
+    paddingTop:5,
   },
   endWrapperFiller: {
     flex: 1
@@ -359,27 +467,29 @@ const styles = StyleSheet.create({
     width: 240
   },
   rect: {
-    height: 37,
+    height: 30,
     backgroundColor: "rgba(60,40,95,0.86)",
     borderRadius: 6,
     flexDirection: "row",
-    marginRight: 1
+    marginTop:-5
   },
   icon: {
     color: "rgba(255,254,0,1)",
     fontSize: 13,
     height: 13,
     width: 12,
-    marginBottom: 2
+    //marginBottom: 2
+    top:3
   },
-  loremIpsum: {
+  userRating: {
     fontFamily: "poppins-regular",
     color: "rgba(255,254,0,1)",
     fontSize: 12,
-    marginLeft: 9
+    marginLeft: 9, 
+    top:5,
   },
   iconRow: {
-    height: 18,
+    height: 16,
     flexDirection: "row",
     alignItems: "flex-end",
     marginLeft: 19,
@@ -389,26 +499,20 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row"
   },
-  icon2: {
+  callIcon: {
     color: "rgba(235,112,210,1)",
-    fontSize: 25,
-    height: 25,
-    width: 26,
-    marginRight: 17
+    fontSize: 20,
+    marginRight: 30
   },
-  icon3: {
+  messageIcon: {
     color: "rgba(235,112,210,1)",
-    fontSize: 25,
-    height: 25,
-    width: 26,
-    marginRight: 21,
+    fontSize: 20,
+    marginRight: 30,
     marginBottom: 1
   },
-  icon4: {
+  requestIcon: {
     color: "rgba(235,112,210,1)",
-    fontSize: 25,
-    height: 25,
-    width: 23,
+    fontSize: 20,
     marginBottom: 1
   },
   icon2Row: {
@@ -440,8 +544,10 @@ const styles = StyleSheet.create({
     marginLeft: 3
   },
   mapViewStack: {
-    height: 644,
-    marginTop: 28
+    top:75,
+    flex:1
+   // height: 64,
+   // marginTop: 28
   }
 });
 
