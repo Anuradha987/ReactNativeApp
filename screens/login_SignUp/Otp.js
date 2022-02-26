@@ -5,18 +5,39 @@ import {
   Image,
   Text,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
-import Icon from "react-native-vector-icons/SimpleLineIcons";
+import SimpleLineIconsIcon from 'react-native-vector-icons/SimpleLineIcons';
+import { useFonts } from 'expo-font';
+import OtpInputView from '@twotalltotems/react-native-otp-input'
+import TextButton from '../../components/TextButton';
 
-function Otp(props) {
+const Otp = ({navigation}) => {
+
+const [timer, setTimer] = React.useState(60);
+
+    //poppins insert
+  const [loaded] = useFonts({
+    poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
+    poppins700: require('./../../assets/fonts/poppins-700.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
+
   return (
     <View style={styles.container}>
-      <View style={styles.backBtn}>
-        <Icon name="arrow-left" style={styles.backIcon}></Icon>
-      </View>
+                <TouchableOpacity style={styles.backBtn}
+                  onPress={()=>navigation.goBack()}
+                >
+                  <SimpleLineIconsIcon
+                    name="arrow-left"
+                    style={styles.backIcon}></SimpleLineIconsIcon>
+                </TouchableOpacity>
+
       <Image
-        source={require("./../../assets/images/output-onlinepngtools (6).png")}
+        source={require('./../../assets/images/otp.png')}
         resizeMode="cover"
         style={styles.image1}
       ></Image>
@@ -25,46 +46,72 @@ function Otp(props) {
         An 4-digit code has been sent to{"\n"}example@gmail.com
       </Text>
       <View style={styles.codeGroup1Stack}>
-        <View style={styles.codeGroup1}>
-          <View style={styles.rect}></View>
+        <OtpInputView style={styles.codeGroup1} pinCount ={4} codeInputFieldStyle={styles.rect}/>
+      </View>
+         {/* <View style={styles.rect}>
           <TextInput
-            placeholder="1"
-            clearButtonMode="while-editing"
+            placeholder=""
             keyboardType="phone-pad"
             returnKeyType="next"
             maxLength={1}
             style={styles.textInput}
           ></TextInput>
-          <View style={styles.rect1}></View>
+          </View>
+          
+          <View style={styles.rect1}>
           <TextInput
-            placeholder="1"
-            clearButtonMode="while-editing"
+            placeholder=""
             keyboardType="phone-pad"
             returnKeyType="next"
             maxLength={1}
             style={styles.textInput1}
           ></TextInput>
-          <View style={styles.rect2}></View>
+          </View>
+
+          <View style={styles.rect2}>
           <TextInput
-            placeholder="1"
-            clearButtonMode="while-editing"
+            placeholder=""
             keyboardType="phone-pad"
             returnKeyType="next"
             maxLength={1}
             style={styles.textInput2}
           ></TextInput>
-          <View style={styles.rect4}></View>
-        </View>
+          </View>
+
+          <View style={styles.rect4}>
         <TextInput
-          placeholder="1"
-          clearButtonMode="while-editing"
+          placeholder=""
           keyboardType="phone-pad"
-          returnKeyType="next"
+          returnKeyType="done"
           maxLength={1}
           style={styles.textInput3}
         ></TextInput>
+        </View>
+        
+
+      <View style={{flexDirection:'row', marginLeft: 32, marginTop:62 }}>
+        <Text>Didn&#39;t received the code?</Text>
+        <TextButton label={'Resend (${timer}s)'}
+                    disabled = {timer == 0 ? false : true}
+                    buttonContainerStyle= {{
+                      marginLeft: 7, 
+                      backgroundColor: null,
+                    }}
+                    lableStyle={{
+                      color: '#9c8df0', 
+                      
+                    }}
+                    onPress = {()=> setTimer(60)}
+        />
+      </View>*/}
+
+      <View style={{flexDirection:'row', marginLeft: 32, marginTop:62 }}>
+        <Text style={styles.text2}>Didn&#39;t received the code?</Text>
+        <TouchableOpacity onPress={()=>{}}>
+          <Text style={styles.resendText}>Resend (${timer}s)</Text>
+        </TouchableOpacity>
       </View>
-      <Text style={styles.text2}>Didn&#39;t received thr code? Resend</Text>
+
       <TouchableOpacity style={styles.confirmBtn}>
         <Text style={styles.confirm}>Confirm</Text>
       </TouchableOpacity>
@@ -81,18 +128,18 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderWidth: 1,
-    borderColor: "rgba(187,189,193,1)",
+    borderColor: "#BBBDC1",
     borderRadius: 12,
     marginTop: 54,
     marginLeft: 27
   },
   backIcon: {
-    color: "rgba(128,128,128,1)",
+    color: "#BBBDC1",
     fontSize: 20,
     height: 22,
     width: 20,
     marginTop: 9,
-    marginLeft: 10
+    marginLeft: 8,
   },
   image1: {
     height: 200,
@@ -103,7 +150,7 @@ const styles = StyleSheet.create({
     marginRight: 86
   },
   enterOtp: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(156,141,240,1)",
     width: 292,
     fontSize: 30,
@@ -112,11 +159,11 @@ const styles = StyleSheet.create({
     marginLeft: 34
   },
   text1: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     marginTop: 7,
     marginLeft: 34,
-    marginRight: 39
+    marginRight: 39, 
   },
   codeGroup1: {
     top: 0,
@@ -125,19 +172,23 @@ const styles = StyleSheet.create({
     position: "absolute",
     flexDirection: "row",
     justifyContent: "space-between",
-    right: 1
+    color: "rgba(255,255,255,1)",
+    right: 1,
   },
   rect: {
     width: 60,
     height: 60,
     backgroundColor: "rgba(81,81,81,0.4)",
-    borderRadius: 8
+    borderColor:'rgba(81,81,81,0.4)',
+    borderRadius: 8, 
+    color:"white",
+    fontSize:20,
   },
   textInput: {
     top: 22,
     left: 0,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     height: 18,
     width: 59,
@@ -151,9 +202,9 @@ const styles = StyleSheet.create({
   },
   textInput1: {
     top: 22,
-    left: 85,
+    left: 0,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     height: 18,
     width: 59,
@@ -167,13 +218,13 @@ const styles = StyleSheet.create({
   },
   textInput2: {
     top: 22,
-    left: 168,
+    left: 0,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     height: 18,
     width: 59,
-    textAlign: "center"
+    textAlign: "center",    
   },
   rect4: {
     width: 60,
@@ -183,25 +234,28 @@ const styles = StyleSheet.create({
   },
   textInput3: {
     top: 22,
-    left: 254,
+    left: 0,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     height: 18,
     width: 59,
-    textAlign: "center"
+    textAlign: "center",
   },
   codeGroup1Stack: {
     height: 60,
     marginTop: 46,
-    marginLeft: 29,
-    marginRight: 33
+    marginHorizontal: 29,
   },
   text2: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
-    marginTop: 62,
-    marginLeft: 32
+    marginRight:7,
+  },
+  resendText:{
+    fontFamily: "poppinsregular",
+    color: "#9c8df0",
+    textDecorationLine: 'underline',
   },
   confirmBtn: {
     height: 47,
@@ -212,7 +266,7 @@ const styles = StyleSheet.create({
     marginRight: 37
   },
   confirm: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     textAlign: "center",
     marginTop: 13,

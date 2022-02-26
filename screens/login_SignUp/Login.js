@@ -9,14 +9,25 @@ import {
   TouchableOpacity
 } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
+import { useFonts } from 'expo-font';
 
-function Login(props) {
+//react-native-keyboard-aware-scrollview
+
+function Login({navigation}) {
+    //poppins insert
+  const [loaded] = useFonts({
+    poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
+    poppins700: require('./../../assets/fonts/poppins-700.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
   return (
     <View style={styles.container}>
-
       <View style={styles.backgroundImageStack}>
         <ImageBackground
-          source={require("./../../assets/images/blob-scene-haikei(copy).png")}
+          source={require('./../../assets/images/blob-scene-haikei(copy).png')}
           resizeMode="stretch"
           style={styles.backgroundImage}
           imageStyle={styles.backgroundImage_imageStyle}
@@ -28,14 +39,13 @@ function Login(props) {
             style={styles.image1}
           ></Image>
         </ImageBackground>
-        
         <Text style={styles.text1}>Hey, Welcome Back!</Text>
         <Text style={styles.text2}>Let&#39;s SIgn You In</Text>
         <View style={styles.rect}>
           <Text style={styles.usernamelbl}>Username</Text>
           <View style={styles.usernameView}>
             <TextInput
-              placeholder="kkk"
+              placeholder=""
               placeholderTextColor="rgba(230, 230, 230,1)"
               selectionColor="rgba(255,255,255,1)"
               returnKeyType="next"
@@ -43,28 +53,30 @@ function Login(props) {
               style={styles.usernametxt}
             ></TextInput>
           </View>
-
           <Text style={styles.passwordlbl}>Password</Text>
           <View style={styles.passwordView}>
             <TextInput
-              placeholder="ggg"
-              placeholderTextColor="rgba(230, 230, 230,1)"
+              placeholder=""
+              placeholderTextColor="rgba(255,255,255,1)"
               secureTextEntry={true}
-              maxLength={"null"}
-              returnKeyType="go"
+              returnKeyType="done"
               clearButtonMode="while-editing"
               style={styles.passwordtxt}
             ></TextInput>
             <Icon name="cake" style={styles.showPasswordIcon}></Icon>
           </View>
-
-          <Text style={styles.forgotPasswordtxt}>Forgot Password?</Text>
+          <TouchableOpacity onPressIn={()=>navigation.navigate('PasswordRecovery')}>
+            <Text style={styles.forgotPasswordtxt}>Forgot Password?</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.signInBtn}>
             <Text style={styles.signIn}>Sign In</Text>
           </TouchableOpacity>
-          <Text style={styles.text3}>
-            Don&#39;t have an account? Create Account
-          </Text>
+             <View style={styles.goToRegister}>
+                <Text style={styles.text3}>Don&#39;t have an account?</Text>
+                <TouchableOpacity onPressIn={()=>navigation.navigate('Register')}>
+                  <Text style={styles.registerText} >Create Account</Text>
+                </TouchableOpacity>
+            </View>
         </View>
       </View>
     </View>
@@ -102,14 +114,14 @@ const styles = StyleSheet.create({
     top: 334,
     left: 42,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)"
   },
   text2: {
     top: 361,
     left: 42,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(156,141,240,1)",
     fontSize: 30
   },
@@ -123,7 +135,7 @@ const styles = StyleSheet.create({
     right: 16
   },
   usernamelbl: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(170,170,170,1)",
     marginTop: 32,
     marginLeft: 26
@@ -136,14 +148,14 @@ const styles = StyleSheet.create({
     marginRight: 19
   },
   usernametxt: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     height: 43,
     marginLeft: 14,
     marginRight: 15
   },
   passwordlbl: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(170,170,170,1)",
     width: 290,
     height: 21,
@@ -159,23 +171,23 @@ const styles = StyleSheet.create({
     marginRight: 18
   },
   passwordtxt: {
-    fontFamily: "poppins-regular",
-    color: "rgba(255,255,255,1)",
-    height: 43,
-    flex: 1,
-    marginRight: 18,
-    marginLeft: 13
+     fontFamily: "poppinsregular",
+     color: "rgba(255,255,255,1)",
+     height: 43,
+     flex: 1,
+     marginRight: 18,
+     marginLeft: 14
   },
   showPasswordIcon: {
     color: "rgba(128,128,128,1)",
     fontSize: 15,
     height: 16,
-    width: 14,
+    width: 16,
     marginRight: 15,
     marginTop: 14
   },
   forgotPasswordtxt: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(137,137,137,1)",
     fontSize: 12,
     textAlign: "right",
@@ -192,25 +204,37 @@ const styles = StyleSheet.create({
     marginRight: 20
   },
   signIn: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     textAlign: "center",
     marginTop: 15,
     marginLeft: 8,
     marginRight: 7
   },
-  text3: {
-    fontFamily: "poppins-regular",
+
+  backgroundImageStack: {
+    flex: 1
+  }, 
+  goToRegister:{
+    flexDirection:'row',
+    alignItems:'center', 
+    justifyContent:'center', 
+    marginTop: 10,
+  },
+    text3: {
+    fontFamily: "poppinsregular",
     color: "rgba(137,137,137,1)",
     fontSize: 12,
     textAlign: "center",
     alignSelf: "flex-end",
-    marginTop: 14,
-    marginRight: 27
+    marginRight: 15
   },
-  backgroundImageStack: {
-    flex: 1
-  }
+  registerText:{
+    fontFamily: 'poppinsregular',
+    color: 'rgba(156,141,240,1)',
+    fontSize: 12, 
+   textDecorationLine: 'underline', 
+  },
 });
 
 export default Login;

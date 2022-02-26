@@ -66,6 +66,9 @@ import MyProfile from './MyProfile'
 import NewReqForm from './NewReqForm';
 import PlacingOrders from './PlacingOrders';
 import UserProfile from './UserProfile';
+import Register from './login_SignUp/Register';
+import Login from './login_SignUp/Login'
+import Otp from './login_SignUp/Otp';
 
 export {
     DB_MainLayout,    
@@ -99,4 +102,7 @@ export {
     MyProfile, 
     NewReqForm, 
     UserProfile, 
+    Register, 
+    Login, 
+    Otp
 }

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
@@ -6,371 +6,514 @@ import {
   ImageBackground,
   Text,
   TextInput,
-  TouchableOpacity
-} from "react-native";
-import EntypoIcon from "react-native-vector-icons/Entypo";
-import SimpleLineIconsIcon from "react-native-vector-icons/SimpleLineIcons";
+  TouchableOpacity,
+  FlatList,
+  SafeAreaView,
+} from 'react-native';
+import SimpleLineIconsIcon from 'react-native-vector-icons/SimpleLineIcons';
+import MaterialCommunityIconsIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
+import { useFonts } from 'expo-font';
 
-function Register(props) {
+
+function Register({ navigation }) {
+  //poppins insert
+  const [loaded] = useFonts({
+    poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
+    poppins700: require('./../../assets/fonts/poppins-700.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.imageStack}>
         <ImageBackground
-          source={require("./../../assets/images/blob-scene-haikei.png")}
-          resizeMode="stretch"
+          source={require('./../../assets/images/blob-scene-haikei.png')}
+          resizeMode="cover"
           style={styles.image}
-          imageStyle={styles.image_imageStyle}
-        >
-          <View style={styles.rect}>
-            <View style={styles.propicCircle}>
-              <EntypoIcon name="camera" style={styles.camIcon}></EntypoIcon>
-            </View>
-            <Text style={styles.namelbl}>Name</Text>
-            <View style={styles.nameView}>
-              <TextInput
-                placeholder=""
-                placeholderTextColor="rgba(230, 230, 230,1)"
-                selectionColor="rgba(255,255,255,1)"
-                returnKeyType="next"
-                clearButtonMode="while-editing"
-                autoCapitalize="sentences"
-                maxLength={"null"}
-                style={styles.nametxt}
-              ></TextInput>
-            </View>
-            <Text style={styles.emaillbl}>Email</Text>
-            <View style={styles.emailView}>
-              <TextInput
-                placeholder=""
-                placeholderTextColor="rgba(230, 230, 230,1)"
-                selectionColor="rgba(255,255,255,1)"
-                returnKeyType="next"
-                clearButtonMode="while-editing"
-                maxLength={"null"}
-                keyboardType="email-address"
-                style={styles.emailtxt}
-              ></TextInput>
-            </View>
-            <Text style={styles.locationlbl}>Location</Text>
-            <View style={styles.locationView}>
-              <TextInput
-                placeholder=""
-                placeholderTextColor="rgba(230, 230, 230,1)"
-                selectionColor="rgba(255,255,255,1)"
-                returnKeyType="next"
-                clearButtonMode="while-editing"
-                maxLength={"null"}
-                style={styles.locationtxt}
-              ></TextInput>
-            </View>
-            <Text style={styles.usernamelbl}>Username</Text>
-            <View style={styles.locationIconStack}>
-              <EntypoIcon
-                name="location-pin"
-                style={styles.locationIcon}
-              ></EntypoIcon>
-              <View style={styles.usernameView}>
-                <TextInput
-                  placeholder=""
-                  placeholderTextColor="rgba(230, 230, 230,1)"
-                  selectionColor="rgba(255,255,255,1)"
-                  returnKeyType="next"
-                  clearButtonMode="while-editing"
-                  maxLength={"null"}
-                  style={styles.usernametxt}
-                ></TextInput>
+          imageStyle={styles.image_imageStyle}>
+          <FlatList
+            showsVerticalScrollIndicator={true}
+            ListHeaderComponent={
+              <View>
+                <TouchableOpacity style={styles.backBtn}
+                  onPress={()=>navigation.goBack()}
+                >
+                  <SimpleLineIconsIcon
+                    name="arrow-left"
+                    style={styles.backIcon}></SimpleLineIconsIcon>
+                </TouchableOpacity>
+                <Text style={styles.text1}>
+                  Hello! Welcome to Quiky App. Get registered and explore what
+                  you want.
+                </Text>
+                <Text style={styles.text2}>Let&#39;s get Started!</Text>
+                <View style={styles.rect}>
+                  <View style={styles.coverImageStack}>
+                    <View style={styles.coverImage}>
+                      <View style={styles.addCoverPhotoIconFiller}></View>
+                      <MaterialCommunityIconsIcon
+                        name="image-plus"
+                        style={
+                          styles.addCoverPhotoIcon
+                        }></MaterialCommunityIconsIcon>
+                    </View>
+                    <View style={styles.proPicCircle}>
+                      <EntypoIcon
+                        name="camera"
+                        style={styles.camIcon}></EntypoIcon>
+                    </View>
+                  </View>
+
+                  <Text style={styles.namelbl}>Name</Text>
+                  <View style={styles.nameView}>
+                    <TextInput
+                      placeholder=""
+                      placeholderTextColor="rgba(230, 230, 230,1)"
+                      selectionColor="rgba(255,255,255,1)"
+                      returnKeyType="next"
+                      clearButtonMode="while-editing"
+                      autoCapitalize="sentences"
+                      // maxLength={'null'}
+                      style={styles.nametxt}></TextInput>
+                  </View>
+
+                  <Text style={styles.aboutMelbl}>About me</Text>
+                  <View style={styles.aboutMeView}>
+                    <TextInput
+                      placeholder=""
+                      placeholderTextColor="rgba(230, 230, 230,1)"
+                      selectionColor="rgba(255,255,255,1)"
+                      returnKeyType="next"
+                      clearButtonMode="while-editing"
+                      autoCapitalize="sentences"
+                      // maxLength={'null'}
+                      multiline={true}
+                      style={styles.aboutMetxt}></TextInput>
+                  </View>
+                  <Text style={styles.emaillbl}>Email</Text>
+                  <View style={styles.emailView}>
+                    <TextInput
+                      placeholder=""
+                      placeholderTextColor="rgba(230, 230, 230,1)"
+                      selectionColor="rgba(255,255,255,1)"
+                      returnKeyType="next"
+                      clearButtonMode="while-editing"
+                      // maxLength={'null'}
+                      keyboardType="email-address"
+                      style={styles.emailtxt}></TextInput>
+                  </View>
+                  <Text style={styles.phoneNolbl}>Phone Number</Text>
+                  <View style={styles.phoneNoView}>
+                    <TextInput
+                      placeholder=""
+                      placeholderTextColor="rgba(230, 230, 230,1)"
+                      selectionColor="rgba(255,255,255,1)"
+                      returnKeyType="next"
+                      clearButtonMode="while-editing"
+                      // maxLength={'null'}
+                      keyboardType="phone-pad"
+                      style={styles.phoneNotxt}></TextInput>
+                  </View>
+                  <Text style={styles.locationlbl}>Location</Text>
+                  <View style={styles.locationView}>
+                    <TextInput
+                      placeholder=""
+                      placeholderTextColor="rgba(230, 230, 230,1)"
+                      selectionColor="rgba(255,255,255,1)"
+                      returnKeyType="next"
+                      clearButtonMode="while-editing"
+                      // maxLength={'null'}
+                      style={styles.locationtxt}></TextInput>
+                    <EntypoIcon
+                      name="location-pin"
+                      style={styles.locationIcon}></EntypoIcon>
+                  </View>
+                  <Text style={styles.usernamelbl}>Username</Text>
+                  <View style={styles.usernameView}>
+                    <TextInput
+                      placeholder=""
+                      placeholderTextColor="rgba(230, 230, 230,1)"
+                      selectionColor="rgba(255,255,255,1)"
+                      returnKeyType="next"
+                      clearButtonMode="while-editing"
+                      // maxLength={'null'}
+                      style={styles.usernametxt}></TextInput>
+                  </View>
+                  <Text style={styles.passwordlbl}>Password</Text>
+                  <View style={styles.passwordView}>
+                    <TextInput
+                      placeholder=""
+                      placeholderTextColor="rgba(230, 230, 230,1)"
+                      selectionColor="rgba(255,255,255,1)"
+                      returnKeyType="done"
+                      clearButtonMode="while-editing"
+                      secureTextEntry={true}
+                      // maxLength={'null'}
+                      style={styles.passwordtxt}></TextInput>
+                    <EntypoIcon
+                      name="cake"
+                      style={styles.showPasswordIcon}></EntypoIcon>
+                  </View>
+
+                  <TouchableOpacity style={styles.signInBtn} onPress = {()=>{}}>
+                    <Text style={styles.signIn}>Create Account</Text>
+                  </TouchableOpacity>
+
+                  <Text style={styles.text3}>
+                    By creating account, you agree to our {'\n'}Terms and
+                    Conditions.
+                  </Text>
+
+                  <View style={styles.goToSignIn}>
+                    <Text style={styles.text4}>Already have an account?</Text>
+                    <TouchableOpacity onPressIn={()=>navigation.navigate('Login')}>
+                      <Text style={styles.signInText}>Sign In</Text>
+                    </TouchableOpacity>
+                  </View>
+
+                </View>
               </View>
-            </View>
-            <Text style={styles.passwordlbl}>Password</Text>
-            <View style={styles.passwordView}>
-              <TextInput
-                placeholder=""
-                placeholderTextColor="rgba(230, 230, 230,1)"
-                selectionColor="rgba(255,255,255,1)"
-                returnKeyType="done"
-                clearButtonMode="while-editing"
-                secureTextEntry={true}
-                maxLength={"null"}
-                style={styles.passwordtxt}
-              ></TextInput>
-              <EntypoIcon
-                name="cake"
-                style={styles.showPasswordIcon}
-              ></EntypoIcon>
-            </View>
-            <TouchableOpacity style={styles.signInBtn}>
-              <Text style={styles.signIn2}>Create Account</Text>
-            </TouchableOpacity>
-            <Text style={styles.by}>
-              By creating account, you agree to our {"\n"}Terms and Conditions.
-            </Text>
-            <Text style={styles.text3}>Already have an account? Sign In</Text>
-          </View>
+            }
+          />
         </ImageBackground>
-        <View style={styles.backBtn}>
-          <SimpleLineIconsIcon
-            name="arrow-left"
-            style={styles.backIcon}
-          ></SimpleLineIconsIcon>
-        </View>
-        <Text style={styles.text1}>
-          Hello! Welcome to Quiky App. Get registered and explore what you want.
-        </Text>
-        <Text style={styles.text2}>Let&#39;s get Started!</Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(21,31,40,1)"
+    backgroundColor: '#151f28',
   },
   image: {
     top: 0,
     left: 0,
-    position: "absolute",
+    position: 'absolute',
     right: 0,
-    bottom: 0
+    bottom: 0,
   },
   image_imageStyle: {
-    opacity: 0.74
+    opacity: 0.74,
   },
   rect: {
-    height: 830,
-    backgroundColor: "rgba(6,0,38,0.65)",
+    height: 1216,
+    backgroundColor: 'rgba(6,0,38,0.65)',
     borderRadius: 20,
-    marginTop: 251,
-    marginLeft: 17,
-    marginRight: 15
+    marginTop: 200,
+    marginLeft: 16,
+    marginRight: 16,
+    marginBottom: 50,
   },
-  propicCircle: {
-    width: 110,
-    height: 110,
-    backgroundColor: "rgba(81,81,81,0.4)",
-    borderRadius: 50,
-    alignSelf: "flex-end",
-    marginTop: 28,
-    marginRight: 116
+  coverImage: {
+    top: 0,
+    left: 0,
+    height: 154,
+    position: 'absolute',
+    backgroundColor: 'rgba(81,81,81,0.4)',
+    right: 0,
+    borderRadius: 20,
+    overflow: 'visible',
+    flexDirection: 'row',
   },
-  camIcon: {
-    color: "rgba(128,128,128,1)",
+  addCoverPhotoIconFiller: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  addCoverPhotoIcon: {
+    color: 'rgba(128,128,128,1)',
     fontSize: 30,
     height: 33,
-    width: 30,
+    width: 33,
+    marginRight: 15,
+    marginTop: 14,
+  },
+  proPicCircle: {
+    top: 82,
+    width: 110,
+    height: 110,
+    position: 'absolute',
+    backgroundColor: 'rgba(39,39,55,1)',
+    borderRadius: 50,
+    right: 104,
+    overflow: 'visible',
+    borderWidth: 1,
+    borderColor: 'rgba(113,108,108,1)',
+  },
+  camIcon: {
+    color: 'rgba(128,128,128,1)',
+    fontSize: 30,
+    height: 33,
+    width: 33,
     marginTop: 39,
-    marginLeft: 41
+    marginLeft: 40,
+  },
+  coverImageStack: {
+    height: 192,
+    marginTop: 18,
+    marginLeft: 20,
+    marginRight: 11,
   },
   namelbl: {
-    fontFamily: "poppins-regular",
-    color: "rgba(170,170,170,1)",
+    fontFamily: 'poppinsregular',
+    color: 'rgba(170,170,170,1)',
     width: 290,
     height: 21,
     marginTop: 29,
-    marginLeft: 27
+    marginLeft: 28,
   },
   nameView: {
     height: 43,
-    backgroundColor: "rgba(81,81,81,0.4)",
+    backgroundColor: 'rgba(81,81,81,0.4)',
     borderRadius: 8,
-    marginLeft: 20,
-    marginRight: 18
+    marginLeft: 16,
+    marginRight: 16,
   },
   nametxt: {
-    fontFamily: "poppins-regular",
-    color: "rgba(255,255,255,1)",
+    fontFamily: 'poppinsregular',
+    color: 'rgba(255,255,255,1)',
     height: 43,
     marginLeft: 12,
-    marginRight: 13
+    marginRight: 9,
   },
-  emaillbl: {
-    fontFamily: "poppins-regular",
-    color: "rgba(170,170,170,1)",
+  aboutMelbl: {
+    fontFamily: 'poppinsregular',
+    color: 'rgba(170,170,170,1)',
     width: 290,
     height: 21,
-    marginTop: 36,
-    marginLeft: 28
+    marginTop: 25,
+    marginLeft: 28,
+  },
+  aboutMeView: {
+    height: 152,
+    backgroundColor: 'rgba(81,81,81,0.4)',
+    borderRadius: 20,
+    marginLeft: 16,
+    marginRight: 16,
+  },
+  aboutMetxt: {
+    fontFamily: 'poppinsregular',
+    color: 'rgba(255,255,255,1)',
+    height: 146,
+    marginLeft: 12,
+    marginRight: 16,
+    marginVertical:3,
+  },
+  emaillbl: {
+    fontFamily: 'poppinsregular',
+    color: 'rgba(170,170,170,1)',
+    width: 290,
+    height: 21,
+    marginTop: 25,
+    marginLeft: 28,
   },
   emailView: {
     height: 43,
-    backgroundColor: "rgba(81,81,81,0.4)",
-    borderRadius: 8,
-    marginLeft: 20,
-    marginRight: 18
+    backgroundColor: 'rgba(81,81,81,0.4)',
+    borderRadius: 8,  
+    marginLeft: 16,
+    marginRight: 16,
   },
   emailtxt: {
-    fontFamily: "poppins-regular",
-    color: "rgba(255,255,255,1)",
+    fontFamily: 'poppinsregular',
+    color: 'rgba(255,255,255,1)',
     height: 43,
     marginLeft: 12,
-    marginRight: 13
+    marginRight: 9,
   },
-  locationlbl: {
-    fontFamily: "poppins-regular",
-    color: "rgba(170,170,170,1)",
+  phoneNolbl: {
+    fontFamily: 'poppinsregular',
+    color: 'rgba(170,170,170,1)',
     width: 290,
     height: 21,
-    marginTop: 35,
-    marginLeft: 27
+    marginTop: 25,
+    marginLeft: 28,
+  },
+  phoneNoView: {
+    height: 43,
+    backgroundColor: 'rgba(81,81,81,0.4)',
+    borderRadius: 8,
+    marginLeft: 16,
+    marginRight: 16,
+  },
+  phoneNotxt: {
+    fontFamily: 'poppinsregular',
+    color: 'rgba(255,255,255,1)',
+    height: 43,
+    marginLeft: 12,
+    marginRight: 9,
+  },
+  locationlbl: {
+    fontFamily: 'poppinsregular',
+    color: 'rgba(170,170,170,1)',
+    width: 290,
+    height: 21,
+    marginTop: 25,
+    marginLeft: 28,
   },
   locationView: {
     height: 43,
-    backgroundColor: "rgba(81,81,81,0.4)",
+    backgroundColor: 'rgba(81,81,81,0.4)',
     borderRadius: 8,
-    marginLeft: 21,
-    marginRight: 17
+    flexDirection: 'row',
+    marginLeft: 16,
+    marginRight: 16,
   },
   locationtxt: {
-    fontFamily: "poppins-regular",
-    color: "rgba(255,255,255,1)",
+    fontFamily: 'poppinsregular',
+    color: 'rgba(255,255,255,1)',
     height: 43,
+    flex: 1,
+    marginRight: 10,
     marginLeft: 12,
-    marginRight: 38
-  },
-  usernamelbl: {
-    fontFamily: "poppins-regular",
-    color: "rgba(170,170,170,1)",
-    width: 290,
-    height: 21,
-    marginTop: 29,
-    marginLeft: 29
   },
   locationIcon: {
-    top: 6,
-    position: "absolute",
-    color: "rgba(128,128,128,1)",
+    color: 'rgba(128,128,128,1)',
     fontSize: 20,
-    width: 14,
-    right: 15,
-    height: 22
+    width: 22,
+    height: 22,
+    marginRight: 14,
+    marginTop: 11,
   },
-  usernameView: {
-    top: 0,
-    left: 0,
-    height: 43,
-    position: "absolute",
-    backgroundColor: "rgba(81,81,81,0.4)",
-    borderRadius: 8,
-    right: 0
-  },
-  usernametxt: {
-    fontFamily: "poppins-regular",
-    color: "rgba(255,255,255,1)",
-    height: 43,
-    marginLeft: 12,
-    marginRight: 14
-  },
-  locationIconStack: {
-    height: 43,
-    marginLeft: 21,
-    marginRight: 17
-  },
-  passwordlbl: {
-    fontFamily: "poppins-regular",
-    color: "rgba(170,170,170,1)",
+  usernamelbl: {
+    fontFamily: 'poppinsregular',
+    color: 'rgba(170,170,170,1)',
     width: 290,
     height: 21,
-    marginTop: 33,
-    marginLeft: 29
+    marginTop: 25,
+    marginLeft: 28,
+  },
+  usernameView: {
+    height: 43,
+    backgroundColor: 'rgba(81,81,81,0.4)',
+    borderRadius: 8,
+    marginLeft: 16,
+    marginRight: 16,
+  },
+  usernametxt: {
+    fontFamily: 'poppinsregular',
+    color: 'rgba(255,255,255,1)',
+    height: 43,
+    marginLeft: 12,
+    marginRight: 9,
+  },
+  passwordlbl: {
+    fontFamily: 'poppinsregular',
+    color: 'rgba(170,170,170,1)',
+    width: 290,
+    height: 21,
+    marginTop: 25,
+    marginLeft: 28,
   },
   passwordView: {
     height: 43,
-    backgroundColor: "rgba(81,81,81,0.4)",
+    backgroundColor: 'rgba(81,81,81,0.4)',
     borderRadius: 8,
-    flexDirection: "row",
-    marginLeft: 20,
-    marginRight: 18
+    flexDirection: 'row',
+    marginLeft: 16,
+    marginRight: 16,
   },
   passwordtxt: {
-    fontFamily: "poppins-regular",
-    color: "rgba(255,255,255,1)",
+    fontFamily: 'poppinsregular',
+    color: 'rgba(255,255,255,1)',
     height: 43,
     flex: 1,
-    marginRight: 13,
-    marginLeft: 13
+    marginRight: 14,
+    marginLeft: 13,
   },
   showPasswordIcon: {
-    color: "rgba(128,128,128,1)",
+    color: 'rgba(128,128,128,1)',
     fontSize: 15,
-    width: 14,
+    width: 16,
     height: 16,
-    marginRight: 10,
-    marginTop: 14
+        marginRight: 14,
+    marginTop: 14,
   },
   signInBtn: {
     height: 47,
-    backgroundColor: "rgba(123,0,255,1)",
+    backgroundColor: 'rgba(123,0,255,1)',
     borderRadius: 8,
-    marginTop: 58,
-    marginLeft: 21,
-    marginRight: 17
+    marginTop: 60,
+    marginLeft: 23,
+    marginRight: 15,
   },
-  signIn2: {
-    fontFamily: "poppins-regular",
-    color: "rgba(255,255,255,1)",
-    textAlign: "center",
+  signIn: {
+    fontFamily: 'poppinsregular',
+    color: 'rgba(255,255,255,1)',
+    textAlign: 'center',
     marginTop: 15,
     marginLeft: 8,
-    marginRight: 7
-  },
-  by: {
-    fontFamily: "poppins-regular",
-    color: "rgba(137,135,135,1)",
-    fontSize: 11,
-    textAlign: "center",
-    marginTop: 9,
-    marginLeft: 28,
-    marginRight: 17
+    marginRight: 7,
   },
   text3: {
-    fontFamily: "poppins-regular",
-    color: "rgba(170,170,170,1)",
-    fontSize: 12,
-    textAlign: "center",
+    fontFamily: 'poppinsregular',
+    color: 'rgba(137,135,135,1)',
+    fontSize: 11,
+    textAlign: 'center',
+    marginTop: 9,
+    marginLeft: 30,
+    marginRight: 15,
+  },
+  goToSignIn:{
+    flexDirection:'row',
+    alignItems:'center', 
+    justifyContent:'center', 
     marginTop: 31,
-    marginLeft: 28,
-    marginRight: 25
+  },
+  text4: {
+    fontFamily: 'poppinsregular',
+    color: 'rgba(170,170,170,1)',
+    fontSize: 12,   
+     marginRight:7,
+  },
+  signInText:{
+    fontFamily: 'poppinsregular',
+    color: 'rgba(156,141,240,1)',
+    fontSize: 12, 
+   textDecorationLine: 'underline', 
   },
   backBtn: {
-    top: 54,
+    top: 15,
     left: 27,
     width: 40,
     height: 40,
-    position: "absolute",
+    position: 'absolute',
     borderWidth: 1,
-    borderColor: "rgba(187,189,193,1)",
-    borderRadius: 12
+    borderColor: '#BBBDC1',
+    borderRadius: 12,
   },
   backIcon: {
-    color: "rgba(128,128,128,1)",
+    color: '#BBBDC1',
     fontSize: 20,
     height: 22,
     width: 20,
     marginTop: 9,
-    marginLeft: 10
+    marginLeft: 8,
   },
   text1: {
-    top: 134,
+    top: 85,
     left: 37,
-    position: "absolute",
-    fontFamily: "poppins-regular",
-    color: "rgba(255,255,255,1)",
-    right: 32
+    position: 'absolute',
+    fontFamily: 'poppinsregular',
+    color: 'rgba(255,255,255,1)',
+    right: 32,
   },
   text2: {
-    top: 185,
+    top: 135,
     left: 37,
-    position: "absolute",
-    fontFamily: "poppins-regular",
-    color: "rgba(156,141,240,1)",
+    position: 'absolute',
+    fontFamily: 'poppinsregular',
+    color: 'rgba(156,141,240,1)',
     width: 306,
     fontSize: 30,
-    height: 45
+    height: 45,
   },
   imageStack: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });
 
 export default Register;
