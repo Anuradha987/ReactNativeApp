@@ -15,8 +15,6 @@ import MaterialCommunityIconsIcon from 'react-native-vector-icons/MaterialCommun
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import { useFonts } from 'expo-font';
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
 function Register({ navigation }) {

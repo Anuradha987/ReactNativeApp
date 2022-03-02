@@ -15,6 +15,7 @@ import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import mapStyle from "../../constants/MapStyle";
 import { dummyData} from '../../constants';
+import { useFonts } from 'expo-font';
 
 const S_Search = ({ navigation, route }) => {
 
@@ -32,6 +33,16 @@ const S_Search = ({ navigation, route }) => {
   //   let { selectedPlace } = route.params;
   //   setSelectedPlace(selectedPlace)
   // }, [])
+
+       //poppins insert
+       const [loaded] = useFonts({
+        poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
+        poppins700: require('./../../assets/fonts/poppins-700.ttf'),
+      });
+    
+      if (!loaded) {
+           return null;
+      }
 
   return (
     <View style={styles.container}>
@@ -152,8 +163,8 @@ const S_Search = ({ navigation, route }) => {
               <Text style={styles.natashaPerera}>Natasha Perera</Text>
             </View>
             <View style={styles.group}>
-              <Text style={styles.electronic}>Preparing Birthday Cake</Text>
-              <Text style={styles.electronic1}>Making School Uniforms</Text>
+              <Text style={styles.service1Titile}>Preparing Birthday Cake</Text>
+              <Text style={styles.service2Titile}>Making School Uniforms</Text>
               <Text style={styles.service3Titile}>Service 3 Titile</Text>
               <Text style={styles.service5Title}>Service 5 Title</Text>
               <Text style={styles.service4Title}>Service 4 Title</Text>
@@ -369,7 +380,7 @@ const styles = StyleSheet.create({
   add: {
     top: 544,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     fontSize: 60,
     height: 70,
@@ -411,7 +422,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-end"
   },
   natashaPerera: {
-    fontFamily: "roboto-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(200,155,246,1)",
     flex: 1,
     marginRight: 28,
@@ -425,44 +436,44 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   group: {
-    height: 88,
-    justifyContent: "space-between",
-    marginBottom: 9,
+    height: 82,
+    //justifyContent: "space-between",
+    marginBottom: 18,
     marginLeft: 17,
     marginRight: 3
   },
-  electronic: {
-    fontFamily: "poppins-300",
+  service1Titile: {
+    fontFamily: "poppinsregular",
     color: "rgba(232,232,232,1)",
-    fontSize: 11,
+    fontSize: 10,
     margin: 0,
     width: 240
   },
-  electronic1: {
-    fontFamily: "poppins-300",
+  service2Titile: {
+    fontFamily: "poppinsregular",
     color: "rgba(232,232,232,1)",
-    fontSize: 11,
+    fontSize: 10,
     margin: 0,
     width: 240
   },
   service3Titile: {
-    fontFamily: "poppins-300",
+    fontFamily: "poppinsregular",
     color: "rgba(232,232,232,1)",
-    fontSize: 11,
+    fontSize: 10,
     margin: 0,
     width: 240
   },
   service5Title: {
-    fontFamily: "poppins-300",
+    fontFamily: "poppinsregular",
     color: "rgba(232,232,232,1)",
-    fontSize: 11,
+    fontSize: 10,
     margin: 0,
     width: 240
   },
   service4Title: {
-    fontFamily: "poppins-300",
+    fontFamily: "poppinsregular",
     color: "rgba(232,232,232,1)",
-    fontSize: 11,
+    fontSize: 10,
     margin: 0,
     width: 240
   },
@@ -479,14 +490,14 @@ const styles = StyleSheet.create({
     height: 13,
     width: 12,
     //marginBottom: 2
-    top:3
+    top:5
   },
   userRating: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,254,0,1)",
     fontSize: 12,
     marginLeft: 9, 
-    top:5,
+    top:12,
   },
   iconRow: {
     height: 16,

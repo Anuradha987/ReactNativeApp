@@ -14,8 +14,6 @@ import Icon from "react-native-vector-icons/Entypo";
 import { useFonts } from 'expo-font';
 
 //react-native-keyboard-aware-scrollview
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const { width } = Dimensions.get('window');
 

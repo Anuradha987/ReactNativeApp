@@ -70,6 +70,8 @@ import Register from './login_SignUp/Register';
 import Login from './login_SignUp/Login'
 import Otp from './login_SignUp/Otp';
 import PasswordRecovery from './login_SignUp/PasswordRecovery';
+import ResetPassword from './login_SignUp/ResetPassword';
+import AddNewCard from './paymentGateway/AddNewCard';
 
 export {
     DB_MainLayout,    
@@ -103,8 +105,12 @@ export {
     MyProfile, 
     NewReqForm, 
     UserProfile, 
+
     Register, 
     Login, 
     Otp, 
     PasswordRecovery, 
+    ResetPassword,
+     
+    AddNewCard, 
 }
