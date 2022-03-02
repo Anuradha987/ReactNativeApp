@@ -69,6 +69,7 @@ import UserProfile from './UserProfile';
 import Register from './login_SignUp/Register';
 import Login from './login_SignUp/Login'
 import Otp from './login_SignUp/Otp';
+import PasswordRecovery from './login_SignUp/PasswordRecovery';
 
 export {
     DB_MainLayout,    
@@ -104,5 +105,6 @@ export {
     UserProfile, 
     Register, 
     Login, 
-    Otp
+    Otp, 
+    PasswordRecovery, 
 }

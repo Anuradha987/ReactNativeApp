@@ -6,15 +6,21 @@ import {
   ImageBackground,
   Text,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity, 
+  Dimensions, 
+  SafeAreaView
 } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
 import { useFonts } from 'expo-font';
 
 //react-native-keyboard-aware-scrollview
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const { width } = Dimensions.get('window');
 
 function Login({navigation}) {
-    //poppins insert
+      //poppins insert
   const [loaded] = useFonts({
     poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
     poppins700: require('./../../assets/fonts/poppins-700.ttf'),
@@ -24,10 +30,9 @@ function Login({navigation}) {
     return null;
   }
   return (
-    <View style={styles.container}>
-      <View style={styles.backgroundImageStack}>
+    <SafeAreaView style={styles.container}>
         <ImageBackground
-          source={require('./../../assets/images/blob-scene-haikei(copy).png')}
+          source={require("./../../assets/images/blob-scene-haikei(copy).png")}
           resizeMode="stretch"
           style={styles.backgroundImage}
           imageStyle={styles.backgroundImage_imageStyle}
@@ -38,7 +43,6 @@ function Login({navigation}) {
             resizeMode="cover"
             style={styles.image1}
           ></Image>
-        </ImageBackground>
         <Text style={styles.text1}>Hey, Welcome Back!</Text>
         <Text style={styles.text2}>Let&#39;s SIgn You In</Text>
         <View style={styles.rect}>
@@ -55,7 +59,7 @@ function Login({navigation}) {
           </View>
           <Text style={styles.passwordlbl}>Password</Text>
           <View style={styles.passwordView}>
-            <TextInput
+          <TextInput
               placeholder=""
               placeholderTextColor="rgba(255,255,255,1)"
               secureTextEntry={true}
@@ -76,10 +80,10 @@ function Login({navigation}) {
                 <TouchableOpacity onPressIn={()=>navigation.navigate('Register')}>
                   <Text style={styles.registerText} >Create Account</Text>
                 </TouchableOpacity>
-            </View>
         </View>
-      </View>
-    </View>
+        </View>
+      </ImageBackground>
+    </SafeAreaView>
   );
 }
 
@@ -95,20 +99,23 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     backgroundColor: "rgba(15,15, 15,0.74)",
-    flexDirection: "row"
+    flexDirection: "row", 
+    flex:1
   },
   backgroundImage_imageStyle: {
     opacity: 0.74
   },
   image1Filler: {
+    width:width,
     flex: 1,
-    flexDirection: "row"
+    flexDirection: "row",
+    justifyContent:'center', 
   },
   image1: {
     height: 143,
     width: 112,
-    marginRight: 130,
-    marginTop: 81
+    marginRight: 150,
+    marginTop: 81, 
   },
   text1: {
     top: 334,
@@ -171,18 +178,18 @@ const styles = StyleSheet.create({
     marginRight: 18
   },
   passwordtxt: {
-     fontFamily: "poppinsregular",
-     color: "rgba(255,255,255,1)",
-     height: 43,
-     flex: 1,
-     marginRight: 18,
-     marginLeft: 14
+    fontFamily: "poppinsregular",
+    color: "rgba(255,255,255,1)",
+    height: 43,
+    flex: 1,
+    marginRight: 18,
+    marginLeft: 14
   },
   showPasswordIcon: {
     color: "rgba(128,128,128,1)",
     fontSize: 15,
-    height: 16,
-    width: 16,
+    height: 14,
+    width: 14,
     marginRight: 15,
     marginTop: 14
   },
@@ -211,11 +218,10 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     marginRight: 7
   },
-
   backgroundImageStack: {
-    flex: 1
+    flex: 1,
   }, 
-  goToRegister:{
+   goToRegister:{
     flexDirection:'row',
     alignItems:'center', 
     justifyContent:'center', 

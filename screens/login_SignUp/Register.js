@@ -15,6 +15,9 @@ import MaterialCommunityIconsIcon from 'react-native-vector-icons/MaterialCommun
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import { useFonts } from 'expo-font';
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 
 function Register({ navigation }) {
   //poppins insert
@@ -28,7 +31,6 @@ function Register({ navigation }) {
   }
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.imageStack}>
         <ImageBackground
           source={require('./../../assets/images/blob-scene-haikei.png')}
           resizeMode="cover"
@@ -38,6 +40,7 @@ function Register({ navigation }) {
             showsVerticalScrollIndicator={true}
             ListHeaderComponent={
               <View>
+
                 <TouchableOpacity style={styles.backBtn}
                   onPress={()=>navigation.goBack()}
                 >
@@ -45,6 +48,7 @@ function Register({ navigation }) {
                     name="arrow-left"
                     style={styles.backIcon}></SimpleLineIconsIcon>
                 </TouchableOpacity>
+                
                 <Text style={styles.text1}>
                   Hello! Welcome to Quiky App. Get registered and explore what
                   you want.
@@ -179,7 +183,6 @@ function Register({ navigation }) {
             }
           />
         </ImageBackground>
-      </View>
     </SafeAreaView>
   );
 }
@@ -203,7 +206,7 @@ const styles = StyleSheet.create({
     height: 1216,
     backgroundColor: 'rgba(6,0,38,0.65)',
     borderRadius: 20,
-    marginTop: 200,
+    marginTop: 250,
     marginLeft: 16,
     marginRight: 16,
     marginBottom: 50,
@@ -238,7 +241,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: 'rgba(39,39,55,1)',
     borderRadius: 50,
-    right: 104,
+    right: 115,
     overflow: 'visible',
     borderWidth: 1,
     borderColor: 'rgba(113,108,108,1)',
@@ -293,8 +296,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginLeft: 16,
     marginRight: 16,
+    paddingVertical:7,
   },
-  aboutMetxt: {
+  aboutMetxt: {textAlignVertical: "top",
     fontFamily: 'poppinsregular',
     color: 'rgba(255,255,255,1)',
     height: 146,
@@ -444,7 +448,7 @@ const styles = StyleSheet.create({
     fontFamily: 'poppinsregular',
     color: 'rgba(255,255,255,1)',
     textAlign: 'center',
-    marginTop: 15,
+    marginTop: 13,
     marginLeft: 8,
     marginRight: 7,
   },
@@ -476,7 +480,7 @@ const styles = StyleSheet.create({
    textDecorationLine: 'underline', 
   },
   backBtn: {
-    top: 15,
+    top: 50,
     left: 27,
     width: 40,
     height: 40,
@@ -494,7 +498,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   text1: {
-    top: 85,
+    top: 125,
     left: 37,
     position: 'absolute',
     fontFamily: 'poppinsregular',
@@ -502,7 +506,7 @@ const styles = StyleSheet.create({
     right: 32,
   },
   text2: {
-    top: 135,
+    top: 180,
     left: 37,
     position: 'absolute',
     fontFamily: 'poppinsregular',

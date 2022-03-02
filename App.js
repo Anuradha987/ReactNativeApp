@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 // import thunk from 'redux-thunk;'
 import rootReducer from "./stores/rootReducer";
 import ReduxThunk from 'redux-thunk'
-import {SSentDetailsAfterAccepting,ViewItems, SAfterApproved, SAfterCompleted, S_RequestsDetails, MyProfile, NewReqForm, UserProfile, Login, Register, Otp } from './screens/index';
+import {SSentDetailsAfterAccepting,ViewItems, SAfterApproved, SAfterCompleted, S_RequestsDetails, MyProfile, NewReqForm, UserProfile, Login, Register, Otp, PasswordRecovery } from './screens/index';
 
 const Stack = createStackNavigator();
 
@@ -31,6 +31,7 @@ const App = () => {
                     <Stack.Screen name="Login" component={Login} />
                     <Stack.Screen name="Register" component={Register} />
                     <Stack.Screen name="Otp" component={Otp} />
+                    <Stack.Screen name="PasswordRecovery" component={PasswordRecovery} />
                 </Stack.Navigator>
             </NavigationContainer>
         </Provider>
