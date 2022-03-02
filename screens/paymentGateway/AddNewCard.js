@@ -10,8 +10,7 @@ import {
 import SimpleLineIconsIcon from "react-native-vector-icons/SimpleLineIcons";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import { useFonts } from 'expo-font';
-//import DatePicker from 'react-native-datepicker';
-import DatePicker from '@react-native-community/datetimepicker';
+import DatePicker from 'react-native-datepicker';
 
 function AddNewCard({navigation}) {
    const [date, setDate] = useState('09-10-2020');
@@ -28,7 +27,7 @@ function AddNewCard({navigation}) {
     <View style={styles.container}>
       <View style={styles.backBtnRow}>
         <TouchableOpacity style={styles.backBtn}
-            onPress={()=>navigation.goBack()}
+          onPress={()=>navigation.goBack()}
         >
           <SimpleLineIconsIcon
             name="arrow-left"
@@ -126,7 +125,7 @@ function AddNewCard({navigation}) {
             clearButtonMode="while-editing"
             secureTextEntry={true}
             maxLength={4}
-            keyboardType="phone-pad"
+            //keyboardType="phone-pad"
             style={styles.cvcViewtxt}
           ></TextInput>
         </View>
@@ -181,7 +180,7 @@ const styles = StyleSheet.create({
     width: 200,
     alignSelf: "flex-end",
     marginTop: 25,
-    marginRight: 86
+    marginRight: 105
   },
   cardNolbl: {
     fontFamily: "poppinsregular",
@@ -189,7 +188,8 @@ const styles = StyleSheet.create({
     width: 290,
     height: 21,
     marginTop: 48,
-    marginLeft: 43
+    marginLeft: 43, 
+    marginBottom:3,
   },
   cardNoView: {
     height: 43,
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
     color: "rgba(255,255,255,1)",
     height: 43,
     marginLeft: 10,
-    marginRight: 13
+    marginRight: 10
   },
   cardholderNamelbl: {
     fontFamily: "poppinsregular",
@@ -211,7 +211,8 @@ const styles = StyleSheet.create({
     width: 290,
     height: 21,
     marginTop: 22,
-    marginLeft: 45
+    marginLeft: 45, 
+    marginBottom:3,
   },
   cardHolderView: {
     height: 43,
@@ -224,40 +225,43 @@ const styles = StyleSheet.create({
     fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     height: 43,
-    marginLeft: 12,
-    marginRight: 11
+    marginLeft: 10,
+    marginRight: 10
   },
   expireDatelbl: {
     fontFamily: "poppinsregular",
     color: "rgba(170,170,170,1)",
-    width: 103,
-    height: 21
+    //width: 103,
+    height: 21, 
   },
   cvvCvclbl: {
     fontFamily: "poppinsregular",
     color: "rgba(170,170,170,1)",
     flex: 1,
-    marginLeft: 64
+    marginLeft: 90,
   },
   expireDatelblRow: {
     height: 21,
     flexDirection: "row",
     marginTop: 20,
     marginLeft: 42,
-    marginRight: 63
+    marginRight: 63, 
+    marginBottom:3,
   },
   expDateView: {
     height: 43,
     backgroundColor: "rgba(81,81,81,0.4)",
     borderRadius: 8,
-    width: 152,
+    width: 160,
     flexDirection: "row"
   },
   expDatetxt: {
     fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     height: 43,
-    width: 140,
+    width: 150,
+    marginLeft:-3,
+    top:2,
   },
   calenderIcon: {
     color: "rgba(128,128,128,1)",
@@ -279,22 +283,23 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   cvcView: {
-    width: 140,
+    width: 160,
     height: 43,
     backgroundColor: "rgba(81,81,81,0.4)",
     borderRadius: 8,
     flexDirection: "row"
   },
   cvcViewtxtFiller: {
-    flex: 1,
-    flexDirection: "row"
+    // flex: 1,
+    // flexDirection: "row"
   },
   cvcViewtxt: {
     fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     height: 43,
-    width: 118,
-    marginRight: 14
+    width: 140,
+    //marginRight: 14
+    marginHorizontal:10,
   },
   expDateViewRow: {
     height: 43,
@@ -314,7 +319,7 @@ const styles = StyleSheet.create({
     fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     textAlign: "center",
-    marginTop: 15,
+    marginTop: 12,
     marginLeft: 8,
     marginRight: 7
   }

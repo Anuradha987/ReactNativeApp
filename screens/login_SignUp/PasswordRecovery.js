@@ -107,7 +107,8 @@ const styles = StyleSheet.create({
     width: 290,
     height: 21,
     marginTop: 32,
-    marginLeft: 41
+    marginLeft: 41, 
+    marginBottom:3
   },
   emailView: {
     height: 43,
