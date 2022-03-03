@@ -25,7 +25,7 @@ const TabButton = ({label, icon, isFocused, onPress, outerContainerStyle, innerC
                     {/* when a button is being clicked, the name will be shown here */}
                     {isFocused && 
                         <Text numberOfLines={1}
-                              style={{marginLeft: SIZES.base , color: COLORS.white, ...FONTS.h3}}
+                              style={{marginLeft:15, letterSpacing:0.5, fontSize:16,color: COLORS.white, fontFamily:'poppinsregular',marginTop:3}}
                         >
                             {label}
                         </Text>
@@ -242,7 +242,7 @@ const I_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelecte
                                    {item.label == constants.screens.I_Search && <I_Search/>}
                                     {item.label == constants.screens.I_Sent && <I_Sent/>}
                                     {item.label == constants.screens.I_Requests && <I_Requests/>}
-                                    {item.label == constants.screens.I_Approvals && <I_Approvals/>}
+                                    {/* {item.label == constants.screens.I_Approvals && <I_Approvals/>} */}
                                     {item.label == constants.screens.I_My && <I_My/>}
                                 </View>
                               )
@@ -265,7 +265,7 @@ const I_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelecte
                 {/* bottom tab navigator buttons assigning values to it */}
                 <View style={{flex:1, flexDirection:'row', paddingHorizontal: SIZES.radius, paddingBottom: 0, borderTopLeftRadius: 20, borderTopRightRadius: 20, backgroundColor: COLORS.white}}>
 
-                    <TabButton label = {constants.screens.I_Search}
+                    <TabButton label = 'Search'
                                 icon = {icons.search}
                                 isFocused = {selectedTab == constants.screens.I_Search}
                                 outerContainerStyle={I_SearchFlexStyle}
@@ -273,7 +273,7 @@ const I_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelecte
                                 onPress = {()=> setSelectedTab(constants.screens.I_Search)}
                     />
 
-                    <TabButton label = {constants.screens.I_Sent}
+                    <TabButton label = 'Sent'
                                 icon = {icons.sentReq}
                                 isFocused = {selectedTab == constants.screens.I_Sent}
                                 outerContainerStyle={I_SentFlexStyle}
@@ -281,7 +281,7 @@ const I_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelecte
                                 onPress = {()=> setSelectedTab(constants.screens.I_Sent)}
                     />
                                        
-                    <TabButton label = {'Requests'}
+                    <TabButton label = 'Received'
                                 icon = {icons.recieves}
                                 isFocused = {selectedTab == constants.screens.I_Requests}
                                 outerContainerStyle={I_RequestsFlexStyle}
@@ -289,15 +289,15 @@ const I_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelecte
                                 onPress = {()=> setSelectedTab(constants.screens.I_Requests)}
                     />
 
-                    <TabButton label = {constants.screens.I_Approvals}
+                    {/* <TabButton label = 'Approvals'
                                 icon = {icons.approval}
                                 isFocused = {selectedTab == constants.screens.I_Approvals}
                                 outerContainerStyle={I_ApprovalsFlexStyle}
                                 innerContainerStyle ={I_ApprovalsColorStyle}
                                 onPress = {()=> setSelectedTab(constants.screens.I_Approvals)}
-                    />                    
+                    />                     */}
                     
-                    <TabButton label = {constants.screens.I_My}
+                    <TabButton label = 'My'
                                 icon = {icons.mine}
                                 isFocused = {selectedTab == constants.screens.I_My}
                                 outerContainerStyle={I_MyFlexStyle}

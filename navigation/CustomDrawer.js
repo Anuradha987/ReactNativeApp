@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { createDrawerNavigator, DrawerContentScrollView} from '@react-navigation/drawer'
-import {DB_MainLayout, S_MainLayout, B_MainLayout, I_MainLayout, I_Search, ViewItems} from '../screens'; 
+import {DB_MainLayout, S_MainLayout, B_MainLayout, I_MainLayout, Fav_MainLayout} from '../screens'; 
 import {COLORS, FONTS, SIZES, constants, icons, dummyData} from '../constants';
 import Animated from 'react-native-reanimated';
 import { connect } from 'react-redux';
@@ -61,12 +61,21 @@ const CustomDrawerContent = ({navigation, selectedTab, setSelectedTab}) => {
                     </View>
                 </TouchableOpacity>
 
+{/* Home
+Services
+Items
+Favorites
+My Transactions
 
+Settings
+Invite a friend
+Help center
+Logout */}
                 {/* Drawer Items */}
 
                 <View style={{flex:1, marginTop: SIZES.padding}}>
 
-                    <CustomDrawerItem label={constants.screens.DB_MainLayout} 
+                    <CustomDrawerItem label='Dashboard'
                                       icon = {icons.noticeboard}
                                       isFocused = {selectedTab == constants.screens.DB_MainLayout}
                                       onPress ={()=> {  setSelectedTab(constants.screens.DB_MainLayout) 
@@ -76,7 +85,7 @@ const CustomDrawerContent = ({navigation, selectedTab, setSelectedTab}) => {
                                       
                     />
 
-                    <CustomDrawerItem label={constants.screens.S_Search} 
+                    <CustomDrawerItem label='Services' 
                                       icon = {icons.services}
                                       isFocused = {selectedTab == constants.screens.S_Search}
                                       onPress ={()=> {  setSelectedTab(constants.screens.S_Search) 
@@ -84,7 +93,7 @@ const CustomDrawerContent = ({navigation, selectedTab, setSelectedTab}) => {
                                       }}
                     />
 
-                    <CustomDrawerItem label={constants.screens.I_Search} 
+                    <CustomDrawerItem label='Items'
                                       icon = {icons.items}
                                       isFocused = {selectedTab == constants.screens.I_Search}
                                       onPress ={()=> {  setSelectedTab(constants.screens.I_Search) 
@@ -92,16 +101,44 @@ const CustomDrawerContent = ({navigation, selectedTab, setSelectedTab}) => {
                                       }}
                     />
 
-                    <CustomDrawerItem label={constants.screens.B_Search} 
+                    <CustomDrawerItem label='Favorites'
+                                      icon = {icons.MyBusiness}
+                                      isFocused = {selectedTab == constants.screens.Fav_MainLayout}
+                                      onPress ={()=> {  setSelectedTab(constants.screens.Fav_MainLayout)
+                                                        navigation.navigate("Fav_MainLayout")                                    
+                                      }}
+                    />
+
+                    <CustomDrawerItem label='My Transactions' 
                                       icon = {icons.MyBusiness}
                                       isFocused = {selectedTab == constants.screens.B_Search}
                                       onPress ={()=> {  setSelectedTab(constants.screens.B_Search)
                                                         navigation.navigate("B_MainLayout")                                    
                                       }}
                     />
-
+                    <CustomDrawerItem label='Settings'
+                                      icon = {icons.setting}
+                                      isFocused = {selectedTab == constants.screens.B_Search}
+                                      onPress ={()=> {  setSelectedTab(constants.screens.B_Search)
+                                                        navigation.navigate("B_MainLayout")                                    
+                                      }}
+                    />
+                    <CustomDrawerItem label='Invite a friend' 
+                                      icon = {icons.profile}
+                                      isFocused = {selectedTab == constants.screens.B_Search}
+                                      onPress ={()=> {  setSelectedTab(constants.screens.B_Search)
+                                                        navigation.navigate("B_MainLayout")                                    
+                                      }}
+                    />
+                    <CustomDrawerItem label='Help center' 
+                                      icon = {icons.help}
+                                      isFocused = {selectedTab == constants.screens.B_Search}
+                                      onPress ={()=> {  setSelectedTab(constants.screens.B_Search)
+                                                        navigation.navigate("B_MainLayout")                                    
+                                      }}
+                    />                                                            
                     {/* Line Divider */}
-                    <View style ={{height: 1, marginVertical: SIZES.radius, marginLeft: SIZES.radius, backgroundColor: COLORS.lightGray1}}></View>
+                    {/* <View style ={{height: 1, marginVertical: SIZES.radius, marginLeft: SIZES.radius, backgroundColor: COLORS.lightGray1}}></View>
 
                     <CustomDrawerItem label="Track Your Order" 
                                       icon = {icons.location}
@@ -121,7 +158,7 @@ const CustomDrawerContent = ({navigation, selectedTab, setSelectedTab}) => {
 
                     <CustomDrawerItem label="Help Center"
                                       icon = {icons.help}
-                    />
+                    /> */}
 
                     <View style={{marginBottom: SIZES.padding}}>
                         <CustomDrawerItem label="Logout"
@@ -224,8 +261,8 @@ function drawerColor(){
                     {props => <I_MainLayout {...props} drawerAnimationStyle = {animatedStyle} />}
                 </Drawer.Screen>
 
-                <Drawer.Screen name="B_MainLayout">
-                    {props => <B_MainLayout {...props} drawerAnimationStyle = {animatedStyle} />}
+                <Drawer.Screen name="Fav_MainLayout">
+                    {props => <Fav_MainLayout {...props} drawerAnimationStyle = {animatedStyle} />}
                 </Drawer.Screen>
 
                 {/* ------------------------------------------------------------------------------------------------------------------ */}

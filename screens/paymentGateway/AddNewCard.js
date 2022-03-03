@@ -10,7 +10,7 @@ import {
 import SimpleLineIconsIcon from "react-native-vector-icons/SimpleLineIcons";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import { useFonts } from 'expo-font';
-import DatePicker from 'react-native-datepicker';
+import DatePicker from 'react-native-date-picker'
 
 function AddNewCard({navigation}) {
    const [date, setDate] = useState('09-10-2020');

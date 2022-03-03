@@ -9,26 +9,21 @@ const screens = {
     //change the header name from here. lol
     DB_MainLayout   : 'Dashboard MainLayout',
 
-    S_MainLayout    : 'Services MainLayout' ,
-    S_Search        : 'Explore Services' ,
-    S_Sent          : 'Services Sent' ,
-    S_My            : 'Services My' ,
-    S_Approvals     : 'Services Approvals' ,
-    S_Requests      : 'Services Requests' , 
+    S_MainLayout    : 'Services  MainLayout' ,
+    S_Search        : 'Explore  Services' ,
+    S_Sent          : 'Sent  Services' ,
+    S_My            : 'My  Services' ,
+    S_Approvals     : 'Approved  Services' ,
+    S_Requests      : 'Service  Requests' , 
 
-    I_MainLayout    : 'Items MainLayout' ,
-    I_Search        : 'Items Search' ,
-    I_Sent          : 'Items Sent' , 
-    I_My            : 'Items My' ,
-    I_Approvals     : 'Items Approvals' ,
-    I_Requests      : 'Items Requests' , 
+    I_MainLayout    : 'Items  MainLayout' ,
+    I_Search        : 'Explore  Items' ,
+    I_Sent          : 'Sent  Orders' , 
+    I_My            : 'My  Items' ,
+    //I_Approvals     : 'Approved  Items' ,
+    I_Requests      : 'Received Orders' , 
 
-    B_MainLayout    : 'My Business MainLayout' , 
-    B_Search        : 'Business Search',
-    B_Sent          : 'Business Sent' ,
-    B_My            : 'My Business My' , 
-    B_ReceiveReq    : 'My Business ReceiveReq' , 
-    B_SentReq       : 'My Business SentReq' ,
+    Fav_MainLayout  : 'Favourite MainLayout'
 
 }
 
@@ -79,28 +74,6 @@ const I_bottom_tabs = [
     },
 ]
 
-const B_bottom_tabs = [
-    {
-        id: 0,
-        label: screens.B_Search,
-    },
-    {
-        id: 1,
-        label: screens.B_Sent,
-    },
-    {
-        id: 2,
-        label: screens.B_SentReq,
-    },
-    {
-        id: 3,
-        label: screens.B_ReceiveReq,
-    },
-    {
-        id: 4,
-        label: screens.B_My,
-    },
-]
 
 const ratings = [
     {
@@ -130,6 +103,5 @@ export default {
     screens,
     S_bottom_tabs,
     I_bottom_tabs,
-    B_bottom_tabs,
     ratings,
 }

@@ -6,26 +6,36 @@ import {connect} from 'react-redux'
 import { setSelectedTab } from '../stores/tab/tabActions';
 import { Header } from '../components';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useFonts } from 'expo-font';
 
 //these are the screens that renders within the S_MainLayout
 import { S_Approvals, S_Sent, S_My, S_Requests, S_Search } from './index';
 
 
 const TabButton = ({label, icon, isFocused, onPress, outerContainerStyle, innerContainerStyle}) => {
+             //poppins insert
+  const [loaded] = useFonts({
+    poppinsregular: require('./../assets/fonts/Poppins-Regular.ttf'),
+    poppins700: require('./../assets/fonts/poppins-700.ttf'),
+  });
+
+  if (!loaded) {
+       return null;
+  }
     return(
         <TouchableWithoutFeedback onPress={onPress}>
             <Animated.View style={[{flex:1, alignItems: 'center', justifyContent: 'center'}, outerContainerStyle]}>
 
-                {/* another animated.view used to animate the bottom bar buttons in orange color */}
+                {/* another animated.view used to animate the bottom bar buttons in purple color */}
                 <Animated.View style={[{flexDirection:'row', height: 50, width:'80%', alignItems: 'center', justifyContent: 'center', borderRadius: 25}, innerContainerStyle]}>
                     <Image source={icon} 
-                           style={{ width: 20, height: 20, tintColor: isFocused? COLORS.white : COLORS.gray}}
+                           style={{ width: 20, height: 20, tintColor: isFocused? COLORS.white : COLORS.gray, }}
                     />
 
                     {/* when a button is being clicked, the name will be shown here */}
                     {isFocused && 
                         <Text numberOfLines={1}
-                              style={{marginLeft: SIZES.base , color: COLORS.white, ...FONTS.h3}}
+                              style={{marginLeft:15, letterSpacing:0.5, fontSize:16, color: COLORS.white, fontFamily:'poppinsregular',marginTop:3}}
                         >
                             {label}
                         </Text>
@@ -336,10 +346,10 @@ const S_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelecte
                 />
 
                 {/* bottom tab navigator buttons assigning values to it */}
-                <View style={{flex:1, flexDirection:'row', paddingHorizontal: SIZES.radius, paddingBottom: 0, borderTopLeftRadius: 20, borderTopRightRadius: 20, backgroundColor: COLORS.white}}>
+                <View style={{flex:1, flexDirection:'row', paddingHorizontal: SIZES.radius, paddingBottom: 0, borderTopLeftRadius: 20, borderTopRightRadius: 20, backgroundColor: COLORS.white, }}>
 
 
-                    <TabButton label = {constants.screens.S_Search}
+                    <TabButton label = 'Search'
                                 icon = {icons.search}
                                 isFocused = {selectedTab == constants.screens.S_Search}
                                 outerContainerStyle={S_SearchFlexStyle}
@@ -347,7 +357,7 @@ const S_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelecte
                                 onPress = {()=> setSelectedTab(constants.screens.S_Search)}
                     />
 
-                    <TabButton label = {constants.screens.S_Sent}
+                    <TabButton label = 'Sent'
                                 icon = {icons.sentReq}
                                 isFocused = {selectedTab == constants.screens.S_Sent}
                                 outerContainerStyle={S_SentFlexStyle}
@@ -363,7 +373,7 @@ const S_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelecte
                                 onPress = {()=> setSelectedTab(constants.screens.S_Requests)}
                     />
 
-                    <TabButton label = {constants.screens.S_Approvals}
+                    <TabButton label = 'Approvals'
                                 icon = {icons.approval}
                                 isFocused = {selectedTab == constants.screens.S_Approvals}
                                 outerContainerStyle={S_ApprovalsFlexStyle}
@@ -371,7 +381,7 @@ const S_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelecte
                                 onPress = {()=> setSelectedTab(constants.screens.S_Approvals)}
                     />                    
                     
-                    <TabButton label = {constants.screens.S_My}
+                    <TabButton label = 'My'
                                 icon = {icons.mine}
                                 isFocused = {selectedTab == constants.screens.S_My}
                                 outerContainerStyle={S_MyFlexStyle}
