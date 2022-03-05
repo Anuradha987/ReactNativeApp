@@ -53,6 +53,7 @@ import Otp from './login_SignUp/Otp';
 import PasswordRecovery from './login_SignUp/PasswordRecovery';
 import ResetPassword from './login_SignUp/ResetPassword';
 import AddNewCard from './paymentGateway/AddNewCard';
+import PaymentCards from './paymentGateway/PaymentCards'; 
 
 import Fav_MainLayout from './Fav_MainLayout';
 
@@ -89,6 +90,7 @@ export {
     ResetPassword,
      
     AddNewCard, 
+    PaymentCards, 
 
     Fav_MainLayout, 
 }

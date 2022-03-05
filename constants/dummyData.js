@@ -1100,6 +1100,49 @@ const itemSalesHistory =[
         itemImage: require("../assets/images/samsung_adaptive_fast_charger_2_1533813223.jpg"),
     },
 ]
+
+const myCards = [
+    {
+        id: 1,
+        name: "Master Card",
+        icon: require("../assets/icons/mastercard_logo.png"),
+        card_no: "1234"
+    },
+    {
+        id: 2,
+        name: "Google Pay",
+        icon: require("../assets/icons/googlePay_logo.png"),
+        card_no: "1234"
+    },
+]
+
+const allCards = [
+    {
+        id: 1,
+        name: "Apple Pay",
+        icon: require("../assets/icons/apple_pay_60px.png")
+    },
+    {
+        id: 2,
+        name: "Visa",
+        icon: require("../assets/icons/visaCard_logo.png"),
+    },
+    {
+        id: 3,
+        name: "PayPal",
+        icon: require("../assets/icons/paypal_logo.png"),
+    },
+    {
+        id: 4,
+        name: "Google Pay",
+        icon: require("../assets/icons/googlePay_logo.png"),
+    },
+    {
+        id: 5,
+        name: "Master Card",
+        icon: require("../assets/icons/mastercard_logo.png"),
+    },
+]
 export default {
     myProfile,
     categories,    
@@ -1118,4 +1161,6 @@ export default {
     servicesRequestsSent,
     itemOrdersSent,
     itemSalesHistory,
+    myCards, 
+    allCards
 }

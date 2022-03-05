@@ -25,7 +25,7 @@ import S_My from './S_My/S_My';
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 
-function MyProfile(props) {
+function MyProfile({navigation}) {
   //poppins insert
   const [loaded] = useFonts({
     poppinsregular: require('../assets/fonts/Poppins-Regular.ttf'),

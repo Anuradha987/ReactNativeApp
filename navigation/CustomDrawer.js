@@ -113,7 +113,7 @@ Logout */}
                                       icon = {icons.MyBusiness}
                                       isFocused = {selectedTab == constants.screens.B_Search}
                                       onPress ={()=> {  setSelectedTab(constants.screens.B_Search)
-                                                        navigation.navigate("B_MainLayout")                                    
+                                                        navigation.navigate("MyProfile")                                    
                                       }}
                     />
                     <CustomDrawerItem label='Settings'
