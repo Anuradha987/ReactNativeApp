@@ -10,15 +10,17 @@ import {
 } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
+import EntypoIcon from "react-native-vector-icons/Entypo";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import mapStyle from "../../constants/MapStyle";
 import { dummyData} from '../../constants';
 import { useFonts } from 'expo-font';
+import { useNavigation } from '@react-navigation/native';
 
-const S_Search = ({ navigation, route }) => {
-
+const S_Search = () => {
+  const navigation = useNavigation();
   const [selectedPlace, setSelectedPlace] = React.useState(null)
   const [selectedHotel, setSelectedHotel] = React.useState(null)
 
@@ -107,12 +109,12 @@ const S_Search = ({ navigation, route }) => {
       <View style={styles.mapViewStack}>
         <MapView
           provider={MapView.PROVIDER_GOOGLE}
-          initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421
-          }}
+          // initialRegion={{
+          //   latitude: 37.78825,
+          //   longitude: -122.4324,
+          //   latitudeDelta: 0.0922,
+          //   longitudeDelta: 0.0421
+          // }}
           initialRegion={selectedPlace?.mapInitialRegion}
           customMapStyle={mapStyle}
           style={styles.mapView}
@@ -138,11 +140,11 @@ const S_Search = ({ navigation, route }) => {
 
 
         {/* new request */}
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => props.navigation.navigate("NewReqForm")}
           style={styles.addNewReq}
         ></TouchableOpacity>
-        <Text style={styles.add}>+</Text>
+        <Text style={styles.add}>+</Text> */}
 
         {/* expert pop up box */}
         <View style={styles.button}>
@@ -201,7 +203,9 @@ const S_Search = ({ navigation, route }) => {
 
 
       </View>
-      
+      <TouchableOpacity style={styles.addNewReq} onPress={()=>navigation.navigate('NewReqForm')}>
+                <EntypoIcon name="plus" style={styles.addIcon}></EntypoIcon>
+      </TouchableOpacity>
       <View style={{marginTop:160}}></View>
     </View>
   );
@@ -355,37 +359,64 @@ const styles = StyleSheet.create({
     marginBottom:72,
     right: 0
   },
+  // addNewReq: {
+  //   top: 552,
+  //   width: 70,
+  //   height: 70,
+  //   position: "absolute",
+  //   backgroundColor: "rgba(162,0,255,1)",
+  //   transform: [
+  //     {
+  //       rotate: "-45.00deg"
+  //     }
+  //   ],
+  //   borderRadius: 22,
+  //   right: 19,
+  //   shadowColor: "rgba(162,0,255,1)",
+  //   shadowOffset: {
+  //     width: 0,
+  //     height: 0
+  //   },
+  //   elevation: 30,
+  //   shadowOpacity: 0.5,
+  //   shadowRadius: 10
+  // },
+  // add: {
+  //   top: 544,
+  //   position: "absolute",
+  //   fontFamily: "poppinsregular",
+  //   color: "rgba(255,255,255,1)",
+  //   fontSize: 60,
+  //   height: 70,
+  //   right: 34,
+  //   width: 41
+  // },
   addNewReq: {
-    top: 552,
     width: 70,
     height: 70,
     position: "absolute",
     backgroundColor: "rgba(162,0,255,1)",
     transform: [
       {
-        rotate: "-45.00deg"
+        rotate: "45.00deg"
       }
     ],
-    borderRadius: 22,
-    right: 19,
-    shadowColor: "rgba(162,0,255,1)",
-    shadowOffset: {
-      width: 0,
-      height: 0
-    },
-    elevation: 30,
-    shadowOpacity: 0.5,
-    shadowRadius: 10
+    borderRadius: 23,
+    right: 25,
+    bottom: 170
   },
-  add: {
-    top: 544,
-    position: "absolute",
-    fontFamily: "poppinsregular",
-    color: "rgba(255,255,255,1)",
-    fontSize: 60,
-    height: 70,
-    right: 34,
-    width: 41
+  addIcon: {
+    color: "white",
+    fontSize: 50,
+    height: 55,
+    width: 50,
+    marginTop: 9,
+    marginLeft: 9, 
+    transform: [
+      {
+        rotate: "45.00deg"
+      }
+    ],
   },
   button: {
     left: 8,

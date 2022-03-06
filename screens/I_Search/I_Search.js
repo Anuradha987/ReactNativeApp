@@ -12,10 +12,11 @@ import {
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
+import EntypoIcon from "react-native-vector-icons/Entypo";
 import { useFonts } from 'expo-font';
 import { LinearGradient } from 'expo-linear-gradient';
 import { FlatList } from "react-native-gesture-handler";
-import { dummyData} from '../../constants';
+import { dummyData, icons} from '../../constants';
 import { useNavigation } from '@react-navigation/native';
 const windowHeight = Dimensions.get('screen').height;
  import ViewItems from "./ViewItems";
@@ -157,13 +158,10 @@ const I_Search = () => {
 
       </View>
 
-      <View style={styles.addNewReqStack}>
-        <TouchableOpacity
-            onPress={() =>navigation.navigate("NewReqForm")}
-          style={styles.addNewReq}
-        ></TouchableOpacity>
-        {/* <Text style={styles.add}>+</Text> */}
-      </View>
+      {/* <TouchableOpacity style={styles.addNewReq}><Image source={icons.cross} style={styles.add}/></TouchableOpacity> */}
+      <TouchableOpacity style={styles.addNewReq} onPress={()=>navigation.navigate('NewReqForm')}>
+                <EntypoIcon name="plus" style={styles.addIcon}></EntypoIcon>
+      </TouchableOpacity>
 
       {/* <View style={{ backgroundColor: "#fff", margin: 50, height: 700 }}></View> */}
       <View style={{ marginTop: 160 }}></View>
@@ -542,43 +540,38 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   addNewReq: {
-    top: 11,
     width: 70,
     height: 70,
     position: "absolute",
     backgroundColor: "rgba(162,0,255,1)",
     transform: [
       {
-        rotate: "-45.00deg"
+        rotate: "45.00deg"
       }
     ],
-    borderRadius: 22,
-    right: 0,
-    shadowColor: "rgba(113,0,255,1)",
-    shadowOffset: {
-      width: 0,
-      height: 0
-    },
-    elevation: 0,
-    shadowOpacity: 0.5,
-    shadowRadius: 5
+    borderRadius: 23,
+    right: 25,
+    bottom: 170
   },
-  add: {
-    top: 0,
-    position: "absolute",
-    fontFamily: "poppinsregular",
-    color: "rgba(255,255,255,1)",
-    fontSize: 60,
-    height: 70,
-    right: 17,
-    width: 41
+  addIcon: {
+    color: "white",
+    fontSize: 50,
+    height: 55,
+    width: 50,
+    marginTop: 9,
+    marginLeft: 9, 
+    transform: [
+      {
+        rotate: "45.00deg"
+      }
+    ],
   },
   addNewReqStack: {
     width: 70,
     height: 81,
     alignSelf: "flex-end",
     marginTop: windowHeight - 860,
-    marginRight: 30
+    marginRight: 30,    
   },
   product3: {
     width: 169,

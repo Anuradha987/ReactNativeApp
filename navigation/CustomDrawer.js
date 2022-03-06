@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity, ImageBackground } from 'react-native'
 import { createDrawerNavigator, DrawerContentScrollView} from '@react-navigation/drawer'
 import {DB_MainLayout, S_MainLayout, B_MainLayout, I_MainLayout, Fav_MainLayout} from '../screens'; 
 import {COLORS, FONTS, SIZES, constants, icons, dummyData} from '../constants';
@@ -67,6 +67,7 @@ Items
 Favorites
 My Transactions
 
+Notification
 Settings
 Invite a friend
 Help center
@@ -226,7 +227,13 @@ function drawerColor(){
   }
 
     return ( 
-       <View style={{flex:1, backgroundColor: drawerColor()}}> 
+       <View style={{flex:1}}> 
+              <ImageBackground
+          source={require("../assets/images/blob-scene-haikei.png")}
+          resizeMode="stretch"
+          style={{top: 0, left: 0, position: "absolute",right: 0, bottom: 0,backgroundColor: "rgba(15,15, 15,0.74)", flexDirection: "row"}}
+          imageStyle={{opacity: 0.75}}
+        >
             <Drawer.Navigator screenOptions ={{
                               drawerType:"slide",
                               overlayColor: "transparent",
@@ -267,6 +274,7 @@ function drawerColor(){
 
                 {/* ------------------------------------------------------------------------------------------------------------------ */}
             </Drawer.Navigator>
+            </ImageBackground>
         </View>
     )
 }
