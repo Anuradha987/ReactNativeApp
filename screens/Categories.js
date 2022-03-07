@@ -36,7 +36,7 @@ function Categories(props) {
               columnWrapperStyle={{ justifyContent: 'space-between', marginHorizontal:20,  }}
               data={dummyData.categories}
               keyExtractor={(item) => `${item.id}`}
-              showsHorizontalScrollIndicator={true}
+              showsVerticalScrollIndicator={true}
               numColumns={3}
               renderItem={({ item, index }) => {
                 return (

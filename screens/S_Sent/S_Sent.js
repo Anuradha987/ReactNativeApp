@@ -17,6 +17,7 @@ import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import { dummyData } from "../../constants";
 import PickerComponent from "../../components/PickerComponent";
+import { useFonts } from 'expo-font';
 //notifi about the rates, votes and commetns of yours services. 
 //details about your requested services. 
 //details about upcoming pending services that you have accepted.
@@ -25,8 +26,19 @@ import PickerComponent from "../../components/PickerComponent";
 
 
 const S_Sent = () => {
+  
   // for the requests status 
   const [selectedValue, setSelectedValue] = useState("All");
+
+    //poppins insert
+    const [loaded] = useFonts({
+      poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
+      poppins700: require('./../../assets/fonts/poppins-700.ttf'),
+  });
+
+  if (!loaded) {
+        return null;
+  }
   return (
 
     <View style={styles.container}>
@@ -237,7 +249,7 @@ const styles = StyleSheet.create({
     marginTop: -122
   },
   serviceSearch: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "#fff",
     height: 52,
     opacity: 0.75,
@@ -286,7 +298,7 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   reqTitle: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     fontSize: 15,
     marginTop: 10,
@@ -302,14 +314,14 @@ const styles = StyleSheet.create({
     top: 1,
     left: 0,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(220,162,76,1)",
     fontSize: 11
   },
   sentDate: {
     top: 0,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(145,145,145,1)",
     fontSize: 10,
     right: "-20%",
@@ -329,12 +341,12 @@ const styles = StyleSheet.create({
     marginRight: 15
   },
   sentTo: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(197,212,196,1)",
     fontSize: 13
   },
   reqStatus: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(191,190,191,1)",
     fontSize: 13
   },

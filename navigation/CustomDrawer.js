@@ -1,24 +1,30 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity, ImageBackground } from 'react-native'
 import { createDrawerNavigator, DrawerContentScrollView} from '@react-navigation/drawer'
-import {DB_MainLayout, S_MainLayout, B_MainLayout, I_MainLayout, Fav_MainLayout} from '../screens'; 
+import {DB_MainLayout, S_MainLayout, I_MainLayout, Fav_MainLayout} from '../screens'; 
 import {COLORS, FONTS, SIZES, constants, icons, dummyData} from '../constants';
 import Animated from 'react-native-reanimated';
 import { connect } from 'react-redux';
 import { setSelectedTab } from '../stores/tab/tabActions';  
+import { useFonts } from 'expo-font';
 
 const Drawer =  createDrawerNavigator()
 
 
-
 //customize the drawer items such as Home, settings etc
 const CustomDrawerItem = ({label,icon, isFocused, onPress}) => {
+    const [loaded] = useFonts({
+        poppinsregular: require('./../assets/fonts/Poppins-Regular.ttf')   
+      });
+      if (!loaded) {
+        return null;
+      }
     return(
         <TouchableOpacity style={{flexDirection: 'row', height:40, marginBottom: SIZES.base, alignItems: 'center', paddingLeft: SIZES.radius, borderRadius: SIZES.base, backgroundColor: isFocused ? COLORS.transparentBlack1 : null}}
                           onPress ={onPress}
         >
             <Image source={icon}  style={{width:20, height:20, tintColor: COLORS.white}} />
-            <Text style={{marginLeft:15 , color: COLORS.white, ...FONTS.h3}}>{label}</Text>
+            <Text style={{marginLeft:15 , color: COLORS.white, fontFamily:"poppinsregular"}}>{label}</Text>
         </TouchableOpacity>
     )
 }
@@ -34,7 +40,7 @@ const CustomDrawerContent = ({navigation, selectedTab, setSelectedTab}) => {
             <View style={{flex:1, paddingHorizontal: SIZES.radius}}>
 
                 {/* close */}
-                <View style={{alignItems: 'flex-end', justifyContent: 'center'}}>
+                <View style={{alignItems: 'flex-end', justifyContent: 'center', }}>
 
                     <TouchableOpacity style={{alignItems: 'center', justifyContent: 'center' }}
                                       onPress ={()=> navigation.closeDrawer()}
@@ -56,8 +62,8 @@ const CustomDrawerContent = ({navigation, selectedTab, setSelectedTab}) => {
                     />
 
                     <View style={{marginLeft: SIZES.radius}}>
-                        <Text style={{color: COLORS.white, ...FONTS.h3}}>{dummyData.myProfile?.name}</Text>
-                        <Text style={{color:COLORS.white, ...FONTS.body4}}>View Your Profile</Text>
+                        <Text style={{color: COLORS.white, fontFamily:"poppinsregular"}}>{dummyData.myProfile?.name}</Text>
+                        <Text style={{color:COLORS.white, fontFamily:"poppinsregular"}}>View Your Profile</Text>
                     </View>
                 </TouchableOpacity>
 
@@ -121,21 +127,21 @@ Logout */}
                                       icon = {icons.setting}
                                       isFocused = {selectedTab == constants.screens.B_Search}
                                       onPress ={()=> {  setSelectedTab(constants.screens.B_Search)
-                                                        navigation.navigate("B_MainLayout")                                    
+                                                        navigation.navigate("DB_MainLayout")                                    
                                       }}
                     />
                     <CustomDrawerItem label='Invite a friend' 
                                       icon = {icons.profile}
                                       isFocused = {selectedTab == constants.screens.B_Search}
                                       onPress ={()=> {  setSelectedTab(constants.screens.B_Search)
-                                                        navigation.navigate("B_MainLayout")                                    
+                                                        navigation.navigate("DB_MainLayout")                                    
                                       }}
                     />
                     <CustomDrawerItem label='Help center' 
                                       icon = {icons.help}
                                       isFocused = {selectedTab == constants.screens.B_Search}
                                       onPress ={()=> {  setSelectedTab(constants.screens.B_Search)
-                                                        navigation.navigate("B_MainLayout")                                    
+                                                        navigation.navigate("DB_MainLayout")                                    
                                       }}
                     />                                                            
                     {/* Line Divider */}
