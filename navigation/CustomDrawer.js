@@ -118,9 +118,9 @@ Logout */}
 
                     <CustomDrawerItem label='My Transactions' 
                                       icon = {icons.MyBusiness}
-                                      isFocused = {selectedTab == constants.screens.AddNewCard}
-                                      onPress ={()=> {  setSelectedTab(constants.screens.AddNewCard)
-                                                        navigation.navigate("AddNewCard")                                   
+                                      isFocused = {selectedTab == constants.screens.Otp}
+                                      onPress ={()=> {  setSelectedTab(constants.screens.Otp)
+                                                        navigation.navigate("Otp")                                   
                                       }}
                     />
                     <CustomDrawerItem label='Settings'

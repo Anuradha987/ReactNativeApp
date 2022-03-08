@@ -12,11 +12,23 @@ import {
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import {dummyData} from '../../constants';
+import { useFonts } from 'expo-font';
 
-//The topic of the page should changed to I_SalesHistory. 
+// ⚠ The topic of the page should changed to I_SalesHistory. ⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠
 // Details about items/products that have been sold to others in the past are displayed on here. 
 
 const I_Requests = () => {
+
+      //poppins insert
+      const [loaded] = useFonts({
+        poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
+        poppins700: require('./../../assets/fonts/poppins-700.ttf'),
+    });
+  
+    if (!loaded) {
+          return null;
+    }
+
     return (
         <View style={styles.container}>
 <FlatList showsVerticalScrollIndicator={true}
@@ -78,7 +90,7 @@ const I_Requests = () => {
 
 
         </View>
-        <View style={{ marginTop: 105 }}></View>
+        <View style={{ marginTop: 150 }}></View>
 
         </View>}/>
       </View>
@@ -96,7 +108,7 @@ scrollArea: {
     borderColor: "#000000",
     //flex: 1,
     marginBottom: 50,
-    marginTop: 20,
+    marginTop: 40,
     marginLeft: 12,
     marginRight: 12, 
 },
@@ -111,7 +123,7 @@ itemCard: {
     alignItems: "flex-end"
 },
 itemTitle: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     fontSize: 14,
     textAlign: "right",
@@ -120,7 +132,7 @@ itemTitle: {
 },
 cateName: {
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "#70d6eb",
     textAlign: "right",
     top: 0,
@@ -141,7 +153,7 @@ cateNameStack: {
 priceperUnit: {
     top: 0,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(209,209,209,1)",
     textAlign: "right",
     fontSize: 12,
@@ -152,7 +164,7 @@ priceperUnit: {
 transactionMethod: {
     top: 0,
     position: "absolute",
-    fontFamily: "poppins-500",
+    fontFamily: "poppins500",
     color: "rgba(220,147,245,1)",
     textAlign: "right",
     fontSize: 13,
@@ -194,12 +206,12 @@ searchingBar: {
     shadowOpacity: 0.59,
     shadowRadius: 5,
     flexDirection: "row",
-marginTop: 38,
+    marginTop: 12,
     marginLeft: 16,
     marginRight: 16
 },
 serviceSearch: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     height: 52,
     opacity: 0.43,

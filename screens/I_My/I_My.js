@@ -17,6 +17,7 @@ import EntypoIcon from "react-native-vector-icons/Entypo";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import { dummyData } from '../../constants';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useFonts } from 'expo-font';
 
 //item details that have been sold and the order requests recieved from others
 
@@ -24,7 +25,15 @@ const windowHeight = Dimensions.get('screen').height;
 const windowWidth = Dimensions.get('screen').width;
 
 const I_My = () => {
+    //poppins insert
+    const [loaded] = useFonts({
+      poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
+      poppins700: require('./../../assets/fonts/poppins-700.ttf'),
+  });
 
+  if (!loaded) {
+        return null;
+  }
   return (
     <View style={styles.container}>
       {/* Vertical scroll bar */}
@@ -198,7 +207,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     position: "absolute",
-    fontFamily: "poppins-700",
+    fontFamily: "poppins700",
     color: "rgba(0,0,0,1)"
   },
   notificationCircle: {
@@ -216,7 +225,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   noOfNotification: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "#121212",
     textAlign: "center",
     marginTop: 3
@@ -251,7 +260,7 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   senderName: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     fontSize: 11,
     marginLeft: 10,
@@ -268,7 +277,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   sendTime: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     fontSize: 11,
     textAlign: "right",
@@ -279,7 +288,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     position: "absolute",
-    fontFamily: "poppins-700",
+    fontFamily: "poppins700",
     color: "rgba(125,123,123,1)",
     width: 66,
     fontSize: 11,
@@ -301,7 +310,7 @@ const styles = StyleSheet.create({
     marginTop: 2
   },
   amountOrdered: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(0,0,0,1)",
     textAlign: "left",
     width: 145,
@@ -337,7 +346,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   decline: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(242,69,69,1)",
     textAlign: "center",
     fontSize: 12,
@@ -357,7 +366,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     position: "absolute",
-    fontFamily: "poppins-700",
+    fontFamily: "poppins700",
     color: "rgba(125,123,123,1)",
     fontSize: 11
   },
@@ -373,7 +382,7 @@ const styles = StyleSheet.create({
     height: 32
   },
   returningDateOrExchangedFor: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(0,0,0,1)",
     textAlign: "left",
     width: 145,
@@ -410,7 +419,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   accept: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(60,209,6,1)",
     textAlign: "center",
     fontSize: 12,
@@ -447,7 +456,7 @@ const styles = StyleSheet.create({
   },
   myItemDetails_imageStyle: {},
   publishDate: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(152,150,150,1)",
     width: 106,
     fontSize: 11,
@@ -525,7 +534,7 @@ const styles = StyleSheet.create({
     marginRight: 16
   },
   pageNo: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(216,148,255,1)",
     fontSize: 62,
     textAlign: "center",
@@ -540,7 +549,7 @@ const styles = StyleSheet.create({
     marginLeft: 95
   },
   itemTitle: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "#121212",
     fontSize: 20,
     textAlign: "center",
@@ -554,7 +563,7 @@ const styles = StyleSheet.create({
     width: 22,
   },
   cateName: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(79,77,77,1)",
     marginLeft: 7
   },
@@ -566,7 +575,7 @@ const styles = StyleSheet.create({
     marginRight: 16
   },
   totalAmountlbl: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(59,57,57,1)"
   },
   totalAmountlblFiller: {
@@ -574,7 +583,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   totalAmount: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(59,57,57,1)",
     textAlign: "right"
   },
@@ -586,7 +595,7 @@ const styles = StyleSheet.create({
     marginRight: 36
   },
   tradingMethodlbl: {
-    fontFamily: "poppins-700",
+    fontFamily: "poppins700",
     color: "rgba(109,107,107,1)",
     width: 111,
     height: 20
@@ -596,7 +605,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   pricePerUnit: {
-    fontFamily: "poppins-700",
+    fontFamily: "poppins700",
     color: "rgba(126,0,255,1)",
     width: 148,
     textAlign: "right",
@@ -652,7 +661,7 @@ const styles = StyleSheet.create({
   // serviceSearch: {
   //   top: 0,
   //   position: "absolute",
-  //   fontFamily: "poppins-regular",
+  //   fontFamily: "poppinsregular",
   //   color: "rgba(255,255,255,1)",
   //   height: 52,
   //   opacity: 0.75,

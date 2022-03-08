@@ -26,6 +26,7 @@ const email = require("../assets/icons/email.png")
 const deleteUser = require("../assets/icons/deleteUser.png")
 const check_on = require("../assets/icons/check_on.png")
 const check_off = require("../assets/icons/check_off.png")
+const clock = require("../assets/icons/clock.png")
 
 const approval = require("../assets/icons/approval.png")
 const items = require("../assets/icons/items.png")
@@ -72,5 +73,6 @@ export default {
     services,
     sentReq,
     check_on, 
-    check_off
+    check_off, 
+    clock,
 }

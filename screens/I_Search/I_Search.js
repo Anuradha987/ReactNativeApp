@@ -307,7 +307,7 @@ const styles = StyleSheet.create({
   searchingBarRow: {
     height: 52,
     flexDirection: "row",
-    marginTop: -110,
+    marginTop: -120,
     marginLeft: 16,
     marginRight: 16
   },
@@ -551,7 +551,7 @@ const styles = StyleSheet.create({
     ],
     borderRadius: 23,
     right: 25,
-    bottom: 170
+    bottom: 180
   },
   addIcon: {
     color: "white",

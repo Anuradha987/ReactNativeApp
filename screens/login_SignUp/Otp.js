@@ -10,7 +10,6 @@ import {
 import SimpleLineIconsIcon from 'react-native-vector-icons/SimpleLineIcons';
 import { useFonts } from 'expo-font';
 import OtpInputView from '@twotalltotems/react-native-otp-input'
-import TextButton from '../../components/TextButton';
 
 const Otp = ({navigation}) => {
 
@@ -28,82 +27,29 @@ const [timer, setTimer] = React.useState(60);
 
   return (
     <View style={styles.container}>
-                <TouchableOpacity style={styles.backBtn}
-                  onPress={()=>navigation.goBack()}
-                >
-                  <SimpleLineIconsIcon
-                    name="arrow-left"
-                    style={styles.backIcon}></SimpleLineIconsIcon>
+
+                <TouchableOpacity style={styles.backBtn}  onPress={()=>navigation.goBack()} >
+                  <SimpleLineIconsIcon  name="arrow-left" style={styles.backIcon}></SimpleLineIconsIcon>
                 </TouchableOpacity>
 
-      <Image
+       <Image
         source={require('./../../assets/images/otp.png')}
         resizeMode="cover"
         style={styles.image1}
       ></Image>
-      <Text style={styles.enterOtp}>Enter OTP</Text>
+     <Text style={styles.enterOtp}>Enter OTP</Text>
       <Text style={styles.text1}>
         An 4-digit code has been sent to{"\n"}example@gmail.com
       </Text>
       <View style={styles.codeGroup1Stack}>
-        <OtpInputView style={styles.codeGroup1} pinCount ={4} codeInputFieldStyle={styles.rect}/>
+        <OtpInputView 
+        style={styles.codeGroup1} 
+        inCount ={4} 
+        codeInputFieldStyle={styles.rect}
+        /> 
       </View>
-         {/* <View style={styles.rect}>
-          <TextInput
-            placeholder=""
-            keyboardType="phone-pad"
-            returnKeyType="next"
-            maxLength={1}
-            style={styles.textInput}
-          ></TextInput>
-          </View>
-          
-          <View style={styles.rect1}>
-          <TextInput
-            placeholder=""
-            keyboardType="phone-pad"
-            returnKeyType="next"
-            maxLength={1}
-            style={styles.textInput1}
-          ></TextInput>
-          </View>
 
-          <View style={styles.rect2}>
-          <TextInput
-            placeholder=""
-            keyboardType="phone-pad"
-            returnKeyType="next"
-            maxLength={1}
-            style={styles.textInput2}
-          ></TextInput>
-          </View>
 
-          <View style={styles.rect4}>
-        <TextInput
-          placeholder=""
-          keyboardType="phone-pad"
-          returnKeyType="done"
-          maxLength={1}
-          style={styles.textInput3}
-        ></TextInput>
-        </View>
-        
-
-      <View style={{flexDirection:'row', marginLeft: 32, marginTop:62 }}>
-        <Text>Didn&#39;t received the code?</Text>
-        <TextButton label={'Resend (${timer}s)'}
-                    disabled = {timer == 0 ? false : true}
-                    buttonContainerStyle= {{
-                      marginLeft: 7, 
-                      backgroundColor: null,
-                    }}
-                    lableStyle={{
-                      color: '#9c8df0', 
-                      
-                    }}
-                    onPress = {()=> setTimer(60)}
-        />
-      </View>*/}
 
       <View style={{flexDirection:'row', marginLeft: 32, marginTop:62 }}>
         <Text style={styles.text2}>Didn&#39;t received the code?</Text>
@@ -127,19 +73,18 @@ const styles = StyleSheet.create({
   backBtn: {
     width: 40,
     height: 40,
+    top: 20,
+    marginLeft: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
     borderWidth: 1,
-    borderColor: "#BBBDC1",
+    borderColor: '#BBBDC1',
     borderRadius: 12,
-    marginTop: 54,
-    marginLeft: 27
   },
   backIcon: {
-    color: "#BBBDC1",
+    color: '#BBBDC1',
     fontSize: 20,
-    height: 22,
-    width: 20,
-    marginTop: 9,
-    marginLeft: 8,
+    marginRight: 2,
   },
   image1: {
     height: 200,

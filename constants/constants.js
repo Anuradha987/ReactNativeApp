@@ -21,7 +21,7 @@ const screens = {
     I_Sent          : 'Sent  Orders' , 
     I_My            : 'My  Items' ,
     //I_Approvals     : 'Approved  Items' ,
-    I_Requests      : 'Received Orders' , 
+    I_Requests      : 'Sales History' , 
 
     Fav_MainLayout  : 'Favourite MainLayout'
 

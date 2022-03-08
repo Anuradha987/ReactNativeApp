@@ -286,8 +286,8 @@ const I_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelecte
                                 onPress = {()=> setSelectedTab(constants.screens.I_Sent)}
                     />
                                        
-                    <TabButton label = 'Received'
-                                icon = {icons.recieves}
+                    <TabButton label = 'History'
+                                icon = {icons.clock}
                                 isFocused = {selectedTab == constants.screens.I_Requests}
                                 outerContainerStyle={I_RequestsFlexStyle}
                                 innerContainerStyle ={I_RequestsColorStyle}

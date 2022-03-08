@@ -36,8 +36,6 @@ import ViewItems from './I_Search/ViewItems';
 //item My
 import I_My from './I_My/I_My'
 
-//Item Approvals
-import I_Approvals from './I_Approvals/I_Approvals'
 
 //Item Requests
 import I_Requests from './I_Requests/I_Requests'
@@ -78,7 +76,6 @@ export {
     ViewItems,
     I_Sent,
     I_My,
-    I_Approvals,
     I_Requests, 
 
     MyProfile, 

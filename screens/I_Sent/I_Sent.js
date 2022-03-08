@@ -13,11 +13,23 @@ import {
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
-import { dummyData } from "../../constants";
+import { dummyData, icons } from "../../constants";
+import { useFonts } from 'expo-font';
 
 //Order history. Item orders that have been sent/ Item that have been bought (items buy)
 const I_Sent = () => {
   const [selectedValue, setSelectedValue] = useState("All");
+
+      //poppins insert
+      const [loaded] = useFonts({
+        poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
+        poppins700: require('./../../assets/fonts/poppins-700.ttf'),
+    });
+  
+    if (!loaded) {
+          return null;
+    }
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -159,7 +171,7 @@ const styles = StyleSheet.create({
 
   },
   serviceSearch: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "#fff",
     height: 52,
     opacity: 0.75,
@@ -254,7 +266,7 @@ const styles = StyleSheet.create({
     marginRight: 1
   },
   searchingBarColumn: {
-    marginTop: 25,
+    marginTop: 15,
     marginLeft: 16,
     marginRight: 15
   },
@@ -289,7 +301,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-end", 
   },
   reqTitle: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     fontSize: 14,
     textAlign: "right",
@@ -298,7 +310,7 @@ const styles = StyleSheet.create({
   },
   cateName: {
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "#70d6eb",
     top: 0,
     fontSize: 11,
@@ -316,7 +328,7 @@ const styles = StyleSheet.create({
     marginRight: 9, 
   },
   reqStatus: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(208,208,208,1)",
     fontSize: 13,
     textAlign: "right",
@@ -324,7 +336,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   priceperUnit: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(209,209,209,1)",
     textAlign: "center",
     fontSize: 12,
@@ -333,7 +345,7 @@ const styles = StyleSheet.create({
     marginLeft:12
   },
   transactionMethod: {
-    fontFamily: "poppins-500",
+    fontFamily: "poppins500",
     color: "#9c8df0",
     textAlign: "center",
     fontSize: 13,
@@ -365,7 +377,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   amountReturningDate: {
-    fontFamily: "poppins-500",
+    fontFamily: "poppins500",
     color: "rgba(255,255,255,1)",
     textAlign: "center",
     marginRight: 1,
