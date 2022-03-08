@@ -5,8 +5,10 @@ import dummyData from '../constants/dummyData'
 const windowHeight = Dimensions.get('screen').height;
 const windowWidth = Dimensions.get('window').width;
 import Icon from "react-native-vector-icons/SimpleLineIcons";
+import { LinearGradient } from 'expo-linear-gradient';
+import CrossIcon from "react-native-vector-icons/EvilIcons";
 
-function Categories(props) {
+function Categories({navigation}) {
     //poppins insert
   const [loaded] = useFonts({
     poppinsregular: require('../assets/fonts/Poppins-Regular.ttf'),
@@ -19,14 +21,25 @@ function Categories(props) {
   return (
     <View style={styles.container}>
 
-      <View style={styles.backBtnRow}>
+{/* header */}
+      <View style={styles.header}>
       <TouchableOpacity style={styles.backBtn}
                   onPress={() => navigation.goBack()}>
                   <Icon name="arrow-left" style={styles.backIcon}></Icon>
       </TouchableOpacity>
         <Text style={styles.text}>Categories</Text>
+      <TouchableOpacity style={styles.closeBtn}
+                onPress={() => {}}>
+                <CrossIcon name="close" style={styles.closeIcon}></CrossIcon>
+    </TouchableOpacity>  
       </View>
 
+      <LinearGradient  start = {{ x:0 , y:0.5 }} end = {{ x:0 , y:0 }}
+                      colors={['transparent', 'rgba(19,18,18,1)']}
+                        style= {{ left:0, right:0, height:15, }}
+      />
+
+{/* container */}
       <View style={styles.scrollArea}>
         <FlatList showsVerticalScrollIndicator={true} 
         ListHeaderComponent={
@@ -73,10 +86,11 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(21,31,40,1)"
   },
   scrollArea: {
+
     width: windowWidth,
     borderWidth: 0,
     borderColor: "#000000",
-    top: 40,
+    top: 10,
     marginBottom:100,
   },
   agricultureCircle: {
@@ -124,15 +138,33 @@ const styles = StyleSheet.create({
     justifyContent:'center', 
   },
   text: {
-    fontFamily: "poppinsregular",
-    color: "rgba(255,255,255,1)",
+    fontFamily: "poppins700",
+    color: '#9c8df0',
     textAlign: "center",
-    marginLeft: -20,
-    marginTop: 10, 
-    flex: 1, alignItems: 'center',
+    //marginLeft: -30,
+    marginTop: 7, 
+    flex: 1,
+    fontSize: 17,
+    alignItems: 'center',
   },
-  backBtnRow: {
+  closeBtn: {
+    width: 40,
     height: 40,
+    marginTop: 0,
+    marginLeft: 10,
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    borderWidth: 1, 
+    borderColor:'#BBBDC1', 
+    borderRadius: 12, 
+  },
+  closeIcon: {
+    color: '#BBBDC1', 
+    fontSize: 20,
+    fontSize: 30,
+  },
+  header: {
+    height: 50,
     flexDirection: "row",
     marginTop: 20,
     marginLeft: 15,
@@ -143,7 +175,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     marginTop: 0,
-    marginLeft: 20,
+    marginLeft: 10,
     alignItems: 'center', 
     justifyContent: 'center', 
     borderWidth: 1, 
@@ -153,6 +185,7 @@ const styles = StyleSheet.create({
   backIcon:{
     color: '#BBBDC1', 
     fontSize: 20,
+    marginRight:2
   },
 });
 

@@ -39,19 +39,19 @@ function Register({ navigation }) {
             ListHeaderComponent={
               <View>
 
-                <TouchableOpacity style={styles.backBtn}
-                  onPress={()=>navigation.goBack()}
-                >
-                  <SimpleLineIconsIcon
-                    name="arrow-left"
-                    style={styles.backIcon}></SimpleLineIconsIcon>
+{/* back button */}
+                <TouchableOpacity style={styles.backBtn} onPress={()=>navigation.goBack()}>
+                  <SimpleLineIconsIcon name="arrow-left" style={styles.backIcon}></SimpleLineIconsIcon>
                 </TouchableOpacity>
+                
                 
                 <Text style={styles.text1}>
                   Hello! Welcome to Quiky App. Get registered and explore what
                   you want.
                 </Text>
                 <Text style={styles.text2}>Let&#39;s get Started!</Text>
+
+{/* registration form box */}
                 <View style={styles.rect}>
                   <View style={styles.coverImageStack}>
                     <View style={styles.coverImage}>
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     height: 1216,
     backgroundColor: 'rgba(6,0,38,0.65)',
     borderRadius: 20,
-    marginTop: 250,
+    marginTop: 230,
     marginLeft: 16,
     marginRight: 16,
     marginBottom: 50,
@@ -478,7 +478,7 @@ const styles = StyleSheet.create({
    textDecorationLine: 'underline', 
   },
   backBtn: {
-    top: 50,
+    top: 20,
     left: 27,
     width: 40,
     height: 40,
@@ -496,7 +496,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   text1: {
-    top: 125,
+    top: 100,
     left: 37,
     position: 'absolute',
     fontFamily: 'poppinsregular',
@@ -504,7 +504,7 @@ const styles = StyleSheet.create({
     right: 32,
   },
   text2: {
-    top: 180,
+    top: 150,
     left: 37,
     position: 'absolute',
     fontFamily: 'poppinsregular',

@@ -15,6 +15,7 @@ import MaterialRadio from '../components/MaterialRadio';
 import { useFonts } from 'expo-font';
 import MaterialIconsIcon from 'react-native-vector-icons/MaterialIcons';
 import Icon from "react-native-vector-icons/SimpleLineIcons";
+import { LinearGradient } from 'expo-linear-gradient';
 
 function NewReqForm({ navigation }) {
 //poppins insert
@@ -32,14 +33,20 @@ return (
       showsVerticalScrollIndicator={true}
       ListHeaderComponent={
         <View>
-          <View style={styles.backBtnRow}>
+
+          <View style={styles.header}>
             <TouchableOpacity
               style={styles.backBtn}
               onPress={() => navigation.goBack()}>
               <Icon name="arrow-left" style={styles.backIcon}></Icon>
             </TouchableOpacity>
-            <Text style={styles.newRequest}>New Request</Text>
+            <Text style={styles.newRequest}>NEW REQUEST</Text>
           </View>
+
+          <LinearGradient  start = {{ x:0 , y:0.5 }} end = {{ x:0 , y:0 }}
+                      colors={['transparent', 'rgba(19,18,18,1)']}
+                        style= {{ left:0, right:0, height:15, }}
+      />
 
           <View style={styles.rect1}>
             <Text style={styles.pageTitle}>New Service or Trade Request</Text>
@@ -113,7 +120,6 @@ return (
             placeholder=""
             clearButtonMode="while-editing"
             returnKeyType="done"
-           // maxLength={'null'}
             style={styles.locationtxt}></TextInput>
 
           <Text style={styles.attachmentslbl}>Attachments</Text>
@@ -124,8 +130,8 @@ return (
               }></MaterialChipWithImageAndCloseButton>            
           </View>
 
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.submit}>SUBMIT</Text>
+          <TouchableOpacity style={styles.button} onPress={()=>{}}>
+              <Text style={styles.submit}>SUBMIT</Text>
           </TouchableOpacity>
           
 <View style={{marginTop:50}}></View>
@@ -154,22 +160,16 @@ cateRound: {
     marginLeft: 2
   },
   cateName2: {
-    // fontFamily: "poppinsregular",
-    // color: "#121212",
-    // fontSize: 10,
-    // marginLeft: 4,
-     marginTop: 3,
-    // textAlignVertical: 'center'
-      fontFamily: 'poppinsregular',
-  color: 'rgba(255,255,255,1)',
-  fontSize: 15,
-  marginLeft: 12,
+    marginTop: 3,
+    fontFamily: 'poppinsregular',
+    color: 'rgba(255,255,255,1)',
+    fontSize: 15,
+    marginLeft: 12,
   },
   cateRoundRow: {
     height: 30,
     flexDirection: "row",
     flex: 1,
-   // marginRight: 2,
     marginLeft: 5,
     marginTop: 3
   },
@@ -208,19 +208,19 @@ br: {
   backgroundColor: 'rgba(175,172,172,1)',
 },
 newRequest: {
-  fontFamily: 'poppinsregular',
+  fontFamily:'poppins700',
   color: '#9c8df0',
   textAlign: 'center',
   flex: 1,
   marginRight: 35,
-  marginTop: 9,
-  fontSize: 18,
-  letterSpacing: 0.5,
-  fontWeight: 'bold',
+  marginTop: 7,
+  fontSize: 17,
+  letterSpacing: 0,
 },
-backBtnRow: {
+header: {
   flexDirection: 'row',
-  marginTop: 30,
+  marginTop: 20,
+  marginBottom:10,
   marginLeft: 15,
   marginRight: 15,
 },
@@ -231,7 +231,7 @@ backIcon: {
 backBtn: {
   width: 40,
   height: 40,
-  marginLeft: 20,
+  marginLeft: 10,
   alignItems: 'center',
   justifyContent: 'center',
   borderWidth: 1,
@@ -357,28 +357,20 @@ attachmentstxt: {
   marginHorizontal: 28,
 },
 button: {
-  height: 46,
-  backgroundColor: 'rgba(123,0,255,1)',
-  borderRadius: 25,
-  shadowColor: 'rgba(123,0,255,1)',
-  shadowOffset: {
-    height: 0,
-    width: 0,
-  },
-  elevation: 30,
-  shadowOpacity: 0.5,
-  shadowRadius: 10,
-  marginTop: 39,
-  marginLeft: 96,
-  marginRight: 96,
+  height: 47,
+  backgroundColor: "rgba(123,0,255,1)",
+  borderRadius: 8,
+  marginTop: 60,
+  marginLeft: 37,
+  marginRight: 37
 },
 submit: {
-  fontFamily: 'poppins700',
-  color: 'rgba(255,255,255,1)',
-  fontSize: 18,
-  textAlign: 'center',
-  marginTop: 10,
-  marginHorizontal: 15,
+  fontFamily: "poppins700",
+  color: "rgba(255,255,255,1)",
+  textAlign: "center",
+  marginTop: 15,
+  marginLeft: 8,
+  marginRight: 7,
 },
 highRadioBtn: {
   height: 34,

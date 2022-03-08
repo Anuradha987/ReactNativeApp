@@ -16,6 +16,7 @@ import EntypoIcon from 'react-native-vector-icons/Entypo';
 import MaterialIconsIcon from 'react-native-vector-icons/MaterialIcons';
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 import { useFonts } from 'expo-font';
+import { dummyData, icons } from '../constants';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -43,6 +44,7 @@ function MyProfile({navigation}) {
           <View>
             <View style={styles.rect1Row}></View>
 
+            {/* cover photo*/}
             <View style={styles.coverImageStackStack}>
               <View style={styles.coverImageStack}>
                 <ImageBackground
@@ -51,12 +53,16 @@ function MyProfile({navigation}) {
                   style={styles.coverImage}
                   imageStyle={styles.coverImage_imageStyle}>
 
+                {/* back button */}
                 <TouchableOpacity style={styles.backBtn}
                     onPress={()=> navigation.goBack()}>
                         <Icon name="arrow-left" style={styles.backIcon}></Icon>
                 </TouchableOpacity>
 
                 </ImageBackground>
+
+
+{/* profile picture */}
                 <Image
                   source={require('./../assets/images/_110435139_parsa.jpg')}
                   resizeMode="contain"
@@ -89,11 +95,12 @@ function MyProfile({navigation}) {
               I am an executive supporter at Dialog Axiata. i can help things
               related to dialog services. Small description of my self.
             </Text>
+
             {/* Email here*/}
             <View style={styles.emailRow}>
-              <MaterialIconsIcon
-                name="Mail"
-                style={styles.emailIcon}></MaterialIconsIcon>
+                <Image source={icons.email}
+                resizeMode="contain"
+                style={styles.emailIcon}></Image>
               <Text style={styles.userEmail}>jjhbkb@gmail.com</Text>
             </View>
 
@@ -118,14 +125,8 @@ function MyProfile({navigation}) {
                 style={styles.userLocation}></Image>
             </View>
 
-            <View
-              style={{
-                height: 1,
-                marginVertical: 4,
-                marginHorizontal: 24,
-                backgroundColor: 'rgba(176,176,176,1)',
-              }}></View>
 
+{/* my services and items that have published. (S_My and I_My) */}
             <NavigationContainer independent={true} style={{ marginTop: 769 }}>
               <Tab.Navigator
                 screenOptions={{
@@ -151,6 +152,7 @@ function MyProfile({navigation}) {
               </Tab.Navigator>
             </NavigationContainer>
 
+{/* account actions */}
             <View style={styles.profileSettings}>
               <TouchableOpacity style={styles.signoutUserBar}>
                 <View style={styles.signoutIconRow}>
@@ -166,16 +168,19 @@ function MyProfile({navigation}) {
                   <FontAwesomeIcon
                     name="edit"
                     style={styles.editIcon}></FontAwesomeIcon>
-                  <Text style={styles.editUsertxt}>Edit My Profile</Text>
+                  <Text style={styles.editUsertxt}>Edit My Details</Text>
                 </View>
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.deleteUserBar}>
                 <View style={styles.deleteIconRow}>
-                  <MaterialIconsIcon
+                  {/* <MaterialIconsIcon
                     name="DeleteForever"
-                    style={styles.deleteIcon}></MaterialIconsIcon>
-                  <Text style={styles.deleteUsertxt}>Delete My Profile</Text>
+                    style={styles.deleteIcon}></MaterialIconsIcon> */}
+                     <Image source={icons.deleteUser}
+                resizeMode="contain"
+                style={styles.deleteUser}></Image>
+                  <Text style={styles.deleteUsertxt}>Delete My Account</Text>
                 </View>
               </TouchableOpacity>
 
@@ -205,7 +210,7 @@ const styles = StyleSheet.create({
   backBtn: {
     width: 40,
     height: 40,
-    marginTop: 19,
+    marginTop: 20,
     marginLeft: 20,
     alignItems: 'center', 
     justifyContent: 'center', 
@@ -325,12 +330,11 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   emailIcon: {
-    fontSize: 18,
     height: 24,
     width: 24,
-    color: 'rgba(176,176,176,1)',
     marginTop: 20,
-    marginLeft: 15,
+    marginLeft: 5,
+    marginRight:15,
   },
   userEmail: {
     fontFamily: 'poppinsregular',
@@ -454,12 +458,11 @@ const styles = StyleSheet.create({
     marginLeft: 28,
     marginTop: 15,
   },
-  deleteIcon: {
+  deleteUser: {
     color: 'rgba(255,102,102,1)',
     fontSize: 24,
     height: 24,
     width: 24,
-    marginTop: 2,
   },
   deleteUsertxt: {
     fontFamily: 'poppinsregular',

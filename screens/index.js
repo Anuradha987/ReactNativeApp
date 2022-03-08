@@ -46,6 +46,7 @@ import I_Requests from './I_Requests/I_Requests'
 import MyProfile from './MyProfile'
 import NewReqForm from './NewReqForm';
 import PlacingOrders from './PlacingOrders';
+import Notification from './Notification';
 import UserProfile from './UserProfile';
 import Register from './login_SignUp/Register';
 import Login from './login_SignUp/Login'
@@ -54,6 +55,7 @@ import PasswordRecovery from './login_SignUp/PasswordRecovery';
 import ResetPassword from './login_SignUp/ResetPassword';
 import AddNewCard from './paymentGateway/AddNewCard';
 import PaymentCards from './paymentGateway/PaymentCards'; 
+import Categories from './Categories';
 
 import Fav_MainLayout from './Fav_MainLayout';
 
@@ -82,6 +84,7 @@ export {
     MyProfile, 
     NewReqForm, 
     UserProfile, 
+    Notification, 
 
     Register, 
     Login, 
@@ -91,6 +94,7 @@ export {
      
     AddNewCard, 
     PaymentCards, 
-
+    Categories, 
+    
     Fav_MainLayout, 
 }

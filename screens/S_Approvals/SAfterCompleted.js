@@ -13,6 +13,7 @@ import EntypoIcon from 'react-native-vector-icons/Entypo';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import { useFonts } from 'expo-font';
 import Icon from "react-native-vector-icons/SimpleLineIcons";
+import { LinearGradient } from 'expo-linear-gradient';
 
 function SAfterCompleted({ navigation }) {
   //poppins insert
@@ -26,19 +27,28 @@ function SAfterCompleted({ navigation }) {
   }
   return (
     <View style={styles.container}>
-      <FlatList
+
+      {/* header */}
+      <View style={styles.header}>
+        <TouchableOpacity
+          style={styles.backBtn}
+          onPress={() => navigation.goBack()}>
+          <Icon name="arrow-left" style={styles.backIcon}></Icon>
+        </TouchableOpacity>
+        <Text style={styles.servicesRequest}>REQUEST DETAILS</Text>
+      </View>
+
+      <LinearGradient
+        start={{ x: 0, y: 0.5 }}
+        end={{ x: 0, y: 0 }}
+        colors={['transparent', 'rgba(19,18,18,1)']}
+        style={{ left: 0, right: 0, height: 15 }}
+      />
+
+            <FlatList
         showsVerticalScrollIndicator={true}
         ListHeaderComponent={
           <View>
-            <View style={styles.backBtnRow}>
-              <TouchableOpacity
-                style={styles.backBtn}
-                onPress={() => navigation.goBack()}>
-                 <Icon name="arrow-left" style={styles.backIcon}></Icon>
-              </TouchableOpacity>
-              <Text style={styles.servicesRequest}>Request Details</Text>
-            </View>
-
             <Text style={styles.reqTitle}>Preparing Birthday Cake.</Text>
 
             <ImageBackground
@@ -283,10 +293,20 @@ const styles = StyleSheet.create({
     marginRight: 35,
   },
   backBtn: {
+    // width: 40,
+    // height: 40,
+    // marginTop: 19,
+    // marginLeft: 20,
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    // borderWidth: 1,
+    // borderColor: '#BBBDC1',
+    // borderRadius: 12,
+
     width: 40,
     height: 40,
-    marginTop: 19,
-    marginLeft: 20,
+    marginTop: 0,
+    marginLeft: 10,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
@@ -296,22 +316,21 @@ const styles = StyleSheet.create({
   backIcon: {
     color: '#BBBDC1',
     fontSize: 20,
+    marginRight: 2,
   },
   servicesRequest: {
-    fontFamily: 'poppinsregular',
-    color: '#9c8df0',
+    fontFamily: 'poppins700',
     textAlign: 'center',
-    flex: 1,
-    marginRight: 35,
-    marginTop: 25,
-    fontSize: 18,
-    letterSpacing: 0.5,
-    fontWeight: 'bold',
+    marginLeft: 60,
+    marginTop: 7,
+    color: '#9c8df0',
+    fontSize: 17,
+    letterSpacing: 0,
   },
-  backBtnRow: {
-    // height: 40,
+  header: {
+    height: 50,
     flexDirection: 'row',
-    marginTop: 30,
+    marginTop: 20,
     marginLeft: 15,
     marginRight: 15,
   },
@@ -319,7 +338,7 @@ const styles = StyleSheet.create({
     fontFamily: 'poppinsregular',
     color: 'rgba(216,148,255,1)',
     fontSize: 20,
-    marginTop: 37,
+    marginTop: 20,
     marginLeft: 30,
   },
   description: {
@@ -327,8 +346,8 @@ const styles = StyleSheet.create({
     color: 'rgba(205,204,204,1)',
     textAlign: 'justify',
     marginTop: 25,
-    marginLeft: 32,
-    marginRight: 36,
+    marginLeft: 20,
+    marginRight: 20,
   },
   cateIcon: {
     color: 'rgba(220,162,76,1)',

@@ -63,7 +63,7 @@ const CustomDrawerContent = ({navigation, selectedTab, setSelectedTab}) => {
 
                     <View style={{marginLeft: SIZES.radius}}>
                         <Text style={{color: COLORS.white, fontFamily:"poppinsregular"}}>{dummyData.myProfile?.name}</Text>
-                        <Text style={{color:COLORS.white, fontFamily:"poppinsregular"}}>View Your Profile</Text>
+                        <Text style={{color:COLORS.white, fontFamily:"poppinsregular"}}>View My Profile</Text>
                     </View>
                 </TouchableOpacity>
 
@@ -118,16 +118,16 @@ Logout */}
 
                     <CustomDrawerItem label='My Transactions' 
                                       icon = {icons.MyBusiness}
-                                      isFocused = {selectedTab == constants.screens.B_Search}
-                                      onPress ={()=> {  setSelectedTab(constants.screens.B_Search)
-                                                        navigation.navigate("MyProfile")                                    
+                                      isFocused = {selectedTab == constants.screens.AddNewCard}
+                                      onPress ={()=> {  setSelectedTab(constants.screens.AddNewCard)
+                                                        navigation.navigate("AddNewCard")                                   
                                       }}
                     />
                     <CustomDrawerItem label='Settings'
                                       icon = {icons.setting}
-                                      isFocused = {selectedTab == constants.screens.B_Search}
-                                      onPress ={()=> {  setSelectedTab(constants.screens.B_Search)
-                                                        navigation.navigate("DB_MainLayout")                                    
+                                      isFocused = {selectedTab == constants.screens.UserProfile}
+                                      onPress ={()=> {  setSelectedTab(constants.screens.UserProfile)
+                                                        navigation.navigate("UserProfile")                                    
                                       }}
                     />
                     <CustomDrawerItem label='Invite a friend' 
@@ -223,14 +223,6 @@ const CustomDrawer = ({selectedTab, setSelectedTab}) => {
 //     CustomDrawerItem === constants.screens.DB_MainLayout ? backgroundColor='yellow' : constants.screens.S_MainLayout ? backgroundColor= 'green'
 //       )
 //   }}/>
-
-function drawerColor(){
-    CustomDrawerItem.onPress === (constants.screens.DB_MainLayout ? backgroundColor='red' : constants.screens.S_MainLayout ? backgroundColor= 'green': backgroundColor=COLORS.primary)
-     
-      return(
-          backgroundColor
-         )
-  }
 
     return ( 
        <View style={{flex:1}}> 

@@ -22,6 +22,10 @@ const wallet = require("../assets/icons/wallet.png")
 const help = require("../assets/icons/help.png")
 const minus = require("../assets/icons/minus.png")
 const plus = require("../assets/icons/plus.png")
+const email = require("../assets/icons/email.png")
+const deleteUser = require("../assets/icons/deleteUser.png")
+const check_on = require("../assets/icons/check_on.png")
+const check_off = require("../assets/icons/check_off.png")
 
 const approval = require("../assets/icons/approval.png")
 const items = require("../assets/icons/items.png")
@@ -57,6 +61,8 @@ export default {
     help,
     minus,
     plus,
+    email,
+    deleteUser, 
     items,
     approval, 
     mine, 
@@ -65,4 +71,6 @@ export default {
     recieves,
     services,
     sentReq,
+    check_on, 
+    check_off
 }

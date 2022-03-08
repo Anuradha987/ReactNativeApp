@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import CardItem from './../../components/CardItem';
 import dummyData from '../../constants/dummyData';
 import { useFonts } from 'expo-font';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const PaymentCards = ({navigation}) => {
   const [selectedCard, setSelectedCard] = React.useState(null);
@@ -21,13 +22,19 @@ const PaymentCards = ({navigation}) => {
     <View style={styles.container}>
 
     {/*header*/}
-      <View style={styles.backBtnRow}>
+      <View style={styles.header}>
         <TouchableOpacity style={styles.backBtn} onPress={()=>navigation.goBack()}>
           <Icon name="arrow-left" style={styles.backIcon}></Icon>
         </TouchableOpacity>
-        <Text style={styles.myCards}>My Cards</Text>
+        <Text style={styles.myCards}>MY CARDS</Text>
       </View>
 
+      <LinearGradient
+        start={{ x: 0, y: 0.5 }}
+        end={{ x: 0, y: 0 }}
+        colors={['transparent', 'rgba(19,18,18,1)']}
+        style={{ left: 0, right: 0, height: 20 }}
+      />
 
       <ScrollView >
         {/*My carts*/}
@@ -90,35 +97,34 @@ const styles = StyleSheet.create({
   backBtn: {
     width: 40,
     height: 40,
+    marginTop: 0,
+    marginLeft: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(187,189,193,1)',
+    borderColor: '#BBBDC1',
     borderRadius: 12,
   },
   backIcon: {
-    color: 'rgba(128,128,128,1)',
+    color: '#BBBDC1',
     fontSize: 20,
-    height: 22,
-    width: 20,
-    marginTop: 9,
-    marginLeft: 8,
+    marginRight: 2,
   },
   myCards: {
     fontFamily: 'poppins700',
-    color: 'rgba(156,141,240,1)',
     textAlign: 'center',
-    letterSpacing: 0.5,
-    fontSize: 18,
-    flex: 1,
-    marginLeft: 11,
-    marginTop: 9,
+    marginLeft: 100,
+    marginTop: 7,
+    color: '#9c8df0',
+    fontSize: 17,
+    letterSpacing: 0,
   },
-  backBtnRow: {
-   // height: 40,
+  header: {
+    height: 50,
     flexDirection: 'row',
-    marginTop: 60,
-    marginLeft: 27,
-    marginRight: 73,
-    marginBottom:15, 
+    marginTop: 20,
+    marginLeft: 15,
+    marginRight: 15,
   },
   addNewCard: {
     fontFamily: "poppins700",

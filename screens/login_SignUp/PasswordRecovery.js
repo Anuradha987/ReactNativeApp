@@ -29,11 +29,13 @@ function PasswordRecovery({navigation}) {
       >
         <Icon name="arrow-left" style={styles.backIcon}></Icon>
       </TouchableOpacity>
+
       <Image
         source={require("./../../assets/images/passwordRecover.png")}
         resizeMode="cover"
         style={styles.image1}
       ></Image>
+      
       <Text style={styles.forgotPassword}>Forgot Password?</Text>
       <Text style={styles.text1}>
         Don&#39;t worry!. Please enter the email address associated with your
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "rgba(187,189,193,1)",
     borderRadius: 12,
-    marginTop: 60,
+    marginTop: 20,
     marginLeft: 27,
   },
   backIcon: {

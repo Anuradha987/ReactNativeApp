@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import { setSelectedTab } from '../stores/tab/tabActions';
 import { Header } from '../components';
 import { LinearGradient } from 'expo-linear-gradient';
+import Icon from "react-native-vector-icons/EvilIcons";
 
 //these are the screens that renders within the S_MainLayout
 import { I_Approvals, I_Sent, I_My, I_Requests, I_Search } from '.';
@@ -202,8 +203,8 @@ const I_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelecte
         <Animated.View style={{ flex: 1,backgroundColor:"rgba(21,31,40,1)", ...drawerAnimationStyle}} >
             {/* Header */}
             <Header 
-                containerStyle={{height: 30, paddingHorizontal: SIZES.padding, marginTop: 25, marginBottom:5, alignItems:'center'}}
-                title ={selectedTab.toUpperCase()}
+               containerStyle={{height: 30, paddingHorizontal: SIZES.padding, marginTop: 20, marginBottom:15, alignItems:'center'}}
+               title ={selectedTab.toUpperCase()}
 
                 leftComponent ={
                     <TouchableOpacity style={{width:40, height: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: COLORS.gray2, borderRadius: SIZES.radius}}
@@ -214,15 +215,19 @@ const I_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelecte
                 }
 
                 rightComponent ={
-                    <TouchableOpacity style={{borderRadius: SIZES.radius, alignItems: 'center', justifyContent:'center'}}>
-                        <Image source={dummyData?.myProfile?.profile_image}
-                                style={{width:40, height:40, borderRadius:SIZES.radius}}
-                        />
+                    <TouchableOpacity style={{width:40, height: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: COLORS.gray2, borderRadius: SIZES.radius}}
+                                      onPress ={()=> navigation.navigate('Notification')}
+                    >
+                         <Icon name="bell" style={{color: COLORS.gray2, fontSize: 25}}></Icon>
                     </TouchableOpacity>
                 }
             />
 
 
+<LinearGradient  start = {{ x:0 , y:0.5 }} end = {{ x:0 , y:0 }}
+                      colors={['transparent', 'rgba(19,18,18,1)']}
+                        style= {{ left:0, right:0, height:15, }}
+      />
 
  {/* Content */}
             <View style={{flex:1}}>

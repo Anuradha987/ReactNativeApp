@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 // import thunk from 'redux-thunk;'
 import rootReducer from "./stores/rootReducer";
 import ReduxThunk from 'redux-thunk'
-import {SSentDetailsAfterAccepting,ViewItems, SAfterApproved, SAfterCompleted, S_RequestsDetails, MyProfile, NewReqForm, UserProfile, Login, Register, Otp, PasswordRecovery, ResetPassword, AddNewCard, PaymentCards } from './screens/index';
+import {SSentDetailsAfterAccepting,ViewItems, SAfterApproved, SAfterCompleted, S_RequestsDetails, Notification, MyProfile, NewReqForm, UserProfile, Login, Register, Otp, PasswordRecovery, ResetPassword, AddNewCard, PaymentCards,Categories } from './screens/index';
 
 
 const Stack = createStackNavigator();
@@ -37,6 +37,13 @@ const App = () => {
                     <Stack.Screen name="AddNewCard" component={AddNewCard} />
                     <Stack.Screen name="PaymentCards" component={PaymentCards} />
                     <Stack.Screen name="MyProfile" component={MyProfile} />
+                    <Stack.Screen name="Notification" component={Notification} />
+                    <Stack.Screen name="UserProfile" component={UserProfile} />
+                    <Stack.Screen name="Categories" component={Categories} />
+                    <Stack.Screen name="SSentDetailsAfterAccepting" component={SSentDetailsAfterAccepting} />
+                    <Stack.Screen name="S_RequestsDetails" component={S_RequestsDetails} />
+                    <Stack.Screen name="SAfterCompleted" component={SAfterCompleted} />
+                    <Stack.Screen name="SAfterApproved" component={SAfterApproved} />
                 </Stack.Navigator>
             </NavigationContainer>
         </Provider>

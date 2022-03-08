@@ -9,7 +9,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import { useFonts } from 'expo-font';
 import { useNavigation } from '@react-navigation/native';
-
+import Icon from "react-native-vector-icons/EvilIcons";
 
 const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab}) => {
     const navigation = useNavigation();
@@ -33,7 +33,7 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab}) => 
         <Animated.View style={{ flex: 1,  backgroundColor:"rgba(21,31,40,1)", ...drawerAnimationStyle}} >
             {/* Header */}
             <Header 
-                containerStyle={{height: 30, paddingHorizontal: SIZES.padding, marginTop: 25,marginBottom:15, alignItems:'center', }}
+                containerStyle={{height: 30, paddingHorizontal: SIZES.padding, marginTop: 20,marginBottom:15, alignItems:'center', }}
                 // title ={selectedTab.toUpperCase()}
                 title ="DASHBOARD"
 
@@ -46,20 +46,30 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab}) => 
                 }
 
                 rightComponent ={
-                    <TouchableOpacity style={{borderRadius: SIZES.radius, alignItems: 'center', justifyContent:'center'}}>
-                        <Image source={dummyData?.myProfile?.profile_image}
-                                style={{width:40, height:40, borderRadius:SIZES.radius}}
-                        />
+                    // <TouchableOpacity style={{borderRadius: SIZES.radius, alignItems: 'center', justifyContent:'center'}}>
+                    //     <Image source={dummyData?.myProfile?.profile_image}
+                    //             style={{width:40, height:40, borderRadius:SIZES.radius}}
+                    //     />
+                    // </TouchableOpacity>
+                    <TouchableOpacity style={{width:40, height: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: COLORS.gray2, borderRadius: SIZES.radius}}
+                                      onPress ={()=> navigation.navigate('Notification')}
+                    >
+                         <Icon name="bell" style={{color: COLORS.gray2, fontSize: 25}}></Icon>
                     </TouchableOpacity>
                 }
             />
+
+<LinearGradient  start = {{ x:0 , y:0.5 }} end = {{ x:0 , y:0 }}
+                      colors={['transparent', 'rgba(19,18,18,1)']}
+                        style= {{ left:0, right:0, height:15, }}
+      />
 
             {/* Greeting text */}
             <FlatList
         showsVerticalScrollIndicator={true}
         ListHeaderComponent={
             <View>
-            <Text style={styles.helloName}>Hi, Sanklpa.👋</Text>
+            <Text style={styles.helloName}>Hi, {dummyData.myProfile?.name}.👋</Text>
             <Text style={styles.text1}>
                 Discover anything you want and let others know how you can serve them.
             </Text>
@@ -179,10 +189,10 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab}) => 
                 return (
           <TouchableOpacity style={styles.reqBox}>
             <View style={styles.sentDateRow}>
-              <Text style={styles.sentDate}>20/02/2021</Text>
+              <Text style={styles.sentDate}>{item.publishDate}</Text>
               <View style={styles.priorityDot}></View>
             </View>
-            <Text style={styles.serviceTitle}>Preparing Birthday Cake</Text>
+            <Text style={styles.serviceTitle}>{item.senderName}</Text>
             <View style={styles.cateIconRow}>
               {/* <Icon name="archive"></Icon> */}
               <Image source = {require('./../assets/icons/foods.png')} 

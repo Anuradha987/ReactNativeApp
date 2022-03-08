@@ -24,15 +24,17 @@ function ResetPassword({navigation}) {
   }
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.backBtn}>
+      <TouchableOpacity style={styles.backBtn} onPress={()=> navigation.goBack()}>
         <SimpleLineIconsIcon
           name="arrow-left"
           style={styles.backIcon}
         ></SimpleLineIconsIcon>
       </TouchableOpacity>
+
+
       <Image
         source={require("./../../assets/images/resetPassword.png")}
-        resizeMode="stretch"
+        resizeMode="cover"
         style={styles.image1}
       ></Image>
       <Text style={styles.resetPassword}>Reset Password</Text>
@@ -80,7 +82,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "rgba(187,189,193,1)",
     borderRadius: 12,
-    marginTop: 60,
+    marginTop: 20,
     marginLeft: 27
   },
   backIcon: {
@@ -93,10 +95,10 @@ const styles = StyleSheet.create({
   },
   image1: {
     height: 200,
-    borderRadius: 150,
+    borderRadius: 100,
     width: 200,
     marginTop: 6,
-    marginLeft: 105
+    marginLeft: 105,     
   },
   resetPassword: {
     fontFamily: "poppinsregular",

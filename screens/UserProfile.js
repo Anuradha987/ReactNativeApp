@@ -14,6 +14,7 @@ import MapView from "react-native-maps";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 import { useFonts } from 'expo-font';
+import { dummyData, icons } from '../constants';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -24,7 +25,7 @@ import S_My from './S_My/S_My';
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 
-function UserProfile(props) {
+function UserProfile({navigation}) {
     //poppins insert
   const [loaded] = useFonts({
     poppinsregular: require('../assets/fonts/Poppins-Regular.ttf'),
@@ -92,9 +93,9 @@ function UserProfile(props) {
       </Text>
 
       <View style={styles.emailRow}>
-              <MaterialIconsIcon
-                name="mail"
-                style={styles.emailIcon}></MaterialIconsIcon>
+      <Image source={icons.email}
+                resizeMode="contain"
+                style={styles.emailIcon}></Image>
               <Text style={styles.userEmail}>jjhbkb@gmail.com</Text>
             </View>
 
@@ -136,13 +137,7 @@ function UserProfile(props) {
         ></Image>
       </View>
 
-           {/*} <View
-              style={{
-                height: 1,
-                marginVertical: 4,
-                marginHorizontal: 24,
-                backgroundColor: 'rgba(176,176,176,1)',
-              }}></View>*/}
+ 
 
   <NavigationContainer independent={true} style={{ marginTop: 769 }}>
               <Tab.Navigator
@@ -190,9 +185,9 @@ function UserProfile(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(15,30,69,1)"
+    backgroundColor: "rgba(21,31,40,1)"
   },
-rect1Row: { backgroundColor: 'white', height: 43, marginTop: 769 },
+rect1Row: { height: 43, marginTop: 769 },
   coverImage: {
     top: 0,
     height: 178,
@@ -204,7 +199,7 @@ rect1Row: { backgroundColor: 'white', height: 43, marginTop: 769 },
   backBtn: {
     width: 40,
     height: 40,
-    marginTop: 19,
+    marginTop: 20,
     marginLeft: 20,
     alignItems: 'center', 
     justifyContent: 'center', 
@@ -324,12 +319,11 @@ rect1Row: { backgroundColor: 'white', height: 43, marginTop: 769 },
     marginLeft: 15,
   },
   emailIcon: {
-    fontSize: 18,
     height: 24,
     width: 24,
-    color: 'rgba(176,176,176,1)',
     marginTop: 20,
-    marginLeft: 15,
+    marginLeft: 5,
+    marginRight:15,
   },
   userEmail: {
     fontFamily: 'poppinsregular',
