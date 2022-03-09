@@ -134,12 +134,10 @@ const S_RequestsDetails = ({ navigation }) => {
               {/* decline btn */}
               <View style={styles.reqDeleteBtnRow}>
                 <TouchableOpacity style={styles.reqDeleteBtn}>
-                  <View style={styles.declineFiller}></View>
                   <Text style={styles.decline}>Decline</Text>
                 </TouchableOpacity>
                 {/* accept btn */}
                 <TouchableOpacity style={styles.reqAcceptBtn}>
-                  <View style={styles.acceptFiller}></View>
                   <Text style={styles.accept}>Accept</Text>
                 </TouchableOpacity>
               </View>
@@ -449,10 +447,6 @@ const styles = StyleSheet.create({
     marginRight: 23,
     marginTop: 1,
   },
-  declineFiller: {
-    flex: 1,
-    flexDirection: 'row',
-  },
   decline: {
     fontFamily: 'poppinsregular',
     color: 'rgba(242,69,69,1)',
@@ -477,17 +471,15 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     flexDirection: 'row',
   },
-  acceptFiller: {
-    flex: 1,
-    flexDirection: 'row',
-  },
   accept: {
     fontFamily: 'poppinsregular',
     color: 'rgba(8,255,0,1)',
-    textAlign: 'center',
     fontSize: 12,
-    width: 83,
+    width: 80,
     marginTop: 8,
+    marginRight:3,
+    textAlign: 'center',
+    
   },
   reqDeleteBtnRow: {
     height: 41,

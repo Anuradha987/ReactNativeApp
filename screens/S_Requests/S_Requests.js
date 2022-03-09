@@ -13,14 +13,26 @@ import EntypoIcon from "react-native-vector-icons/Entypo";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import { dummyData } from "../../constants";
 import { useNavigation } from '@react-navigation/native';
+import { useFonts } from 'expo-font';
 
-const S_Requests = ({Navigation}) => {
+const S_Requests = () => {
+  const navigation = useNavigation();
+      //poppins insert
+      const [loaded] = useFonts({
+        poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
+        poppins700: require('./../../assets/fonts/poppins-700.ttf'),
+    });
+  
+    if (!loaded) {
+          return null;
+    }
   return (
     <View style={styles.container}>
       <FlatList 
         showsVerticalScrollIndicator={true}
         ListHeaderComponent={ 
           <View>
+
             {/* Searching bar */}
             <View style={styles.searchingBar}>
               <TextInput
@@ -35,7 +47,7 @@ const S_Requests = ({Navigation}) => {
             </View>
 
             <Text style={styles.priority}>Priority :</Text>
-            <View style={styles.lowStack}>
+            <View style={styles.priorityStack}>
               <Text style={styles.low}>Low</Text>
               <Text style={styles.medium}>Medium</Text>
               <Text style={styles.high}>High</Text>
@@ -44,19 +56,17 @@ const S_Requests = ({Navigation}) => {
               <View style={styles.redDot}></View>
             </View>
 
-            <View style={styles.rect2}>
               <Text style={styles.requestsForMe}>Requests for me</Text>
-            </View>
 
             {/* Recieved request for me */}
             <FlatList data={dummyData.recieveRequestForMe}
               horizontal
               keyExtractor={(item) => `${item.id}`}
               showsHorizontalScrollIndicator={false}
-
+              contentContainerStyle={{marginLeft:10, }}
               renderItem={({ item, index }) => {
                 return (
-                  <TouchableOpacity style={styles.serviceReqSentMe}>
+                  <TouchableOpacity style={styles.serviceReqSentMe} onPress={()=>navigation.navigate('S_RequestsDetails')}>
                     <View style={styles.senderImageRow}>
                       <Image
                         source={item.senderImage}
@@ -116,7 +126,7 @@ const S_Requests = ({Navigation}) => {
               showsVerticalScrollIndicator={true}
               renderItem={({ item, index }) => {
                 return (
-                  <TouchableOpacity style={styles.serviceReqRecieveOther}>
+                  <TouchableOpacity style={styles.serviceReqRecieveOther} onPress={()=>navigation.navigate('S_RequestsDetails')}>
                     <View style={styles.reqTitleOthersStackStack}>
                       <View style={styles.reqTitleOthersStack}>
                         {/* req title */}
@@ -144,7 +154,7 @@ const S_Requests = ({Navigation}) => {
               }} />
           </View>
         } />
-      <View style={{ marginTop: 160 }}></View>
+      <View style={{ marginTop: 175 }}></View>
     </View>
   );
 }
@@ -174,14 +184,15 @@ const styles = StyleSheet.create({
     marginRight: 16
   },
   serviceSearch: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "#fff",
     height: 52,
     opacity: 0.75,
     fontSize: 15,
     flex: 1,
     marginRight: 13,
-    marginLeft: 11
+    marginLeft: 11, 
+    marginTop:3
   },
   searchIcon: {
     color: "#9c8df0",
@@ -189,10 +200,10 @@ const styles = StyleSheet.create({
     width: 29,
     height: 32,
     marginRight: 10,
-    marginTop: 13
+    marginTop: 14
   },
   priority: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(141,140,140,1)",
     fontSize: 11,
     textAlign: "right",
@@ -203,7 +214,7 @@ const styles = StyleSheet.create({
   low: {
     top: 0,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(141,140,140,1)",
     fontSize: 11,
     textAlign: "right",
@@ -212,20 +223,20 @@ const styles = StyleSheet.create({
   medium: {
     top: 0,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(141,140,140,1)",
     fontSize: 11,
     textAlign: "right",
-    right: 50
+    right: 55
   },
   high: {
     top: 0,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(141,140,140,1)",
     fontSize: 11,
     textAlign: "right",
-    right: 125
+    right: 137
   },
   greenDot: {
     top: 2,
@@ -234,7 +245,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     backgroundColor: "rgba(71,214,56,1)",
     borderRadius: 7,
-    right: 25
+    right: 30
   },
   yellowDot: {
     top: 2,
@@ -243,7 +254,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     backgroundColor: "rgba(222,255,0,1)",
     borderRadius: 7,
-    right: 98
+    right: 112
   },
   redDot: {
     top: 2,
@@ -252,30 +263,17 @@ const styles = StyleSheet.create({
     position: "absolute",
     backgroundColor: "rgba(255,51,51,1)",
     borderRadius: 7,
-    right: 155
+    right: 172
   },
-  lowStack: {
-    width: 262,
+  priorityStack: {
     height: 16,
     alignSelf: "flex-end",
-    marginRight: 21
-  },
-  rect2: {
-    height: 55,
-    shadowColor: "rgba(28,28,28,1)",
-    shadowOffset: {
-      width: 3,
-      height: 3
-    },
-    elevation: 45,
-    shadowOpacity: 1,
-    shadowRadius: 15,
-    borderWidth: 0,
-    borderColor: "#000000",
-    marginTop: 17
+    marginRight: 20, 
+    flexDirection:'row', 
+    alignItems:'center'
   },
   requestsForMe: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppins700",
     color: "rgba(255,255,255,1)",
     marginTop: 20,
     marginLeft: 27
@@ -294,7 +292,8 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     width: 267,
     marginTop: 15,
-    marginLeft: 13
+    marginLeft:5, 
+    marginRight:10,
   },
   senderImage: {
     width: 25,
@@ -303,7 +302,7 @@ const styles = StyleSheet.create({
   sendingDate: {
     top: 0,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(145,145,145,1)",
     fontSize: 10,
     textAlign: "right",
@@ -315,7 +314,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(176,172,172,1)",
     fontSize: 12
   },
@@ -344,7 +343,7 @@ const styles = StyleSheet.create({
     marginRight: 13
   },
   reqTitle: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     marginLeft: 11
   },
@@ -355,7 +354,7 @@ const styles = StyleSheet.create({
     width: 18
   },
   cateName: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(235,214,112,1)",
     fontSize: 11,
     marginLeft: 9,
@@ -384,7 +383,7 @@ const styles = StyleSheet.create({
     shadowRadius: 10
   },
   decline: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(242,69,69,1)",
     fontSize: 12,
     textAlign: "center",
@@ -407,7 +406,7 @@ const styles = StyleSheet.create({
     marginLeft: 13
   },
   accept: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(8,255,0,1)",
     textAlign: "center",
     fontSize: 12,
@@ -434,12 +433,10 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderColor: "#000000",
     flexDirection: "row",
-    marginTop: 24,
-    marginLeft: -1,
-    marginRight: 1
+    marginTop: 30,
   },
   otherRequests: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppins700",
     color: "rgba(255,255,255,1)",
     marginLeft: 27,
     marginTop: 17
@@ -489,7 +486,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,235,235,1)",
     fontSize: 14
   },
@@ -517,7 +514,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   acceptOthers: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(8,255,0,1)",
     textAlign: "center",
     fontSize: 12,
@@ -536,7 +533,7 @@ const styles = StyleSheet.create({
   sendingDateOther: {
     top: 43,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(145,145,145,1)",
     fontSize: 11,
     textAlign: "left",
@@ -546,7 +543,7 @@ const styles = StyleSheet.create({
     top: 22,
     left: 29,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "#70eba1",
     fontSize: 11
   },

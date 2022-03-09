@@ -54,8 +54,9 @@ import ResetPassword from './login_SignUp/ResetPassword';
 import AddNewCard from './paymentGateway/AddNewCard';
 import PaymentCards from './paymentGateway/PaymentCards'; 
 import Categories from './Categories';
-
+import AddEditItems from './AddEditItems'; 
 import Fav_MainLayout from './Fav_MainLayout';
+import MT_MainLayout from './MT_MainLayout';
 
 export {
     DB_MainLayout,    
@@ -92,6 +93,9 @@ export {
     AddNewCard, 
     PaymentCards, 
     Categories, 
+    AddEditItems, 
     
     Fav_MainLayout, 
+    MT_MainLayout
+   
 }

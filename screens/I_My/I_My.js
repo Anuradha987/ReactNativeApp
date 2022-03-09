@@ -58,7 +58,7 @@ const I_My = () => {
                   <View>
                     {/* My items details */}
                     <LinearGradient
-                      colors={['#3b3b4a', '#212126', '#3b3b4a']}
+                      colors={['#F1F1B0', '#ECDC80', '#EBD670']}
                       style={styles.myItemDetails}
                     >
                       <View style={styles.publishDateRow}>
@@ -107,7 +107,7 @@ const I_My = () => {
 
                     {/* Reqests for my items */}
                     <LinearGradient
-                      colors={['#3b3b4a', '#212126', '#3b3b4a']}
+                      colors={['#F1F1B0', '#ECDC80', '#EBD670']}
                       style={styles.receivedReqList}
                     >
                       <View style={styles.orderRequestslblStack}>
@@ -117,6 +117,8 @@ const I_My = () => {
                           <Text style={styles.noOfNotification}>{item.noOfNotification}</Text>
                         </View>
                       </View>
+
+                      {/* open the popup box */}
                       <TouchableOpacity style={styles.reqInfoCard}>
                         <View style={styles.reqSenderInfo}>
                           <View style={styles.senderProPicRow}>
@@ -140,7 +142,6 @@ const I_My = () => {
                           </View>
                           <View style={styles.amountlblStackRowFiller}></View>
                           <TouchableOpacity style={styles.reqDeclineBtn}>
-                            <View style={styles.declineFiller}></View>
                             <Text style={styles.decline}>Decline</Text>
                           </TouchableOpacity>
                         </View>
@@ -158,7 +159,6 @@ const I_My = () => {
                             style={styles.returningDateOrExchangedForlblStackRowFiller}
                           ></View>
                           <TouchableOpacity style={styles.reqAcceptBtn}>
-                            <View style={styles.acceptFiller}></View>
                             <Text style={styles.accept}>Accept</Text>
                           </TouchableOpacity>
                         </View>
@@ -218,23 +218,23 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,1)",
     flexDirection: "row",
     borderRadius: 13,
-    right: 0
+    right: 0, 
   },
   noOfNotificationFiller: {
     flex: 1,
     flexDirection: "row"
   },
   noOfNotification: {
+    width:26,
     fontFamily: "poppinsregular",
     color: "#121212",
     textAlign: "center",
-    marginTop: 3
+    marginTop: 2,
   },
   orderRequestslblStack: {
-    width: 273,
     height: 26,
     marginTop: 36,
-    marginLeft: 29
+    marginHorizontal: 29,  
   },
   reqInfoCard: {
     height: 113,
@@ -331,12 +331,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "rgba(242,69,69,1)",
     borderRadius: 10,
-    shadowColor: "rgba(242,69,69,1)",
-    shadowOffset: {
-      width: 0,
-      height: 0
-    },
-    elevation: 30,
     shadowOpacity: 0.3,
     shadowRadius: 10,
     flexDirection: "row"
@@ -353,7 +347,7 @@ const styles = StyleSheet.create({
     width: 52,
     height: 16,
     marginRight: 2,
-    marginTop: 8
+    marginTop: 6
   },
   amountlblStackRowRow: {
     height: 36,
@@ -403,20 +397,10 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "rgba(60,209,6,1)",
     borderRadius: 10,
-    shadowColor: "rgba(60,209,6,1)",
-    shadowOffset: {
-      width: 0,
-      height: 0
-    },
-    elevation: 30,
     shadowOpacity: 0.3,
     shadowRadius: 10,
     flexDirection: "row",
     marginTop: 6
-  },
-  acceptFiller: {
-    flex: 1,
-    flexDirection: "row"
   },
   accept: {
     fontFamily: "poppinsregular",
@@ -426,18 +410,17 @@ const styles = StyleSheet.create({
     width: 52,
     height: 16,
     marginRight: 2,
-    marginTop: 9
+    marginTop: 6
   },
   returningDateOrExchangedForlblStackRowRow: {
     height: 42,
     flexDirection: "row",
-    marginLeft: 17,
-    marginRight: 16
+    marginLeft: 16,
+    marginRight: 16, 
   },
   myItemDetails: {
-    //width:80,
     marginHorizontal: 10,
-    height: 453,
+    height: 470,
     shadowColor: "rgba(0,0,0,1)",
     shadowOffset: {
       width: 3,
@@ -450,11 +433,10 @@ const styles = StyleSheet.create({
     borderColor: "#000000",
     borderRadius: 19,
     marginTop: 30,
-    marginLeft: 23,
+    marginLeft: 24,
     marginRight: 24, 
     overflow: "hidden"
   },
-  myItemDetails_imageStyle: {},
   publishDate: {
     fontFamily: "poppinsregular",
     color: "rgba(152,150,150,1)",
@@ -538,23 +520,24 @@ const styles = StyleSheet.create({
     color: "rgba(216,148,255,1)",
     fontSize: 62,
     textAlign: "center",
-    marginTop: 3,
+    marginTop: -15,
     marginLeft: 15,
     marginRight: 16
   },
   itemImage: {
     width: 130,
     height: 130,
-    marginTop: 14,
-    marginLeft: 95
+    marginTop: 0,
+    marginLeft: 110
   },
   itemTitle: {
     fontFamily: "poppinsregular",
     color: "#121212",
     fontSize: 20,
     textAlign: "center",
-    marginTop: 10,
-    marginLeft: 4
+    marginTop: 7,    
+    marginLeft: 24,
+    marginRight: 24, 
   },
   cateIcon: {
     tintColor: "rgba(79,77,77,1)",
@@ -565,14 +548,17 @@ const styles = StyleSheet.create({
   cateName: {
     fontFamily: "poppinsregular",
     color: "rgba(79,77,77,1)",
-    marginLeft: 7
+    marginLeft: 7,
+    marginTop:6,
+    textAlignVertical:'center',
   },
   cateIconRow: {
     height: 22,
     flexDirection: "row",
     marginTop: 1,
-    marginLeft: 68,
-    marginRight: 16
+    marginHorizontal: 16, 
+    alignItems:'center', 
+    justifyContent:'center',
   },
   totalAmountlbl: {
     fontFamily: "poppinsregular",

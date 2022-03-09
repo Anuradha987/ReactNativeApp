@@ -15,7 +15,7 @@ import { useFonts } from 'expo-font';
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 import { LinearGradient } from 'expo-linear-gradient';
 
-function SAfterApproved({ navigation }) {
+const SAfterApproved = ({ navigation }) => { 
   //poppins insert
   const [loaded] = useFonts({
     poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),

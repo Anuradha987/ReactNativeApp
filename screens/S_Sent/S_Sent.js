@@ -18,6 +18,7 @@ import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import { dummyData } from "../../constants";
 import PickerComponent from "../../components/PickerComponent";
 import { useFonts } from 'expo-font';
+import { useNavigation } from '@react-navigation/native';
 //notifi about the rates, votes and commetns of yours services. 
 //details about your requested services. 
 //details about upcoming pending services that you have accepted.
@@ -26,7 +27,7 @@ import { useFonts } from 'expo-font';
 
 
 const S_Sent = () => {
-  
+  const navigation = useNavigation();
   // for the requests status 
   const [selectedValue, setSelectedValue] = useState("All");
 
@@ -62,7 +63,9 @@ const S_Sent = () => {
                     <Picker.Item label="Pending" value="Pending" />
                     <Picker.Item label="Rejected" value="Rejected" />
                     <Picker.Item label="Completed" value="Completed" />
-                    <Picker.Item label="Canceled" value="Canceled" />
+                    <Picker.Item label="Cancelled" value="Cancelled" />
+                    <Picker.Item label="Cancelled By Me" value="Cancelled By Me" />
+
                   </Picker>
 
                 </View>
@@ -105,15 +108,19 @@ const S_Sent = () => {
 
 
             <View style={styles.scrollArea}>
-              <FlatList
+              <FlatList 
                 data={dummyData.servicesRequestsSent}
                 keyExtractor={(item) => `${item.id}`}
                 showsVerticalScrollIndicator={true}
                 renderItem={({ item, index }) => {
                   return (
-                    // <View style={styles.scrollArea_contentContainerStyle}>
                     <View>
-                      <TouchableOpacity style={styles.serviceReqSent}>
+{/* onLongPress= edit or delete request. data disply in the NewReqForm.js
+onPress = open SSentDetailsAfterAccepting.js */}
+                      <TouchableOpacity style={styles.serviceReqSent} 
+                                        onPress={()=> navigation.navigate('SSentDetailsAfterAccepting')} 
+                                        onLongPress={()=> {}}
+                      >
                         <Text style={styles.reqTitle}>{item.reqTitle}</Text>
                         <View style={styles.cateIconRow}>
                           <Image
@@ -133,7 +140,6 @@ const S_Sent = () => {
                           </View>
                           <View style={styles.sentToColumnFiller}></View>
                           <View
-                            gradientImage="Gradient_w5ZSEt2.png"
                             style={styles.priority}
                           ></View>
                         </View>
@@ -142,7 +148,7 @@ const S_Sent = () => {
                   )
                 }} />
             </View>
-            <View style={{ marginTop: 110 }}></View>
+            <View style={{ marginTop: 150 }}></View>
           </View>} />
     </View>
   );
@@ -257,6 +263,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: 7,
     marginLeft: 11,
+    marginTop:3
   },
   searchIcon: {
     color: "#9c8df0",
@@ -264,7 +271,7 @@ const styles = StyleSheet.create({
     height: 32,
     width: 29,
     marginRight: 10,
-    marginTop: 13
+    marginTop: 14
   },
   requestStatusRowColumn: {
     marginTop: 38,
@@ -277,14 +284,12 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: 50,
     marginTop: 100,
-    marginLeft: 16,
+    marginBottom:30,
+    marginLeft: 15,
     marginRight: 15,
   },
-  scrollArea_contentContainerStyle: {
-    height: 582
-  },
   serviceReqSent: {
-    height: 104,
+    height: 110,
     backgroundColor: "rgba(65,58,100,0.7)",
     borderRadius: 20,
     shadowColor: "rgba(0,0,0,1)",
@@ -301,7 +306,7 @@ const styles = StyleSheet.create({
     fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     fontSize: 15,
-    marginTop: 10,
+    marginTop: 7,
     marginLeft: 20
   },
   cateIcon: {
@@ -311,21 +316,18 @@ const styles = StyleSheet.create({
     height: 18,
   },
   cateName: {
-    top: 1,
-    left: 0,
     position: "absolute",
     fontFamily: "poppinsregular",
     color: "rgba(220,162,76,1)",
     fontSize: 11
   },
   sentDate: {
-    top: 0,
     position: "absolute",
     fontFamily: "poppinsregular",
     color: "rgba(145,145,145,1)",
     fontSize: 10,
     right: "-20%",
-    textAlign: "right"
+    textAlign: "right",
   },
   categoryStack: {
     width: 272,
@@ -336,7 +338,7 @@ const styles = StyleSheet.create({
   cateIconRow: {
     height: 18,
     flexDirection: "row",
-    marginTop: 4,
+    marginTop: 0,
     marginLeft: 20,
     marginRight: 15
   },
@@ -351,7 +353,7 @@ const styles = StyleSheet.create({
     fontSize: 13
   },
   sentToColumn: {
-    width: 261
+    width: 261, 
   },
   sentToColumnFiller: {
     flex: 1,
@@ -367,7 +369,7 @@ const styles = StyleSheet.create({
   sentToColumnRow: {
     height: 40,
     flexDirection: "row",
-    marginTop: 3,
+    marginTop: 7,
     marginLeft: 20,
     marginRight: 15
   }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity, ImageBackground } from 'react-native'
 import { createDrawerNavigator, DrawerContentScrollView} from '@react-navigation/drawer'
-import {DB_MainLayout, S_MainLayout, I_MainLayout, Fav_MainLayout} from '../screens'; 
+import {DB_MainLayout, S_MainLayout, I_MainLayout,Fav_MainLayout, MT_MainLayout} from '../screens'; 
 import {COLORS, FONTS, SIZES, constants, icons, dummyData} from '../constants';
 import Animated from 'react-native-reanimated';
 import { connect } from 'react-redux';
@@ -13,18 +13,13 @@ const Drawer =  createDrawerNavigator()
 
 //customize the drawer items such as Home, settings etc
 const CustomDrawerItem = ({label,icon, isFocused, onPress}) => {
-    const [loaded] = useFonts({
-        poppinsregular: require('./../assets/fonts/Poppins-Regular.ttf')   
-      });
-      if (!loaded) {
-        return null;
-      }
+ 
     return(
         <TouchableOpacity style={{flexDirection: 'row', height:40, marginBottom: SIZES.base, alignItems: 'center', paddingLeft: SIZES.radius, borderRadius: SIZES.base, backgroundColor: isFocused ? COLORS.transparentBlack1 : null}}
                           onPress ={onPress}
         >
-            <Image source={icon}  style={{width:20, height:20, tintColor: COLORS.white}} />
-            <Text style={{marginLeft:15 , color: COLORS.white, fontFamily:"poppinsregular"}}>{label}</Text>
+            <Image source={icon}  style={{width:23, height:23, tintColor: COLORS.white}} />
+            <Text style={{marginLeft:15 , color: COLORS.white, fontFamily:"poppinsregular", fontSize:16}}>{label}</Text>
         </TouchableOpacity>
     )
 }
@@ -62,8 +57,8 @@ const CustomDrawerContent = ({navigation, selectedTab, setSelectedTab}) => {
                     />
 
                     <View style={{marginLeft: SIZES.radius}}>
-                        <Text style={{color: COLORS.white, fontFamily:"poppinsregular"}}>{dummyData.myProfile?.name}</Text>
-                        <Text style={{color:COLORS.white, fontFamily:"poppinsregular"}}>View My Profile</Text>
+                        <Text style={{color: COLORS.white, fontFamily:'poppinsregular', fontSize:14}}>{dummyData.myProfile?.name}</Text>
+                        <Text style={{color:COLORS.white, fontFamily:"poppinsregular", textDecorationLine: 'underline', fontSize:13}} onPress={()=>navigation.navigate('MyProfile')}>View My Profile</Text>
                     </View>
                 </TouchableOpacity>
 
@@ -109,7 +104,7 @@ Logout */}
                     />
 
                     <CustomDrawerItem label='Favorites'
-                                      icon = {icons.MyBusiness}
+                                      icon = {icons.favourite}
                                       isFocused = {selectedTab == constants.screens.Fav_MainLayout}
                                       onPress ={()=> {  setSelectedTab(constants.screens.Fav_MainLayout)
                                                         navigation.navigate("Fav_MainLayout")                                    
@@ -117,33 +112,13 @@ Logout */}
                     />
 
                     <CustomDrawerItem label='My Transactions' 
-                                      icon = {icons.MyBusiness}
-                                      isFocused = {selectedTab == constants.screens.Otp}
-                                      onPress ={()=> {  setSelectedTab(constants.screens.Otp)
-                                                        navigation.navigate("Otp")                                   
+                                      icon = {icons.transaction}
+                                      isFocused = {selectedTab == constants.screens.MT_MainLayout}
+                                      onPress ={()=> {  setSelectedTab(constants.screens.MT_MainLayout)
+                                                        navigation.navigate("MT_MainLayout")                                   
                                       }}
                     />
-                    <CustomDrawerItem label='Settings'
-                                      icon = {icons.setting}
-                                      isFocused = {selectedTab == constants.screens.UserProfile}
-                                      onPress ={()=> {  setSelectedTab(constants.screens.UserProfile)
-                                                        navigation.navigate("UserProfile")                                    
-                                      }}
-                    />
-                    <CustomDrawerItem label='Invite a friend' 
-                                      icon = {icons.profile}
-                                      isFocused = {selectedTab == constants.screens.B_Search}
-                                      onPress ={()=> {  setSelectedTab(constants.screens.B_Search)
-                                                        navigation.navigate("DB_MainLayout")                                    
-                                      }}
-                    />
-                    <CustomDrawerItem label='Help center' 
-                                      icon = {icons.help}
-                                      isFocused = {selectedTab == constants.screens.B_Search}
-                                      onPress ={()=> {  setSelectedTab(constants.screens.B_Search)
-                                                        navigation.navigate("DB_MainLayout")                                    
-                                      }}
-                    />                                                            
+                                                       
                     {/* Line Divider */}
                     {/* <View style ={{height: 1, marginVertical: SIZES.radius, marginLeft: SIZES.radius, backgroundColor: COLORS.lightGray1}}></View>
 
@@ -153,7 +128,7 @@ Logout */}
 
                     <CustomDrawerItem label="Coupons" 
                                       icon = {icons.coupon}
-                    />
+                    />*/}
 
                     <CustomDrawerItem label="Settings"
                                       icon = {icons.setting}
@@ -165,7 +140,7 @@ Logout */}
 
                     <CustomDrawerItem label="Help Center"
                                       icon = {icons.help}
-                    /> */}
+                    /> 
 
                     <View style={{marginBottom: SIZES.padding}}>
                         <CustomDrawerItem label="Logout"
@@ -183,7 +158,8 @@ Logout */}
 
 
 
-const CustomDrawer = ({selectedTab, setSelectedTab}) => {
+const CustomDrawer = ({selectedTab, setSelectedTab}) => {  //poppins insert
+
 
     // drawer animation
     // initial value set to 0 --> (new Animated.Value(0) )
@@ -205,25 +181,14 @@ const CustomDrawer = ({selectedTab, setSelectedTab}) => {
     //assigning the borderRadius and scale value to animatedStyle variable
     const animatedStyle = {borderRadius, transform: [{scale}]}
 
+const [loaded] = useFonts({
+    poppinsregular: require('../assets/fonts/Poppins-Regular.ttf'),
+    poppins700: require('../assets/fonts/poppins-700.ttf'),
+});
 
-// function drawerColor({backgroundColor}){
-//     return(
-//         backgroundColor = 'green'
-//     )
-// }
-
-// function drawerColor(backgroundColor){
-//     return(
-//         backgroundColor = 'green'
-//     )
-// }
-
-//   <backgroundColor onPress = {() => {
-//       return(
-//     CustomDrawerItem === constants.screens.DB_MainLayout ? backgroundColor='yellow' : constants.screens.S_MainLayout ? backgroundColor= 'green'
-//       )
-//   }}/>
-
+if (!loaded) {
+      return null;
+}
     return ( 
        <View style={{flex:1}}> 
               <ImageBackground
@@ -268,6 +233,10 @@ const CustomDrawer = ({selectedTab, setSelectedTab}) => {
 
                 <Drawer.Screen name="Fav_MainLayout">
                     {props => <Fav_MainLayout {...props} drawerAnimationStyle = {animatedStyle} />}
+                </Drawer.Screen>
+
+                <Drawer.Screen name="MT_MainLayout">
+                    {props => <MT_MainLayout {...props} drawerAnimationStyle = {animatedStyle} />}
                 </Drawer.Screen>
 
                 {/* ------------------------------------------------------------------------------------------------------------------ */}

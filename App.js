@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 // import thunk from 'redux-thunk;'
 import rootReducer from "./stores/rootReducer";
 import ReduxThunk from 'redux-thunk'
-import {SSentDetailsAfterAccepting,ViewItems, SAfterApproved, SAfterCompleted, S_RequestsDetails, Notification, MyProfile, NewReqForm, UserProfile, Login, Register, Otp, PasswordRecovery, ResetPassword, AddNewCard, PaymentCards,Categories } from './screens/index';
+import {SSentDetailsAfterAccepting,ViewItems, SAfterApproved, SAfterCompleted, S_RequestsDetails, Notification, MyProfile, NewReqForm, UserProfile, Login, Register, Otp, PasswordRecovery, ResetPassword, AddNewCard, PaymentCards,Categories, AddEditItems } from './screens/index';
 
 
 const Stack = createStackNavigator();
@@ -44,6 +44,7 @@ const App = () => {
                     <Stack.Screen name="S_RequestsDetails" component={S_RequestsDetails} />
                     <Stack.Screen name="SAfterCompleted" component={SAfterCompleted} />
                     <Stack.Screen name="SAfterApproved" component={SAfterApproved} />
+                    <Stack.Screen name="AddEditItems" component={AddEditItems} />
                 </Stack.Navigator>
             </NavigationContainer>
         </Provider>

@@ -93,7 +93,8 @@ const I_Search = () => {
             style={styles.searchIcon}
           ></EvilIconsIcon>
         </View>
-        <TouchableOpacity style={styles.filterBtn}>
+        {/* Open the filter.js Component */}
+        <TouchableOpacity style={styles.filterBtn} onPress={()=>{}}>
           <View style={styles.filterIconFiller}></View>
           <FontAwesomeIcon
             name="filter"
@@ -111,11 +112,12 @@ const I_Search = () => {
           numColumns={2}
           keyExtractor={(item) => `${item.id}`}
           showsHorizontalScrollIndicator={true}
+          contentContainerStyle={{}}
 
           renderItem={({ item, index }) => {
             return (
               
-              <TouchableWithoutFeedback style={styles.product1Group}>
+              <TouchableWithoutFeedback style={styles.product1Group} onPress={()=>navigation.navigate('ViewItems')}>
                 <View style={styles.products1Stack}>
                   <LinearGradient
                     colors={['#3b3b4a', '#212126', '#3b3b4a']}
@@ -164,7 +166,7 @@ const I_Search = () => {
       </TouchableOpacity>
 
       {/* <View style={{ backgroundColor: "#fff", margin: 50, height: 700 }}></View> */}
-      <View style={{ marginTop: 160 }}></View>
+      
     </View>
 
 
@@ -178,11 +180,7 @@ const styles = StyleSheet.create({
   },
   scrollbar: {
     height: 38,
-    marginTop: 97
-  },
-  scrollbar_contentContainerStyle: {
-    width: 390,
-    height: 35
+    marginTop: 85,
   },
   categories: {
     width: 120,
@@ -307,7 +305,7 @@ const styles = StyleSheet.create({
   searchingBarRow: {
     height: 52,
     flexDirection: "row",
-    marginTop: -120,
+    marginTop: -110,
     marginLeft: 16,
     marginRight: 16
   },
@@ -533,11 +531,12 @@ const styles = StyleSheet.create({
   },
   product1GroupRow: {
     //card flatlist area
-    height: windowHeight - 280,
+    height: windowHeight - 317,
     flexDirection: "row",
     marginTop: 78,
     marginLeft: 15,
     marginRight: 15,
+    marginBottom:100, 
   },
   addNewReq: {
     width: 70,

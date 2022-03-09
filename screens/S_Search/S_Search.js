@@ -4,7 +4,7 @@ import {
   View,
   StatusBar,
   TextInput,
-  TouchableOpacity,
+  TouchableOpacity, TouchableWithoutFeedback,
   Text,
   Image, 
 } from "react-native";
@@ -96,7 +96,9 @@ const S_Search = () => {
             style={styles.searchIcon}
           ></EvilIconsIcon>
         </View>
-        <TouchableOpacity style={styles.filterBtn}>
+
+        {/* Open the Filter.js component */}
+        <TouchableOpacity style={styles.filterBtn} onPress={navigation.navigate('Filter.js')}>  
           <View style={styles.filterIconFiller}></View>
           <FontAwesomeIcon
             name="filter"
@@ -148,21 +150,20 @@ const S_Search = () => {
 
         {/* expert pop up box */}
         <View style={styles.button}>
-          <View style={styles.endWrapperFiller}></View>
           <View style={styles.imageRowRowColumn}>
             <View style={styles.imageRowRow}>
-              <View style={styles.imageRow}>
+              <View style={styles.imageRow} >
                 <Image
                   source={require("./../../assets/images/avatar-1.jpg")}
                   resizeMode="contain"
                   style={styles.image}
+                  
                 ></Image>
-                <EvilIconsIcon
-                  name="close"
-                  style={styles.closeBtn1}
-                ></EvilIconsIcon>
+                <TouchableOpacity onPress={()=>{}}>
+                  <EvilIconsIcon name="close" style={styles.closeBtn1} ></EvilIconsIcon>
+                </TouchableOpacity>
               </View>
-              <Text style={styles.natashaPerera}>Natasha Perera</Text>
+              <Text style={styles.natashaPerera} onPress={()=>navigation.navigate('UserProfile')}>Natasha Perera</Text>
             </View>
             <View style={styles.group}>
               <Text style={styles.service1Titile}>Preparing Birthday Cake</Text>
@@ -218,7 +219,7 @@ const styles = StyleSheet.create({
   }, 
   scrollbar: {
     height: 38,
-    marginTop: 97
+    marginTop: 87
   },
   scrollbar_contentContainerStyle: {
     width: 390,
@@ -305,6 +306,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: 7,
     marginLeft: 11,
+    marginTop:3,
   },
   searchIcon: {
     color: "#9c8df0",
@@ -312,7 +314,7 @@ const styles = StyleSheet.create({
     height: 32,
     width: 29,
     marginRight: 12,
-    marginTop: 11
+    marginTop: 14
   },
   filterBtn: {
     width: 52,
@@ -359,38 +361,6 @@ const styles = StyleSheet.create({
     marginBottom:72,
     right: 0
   },
-  // addNewReq: {
-  //   top: 552,
-  //   width: 70,
-  //   height: 70,
-  //   position: "absolute",
-  //   backgroundColor: "rgba(162,0,255,1)",
-  //   transform: [
-  //     {
-  //       rotate: "-45.00deg"
-  //     }
-  //   ],
-  //   borderRadius: 22,
-  //   right: 19,
-  //   shadowColor: "rgba(162,0,255,1)",
-  //   shadowOffset: {
-  //     width: 0,
-  //     height: 0
-  //   },
-  //   elevation: 30,
-  //   shadowOpacity: 0.5,
-  //   shadowRadius: 10
-  // },
-  // add: {
-  //   top: 544,
-  //   position: "absolute",
-  //   fontFamily: "poppinsregular",
-  //   color: "rgba(255,255,255,1)",
-  //   fontSize: 60,
-  //   height: 70,
-  //   right: 34,
-  //   width: 41
-  // },
   addNewReq: {
     width: 70,
     height: 70,
@@ -403,7 +373,7 @@ const styles = StyleSheet.create({
     ],
     borderRadius: 23,
     right: 25,
-    bottom: 170
+    bottom: 180
   },
   addIcon: {
     color: "white",
@@ -426,15 +396,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#000000",
     height: 170,
-    bottom: 75,
+    bottom: 90,
     overflow: "scroll",
     right: 118, 
     width:270, 
     paddingTop:5,
   },
-  endWrapperFiller: {
-    flex: 1
-  },
+
   image: {
     width: 30,
     height: 30
@@ -450,7 +418,7 @@ const styles = StyleSheet.create({
   imageRow: {
     height: 34,
     flexDirection: "row",
-    alignItems: "flex-end"
+    alignItems: "flex-end",
   },
   natashaPerera: {
     fontFamily: "poppinsregular",
@@ -464,11 +432,10 @@ const styles = StyleSheet.create({
     height: 34,
     flexDirection: "row",
     marginBottom: 7,
-    marginLeft: 10
+    marginLeft: 3,
   },
   group: {
     height: 82,
-    //justifyContent: "space-between",
     marginBottom: 18,
     marginLeft: 17,
     marginRight: 3
@@ -567,7 +534,7 @@ const styles = StyleSheet.create({
   imageRowRowColumn: {
     marginBottom: 1,
     marginLeft: 2,
-    marginRight: 2
+    marginRight: 2, 
   },
   rect3: {
     top: 159,

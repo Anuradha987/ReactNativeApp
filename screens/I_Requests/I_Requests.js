@@ -36,17 +36,19 @@ const I_Requests = () => {
             <View>
 <View> 
         <View style={styles.searchingBar}>
-          <TextInput
-            placeholder="Search a service..."
-            returnKeyType="go"
-            placeholderTextColor="rgba(194,97,250,1)"
-            selectionColor="rgba(250,245,245,1)"
-            clearButtonMode="while-editing"
-            style={styles.serviceSearch}
-          ></TextInput>
-          <EvilIconsIcon name="search" style={styles.searchIcon}></EvilIconsIcon>
-        </View>
-
+                <TextInput
+                  placeholder="Search a service..."
+                  returnKeyType="go"
+                  placeholderTextColor="#9c8df0"
+                  selectionColor="rgba(250,245,245,1)"
+                  clearButtonMode="while-editing"
+                  style={styles.serviceSearch}
+                ></TextInput>
+                <EvilIconsIcon
+                  name="search"
+                  style={styles.searchIcon}
+                ></EvilIconsIcon>
+              </View>
 
            <View style={styles.scrollArea}>
             <FlatList
@@ -57,7 +59,8 @@ const I_Requests = () => {
             renderItem={({ item, index }) => {
                 return (
                     <View>
-                      <TouchableOpacity style={styles.itemCardStack}>
+                      {/* open I_My */}
+                      <TouchableOpacity style={styles.itemCardStack} onPress={()=>{}}>
                         <View style={styles.itemCard}>
                           <Text style={styles.itemTitle}>{item.itemTitle}</Text>
 
@@ -120,15 +123,15 @@ itemCard: {
     backgroundColor: "rgba(81,81,81,0.69)",
     borderRadius: 20,
     right: 0,
-    alignItems: "flex-end"
+    alignItems: "flex-end", 
 },
 itemTitle: {
     fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     fontSize: 14,
     textAlign: "right",
-    marginTop: 14,
-    marginRight: 10
+    marginTop: 10,
+    marginRight: 10, 
 },
 cateName: {
     position: "absolute",
@@ -164,7 +167,7 @@ priceperUnit: {
 transactionMethod: {
     top: 0,
     position: "absolute",
-    fontFamily: "poppins500",
+    fontFamily: "poppinsregular",
     color: "rgba(220,147,245,1)",
     textAlign: "right",
     fontSize: 13,
@@ -175,7 +178,7 @@ transactionMethod: {
 priceperUnitStack: {
     width: 181,
     height: 20,
-    marginTop: 6,
+    marginTop: 10,
     marginRight: 11
 },
 itemImage: {
@@ -202,8 +205,7 @@ searchingBar: {
     width: 3,
     height: 3
     },
-    elevation: 15,
-    shadowOpacity: 0.59,
+    shadowOpacity: 1,
     shadowRadius: 5,
     flexDirection: "row",
     marginTop: 12,
@@ -212,21 +214,22 @@ searchingBar: {
 },
 serviceSearch: {
     fontFamily: "poppinsregular",
-    color: "rgba(255,255,255,1)",
+    color: "#fff",
     height: 52,
-    opacity: 0.43,
+    opacity: 0.75,
     fontSize: 15,
     flex: 1,
     marginRight: 13,
-    marginLeft: 11
+    marginLeft: 11,
+    marginTop:3
 },
 searchIcon: {
-    color: "rgba(194,97,250,1)",
-    fontSize: 29,
-    width: 29,
-    height: 32,
-    marginRight: 10,
-    marginTop: 10
+  color: "#9c8df0",
+  fontSize: 29,
+  width: 29,
+  height: 32,
+  marginRight: 10,
+  marginTop: 14
 }
 });
 

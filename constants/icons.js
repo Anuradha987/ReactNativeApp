@@ -36,6 +36,7 @@ const noticeboard = require("../assets/icons/noticeboard.png")
 const recieves = require("../assets/icons/recieves.png")
 const services = require("../assets/icons/services.png")
 const sentReq = require("../assets/icons/sentReq.png")
+const transaction = require("../assets/icons/transaction.png")
 
 export default {
     coupon,
@@ -75,4 +76,5 @@ export default {
     check_on, 
     check_off, 
     clock,
+    transaction
 }

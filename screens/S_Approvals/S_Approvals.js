@@ -18,8 +18,20 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { dummyData } from '../../constants';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
+import { useFonts } from 'expo-font';
 
-function PendingReq() {
+function PendingReq({navigation}) {
+// const navigation = useNavigation();
+      //poppins insert
+      const [loaded] = useFonts({
+        poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
+        poppins700: require('./../../assets/fonts/poppins-700.ttf'),
+    });
+  
+    if (!loaded) {
+          return null;
+    }
   return (
     <View style={styles.scrollArea}>
       <FlatList
@@ -29,7 +41,7 @@ function PendingReq() {
         style={styles.scrollArea_contentContainerStyle}
         renderItem={({ item, index }) => {
           return (
-            <TouchableOpacity style={styles.serviceReqReceived}>
+            <TouchableOpacity style={styles.serviceReqReceived} onPress={()=>navigation.navigate('SAfterApproved')}>
               <View style={styles.senderImageRow}>
                 <Image
                   source={item.senderImage}
@@ -41,10 +53,7 @@ function PendingReq() {
                     <Text style={styles.acceptDate}>{item.acceptDate}</Text>
                     <Text style={styles.senderName}>{item.senderName}</Text>
                   </View>
-                  <View
-                    gradientImage="Gradient_w5ZSEt2.png"
-                    style={styles.priorityDot}
-                  ></View>
+                  <View style={styles.priorityDot} ></View>
                 </View>
               </View>
               <Text style={styles.reqTitle}>{item.reqTitle}</Text>
@@ -58,13 +67,11 @@ function PendingReq() {
               </View>
               <View style={styles.endWrapperFillerRow}>
                 <View style={styles.endWrapperFiller}></View>
-                <View style={styles.reqDeclineBtnRow}>
-                  <TouchableOpacity style={styles.reqDeclineBtn}>
-                    <View style={styles.calcelFiller}></View>
-                    <Text style={styles.calcel}>Cancel</Text>
+                <View style={styles.reqCancelBtnRow}>
+                  <TouchableOpacity style={styles.reqCancelBtn}>
+                    <Text style={styles.cancel}>Cancel</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.reqCompleteBtn}>
-                    <View style={styles.completeFiller}></View>
                     <Text style={styles.complete}>Complete</Text>
                   </TouchableOpacity>
                 </View>
@@ -79,7 +86,7 @@ function PendingReq() {
 
 
 
-function CompletedReq() {
+function CompletedReq({navigation}) {
   return (
     <View style={styles.scrollArea}>
       <FlatList
@@ -90,7 +97,7 @@ function CompletedReq() {
         renderItem={({ item, index }) => {
           return (
 
-            <TouchableOpacity style={styles.serviceReqReceivedCompleted}>
+            <TouchableOpacity style={styles.serviceReqReceivedCompleted} onPress={()=>navigation.navigate('SAfterCompleted')}>
               <View style={styles.senderImageRow1}>
                 <Image
                   source={item.senderImage}
@@ -98,10 +105,7 @@ function CompletedReq() {
                   style={styles.senderImage}
                 ></Image>
                 <View style={styles.priorityDotStack}>
-                  <View
-                    gradientImage="Gradient_w5ZSEt2.png"
-                    style={styles.priorityDot}
-                  ></View>
+                  <View style={styles.priorityDot}></View>
                   <View style={styles.senderNameStack}>
                     <Text style={styles.senderName}>{item.senderName}</Text>
                     <Text style={styles.completeDate}>{item.completeDate}</Text>
@@ -131,36 +135,29 @@ const S_Approvals = ({ navigation }) => {
   return (
     <View style={styles.container}>
 
-      {/* searching bar */}
-      <View style={styles.searchingBarColumn}>
-        <View style={styles.searchingBar}>
-          <TextInput
-            placeholder="Search a service..."
-            returnKeyType="go"
-            placeholderTextColor="#9c8df0"
-            selectionColor="rgba(250,245,245,1)"
-            clearButtonMode="while-editing"
-            style={styles.serviceSearch}
-          ></TextInput>
-          <EvilIconsIcon
-            name="search"
-            style={styles.searchIcon}
-          ></EvilIconsIcon>
-        </View>
 
-        {/* priority level describing */}
-        <View style={styles.mediumStackStack}>
-          <View style={styles.mediumStack}>
-            <Text style={styles.medium}>Medium</Text>
+          {/* Searching bar */}
+          <View style={styles.searchingBar}>
+            <TextInput
+              placeholder="Search a service..."
+              returnKeyType="go"
+              placeholderTextColor="#9c8df0"
+              selectionColor="rgba(250,245,245,1)"
+              clearButtonMode="while-editing"
+              style={styles.serviceSearch}
+            ></TextInput>
+            <EvilIconsIcon name="search" style={styles.searchIcon}></EvilIconsIcon>
+          </View>
+
+          <Text style={styles.priority}>Priority :</Text>
+          <View style={styles.priorityStack}>
             <Text style={styles.low}>Low</Text>
+            <Text style={styles.medium}>Medium</Text>
+            <Text style={styles.high}>High</Text>
             <View style={styles.greenDot}></View>
             <View style={styles.yellowDot}></View>
-            <Text style={styles.high}>High</Text>
+            <View style={styles.redDot}></View>
           </View>
-          <View style={styles.redDot}></View>
-        </View>
-        <Text style={styles.priority}>Priority :</Text>
-      </View>
 
       {/* Not Completed (after accepting) and completed requests */}
       <NavigationContainer independent={true} >
@@ -170,14 +167,14 @@ const S_Approvals = ({ navigation }) => {
             tabBarInactiveTintColor: "rgba(141,140,140,1)",
             tabBarIndicatorStyle: { backgroundColor: '#9c8df0' },
             tabBarLabelStyle: { fontSize: 12, fontWeight: 'bold', letterSpacing: 1 },
-            tabBarStyle: { backgroundColor: "rgba(21,31,40,1)", marginTop: 25, shadowOpacity: 1, shadowColor: "rgba(16,16,16,1)", elevation: 3, shadowOffset: { width: 3, height: 3 } },
+            tabBarStyle: { backgroundColor: "rgba(21,31,40,1)", marginTop: 7, shadowOpacity: 1, shadowColor: "rgba(16,16,16,1)", elevation: 3, shadowOffset: { width: 3, height: 3 } },
           }}
         >
           <Tab.Screen name="Not Completed" component={PendingReq} />
           <Tab.Screen name="Completed" component={CompletedReq} />
         </Tab.Navigator>
       </NavigationContainer>
-      <View style={{ marginTop: 160 }}></View>
+      <View style={{ marginTop: 175 }}></View>
     </View>
   );
 }
@@ -203,8 +200,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.59,
     shadowRadius: 5,
     flexDirection: "row",
+    marginTop: 22,
     marginLeft: 16,
-    marginRight: 15
+    marginRight: 16
   },
   serviceSearch: {
     fontFamily: "poppinsregular",
@@ -215,6 +213,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: 7,
     marginLeft: 11,
+   marginTop:3
   },
   searchIcon: {
     color: "#9c8df0",
@@ -222,7 +221,7 @@ const styles = StyleSheet.create({
     width: 29,
     height: 32,
     marginRight: 10,
-    marginTop: 10
+    marginTop: 13
   },
   rect2: {
     top: 1,
@@ -241,35 +240,45 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderColor: "#000000"
   },
-  cupertinoSegmentWithTwoTabs: {
-    height: 56,
-    position: "absolute",
-    top: 0,
-    backgroundColor: "rgba(15,30,69,1)",
-    left: 0,
-    right: 0
-  },
   rect2Stack: {
     height: 56,
     marginTop: 77
   },
-  medium: {
-    top: 0,
-    position: "absolute",
-    fontFamily: "poppins-regular",
+  priority: {
+    fontFamily: "poppinsregular",
     color: "rgba(141,140,140,1)",
     fontSize: 11,
     textAlign: "right",
-    right: 51
+    alignSelf: "flex-end",
+    marginTop: 29,
+    marginRight: 20
   },
   low: {
     top: 0,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(141,140,140,1)",
     fontSize: 11,
     textAlign: "right",
     right: 0
+  },
+  medium: {
+    top: 0,
+    position: "absolute",
+    fontFamily: "poppinsregular",
+    color: "rgba(141,140,140,1)",
+    fontSize: 11,
+    textAlign: "right",
+    right: 55
+  },
+  high: {
+    top: 0,
+    position: "absolute",
+    fontFamily: "poppinsregular",
+    color: "rgba(141,140,140,1)",
+    fontSize: 11,
+    textAlign: "right",
+    right: 137
   },
   greenDot: {
     top: 2,
@@ -278,7 +287,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     backgroundColor: "rgba(71,214,56,1)",
     borderRadius: 7,
-    right: 26
+    right: 30
   },
   yellowDot: {
     top: 2,
@@ -287,23 +296,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     backgroundColor: "rgba(222,255,0,1)",
     borderRadius: 7,
-    right: 99
-  },
-  high: {
-    top: 0,
-    position: "absolute",
-    fontFamily: "poppins-regular",
-    color: "rgba(141,140,140,1)",
-    fontSize: 11,
-    textAlign: "right",
-    right: 126
-  },
-  mediumStack: {
-    top: 0,
-    width: 263,
-    height: 16,
-    position: "absolute",
-    right: 0
+    right: 112
   },
   redDot: {
     top: 2,
@@ -312,23 +305,14 @@ const styles = StyleSheet.create({
     position: "absolute",
     backgroundColor: "rgba(255,51,51,1)",
     borderRadius: 7,
-    right: 156
+    right: 172
   },
-  mediumStackStack: {
-    width: 263,
+  priorityStack: {
     height: 16,
     alignSelf: "flex-end",
-    marginTop: 38,
-    marginRight: 20
-  },
-  priority: {
-    fontFamily: "poppins-regular",
-    color: "rgba(141,140,140,1)",
-    fontSize: 11,
-    textAlign: "right",
-    alignSelf: "flex-end",
-    marginTop: -32,
-    marginRight: 20
+    marginRight: 20, 
+    flexDirection:'row', 
+    alignItems:'center'
   },
   searchingBarColumn: {
     marginTop: 22
@@ -375,7 +359,7 @@ const styles = StyleSheet.create({
   acceptDate: {
     top: 0,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(145,145,145,1)",
     fontSize: 10,
     right: "-20%",
@@ -385,7 +369,7 @@ const styles = StyleSheet.create({
     top: 2,
     left: 0,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(197,212,196,1)",
     fontSize: 12
   },
@@ -426,11 +410,11 @@ const styles = StyleSheet.create({
     marginRight: 14
   },
   reqTitle: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     fontSize: 15,
     marginTop: 1,
-    marginLeft: 10
+    marginHorizontal: 10, 
   },
   cateIcon: {
     color: "rgba(220,162,76,1)",
@@ -439,24 +423,22 @@ const styles = StyleSheet.create({
     width: 18
   },
   cateName: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "#ebd670",
     fontSize: 11,
     marginLeft: 8,
-    marginTop: 1
   },
   cateIconRow: {
-    height: 17,
+   // height: 17,
     flexDirection: "row",
-    marginTop: 1,
     marginLeft: 24,
-    marginRight: 63
+    marginRight: 24, 
   },
   endWrapperFiller: {
     flex: 1,
-    flexDirection: "row"
+    flexDirection: "row", 
   },
-  reqDeclineBtn: {
+  reqCancelBtn: {
     width: 83,
     height: 40,
     borderWidth: 2,
@@ -473,12 +455,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginRight: 14,
   },
-  calcelFiller: {
-    flex: 1,
-    flexDirection: "row"
-  },
-  calcel: {
-    fontFamily: "poppins-regular",
+  cancel: {
+    width:83,
+    fontFamily: "poppinsregular",
     color: "rgba(242,132,69,1)",
     fontSize: 12,
     textAlign: "center",
@@ -501,12 +480,9 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     flexDirection: "row"
   },
-  completeFiller: {
-    flex: 1,
-    flexDirection: "row"
-  },
   complete: {
-    fontFamily: "poppins-regular",
+    width:83,
+    fontFamily: "poppinsregular",
     color: "rgba(3,213,241,1)",
     textAlign: "center",
     fontSize: 12,
@@ -515,7 +491,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginTop: 8,
   },
-  reqDeclineBtnRow: {
+  reqCancelBtnRow: {
     height: 40,
     flexDirection: "row"
   },
@@ -576,7 +552,7 @@ const styles = StyleSheet.create({
   completeDate: {
     top: 0,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(145,145,145,1)",
     fontSize: 10,
     right: "-20%",

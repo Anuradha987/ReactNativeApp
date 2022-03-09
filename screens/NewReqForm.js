@@ -85,7 +85,7 @@ return (
             style={styles.descriptiontxt}></TextInput>
 
           <Text style={styles.categorylbl}>Category *</Text>
-          <View style={styles.categorytxt}>
+          <View style={styles.categorytxt} onPress={()=>{}}>
                 <View style={styles.cateRoundRow}>
                   <View style={styles.cateRound}>
                     <Image
@@ -107,7 +107,7 @@ return (
 
             <MaterialRadio style={styles.mediumRadioBtn}></MaterialRadio>
             <View style={styles.yellowDot}></View>
-            <Text style={styles.medium}>Low</Text>
+            <Text style={styles.medium}>Medium</Text>
 
             <MaterialRadio style={styles.lowRadioBtn}></MaterialRadio>
             <View style={styles.greenDot}></View>
@@ -115,7 +115,8 @@ return (
 
           </View>
 
-          <Text style={styles.locationlbl}>Location</Text>
+{/* Automatically fill the textinput from the user's location that have provided during the registration */}
+          <Text style={styles.locationlbl}>Location *</Text>
           <TextInput
             placeholder=""
             clearButtonMode="while-editing"
@@ -134,7 +135,7 @@ return (
               <Text style={styles.submit}>SUBMIT</Text>
           </TouchableOpacity>
           
-<View style={{marginTop:50}}></View>
+<View style={{marginTop:80}}></View>
         </View>
       }
     />
@@ -185,7 +186,7 @@ rect1: {
   shadowRadius: 15,
   borderWidth: 0,
   borderColor: '#000000',
-  marginTop: 30,
+  marginTop: 0,
 },
 pageTitle: {
   fontFamily: 'poppins700',
@@ -227,6 +228,7 @@ header: {
 backIcon: {
   color: '#BBBDC1',
   fontSize: 20,
+  marginRight:2
 },
 backBtn: {
   width: 40,
@@ -288,6 +290,8 @@ descriptiontxt: {
   borderColor: 'rgba(255,0,246,1)',
   fontSize: 15,
   marginHorizontal: 28,
+  textAlignVertical: "top",
+  paddingVertical:6
 },
 categorylbl: {
   fontFamily: 'poppinsregular',
@@ -365,12 +369,14 @@ button: {
   marginRight: 37
 },
 submit: {
-  fontFamily: "poppins700",
+  fontFamily: "poppinsregular",
   color: "rgba(255,255,255,1)",
   textAlign: "center",
-  marginTop: 15,
+  marginTop: 9,
   marginLeft: 8,
-  marginRight: 7,
+  marginRight: 7,    
+  letterSpacing:0.5, 
+  fontSize:18,
 },
 highRadioBtn: {
   height: 34,
@@ -381,7 +387,7 @@ redDot: {
   height:12,
   backgroundColor: 'rgba(255,51,51,1)',
   borderRadius: 6,
-  marginLeft: 1,
+  marginLeft: 10,
   marginTop: 12,
 
 },
@@ -404,7 +410,7 @@ yellowDot: {
   height: 12,
   backgroundColor: 'rgba(255,238,51,1)',
   borderRadius: 6,
-  marginLeft: 1,
+  marginLeft: 10,
   marginTop:12,
 },
 medium: {
@@ -419,13 +425,14 @@ medium: {
 lowRadioBtn: {
   height: 34,
   width: 34,
+  marginLeft:20,
 },
 greenDot: {
   width: 12,
   height: 12,
   backgroundColor: 'rgba(68,255,51,1)',
   borderRadius: 6,
-  marginLeft: 1,
+  marginLeft: 10,
   marginTop:12,
 },
 low: {

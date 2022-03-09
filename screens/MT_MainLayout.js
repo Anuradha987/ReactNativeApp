@@ -11,14 +11,8 @@ import { useFonts } from 'expo-font';
 import { useNavigation } from '@react-navigation/native';
 import Icon from "react-native-vector-icons/EvilIcons";
 
-const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab}) => {
+const MT_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab}) => {
     const navigation = useNavigation();
-           //set a title for first loading the app
-        //    React.useEffect(()=> {
-        //     setSelectedTab(constants.screens.DB_MainLayout)
-        // }, [])
-
-//#181938       
 
 //poppins insert
     const [loaded] = useFonts({
@@ -34,8 +28,7 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab}) => 
             {/* Header */}
             <Header 
                 containerStyle={{height: 30, paddingHorizontal: SIZES.padding, marginTop: 20,marginBottom:15, alignItems:'center', }}
-                // title ={selectedTab.toUpperCase()}
-                title ="DASHBOARD"
+                title ="MONEY TRANSACTIONS"
 
                 leftComponent ={
                     <TouchableOpacity style={{width:40, height: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: COLORS.gray2, borderRadius: SIZES.radius}}
@@ -46,11 +39,6 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab}) => 
                 }
 
                 rightComponent ={
-                    // <TouchableOpacity style={{borderRadius: SIZES.radius, alignItems: 'center', justifyContent:'center'}}>
-                    //     <Image source={dummyData?.myProfile?.profile_image}
-                    //             style={{width:40, height:40, borderRadius:SIZES.radius}}
-                    //     />
-                    // </TouchableOpacity>
                     <TouchableOpacity style={{width:40, height: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: COLORS.gray2, borderRadius: SIZES.radius}}
                                       onPress ={()=> navigation.navigate('Notification')}
                     >
@@ -59,208 +47,13 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab}) => 
                 }
             />
 
-<LinearGradient  start = {{ x:0 , y:0.5 }} end = {{ x:0 , y:0 }}
-                      colors={['transparent', 'rgba(19,18,18,1)']}
+      <LinearGradient  start = {{ x:0 , y:0.5 }} end = {{ x:0 , y:0 }}
+                       colors={['transparent', 'rgba(19,18,18,1)']}
                         style= {{ left:0, right:0, height:15, }}
       />
 
-            {/* Greeting text */}
-            <FlatList
-        showsVerticalScrollIndicator={true}
-        ListHeaderComponent={
-            <View>
-            <Text style={styles.helloName}>Hi, {dummyData.myProfile?.name}.👋</Text>
-            <Text style={styles.text1}>
-                Discover anything you want and let others know how you can serve them.
-            </Text>
-           
-          
-{/* Total services and items i have published so far. (On My services and my items) */}
-{/* <View style={styles.Totals}> */}
-
-      {/* <View style={styles.totalServicesBoxRow}>
-        <ImageBackground
-          style={styles.totalServicesBox}
-          imageStyle={styles.totalServicesBox_imageStyle}
-          source={require("./../assets/images/Gradient_ZhvenFe.png")}
-        >
-          <Text style={styles.totalServicestxt}>Total Services</Text>
-          <Text style={styles.totalServicesNo}>25</Text>
-        </ImageBackground>
-
-        <View style={styles.totalItemsBoxStack}>
-          <ImageBackground
-            style={styles.totalItemsBox}
-            imageStyle={styles.totalItemsBox_imageStyle}
-            source={require("./../assets/images/Gradient_ZhvenFe.png")}
-          >
-            <Text style={styles.totalItemstxt}>Total Items</Text>
-          
-          <Text style={styles.totalItemsNo}>25</Text>
-          </ImageBackground>
-        </View>
-      </View> */}
-
-    {/* </View> */}
-
-
-           {/* Search bar */}
-
-           <View style={styles.searchingBar}>
-              <TextInput
-                placeholder="Search a service..."
-                returnKeyType="go"
-                placeholderTextColor="#9c8df0"
-                selectionColor="rgba(250,245,245,1)"
-                clearButtonMode="while-editing"
-                style={styles.serviceSearch}
-              ></TextInput>
-              <EvilIconsIcon name="search" style={styles.searchIcon}></EvilIconsIcon>
-            </View>
-
-
-            {/* Categories */}
-      <Text style={styles.categorieslbl}>Categories</Text>
-      {/* <View style={styles.categoryscrollArea}>
-        <ScrollView
-          contentContainerStyle={
-            styles.categoryscrollArea_contentContainerStyle
-          }
-        > */}
-         <FlatList
-              columnWrapperStyle={{ justifyContent: 'space-between', marginHorizontal:20,  }}
-              data={dummyData.categories}
-              keyExtractor={(item) => `${item.id}`}
-              //horizontal
-              showsHorizontalScrollIndicator={false}
-              numColumns={4}
-              
-              renderItem={({ item, index }) => {
-                return (
-                    <View style={styles.group}>
-                    <TouchableOpacity style={styles.categoryCircle}>
-                    <Image
-                        source={item.icon}
-                        resizeMode="contain"
-                        style={styles.categoryIcon}
-                    ></Image>
-                    </TouchableOpacity>
-                    <Text style={styles.categoryName}>{item.name}</Text>
-                </View> 
-          )}}/>
-            {/* <View style={styles.categoryCircle}>
-              <Image
-                source={require("./../assets/icons/Agricultural.png")}
-                resizeMode="contain"
-                style={styles.categoryIcon}
-              ></Image>
-            </View>
-            <Text style={styles.categoryName}>Agriculture</Text>
-          </View>
-          <View style={styles.image7Stack}>
-            <Image
-              source={require("./../assets/icons/Agricultural.png")}
-              resizeMode="contain"
-              style={styles.image7}
-            ></Image>
-            <View style={styles.rect12}></View>
-          </View>
-          <Text style={styles.agriculture7}>Agriculture</Text> */}
-               
-        {/* </ScrollView>
-      </View> */}
-
-
-      {/* Service Requests Recieved */}
-      <View style={styles.recievedRequestslblRow}>
-        <Text style={styles.recievedRequestslbl}>Recieved Requests</Text>
-          <TouchableOpacity style={styles.viewAllView1} onPress={()=>navigation.navigate("S_Requests")}>
-                <Text style={styles.viewAlltxt1}>View all</Text>
-          </TouchableOpacity>
-      </View>
-
-      <FlatList data={dummyData.OtherRecieveRequest}
-              horizontal
-              keyExtractor={(item) => `${item.id}`}
-              showsHorizontalScrollIndicator={false}
-              style={{marginHorizontal:10}}
-              renderItem={({ item, index }) => {
-                return (
-          <TouchableOpacity style={styles.reqBox}>
-            <View style={styles.sentDateRow}>
-              <Text style={styles.sentDate}>{item.publishDate}</Text>
-              <View style={styles.priorityDot}></View>
-            </View>
-            <Text style={styles.serviceTitle}>{item.senderName}</Text>
-            <View style={styles.cateIconRow}>
-              {/* <Icon name="archive"></Icon> */}
-              <Image source = {require('./../assets/icons/foods.png')} 
-                    style={styles.cateIcon} 
-                    resizeMode="contain">
-              </Image>
-              <Text style={styles.cateName}>Food &amp; Drink</Text>
-            </View>
-            <View style={styles.toPublicOrMeRow}>
-              <Text style={styles.toPublicOrMe}>To: Public /Me</Text>
-              <TouchableOpacity style={styles.acceptReqBtn}>
-                <Text style={styles.accept}>Accept</Text>
-              </TouchableOpacity>
-            </View>
-          </TouchableOpacity>
-        )}}/>
-
-
-      {/* Recieved Orders */}
-      <View style={styles.itemOrderslblRow}>
-        <Text style={styles.itemOrderslbl}>Item Orders</Text>
-        <TouchableOpacity style={styles.viewAllView2} onPress={()=>navigation.navigate('I_My')}> 
-        <Text style={styles.viewAlltxt2}>View all</Text>         
-        </TouchableOpacity>
-      </View>
-
-
-        <FlatList
-              onPress={()=>{}}
-              data={dummyData.myItemsData}
-              keyExtractor={(item) => `${item.id}`}
-              style={styles.scrollAreaItemOrders}
-              renderItem={({ item, index }) => {
-                return (           
-                  <TouchableOpacity style={styles.ordersBox}>
-                  <View style={styles.itemImageRow}>
-                    <Image
-                      source={item.itemImage}
-                      resizeMode="cover"
-                      style={styles.itemImage}
-                    ></Image>
-                    <View style={styles.senderNameColumn}>
-                      <Text style={styles.senderName}>Sunimal Kumara</Text>
-                      <View style={styles.amountlblColumnRowRow}>
-                        <View style={styles.amountlblColumnRow}>
-
-                          <View style={styles.amountlblColumn}>
-                            <Text style={styles.amountlbl}>Amount :</Text>
-                            <Text style={styles.returningDateOrBarterFor}>Returning {"\n"}Date : </Text>
-                          </View>
-                          <View style={styles.amounttxtColumn}>
-                            <Text style={styles.amounttxt}>1250g</Text>
-                            <Text style={styles.returningDateOrBarterFortxt}>20/01/22</Text>
-                          </View>
-                        </View>
-                        
-                        <TouchableOpacity style={styles.orderAcceptBtn} onPress={()=>{}}>
-                          <Text style={styles.accept1}>Accept</Text>
-                        </TouchableOpacity>
-                      </View>
-                    </View>
-                  </View>
-                </TouchableOpacity>
-
-                
-          )}}/> 
-
-<View style={{marginBottom:80}}></View>
-      </View>}/>
+            {/*Container */}
+ 
         </Animated.View>
     )
 }
@@ -731,4 +524,4 @@ const styles = StyleSheet.create({
 
 
 export default connect(mapStateToProps, mapDispatchToProps)
-(DB_MainLayout)
+(MT_MainLayout)

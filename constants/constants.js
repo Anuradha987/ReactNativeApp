@@ -20,11 +20,10 @@ const screens = {
     I_Search        : 'Explore  Items' ,
     I_Sent          : 'Sent  Orders' , 
     I_My            : 'My  Items' ,
-    //I_Approvals     : 'Approved  Items' ,
     I_Requests      : 'Sales History' , 
 
-    Fav_MainLayout  : 'Favourite MainLayout'
-
+    Fav_MainLayout  : 'Favourite MainLayout',
+    MT_MainLayout   : 'MT_MainLayout'
 }
 
 

@@ -31,7 +31,7 @@ function SSentDetailsAfterAccepting({ navigation }) {
   return (
     <View style={styles.container}>
       {/* header */}
-      <View style={styles.backBtnRow}>
+      <View style={styles.header}>
         <TouchableOpacity
           style={styles.backBtn}
           onPress={() => navigation.goBack()}>
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     letterSpacing: 0,
   },
-  backBtnRow: {
+  header: {
     height: 50,
     flexDirection: 'row',
     marginTop: 20,

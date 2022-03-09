@@ -17,8 +17,22 @@ import EntypoIcon from "react-native-vector-icons/Entypo";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import { LinearGradient } from 'expo-linear-gradient';
 import { dummyData } from "../../constants";
+import { useNavigation } from '@react-navigation/native';
+import { useFonts } from 'expo-font';
+
+//only 5 services can add in a once. 
 
 const S_My = () => {
+  const navigation = useNavigation();      
+  //poppins insert
+  const [loaded] = useFonts({
+    poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
+    poppins700: require('./../../assets/fonts/poppins-700.ttf'),
+});
+
+if (!loaded) {
+      return null;
+}
     return (
       <View style={styles.container}>
       <FlatList 
@@ -38,7 +52,7 @@ const S_My = () => {
                       renderItem={({ item, index }) => {
                         return (
                           <LinearGradient
-                          colors={['#3b3b4a', '#212126', '#3b3b4a']}
+                          colors={['#F1F1B0', '#ECDC80', '#EBD670']}
                           style={styles.myServiceDetails}
                         >
                     <View style={styles.endWrapperFillerRow}>
@@ -221,7 +235,7 @@ const styles = StyleSheet.create({
     marginRight: 16
   },
   pageNo: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(216,148,255,1)",
     fontSize: 62,
     textAlign: "center",
@@ -230,7 +244,7 @@ const styles = StyleSheet.create({
     marginRight: 16
   },
   serviceTitle: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "#121212",
     fontSize: 20,
     textAlign: "center",
@@ -239,20 +253,20 @@ const styles = StyleSheet.create({
     marginRight: 16
   },
   description: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(59,57,57,1)",
     textAlign: "justify",
     marginTop: 29,
     marginHorizontal: 20
   },
   cateIcon: {
-    color: "rgba(79,77,77,1)",
+    tintColor: "rgba(79,77,77,1)",
     fontSize: 20,
     height: 22,
     width: 20
   },
   cateName: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "rgba(79,77,77,1)",
     marginLeft: 6,
     marginTop: 1
@@ -285,7 +299,7 @@ const styles = StyleSheet.create({
   },
   myServiceDetailsNew_imageStyle: {},
   serviceTitletxt: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "#121212",
     height: 41,
     fontSize: 13,
@@ -304,7 +318,7 @@ const styles = StyleSheet.create({
     marginLeft: 27
   },
   descriptiontxt: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "#121212",
     height: 124,
     fontSize: 13,
@@ -323,7 +337,7 @@ const styles = StyleSheet.create({
     marginLeft: 28
   },
   categorytxt: {
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "#121212",
     height: 41,
     fontSize: 13,
@@ -358,7 +372,7 @@ const styles = StyleSheet.create({
     marginLeft: 76
   },
   done: {
-    fontFamily: "poppins-700",
+    fontFamily: "poppins700",
     color: "rgba(255,255,255,1)",
     letterSpacing: 1,
     fontSize: 16,
@@ -369,7 +383,7 @@ const styles = StyleSheet.create({
   loremIpsum: {
     top: 39,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    fontFamily: "poppinsregular",
     color: "#121212",
     textAlign: "center",
     left: 1,

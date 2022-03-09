@@ -15,9 +15,11 @@ import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { dummyData, icons } from "../../constants";
 import { useFonts } from 'expo-font';
+import { useNavigation } from '@react-navigation/native';
 
 //Order history. Item orders that have been sent/ Item that have been bought (items buy)
 const I_Sent = () => {
+  const navigation = useNavigation();
   const [selectedValue, setSelectedValue] = useState("All");
 
       //poppins insert
@@ -67,7 +69,8 @@ const I_Sent = () => {
                     <Picker.Item label="Pending" value="Pending" />
                     <Picker.Item label="Rejected" value="Rejected" />
                     <Picker.Item label="Completed" value="Completed" />
-                    <Picker.Item label="Canceled" value="Canceled" />
+                    <Picker.Item label="Cancelled" value="Cancelled" />
+                    <Picker.Item label="Cancelled By Me" value="Cancelled By Me" />
                   </Picker>
                 </View>
                 <View style={styles.requestStatusFiller}></View>
@@ -103,7 +106,7 @@ const I_Sent = () => {
                     <View >
                       {/* item details  */}
                       <TouchableOpacity style={styles.itemDetailsCardStack}
-                                        onPress={()=>{}}  //press viewitems
+                                        onPress={()=>navigation.navigate("ViewItems")}  //open viewitems
                                         onLongPress={()=>{}} //edit,cancel or delete order popup boxes
                       >
                         <View style={styles.itemDetailsCard}>
@@ -142,7 +145,7 @@ const I_Sent = () => {
                   )
                 }} />
             </View>
-            <View style={{ marginTop: 100 }}></View>
+            <View style={{ marginTop: 130 }}></View>
           </View>} />
     </View>
   );
@@ -324,7 +327,7 @@ const styles = StyleSheet.create({
     //width: 166,
     height: 20,
     top:1,
-    marginTop: -5,
+    marginTop: -8,
     marginRight: 9, 
   },
   reqStatus: {
@@ -341,16 +344,17 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 12,
     alignSelf: "flex-start",
-    marginTop: 5, 
+    marginTop: 0, 
     marginLeft:12
   },
   transactionMethod: {
-    fontFamily: "poppins500",
+    fontFamily: "poppinsregular",
     color: "#9c8df0",
     textAlign: "center",
     fontSize: 13,
     alignSelf: "flex-start",
-    marginLeft: 13
+    marginLeft: 13, 
+    marginTop:-3,
   },
   itemImage: {
     top: 0,
@@ -377,7 +381,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   amountReturningDate: {
-    fontFamily: "poppins500",
+    fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     textAlign: "center",
     marginRight: 1,

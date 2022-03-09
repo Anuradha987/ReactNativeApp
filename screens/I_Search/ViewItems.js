@@ -28,8 +28,7 @@ import dummyData from './../../constants/dummyData'
 const windowHeight = Dimensions.get('screen').height;
 const windowWidth = Dimensions.get('window').width;
 
-
-function ViewItems({ navigation }) {
+const ViewItems = ({ navigation }) => {
   //poppins insert
   const [loaded] = useFonts({
     poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
@@ -58,15 +57,9 @@ function ViewItems({ navigation }) {
                   <Icon name="arrow-left" style={styles.backIcon}></Icon>
                 </TouchableOpacity>
 
-                <View style={styles.userImageCircleRow}>
+                
 
-                  <TouchableOpacity style={styles.userImageCircle}>
-                    <Image
-                      source={require("./../../assets/images/avatar-1.jpg")}
-                      resizeMode="contain"
-                      style={styles.userImage}
-                    ></Image>
-                  </TouchableOpacity>
+              
 
                   <View style={styles.slidingDots}>
                     <View style={styles.rect2}></View>
@@ -75,8 +68,18 @@ function ViewItems({ navigation }) {
                     <View style={styles.rect5}></View>
                     <View style={styles.rect6}></View>
                   </View>
-                </View>
+                
               </ImageBackground>
+
+              <View style={styles.userImageCircleRow}>    
+              <TouchableOpacity style={styles.userImageCircle}>
+                    <Image
+                      source={require("./../../assets/images/avatar-1.jpg")}
+                      resizeMode="contain"
+                      style={styles.userImage}
+                    ></Image>
+                  </TouchableOpacity></View>
+
 
               <View style={styles.userDetails}>
                 <View style={styles.userNameStack}>
@@ -258,27 +261,29 @@ const styles = StyleSheet.create({
   backIcon: {
     color: '#BBBDC1',
     fontSize: 20,
+    marginRight:2,
   },
   userImageCircle: {
     width: 50,
     height: 50,
     borderRadius: 25,
     backgroundColor: "#9c8df0",
-    elevation: 1,
   },
   userImage: {
     width: 35,
     height: 35,
     marginTop: 7,
-    marginLeft: 7
+    marginLeft: 7, 
   },
   slidingDots: {
     width: 88,
     height: 10,
     flexDirection: "row",
-    justifyContent: "space-between", alignItems: 'center',
-    marginLeft: 80,
-    marginTop: 2
+    justifyContent: "space-between", alignItems: 'center', 
+    marginHorizontal: 150,
+    marginTop: 2, 
+    position:'absolute', 
+    bottom:30, 
   },
   rect2: {
     width: 10,
@@ -313,9 +318,9 @@ const styles = StyleSheet.create({
   userImageCircleRow: {
     height: 50,
     flexDirection: "row",
-    marginTop: 240,
+    marginTop: -45,
     marginLeft: 24,
-    marginRight: 149
+    width:55, elevation:30
   },
   userDetails: {
     top: 325,
@@ -352,7 +357,7 @@ const styles = StyleSheet.create({
   },
   anemanda: {
     backgroundColor: "rgba(21,31,40,1)",
-    top: 30,
+    top: 27,
     borderTopRightRadius: 36,
     borderTopLeftRadius: 36,
     width: windowWidth,
