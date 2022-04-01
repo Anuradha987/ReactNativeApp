@@ -46,6 +46,9 @@ const MT_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab}) => 
                     </TouchableOpacity>
                 }
             />
+            <div>
+              <p>body</p>
+            </div>
 
       <LinearGradient  start = {{ x:0 , y:0.5 }} end = {{ x:0 , y:0 }}
                        colors={['transparent', 'rgba(19,18,18,1)']}
