@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "965321225165",
+    "project_id": "quiky-app-1cc8e",
+    "storage_bucket": "quiky-app-1cc8e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:965321225165:android:7c3f9a593b1c2736d3ca84",
+        "android_client_info": {
+          "package_name": "com.malindu.ReactNativeApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "965321225165-mdfj5lt72le8gvq57nlmgccgf93u8jqh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1MPmS8UvwWNvn5YAct9Ttb7lBaLQqKWw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "965321225165-mdfj5lt72le8gvq57nlmgccgf93u8jqh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:965321225165:android:f58b78f4914b5989d3ca84",
+        "android_client_info": {
+          "package_name": "quiky.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "965321225165-mdfj5lt72le8gvq57nlmgccgf93u8jqh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1MPmS8UvwWNvn5YAct9Ttb7lBaLQqKWw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "965321225165-mdfj5lt72le8gvq57nlmgccgf93u8jqh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
