@@ -62,7 +62,7 @@ const I_Requests = () => {
                       {/* open I_My */}
                       <TouchableOpacity style={styles.itemCardStack} onPress={()=>{}}>
                         <View style={styles.itemCard}>
-                          <Text style={styles.itemTitle}>{item.itemTitle}</Text>
+                          <Text numberOfLines={1} style={styles.itemTitle}>{item.itemTitle}</Text>
 
                           <View style={styles.cateNameStack}>
                             <Text style={styles.cateName}><Image
@@ -76,8 +76,8 @@ const I_Requests = () => {
                          
 
                           <View style={styles.priceperUnitStack}>
-                            <Text style={styles.priceperUnit}>{item.price} / {item.unit}</Text>
-                            <Text style={styles.transactionMethod}>{item.transactionMethod}</Text>
+                            <Text numberOfLines={1} style={styles.priceperUnit}>{item.price} / {item.unit}</Text>
+                            <Text numberOfLines={1} style={styles.transactionMethod}>{item.transactionMethod}</Text>
                           </View>
                         </View>
                         <Image
@@ -162,7 +162,7 @@ priceperUnit: {
     fontSize: 12,
     height: 18,
     right: 59,
-    width: 122
+  //  width: 122
 },
 transactionMethod: {
     top: 0,
@@ -173,7 +173,7 @@ transactionMethod: {
     fontSize: 13,
     height: 20,
     right: 0,
-    width: 83
+   // width: 83
 },
 priceperUnitStack: {
     width: 181,

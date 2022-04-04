@@ -555,8 +555,6 @@ const styles = StyleSheet.create({
     marginTop:2,
   },
   cateIcon: {
-    color: "rgba(112,214,235,1)",
-    fontSize: 14,
     height: 14,
     width: 14
   },

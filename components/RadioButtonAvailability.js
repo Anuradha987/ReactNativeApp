@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import { StyleSheet, TouchableOpacity, Image, View,Text } from "react-native";
+import { StyleSheet, TouchableOpacity, Image, View,Text,Pressable } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import {dummyData, icons} from './../constants'
-import {Pressable} from 'react-native'; 
+import {dummyData, icons} from '../constants'
 
 // https://blog.logrocket.com/create-radio-buttons-react-native/
 
-function MaterialRadio(props,{data, onSelect}) {
-  const [userOption, setUserOption] = React.useState(null);
+function RadioButtonAvailability(props,{data, onSelect}) {
+   const [userOption, setUserOption] = React.useState(null);
   const selectHandler = (value) => {
     onSelect(value);
     setUserOption(value);
@@ -15,18 +14,20 @@ function MaterialRadio(props,{data, onSelect}) {
 
 return(
   <View style={{ flexDirection:'row',}}>
-  {/* {data.map((item, index) => { */}
-  {dummyData.priorityCategory.map((item, index) => {
-  return (
-    <View style={{flexDirection:'row',}}>
+     {data.map((item) => {
+       return(
+  <View style={{flexDirection:'row',}}>
     <Pressable style={[styles.container, props.style]}  onPress={() => selectHandler(item.value)}>
           <Image source={item.value === userOption ? icons.check_on : icons.check_off}
                  style={styles.availableRadioBtn}/>
     </Pressable>
-    <View style={[styles.priorityDot, {backgroundColor:item.color}]}></View>
-    <Text style={styles.priorityLevel}>{item.value}</Text>
-    </View>
-)})}</View>)}
+    <Text style={styles.text}>{item.value}</Text>
+    </View> 
+       )
+     })}
+</View>
+    )}
+
 
 const styles = StyleSheet.create({
   container: {
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
   
   },
-  priorityLevel: {
+  text: {
     fontFamily: 'poppinsregular',
     color: 'rgba(255,255,255,1)',
     fontSize: 12,
@@ -71,4 +72,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MaterialRadio;
+export default RadioButtonAvailability;

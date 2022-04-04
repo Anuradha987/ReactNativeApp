@@ -10,6 +10,7 @@ import {
 import SimpleLineIconsIcon from 'react-native-vector-icons/SimpleLineIcons';
 import { useFonts } from 'expo-font';
 import OtpInputView from '@twotalltotems/react-native-otp-input'
+import Clipboard from '@react-native-community/clipboard'
 
 const Otp = ({navigation}) => {
 
@@ -44,7 +45,7 @@ const [timer, setTimer] = React.useState(60);
       <View style={styles.codeGroup1Stack}>
         <OtpInputView 
         style={styles.codeGroup1} 
-        inCount ={4} 
+        pinCount ={4} 
         codeInputFieldStyle={styles.rect}
         /> 
       </View>
@@ -60,7 +61,7 @@ const [timer, setTimer] = React.useState(60);
 
       <TouchableOpacity style={styles.confirmBtn}>
         <Text style={styles.confirm}>Confirm</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> 
     </View>
   );
 }

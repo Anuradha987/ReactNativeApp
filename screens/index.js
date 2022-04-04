@@ -57,6 +57,7 @@ import Categories from './Categories';
 import AddEditItems from './AddEditItems'; 
 import Fav_MainLayout from './Fav_MainLayout';
 import MT_MainLayout from './MT_MainLayout';
+import ImageBrowserScreen from './I_My/ImageBrowserScreen';
 
 export {
     DB_MainLayout,    
@@ -96,6 +97,6 @@ export {
     AddEditItems, 
     
     Fav_MainLayout, 
-    MT_MainLayout
-   
+    MT_MainLayout,
+    ImageBrowserScreen, 
 }

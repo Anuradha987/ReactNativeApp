@@ -4,37 +4,85 @@ import {
   View,
   StatusBar,
   TextInput,
-  TouchableOpacity, TouchableWithoutFeedback,
+  TouchableOpacity, 
   Text,
   Image, 
+  Platform, 
+  Animated,
 } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
-import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import mapStyle from "../../constants/MapStyle";
 import { dummyData} from '../../constants';
 import { useFonts } from 'expo-font';
 import { useNavigation } from '@react-navigation/native';
+import {serviceProviderPopUpBox} from '../../constants/dummyData'
 
+  // https://www.youtube.com/watch?v=2vILzRmEqGI
 const S_Search = () => {
+//   const initialMapState ={ serviceProviderPopUpBox,     
+//     region: {
+//       latitude: 22.62938671242907,
+//       longitude: 88.4354486029795,
+//       latitudeDelta: 0.04864195044303443,
+//       longitudeDelta: 0.040142817690068,
+//   },
+// }
+// const [state, setState] = React.useState(initialMapState.region)
+
+
   const navigation = useNavigation();
-  const [selectedPlace, setSelectedPlace] = React.useState(null)
-  const [selectedHotel, setSelectedHotel] = React.useState(null)
+
+  const _map = React.useRef(null);
+  const _scrollView = React.useRef(null);
 
   const [selectedCatergoryId, setSelectedCategoryId] = React.useState(dummyData.categories)
+const [selectedPlace, setSelectedPlace] = React.useState(null)
 
   function onSelectCategory(category) {
     let categoryList = dummyData.categories.filter(a => a.selectedCatergoryId.includes(category.id))
     setSelectedCategoryId(categoryList)    
   }
 
-  // React.useEffect(() => {
-  //   let { selectedPlace } = route.params;
-  //   setSelectedPlace(selectedPlace)
-  // }, [])
+  loadUsers = async() =>{
+    const permission = await Expo.Permission.askAsync(
+      Expo.Permission.Camera
+    ); 
+    if(permission.status !== 'granted'){
+      return;
+    }
+  }
+searchUsers = (value) =>{
+  const filteredUsers = this.state.users.filter(
+    user=>{
+      let userLowercase = (dummyData.serviceProviderPopUpBox).toLowercase()
+      let searchTermLowercase = value.toLowercase()
+      return userLowercase.indexOf(searchTermLowercase)> -1
+    }
+  )
+  this.setState({users:filteredUsers})
+}
+
+// const searchUsers = (text) => {
+//   if(text){  
+//       const newData = data.filter(item => {
+//           const itemData = item.name.first ? item.name.first.toUpperCase() : ''.toUpperCase();
+//           const textData = text.toUpperCase();
+//           return itemData.indexOf(textData) > -1;
+//       })
+//       setFilteredData(newData);
+//   } else {
+//       setFilteredData(data);
+//   }
+// }
+//   React.useEffect(() => {
+//     let { selectedPlace } = route.params;
+//     setSelectedPlace(selectedPlace)
+//   }, [])
 
        //poppins insert
        const [loaded] = useFonts({
@@ -49,14 +97,19 @@ const S_Search = () => {
   return (
     <View style={styles.container}>
 
+      {/* horizontal scroll bar */}
       <View>
-        {/* horizontal scroll bar */}
         <FlatList
           data={dummyData.categories}
           keyExtractor={(item) => `${item.id}`}
           showsHorizontalScrollIndicator={false}
           horizontal
+          // ListEmptyComponent={()=>(
+          // <View style={{flex:1, alignItems:'center', justifyContent:'center',marginTop:50}}>
+          // <Text>Nothing found</Text>
+          // </View>)}
           style={styles.scrollbar}
+         // scrollEventThrottle={1}
           renderItem={({ item, index }) => {
             return (
               <TouchableOpacity style={[styles.categories, selectedCatergoryId == item.id && styles.SelectedCategories]}
@@ -90,6 +143,7 @@ const S_Search = () => {
             selectionColor="rgba(250,245,245,1)"
             clearButtonMode="while-editing"
             style={styles.serviceSearch}
+            noChangeText={(value) => this.searchUsers(value)}
           ></TextInput>
           <EvilIconsIcon
             name="search"
@@ -107,46 +161,50 @@ const S_Search = () => {
         </TouchableOpacity>
       </View>
 
+
       {/* Map */}
       <View style={styles.mapViewStack}>
         <MapView
           provider={MapView.PROVIDER_GOOGLE}
-          // initialRegion={{
-          //   latitude: 37.78825,
-          //   longitude: -122.4324,
-          //   latitudeDelta: 0.0922,
-          //   longitudeDelta: 0.0421
-          // }}
-          initialRegion={selectedPlace?.mapInitialRegion}
+          initialRegion={{
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421
+          }}
+          //initialRegion={selectedPlace?.mapInitialRegion}
           customMapStyle={mapStyle}
           style={styles.mapView}
         >
-          {/* {selectedPlace?.hotels.map((hotel, index) => (
-            <Marker key={index}
-              coordinate={hotel.lating}
-              identifier={hotel.id}
-              onPress={() => {
-                setSelectedHotel(hotel)
-              }}
-            >
-              <View style={styles.rect3}>
+          
+
+          {/* {dummyData.serviceProviderPopUpBox.map((marker, index) =>{ 
+          // {selectedPlace?.serviceProviderPopUpBox.map((hotel, index) => {
+        return( */}
+           <Marker 
+           coordinate={{
+            latitude: 37.78825,
+            longitude: -122.4324,}} 
+            // coordinate={marker.coordinate} 
+            //         identifier={marker.id}
+            // key={index} 
+            
+            onPress={() =>{}} >
+              {/* marker */}
+              <Animated.View style={{height:50}}>
+                <View style={styles.badgeRibbonCircle}>
                 <Image
-                  source={require("./../../assets/images/avatar-1.jpg")}
-                  resizeMode="contain"
-                  style={styles.image2}
-                ></Image>
-              </View>
-            </Marker>
-          ))} */}
+                source={require("./../../assets/images/_110435139_parsa.jpg")}
+                resizeMode="cover"
+                style={styles.image2}
+              ></Image>
+                </View>
+                <View style={styles.badgeRibbonNeg140} />
+              </Animated.View>
+            </Marker> 
+            {/* )})} */}
+            
         </MapView>
-
-
-        {/* new request */}
-        {/* <TouchableOpacity
-          onPress={() => props.navigation.navigate("NewReqForm")}
-          style={styles.addNewReq}
-        ></TouchableOpacity>
-        <Text style={styles.add}>+</Text> */}
 
         {/* expert pop up box */}
         <View style={styles.button}>
@@ -154,8 +212,8 @@ const S_Search = () => {
             <View style={styles.imageRowRow}>
               <View style={styles.imageRow} >
                 <Image
-                  source={require("./../../assets/images/avatar-1.jpg")}
-                  resizeMode="contain"
+                  source={require("./../../assets/images/_110435139_parsa.jpg")}
+                  resizeMode="cover"
                   style={styles.image}
                   
                 ></Image>
@@ -163,14 +221,14 @@ const S_Search = () => {
                   <EvilIconsIcon name="close" style={styles.closeBtn1} ></EvilIconsIcon>
                 </TouchableOpacity>
               </View>
-              <Text style={styles.natashaPerera} onPress={()=>navigation.navigate('UserProfile')}>Natasha Perera</Text>
+              <Text numberOfLines={1} style={styles.serviceProviderName} onPress={()=>navigation.navigate('UserProfile')}>Sankalpa De silva</Text>
             </View>
             <View style={styles.group}>
-              <Text style={styles.service1Titile}>Preparing Birthday Cake</Text>
-              <Text style={styles.service2Titile}>Making School Uniforms</Text>
-              <Text style={styles.service3Titile}>Service 3 Titile</Text>
-              <Text style={styles.service5Title}>Service 5 Title</Text>
-              <Text style={styles.service4Title}>Service 4 Title</Text>
+              <Text numberOfLines={1} style={styles.service1Title}>Preparing Birthday Cake</Text>
+              <Text numberOfLines={1} style={styles.service2Title}>Making School Uniforms</Text>
+              <Text numberOfLines={1} style={styles.service3Title}>Service 3 Titile</Text>
+              <Text numberOfLines={1} style={styles.service4Title}>Service 4 Title</Text>
+              <Text numberOfLines={1} style={styles.service5Title}>Service 5 Title</Text>
             </View>
 
             <View style={styles.rect}>
@@ -193,17 +251,9 @@ const S_Search = () => {
           </View>
         </View>
 
-
-        <View style={styles.rect3}>
-          <Image
-            source={require("./../../assets/images/avatar-1.jpg")}
-            resizeMode="contain"
-            style={styles.image2}
-          ></Image>
-        </View>
-
-
       </View>
+
+      {/* new request */}
       <TouchableOpacity style={styles.addNewReq} onPress={()=>navigation.navigate('NewReqForm')}>
                 <EntypoIcon name="plus" style={styles.addIcon}></EntypoIcon>
       </TouchableOpacity>
@@ -217,6 +267,40 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "rgba(21,31,40,1)"
   }, 
+  badgeRibbonCircle: {
+    width: 38,
+    height: 38,
+    backgroundColor: "rgba(172,96,220,1)",
+    borderRadius: 20, 
+  },
+  badgeRibbon140: {
+    backgroundColor: "transparent",
+    borderBottomWidth: 70,
+    borderBottomColor: "transparent",
+    borderLeftWidth: 40,
+    borderLeftColor: "transparent",
+    borderRightWidth: 40,
+    borderRightColor: "transparent",
+    position: "absolute",
+    top: 40,
+    right: -10,
+    transform: [{ rotate: "140deg" }],
+  },
+  badgeRibbonNeg140: {
+    backgroundColor: "transparent",
+    borderBottomWidth: 15,
+    borderBottomColor: 'rgba(172,96,220,1)',
+    borderLeftWidth: 7,
+    borderLeftColor: "transparent",
+     borderRightWidth: 7,
+     borderRightColor: "transparent",
+    position: "absolute",
+    top: 35,
+    left: 12,
+    //height:35, 
+    //width:35, 
+    transform: [{ rotate: "-180deg" }],
+  },
   scrollbar: {
     height: 38,
     marginTop: 87
@@ -405,7 +489,8 @@ const styles = StyleSheet.create({
 
   image: {
     width: 30,
-    height: 30
+    height: 30, 
+    borderRadius:15,
   },
   closeBtn1: {
     color: "rgba(255,125,125,1)",
@@ -420,7 +505,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "flex-end",
   },
-  natashaPerera: {
+  serviceProviderName: {
     fontFamily: "poppinsregular",
     color: "rgba(200,155,246,1)",
     flex: 1,
@@ -440,21 +525,21 @@ const styles = StyleSheet.create({
     marginLeft: 17,
     marginRight: 3
   },
-  service1Titile: {
+  service1Title: {
     fontFamily: "poppinsregular",
     color: "rgba(232,232,232,1)",
     fontSize: 10,
     margin: 0,
     width: 240
   },
-  service2Titile: {
+  service2Title: {
     fontFamily: "poppinsregular",
     color: "rgba(232,232,232,1)",
     fontSize: 10,
     margin: 0,
     width: 240
   },
-  service3Titile: {
+  service3Title: {
     fontFamily: "poppinsregular",
     color: "rgba(232,232,232,1)",
     fontSize: 10,
@@ -546,11 +631,12 @@ const styles = StyleSheet.create({
     borderRadius: 22
   },
   image2: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
+    width:33, 
+    height:33,    
+    position: "absolute",
+    borderRadius: 18,
     marginTop: 2,
-    marginLeft: 3
+    marginLeft: 2.5,
   },
   mapViewStack: {
     top:75,

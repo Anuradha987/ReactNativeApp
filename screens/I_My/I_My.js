@@ -62,7 +62,7 @@ const I_My = () => {
                       style={styles.myItemDetails}
                     >
                       <View style={styles.publishDateRow}>
-                        <Text style={styles.publishDate}>{item.publishDate}</Text>
+                        <Text numberOfLines={1} style={styles.publishDate}>{item.publishDate}</Text>
                         <View style={styles.publishDateFiller}></View>
                         <View style={styles.editBtnRow}>
                           <TouchableOpacity style={styles.editBtn}>
@@ -84,24 +84,24 @@ const I_My = () => {
                         resizeMode="cover"
                         style={styles.itemImage}
                       ></Image>
-                      <Text style={styles.itemTitle}>{item.itemTitle}</Text>
+                      <Text numberOfLines={1} style={styles.itemTitle}>{item.itemTitle}</Text>
                       <View style={styles.cateIconRow}>
                         <Image
                           source={item.cateIcon}
                           resizeMode="contain"
                           style={styles.cateIcon}
                         ></Image>
-                        <Text style={styles.cateName}>{item.cateName}</Text>
+                        <Text numberOfLines={1} style={styles.cateName}>{item.cateName}</Text>
                       </View>
                       <View style={styles.totalAmountlblRow}>
                         <Text style={styles.totalAmountlbl}>Total Amount</Text>
                         <View style={styles.totalAmountlblFiller}></View>
-                        <Text style={styles.totalAmount}>{item.totalAmount}</Text>
+                        <Text numberOfLines={1} style={styles.totalAmount}>{item.totalAmount}</Text>
                       </View>
                       <View style={styles.forCashlblRow}>
                         <Text style={styles.forCashlbl}>For Cash</Text>
                         <View style={styles.forCashlblFiller}></View>
-                        <Text style={styles.price}>{item.price} /{item.UnitQuantity}</Text>
+                        <Text numberOfLines={1} style={styles.price}>{item.price} /{item.UnitQuantity}</Text>
                       </View>
                     </LinearGradient>
 
@@ -113,8 +113,8 @@ const I_My = () => {
                       <View style={styles.orderRequestslblStack}>
                         <Text style={styles.orderRequestslbl}>Order Requests</Text>
                         <View style={styles.notificationCircle}>
-                          <View style={styles.noOfNotificationFiller}></View>
-                          <Text style={styles.noOfNotification}>{item.noOfNotification}</Text>
+                          {/* <View style={styles.noOfNotificationFiller}></View> */}
+                          <Text numberOfLines={1} style={styles.noOfNotification}>{item.noOfNotification}</Text>
                         </View>
                       </View>
 
@@ -124,10 +124,11 @@ const I_My = () => {
                           <View style={styles.senderProPicRow}>
                             <Image
                               source={item.senderProPic}
+                              //source={require("./../../assets/images/_110435139_parsa.jpg")}
                               resizeMode="cover"
                               style={styles.senderProPic}
                             ></Image>
-                            <Text style={styles.senderName}>{item.senderName}</Text>
+                             <Text  numberOfLines={1} style={styles.senderName}>{item.senderName}</Text>
                           </View>
                           <View style={styles.senderProPicRowFiller}></View>
                           <Text style={styles.sendTime}>{item.sendTime}</Text>
@@ -136,7 +137,7 @@ const I_My = () => {
                           <View style={styles.amountlblStackRow}>
                             <View style={styles.amountlblStack}>
                               <Text style={styles.amountlbl}>Amount</Text>
-                              <Text style={styles.colonMark1}>:</Text>
+                              <Text style={styles.colonMark1}> :</Text>
                             </View>
                             <Text style={styles.amountOrdered}>{item.amountOrdered}</Text>
                           </View>
@@ -151,9 +152,9 @@ const I_My = () => {
                               <Text style={styles.returningDateOrExchangedForlbl}>
                                 Returning Date
                               </Text>
-                              <Text style={styles.colonMark2}>:</Text>
+                              <Text style={styles.colonMark2}> :</Text>
                             </View>
-                            <Text style={styles.returningDateOrExchangedFor}>{item.returningDateOrExchangedFor}</Text>
+                             <Text numberOfLines={1} style={styles.returningDateOrExchangedFor}>{item.returningDateOrExchangedFor}</Text> 
                           </View>
                           <View
                             style={styles.returningDateOrExchangedForlblStackRowFiller}
@@ -225,11 +226,12 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   noOfNotification: {
-    width:26,
+    //width:26,
     fontFamily: "poppinsregular",
     color: "#121212",
     textAlign: "center",
     marginTop: 2,
+    flex: 1,
   },
   orderRequestslblStack: {
     height: 26,
@@ -237,12 +239,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 29,  
   },
   reqInfoCard: {
-    height: 113,
+    height: 118,
     borderRadius: 24,
     borderWidth: 1,
     borderColor: "rgba(31,31,31,1)",
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
     marginTop: 11,
     marginLeft: 5,
     marginRight: 5
@@ -250,9 +250,12 @@ const styles = StyleSheet.create({
   reqSenderInfo: {
     height: 31,
     backgroundColor: "rgba(31,31,31,1)",
-    borderRadius: 24,
+    borderTopRightRadius: 24,
+    borderTopLeftRadius:24,
+    borderBottomRightRadius: 5,
+    borderBottomLeftRadius:5,
     flexDirection: "row",
-    marginLeft: 4
+   // marginLeft: 4
   },
   senderProPic: {
     width: 20,
@@ -264,7 +267,6 @@ const styles = StyleSheet.create({
     color: "rgba(255,255,255,1)",
     fontSize: 11,
     marginLeft: 10,
-    marginTop: 3
   },
   senderProPicRow: {
     height: 20,
@@ -313,7 +315,7 @@ const styles = StyleSheet.create({
     fontFamily: "poppinsregular",
     color: "rgba(0,0,0,1)",
     textAlign: "left",
-    width: 145,
+    width: 175,
     height: 21
   },
   amountlblStackRow: {
@@ -379,9 +381,9 @@ const styles = StyleSheet.create({
     fontFamily: "poppinsregular",
     color: "rgba(0,0,0,1)",
     textAlign: "left",
-    width: 145,
+    width: 175,
     height: 21,
-    marginTop: 3
+    marginTop: 5, 
   },
   returningDateOrExchangedForlblStackRow: {
     height: 32,
@@ -435,15 +437,16 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginLeft: 24,
     marginRight: 24, 
-    overflow: "hidden"
+    overflow: "hidden", 
+    width:365
   },
   publishDate: {
     fontFamily: "poppinsregular",
     color: "rgba(152,150,150,1)",
-    width: 106,
+    width: 120,
     fontSize: 11,
     height: 16,
-    marginTop: 7
+    marginTop: 7, 
   },
   publishDateFiller: {
     flex: 1,

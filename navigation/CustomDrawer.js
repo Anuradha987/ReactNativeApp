@@ -1,14 +1,16 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity, ImageBackground } from 'react-native'
 import { createDrawerNavigator, DrawerContentScrollView} from '@react-navigation/drawer'
-import {DB_MainLayout, S_MainLayout, I_MainLayout,Fav_MainLayout, MT_MainLayout} from '../screens'; 
+import {DB_MainLayout, S_MainLayout, I_MainLayout,Fav_MainLayout, MT_MainLayout, } from '../screens'; 
 import {COLORS, FONTS, SIZES, constants, icons, dummyData} from '../constants';
 import Animated from 'react-native-reanimated';
 import { connect } from 'react-redux';
 import { setSelectedTab } from '../stores/tab/tabActions';  
 import { useFonts } from 'expo-font';
+import { AuthContext } from '../components/context';
 
 const Drawer =  createDrawerNavigator()
+
 
 
 //customize the drawer items such as Home, settings etc
@@ -27,6 +29,7 @@ const CustomDrawerItem = ({label,icon, isFocused, onPress}) => {
 //customize the drawer 
 const CustomDrawerContent = ({navigation, selectedTab, setSelectedTab}) => {
 
+    const {logout} = React.useContext(AuthContext);
     return (
         <DrawerContentScrollView scrollEnabled ={true}
                                  contentContainerStyle = {{flex: 1}}
@@ -118,6 +121,14 @@ Logout */}
                                                         navigation.navigate("MT_MainLayout")                                   
                                       }}
                     />
+
+                    <CustomDrawerItem label='Testing' 
+                                      icon = {icons.transaction}
+                                      isFocused = {selectedTab == constants.screens.MT_MainLayout}
+                                      onPress ={()=> {  setSelectedTab(constants.screens.MT_MainLayout)
+                                                        navigation.navigate("UserProfile")                                   
+                                      }}
+                    />
                                                        
                     {/* Line Divider */}
                     {/* <View style ={{height: 1, marginVertical: SIZES.radius, marginLeft: SIZES.radius, backgroundColor: COLORS.lightGray1}}></View>
@@ -145,6 +156,7 @@ Logout */}
                     <View style={{marginBottom: SIZES.padding}}>
                         <CustomDrawerItem label="Logout"
                                           icon = {icons.logout}
+                                          onPress={()=> {logout()}}
                         />
                     </View>
 
@@ -180,6 +192,7 @@ const CustomDrawer = ({selectedTab, setSelectedTab}) => {  //poppins insert
     
     //assigning the borderRadius and scale value to animatedStyle variable
     const animatedStyle = {borderRadius, transform: [{scale}]}
+
 
 const [loaded] = useFonts({
     poppinsregular: require('../assets/fonts/Poppins-Regular.ttf'),

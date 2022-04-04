@@ -37,6 +37,9 @@ const recieves = require("../assets/icons/recieves.png")
 const services = require("../assets/icons/services.png")
 const sentReq = require("../assets/icons/sentReq.png")
 const transaction = require("../assets/icons/transaction.png")
+const correct = require("../assets/icons/correct.png")
+const eye = require("../assets/icons/eye.png")
+const eye_close = require("../assets/icons/eye_close.png")
 
 export default {
     coupon,
@@ -76,5 +79,8 @@ export default {
     check_on, 
     check_off, 
     clock,
-    transaction
+    transaction, 
+    correct, 
+    eye, 
+    eye_close,
 }

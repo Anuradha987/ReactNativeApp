@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderColor: "#000000",
     top: 10,
-    marginBottom:100,
   },
   agricultureCircle: {
     width: 72,

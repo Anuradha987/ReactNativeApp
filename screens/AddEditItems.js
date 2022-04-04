@@ -1,15 +1,17 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useMemo } from "react";
 import {
   StyleSheet,
   View,
-  ScrollView,
+  // ScrollView,
   Image,
   ImageBackground,
   TouchableOpacity,
   Text,
   FlatList, 
   TextInput,
-  Picker
+  Picker, 
+  Pressable, 
+  Dimensions
 } from "react-native";
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 import EntypoIcon from "react-native-vector-icons/Entypo";
@@ -18,28 +20,251 @@ import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { useFonts } from 'expo-font';
 import { LinearGradient } from 'expo-linear-gradient';
 import {dummyData, icons} from '../constants'
+import * as ImagePicker from 'expo-image-picker';
+import { AssetsSelector } from 'expo-image-picker';
+import { MediaType } from 'expo-media-library';
+//import ImagePicker from 'react-native-image-crop-picker'
+import RadioButtonAvailability from "../components/RadioButtonAvailability";
+import RadioForm from 'react-native-simple-radio-button';
+import Animated from 'react-native-reanimated';
+import BottomSheet from 'reanimated-bottom-sheet';
+import Categories from "./Categories";
+import { ScrollView } from "react-native-gesture-handler";
 
-function AddEditItems({item, navigation, isSelected}) {
-      //poppins insert
+const screenHeight = Dimensions.get('window').height;
+
+// bottom sheet
+const bs = React.createRef();
+const fall = new Animated.Value(1);
+const renderInner =()=>(
+  <View style={{  height:'100%',
+    backgroundColor: '#FFFFFF',
+    paddingTop: 0,}}>
+      <ScrollView
+                  style={{
+                    height: '100%',
+                  }}>
+  <Categories/>
+  </ScrollView>
+  </View>
+)
+const renderHeader =()=>{
+  return(
+  <View style={{shadowColor:'#333333', shadowColor:'#333333',shadowOffset: {width: -1, height:-3}, shadowOpacity:1, paddingTop:20, borderTopLeftRadius:20, borderTopRightRadius:20, backgroundColor:'white'}}>
+    <View style={{alignItems:'center'}}>
+      <View style={{width:40,height:8, borderRadius:4, marginBottom:10, backgroundColor:'white' }}></View>
+    </View>
+  </View>)
+}
+
+
+
+// function AddEditItems({item, navigation, isSelected}) {
+  const AddEditItems = ({navigation,}) => {
+//  class AddEditItems extends Component {
+//     constructor (props) {
+//       super(props)
+//       this.state = {
+//         photos: []
+//       }
+//     }
+  
+//     componentDidUpdate() {
+//       const {params} = this.props.route;
+//       if (params) {
+//         const {photos} = params;
+//         if (photos) this.setState({photos});
+//         delete params.photos;
+//       }
+//     }
+  
+//     renderImage (item, i) {
+//       return (
+//         <Image
+//           style={{ height: 100, width: 100 }}
+//           source={{ uri: item.uri }}
+//           key={i}
+//         />
+//       )
+//     }  
+//     render() {
+//       const { navigate } = this.props.navigation;
+
+
+
+  // radio buttons for items available or not available
+  const [availability, setAvailability] = React.useState(null);
+  const [chosenOption, setChosenOption] = useState('Available');
+const available=[
+  { value: 'Available', label: 'Available'}, 
+  { value:'Not Available', label: 'Not Available'},
+]
+
+
+  const [data, setData] = useState({
+    itemname: '',
+    category:'',
+    totalAmount:'',
+    status:'',
+    tradingMethod:'', 
+    price_exchage: '',
+    isValidItemName: true,
+    isValidtotalAmount: true,
+    isValidPrice_Exchanged: true,
+    check_textInputChangeItemName: false,
+    check_textInputChangeTotalAmount: false,
+    check_textInputChangePrice_exchanged: false,
+  });
+  //name validation
+  const textInputChangeName = (val) => {
+    if (val.trim().length >= 1) {
+      setData({
+        ...data,
+        itemname: val,
+        check_textInputChangeItemName: true,
+        isValidItemName: true,
+      });
+    } else {
+      setData({
+        ...data,
+        itemname: val,
+        check_textInputChangeItemName: false,
+        isValidItemName: false,
+      });
+    }
+  };
+  const handleValidName = (val) => {
+    if (val.trim().length >= 1) {
+      setData({
+        ...data,
+        isValidItemName: true,
+      });
+    } else {
+      setData({
+        ...data,
+        isValidItemName: false,
+      });
+    }
+  };
+
+    //total amount validation
+    const textInputChangeTotalAmount = (val) => {
+      if (val.trim().length >= 1) {
+        setData({
+          ...data,
+          totalAmount: val,
+          check_textInputChangeTotalAmount: true,
+          isValidtotalAmount: true,
+        });
+      } else {
+        setData({
+          ...data,
+          totalAmount: val,
+          check_textInputChangeTotalAmount: false,
+          isValidtotalAmount: false,
+        });
+      }
+    };
+    const handleValidTotalAmount = (val) => {
+      if (val.trim().length >= 1) {
+        setData({
+          ...data,
+          isValidtotalAmount: true,
+        });
+      } else {
+        setData({
+          ...data,
+          isValidtotalAmount: false,
+        });
+      }
+    };
+
+    //price or exchanged for validation
+    const textInputChangePrice_exchange = (val) => {
+      if (val.trim().length >= 1) {
+        setData({
+          ...data,
+          price_exchage: val,
+          check_textInputChangePrice_exchanged: true,
+          isValidPrice_Exchanged: true,
+        });
+      } else {
+        setData({
+          ...data,
+          price_exchage: val,
+          check_textInputChangePrice_exchanged: false,
+          isValidPrice_Exchanged: false,
+        });
+      }
+    };
+    const handleValidTotalPrice_exchange = (val) => {
+      if (val.trim().length >= 1) {
+        setData({
+          ...data,
+          isValidPrice_Exchanged: true,
+        });
+      } else {
+        setData({
+          ...data,
+          isValidPrice_Exchanged: false,
+        });
+      }
+    };
+
+
+  //image picker
+  const [itemImage, setItemImage] = React.useState(null);
+
+  const itemImages = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setpimage(result.uri);
+    }
+  };
+
+
+//Trading Method selection
+const [selectedValue, setSelectedValue] = useState("All");
+
+//poppins insert
   const [loaded] = useFonts({
     poppinsregular: require('../assets/fonts/Poppins-Regular.ttf'),
     poppins700: require('../assets/fonts/poppins-700.ttf'),
   });
-
-  const [availability, setAvailability] = React.useState(null);
-  const [selectedValue, setSelectedValue] = useState("All");
-
   if (!loaded) {
     return null;
   }
+
   return (
     <View style={styles.container}>
+ <BottomSheet 
+        ref={bs}
+         //snapPoints={[430, screenHeight-100,0]}
+        snapPoints={[400,screenHeight-30,0]}
+        renderContent={renderInner}
+        renderHeader={renderHeader}
+        initialSnap={1}
+        callbackNode ={fall}
+        enabledGestureInteraction = {true}
+        enabledHeaderGestureInteraction={true}
+        enabledContentGestureInteraction={false}
+      />
+
+
+      {/* <Animated.View style={{opacity: Animated.add(0.1, Animated.multiply(fall,0.1)),}}></Animated.View> */}
 
             {/* header */}
       <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => navigation.goBack()}>
+        <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
           <Icon name="arrow-left" style={styles.backIcon}></Icon>
         </TouchableOpacity>
         <Text style={styles.servicesRequest}>ADD A NEW ITEM</Text>
@@ -52,6 +277,8 @@ function AddEditItems({item, navigation, isSelected}) {
         style={{ left: 0, right: 0, height: 15 }}
       />
 
+     
+
       <FlatList
         showsVerticalScrollIndicator={true}
         ListHeaderComponent={     
@@ -61,13 +288,43 @@ function AddEditItems({item, navigation, isSelected}) {
 
  {/* open camera or gallery to add images */}
           <View style={styles.cameraFrameStack}>
-            <TouchableOpacity style={styles.cameraFrame}>
+            <Pressable style={styles.cameraFrame} onPress={() => {}}>
               <MaterialIconsIcon
                 name="add-a-photo"
                 style={styles.cameraIcon}
               ></MaterialIconsIcon>
-            </TouchableOpacity>
-            
+                  
+            </Pressable>
+         {/* Image list is displayed here */}
+        
+            {/* {itemImage && (
+                      <Image
+                        source={{ uri: pimage }}
+                        resizeMode="cover"
+                        style={{
+                          right: 0,
+                          top: 0,
+                          left: 0,
+                          width: 110,
+                          height: 110,
+                          borderRadius: 50,
+                          position: 'absolute',
+                        }}
+                      />
+                    )} */}
+
+{/* {images.length > 0 &&
+    images.map(image => (
+    <View key={image.path}>
+      <Image 
+       style={{
+         width: 80,
+         height: 80,
+        }}
+       source={{uri: image.path}}
+      />
+    </View>
+  ))} */}
 
             {/* Image 1 */}
              {/* <ImageBackground
@@ -95,29 +352,40 @@ function AddEditItems({item, navigation, isSelected}) {
           </View>
       </View>
 
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
       <Text style={styles.namelbl}>Item Name *</Text>
+      {data.isValidItemName ? null : (<Text style={styles.errMsg}>Please enter the valid name</Text>)} 
+      </View>
       <TextInput
         placeholder=""
         clearButtonMode="while-editing"
         autoCapitalize="sentences"
         returnKeyType="next"
         maxLength={40}
-        style={styles.nametxt}
+        style={styles.nametxt}        
+        onChangeText={(val) => textInputChangeName(val)}
+        onEndEditing={(e) => handleValidName(e.nativeEvent.text)}
+        // onSubmitEditing={() => { this.secondTextInput.focus(); }}
       ></TextInput>
 
       <Text style={styles.descriptionlbl}>Description</Text>
-      <TextInput
+      <TextInput   
         placeholder=""
         clearButtonMode="while-editing"
         numberOfLines={4}
         multiline={true}
         autoCapitalize="sentences"
-        returnKeyType="next"
+        returnKeyType="next" 
         style={styles.descriptiontxt}
+        // ref={(input) => { this.secondTextInput = input; }}
       ></TextInput>
       
+      {/* https://github.com/andrey-shostik/react-native-closing-swipe-list/blob/master/src/ClosingSwipeList/index.js */}
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
       <Text style={styles.categorylbl}>Category *</Text>
-      <View style={styles.categorytxt} onPress={()=>{}}>
+      {/* {data.isValidItemName ? null : (<Text style={styles.errMsg}>Please select a category</Text>)}  */}
+      </View>
+      <Pressable style={styles.categorytxt} onPress={()=>bs.current.snapTo(0)}>
                 <View style={styles.cateRoundRow}>
                   <View style={styles.cateRound}>
                     <Image
@@ -128,34 +396,44 @@ function AddEditItems({item, navigation, isSelected}) {
                   </View>
                   <Text style={styles.cateName2}>Environment</Text>
                 </View>
-          </View>
+          </Pressable>
 
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
       <Text style={styles.totalAmountlbl}>Total Amount Available *</Text>
+      {data.isValidtotalAmount ? null : (<Text style={styles.errMsg}>Please enter the amount</Text>)} 
+      </View>
+      
       <TextInput
         placeholder=""
         clearButtonMode="while-editing"
         returnKeyType="next"
         keyboardType="numbers-and-punctuation"
+        onChangeText={(val) => textInputChangeTotalAmount(val)}
+        onEndEditing={(e) => handleValidTotalAmount(e.nativeEvent.text)}
         style={styles.totalAmounttxt}
       ></TextInput>
 
+
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
       <Text style={styles.statuslbl}>Status *</Text>
+      {/* {data.isValidItemName ? null : (<Text style={styles.errMsg}>Please select the status</Text>)}  */}
+      </View>
       <View style={styles.availablityRow}>
       {/* radio buttons */}
-        <MaterialRadio ></MaterialRadio>  
-        {/* <Image source={isSelected ? icons.check_on : icons.check_off}
-                 style={styles.availableRadioBtn}
-          /> */}
+        {/* <RadioButtonAvailability/>
         <Text style={styles.availablelbl}>Available</Text>
 
-        <MaterialRadio ></MaterialRadio>
-        {/* <Image source={isSelected ? icons.check_on : icons.check_off}
-                 style={styles.availableRadioBtn}
-          /> */}
-        <Text style={styles.notAvailablelbl}>Not Available</Text>
+        <RadioButtonAvailability/>
+        <Text style={styles.notAvailablelbl}>Not Available</Text> */}
+        {/* <RadioButtonAvailability data={available} onSelect={(value) => setOption(value)} /> */}
+       
       </View> 
 
+
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
       <Text style={styles.tradingMethodlbl}>Trading Method *</Text>
+      {/* {data.isValidItemName ? null : (<Text style={styles.errMsg}>Plase select the trading method</Text>)}  */}
+      </View>
       <View style={styles.tradingMethodtxt}
       >
         <Picker itemStyle={{ backgroundColor: '#000', }}
@@ -173,13 +451,21 @@ function AddEditItems({item, navigation, isSelected}) {
           </Picker>
         </View>
 
+
+
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
       <Text style={styles.pricelbl}>Price/Exchanged For *</Text>
+      {data.isValidPrice_Exchanged ? null : (<Text style={styles.errMsg}>This field can't keep empty</Text>)} 
+      </View>
+{/* disabled when the transaction method == free */}
       <TextInput
         placeholder=""
         clearButtonMode="while-editing"
         returnKeyType="done"
         selectionColor="rgba(255,255,255,1)"
-        keyboardType="numbers-and-punctuation"
+        keyboardType="numbers-and-punctuation"        
+        onChangeText={(val) => textInputChangePrice_exchange(val)}
+        onEndEditing={(e) => handleValidTotalPrice_exchange(e.nativeEvent.text)}
         style={styles.pricetxt}
       ></TextInput>  
 
@@ -474,7 +760,15 @@ const styles = StyleSheet.create({
     marginRight: 7,    
     letterSpacing:0.5, 
     fontSize:18,
-  },  
+  },    
+  errMsg: {
+    color: 'red',
+    fontFamily: 'poppinsregular',
+    fontSize: 10,
+    marginTop: 25,
+    marginRight: 28,
+  },
 });
 
 export default AddEditItems;
+

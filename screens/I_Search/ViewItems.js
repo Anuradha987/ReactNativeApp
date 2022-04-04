@@ -83,14 +83,14 @@ const ViewItems = ({ navigation }) => {
 
               <View style={styles.userDetails}>
                 <View style={styles.userNameStack}>
-                  <Text style={styles.userName}>Natasha Perera</Text>
+                  <Text numberOfLines={1} style={styles.userName}>Natasha Perera</Text>
                   <Text style={styles.posetedDate}>21/12/20</Text>
                 </View>
               </View>
 
               <View style={styles.anemanda}>
 
-                <Text style={styles.itemName}>Avocado</Text>
+                <Text style={styles.itemName} numberOfLines={1} >Avocado</Text>
                 <View style={styles.cateIconRow}>
                   <Image
                     source={require("./../../assets/icons/foods.png")}
@@ -106,12 +106,12 @@ const ViewItems = ({ navigation }) => {
                 <View style={styles.totalAmountlblRow}>
                   <Text style={styles.totalAmountlbl}>Total Amount</Text>
                   <View style={styles.totalAmountlblFiller}></View>
-                  <Text style={styles.totalAmount}>550g</Text>
+                  <Text numberOfLines={1} style={styles.totalAmount}>550g</Text>
                 </View>
                 <View style={styles.forCashlblRow}>
                   <Text style={styles.forCashlbl}>For Cash</Text>
-                  <View style={styles.forCashlblFiller}></View>
-                  <Text style={styles.price}>Rs.30/100g</Text>
+                <View style={styles.totalCashlblFiller}></View>
+                  <Text numberOfLines={1} style={styles.price}>Rs.30/100g</Text>
                 </View>
 
                 <View style={{ height: 1, marginVertical: 9, marginHorizontal: 12, backgroundColor: "rgba(175,172,172,1)", }}></View>
@@ -201,20 +201,20 @@ const ViewItems = ({ navigation }) => {
 
                             <View style={styles.productNameStackStack}>
                               <View style={styles.productNameStack}>
-                                <Text style={styles.productName}>Avocado</Text>
+                                <Text numberOfLines={1} style={styles.productName}>Avocado</Text>
                                 <Image
                                   source={require("./../../assets/icons/foods.png")}
                                   resizeMode="contain"
                                   style={styles.cateIcon1}
                                 ></Image>
                               </View>
-                              <Text style={styles.cateName1}>
+                              <Text style={styles.cateName1} numberOfLines={1}>
                                 Electronics &amp; Electrics
                               </Text>
                             </View>
                             <View style={styles.transactionMethod1Stack}>
-                              <Text style={styles.transactionMethod1}>For Cash</Text>
-                              <Text style={styles.price1}>Rs.30/100g</Text>
+                              <Text numberOfLines={1} style={styles.transactionMethod1}>For Cash</Text>
+                              <Text numberOfLines={1} style={styles.price1}>Rs.30/100g</Text>
                             </View>
                           </LinearGradient>
 
@@ -414,34 +414,31 @@ const styles = StyleSheet.create({
     height: 21,
     flexDirection: "row",
     marginTop: 35,
-    marginLeft: 38,
-    marginRight: 50
+    marginLeft: 25,
+    marginRight: 25
   },
   forCashlbl: {
     fontFamily: "poppinsregular",
-    color: "rgba(255,255,255,1)",
-    width: 162,
+    color: "rgba(255,255,255,1)",    
     height: 25
   },
-  forCashlblFiller: {
+  totalCashlblFiller: {
     flex: 1,
     flexDirection: "row"
   },
   price: {
     fontFamily: "poppinsregular",
     color: "rgba(160,135,186,1)",
-    width: 140,
     textAlign: "right",
     fontSize: 16,
-    height: 25,
   },
   forCashlblRow: {
     height: 25,
     flexDirection: "row",
     marginTop: 18,
     marginBottom: 20,
-    marginLeft: 38,
-    marginRight: 50,
+    marginLeft: 25,
+    marginRight:25,
   },
   contactGroups: {
     height: 50,
@@ -674,8 +671,8 @@ const styles = StyleSheet.create({
     left: 0,
     position: "absolute",
     fontFamily: "poppinsregular",
-    color: "rgba(221,160,248,1)",
-    fontSize: 18
+    color: "#9c8df0",
+    fontSize: 17
   },
   price1: {
     top: 27,

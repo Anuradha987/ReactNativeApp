@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Image, TextInput, FlatList, TouchableWithoutFeedback} from 'react-native';
+import {View, Text, TouchableOpacity, Image, TextInput, FlatList, TouchableWithoutFeedback,ScrollView, Keyboard} from 'react-native';
 import Animated, {useSharedValue, useAnimatedStyle, withTiming} from 'react-native-reanimated';
 import {FONTS, SIZES, COLORS, constants, icons, dummyData} from '../constants';
 import {connect} from 'react-redux'
@@ -7,17 +7,26 @@ import { setSelectedTab } from '../stores/tab/tabActions';
 import { Header } from '../components';
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from "react-native-vector-icons/EvilIcons";
-
-//these are the screens that renders within the S_MainLayout
+import {Extrapolate, interpolate, useAnimatedScrollHandler} from 'react-native-reanimated'
+//these are the screens that renders within the I_MainLayout
 import { I_Approvals, I_Sent, I_My, I_Requests, I_Search } from '.';
 
 
 const TabButton = ({label, icon, isFocused, onPress, outerContainerStyle, innerContainerStyle}) => {
+
+
+    const [keyboardIsOpen, setKeyboardIsOpen] = React.useState(false);
+    Keyboard.addListener("keyboardDidShow", () => {
+      setKeyboardIsOpen(true);
+    });
+    Keyboard.addListener("keyboardDidHide", () => {
+      setKeyboardIsOpen(false);
+    });
     return(
         <TouchableWithoutFeedback onPress={onPress} >
             <Animated.View style={[{flex:1, alignItems: 'center', justifyContent: 'center',}, outerContainerStyle]}>
 
-                {/* another animated.view used to animate the bottom bar buttons in orange color */}
+                {/* another animated.view used to animate the bottom bar buttons in purple color */}
                 <Animated.View style={[{flexDirection:'row', height: 50, width:'80%', alignItems: 'center', justifyContent: 'center', borderRadius: 25,}, innerContainerStyle]}>
                     <Image source={icon} 
                            style={{ width: 20, height: 20, tintColor: isFocused? COLORS.white : COLORS.gray}}
@@ -197,11 +206,27 @@ const I_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelecte
                 I_MyTabFlex.value = withTiming(1, {duration: 500})
                 I_MyTabColor.value = withTiming(COLORS.white, {duration: 500})          
             }
-        }, [selectedTab] )        
+        }, [selectedTab] )    
 
+
+
+        // const scrollY = useSharedValue(0)    
+        // const outputRange = [0,55]; 
+        // const footerAnimatedStyle = useAnimatedStyle(()=>{
+        //     return{
+        //         height:Extrapolate(scrollY.value, outputRange[55,0], interpolate.CLAMP), 
+        //         opacity:Extrapolate(scrollY.value, outputRange[1,0], interpolate.CLAMP), 
+        //     }
+        // })
+        // const onScroll = useAnimatedScrollHandler((event) => {
+        //     scrollY.value = event.contentOffset.y
+        // })
     return (
+        
+        
         <Animated.View style={{ flex: 1,backgroundColor:"rgba(21,31,40,1)", ...drawerAnimationStyle}} >
             {/* Header */}
+            {/* <ScrollView onScroll={onScroll}> */}
             <Header 
                containerStyle={{height: 30, paddingHorizontal: SIZES.padding, marginTop: 20, marginBottom:15, alignItems:'center'}}
                title ={selectedTab.toUpperCase()}
@@ -255,11 +280,33 @@ const I_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelecte
                 />
             </View>
 
-
+            {/* </ScrollView> */}
 
             {/* Footer */}
-            
-            <View style={{height: 65, justifyContent:'flex-end',bottom:0}}>
+{/* useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+    'keyboardDidShow',
+    () => {
+        setKeyboardVisible(true); // or some other action
+    }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+    'keyboardDidHide',
+    () => {
+        setKeyboardVisible(false); // or some other action
+    }
+    );
+
+    return () => {
+    keyboardDidHideListener.remove();
+    keyboardDidShowListener.remove();
+    }; 
+}, []);*/}
+ 
+
+           
+            <View style={{height: 65, justifyContent:'flex-end',bottom: 0, position:'absolute', right:0, left:0}} >
+            {/* <View style={{height: 65, justifyContent:'flex-end',bottom: 0,}}> */}
 
                 {/* shadow above the bottom tab navigator */}
                 <LinearGradient  start = {{ x:0 , y:0 }} end = {{ x:0 , y:2 }}
@@ -315,8 +362,12 @@ const I_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelecte
 
             </View>
 
+
         </Animated.View>
+        
+        
     )
+    
 }
 
 

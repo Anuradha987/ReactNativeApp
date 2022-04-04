@@ -134,16 +134,19 @@ const priorityCategory = [
     {
         id: 1,
         priority: 'high',
+        value: 'High',
         color: 'rgba(255,51,51,1)',
     },
     {
         id: 2,
         priority: 'medium', 
+        value: 'Medium',
         color: 'rgba(222,255,0,1)',
     },
     {
         id: 3,
         priority: 'low', 
+        value: 'Low', 
         color: 'rgba(71,214,56,1)',
     }
 ]
@@ -1143,6 +1146,106 @@ const allCards = [
         icon: require("../assets/icons/mastercard_logo.png"),
     },
 ]
+
+const Users =[
+    {
+        id:1, 
+        username: 'nimesha', 
+        password: 'nimesha123', 
+        userToken: 'tokenNimesha'
+    }, 
+    {
+        id:2, 
+        username: 'romesh', 
+        password: 'romesh123', 
+        userToken: 'tokenRomesh'
+    }, 
+    {
+        id:3, 
+        username: 'kamal', 
+        password: 'kamal123', 
+        userToken: 'tokenKamal'
+    }, 
+]
+
+const serviceProviderPopUpBox =[
+{
+    id: 1, 
+    coordinate: {
+        latitude: 22.6293867,
+        longitude: 88.4354486,
+      },
+    propic: require('../assets/images/_110435139_parsa.jpg'),
+    serviceProviderName: 'Sankalpa De Silva', 
+    service1Title: 'Service no 1', 
+    service2Title: 'Service no 2',
+    service3Titile: 'Service no 3',
+    service4Title: 'Service no 4',
+    service5Title: 'Service no 5',
+    userRating: '2.3',
+},
+{
+    id: 2, 
+    coordinate: {
+        latitude: 22.6345648,
+        longitude: 88.4377279,
+      },
+    propic: require('../assets/images/_110435139_parsa.jpg'),
+    serviceProviderName: 'Nipuni Nisansala', 
+    service1Title: 'Service no 1', 
+    service2Title: 'Service no 2',
+    service3Titile: 'Service no 3',
+    service4Title: 'Service no 4',
+    service5Title: 'Service no 5',
+    userRating: '2.3',
+},
+{
+    id: 3, 
+    coordinate: {
+        latitude: 22.6281662,
+        longitude: 88.4410113,
+      },
+    propic: require('../assets/images/avatar-1.jpg'),
+    serviceProviderName: 'Natasha Perera', 
+    service1Title: 'Service no 1', 
+    service2Title: 'Service no 2',
+    service3Titile: 'Service no 3',
+    service4Title: 'Service no 4',
+    service5Title: 'Service no 5',
+    userRating: '5',
+},
+{
+    id: 4, 
+    coordinate: {
+        latitude: 22.6341137,
+        longitude: 88.4497463,
+      },
+    propic: require('../assets/images/Nithya-V-Raman-1-e1346782184198.jpg'),
+    serviceProviderName: 'Isuri Priyanthi', 
+    service1Title: 'Service no 1', 
+    service2Title: 'Service no 2',
+    service3Titile: 'Service no 3',
+    service4Title: 'Service no 4',
+    service5Title: 'Service no 5',
+    userRating: '4',
+},
+{
+    id: 5, 
+    coordinate: {
+        latitude: 22.6292757,
+        longitude: 88.444781,
+      },
+    propic: require('../assets/images/istockphoto-523147245-612x612.jpg'),
+    serviceProviderName: 'Lakmal Fernando', 
+    service1Title: 'Service no 1', 
+    service2Title: 'Service no 2',
+    service3Titile: 'Service no 3',
+    service4Title: 'Service no 4',
+    service5Title: 'Service no 5',
+    userRating: '3.6',
+},
+]
+
 export default {
     myProfile,
     categories,    
@@ -1162,5 +1265,7 @@ export default {
     itemOrdersSent,
     itemSalesHistory,
     myCards, 
-    allCards
+    allCards, 
+    Users, 
+    serviceProviderPopUpBox,
 }

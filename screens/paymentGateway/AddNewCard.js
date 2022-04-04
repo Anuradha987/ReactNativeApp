@@ -5,12 +5,17 @@ import {
   Text,
   Image,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions, 
+  ScrollView
 } from "react-native";
 import { useFonts } from 'expo-font';
 import DatePicker from 'react-native-datepicker'
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { LinearGradient } from 'expo-linear-gradient';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
+const { width, height } = Dimensions.get('window');
 
 function AddNewCard({navigation}) {
    const [date, setDate] = useState('09-10-2020');
@@ -19,6 +24,49 @@ function AddNewCard({navigation}) {
     poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
     poppins700: require('./../../assets/fonts/poppins-700.ttf'),
   });
+
+  const [data, setData] = React.useState({
+    cardno:'',
+    cardholdername:'',
+    expiredate:'',
+    cvc: '',
+    check_textInputChange: false,
+    secureTextEntry: true,
+    isValidcvc: true,
+  });
+  const textInputChange = (val) => {
+    if( val.trim().length !== 0 ) {
+        setData({
+            ...data,
+            username: val,
+            check_textInputChange: true,
+            isValidUser: true
+        });
+    } else {
+        setData({
+            ...data,
+            username: val,
+            check_textInputChange: false,
+            isValidUser: false
+        });
+    }
+  }
+  const handlecvcChange = (val) => {
+    if( val.trim().length >= 8 ) {
+        setData({
+            ...data,
+            cvc: val,
+            isValidcvc: true
+        });
+    } else {
+        setData({
+            ...data,
+            cvc: val,
+            isValidcvc: false
+        });
+    }
+  }
+  
 
   if (!loaded) {
        return null;
@@ -41,6 +89,8 @@ function AddNewCard({navigation}) {
         style={{ left: 0, right: 0, height: 20 }}
       />
       
+      <KeyboardAwareScrollView>
+        <ScrollView contentContainerStyle={{height:height,}}>
       <Image
         source={require("./../../assets/images/addNewCard.png")}
         resizeMode="cover"
@@ -57,6 +107,8 @@ function AddNewCard({navigation}) {
           secureTextEntry={false}
           keyboardType="phone-pad"
           maxLength={16}
+         // onSubmitEditing={() => { this.secondTextInput.focus(); }}
+          onChangeText={(val) => textInputChange(val)}
           style={styles.cardNotxt}
         ></TextInput>
       </View>
@@ -69,12 +121,18 @@ function AddNewCard({navigation}) {
           returnKeyType="next"
           clearButtonMode="while-editing"
           secureTextEntry={false}
-          style={styles.cardHoldertxt}
+         // ref={(input) => { this.secondTextInput = input; }}
+          //onSubmitEditing={() => { this.thirdTextInput.focus(); }}
+          onChangeText={(val) => textInputChange(val)}
+          style={styles.cardHoldertxt}  
         ></TextInput>
       </View>
+
+
       <View style={styles.expireDatelblRow}>
         <Text style={styles.expireDatelbl}>Expire Date*</Text>
         <Text style={styles.cvvCvclbl}>CVV/CVC*</Text>
+        <Text style={styles.errMsg}>{data.check_textInputChangeName ? "Correct" : "Invalid Name"}</Text>
       </View>
       <View style={styles.expDateViewRow}>
         <View style={styles.expDateView}>
@@ -115,7 +173,8 @@ function AddNewCard({navigation}) {
                       }}
                       onDateChange={(date) => {
                         setDate(date);
-                      }}
+                      }}  
+                      //ref={(input) => { this.thirdTextInput = input; }} 
             />
           </View>
         </View>
@@ -126,18 +185,21 @@ function AddNewCard({navigation}) {
             placeholder=""
             placeholderTextColor="rgba(230, 230, 230,1)"
             selectionColor="rgba(255,255,255,1)"
-            returnKeyType="next"
+            returnKeyType="done"
             clearButtonMode="while-editing"
             secureTextEntry={true}
             maxLength={4}
             //keyboardType="phone-pad"
-            style={styles.cvcViewtxt}
+            onChangeText={(val)=> handlecvcChange(val)}
+            style={styles.cvcViewtxt} 
           ></TextInput>
         </View>
       </View>
       <TouchableOpacity style={styles.addNewCardBtn}>
         <Text style={styles.addCard}>Add Card</Text>
       </TouchableOpacity>
+      </ScrollView>
+      </KeyboardAwareScrollView>
     </View>
   );
 }

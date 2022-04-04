@@ -24,8 +24,20 @@ import 'react-native-gesture-handler';
  import appNavigaiton from './../../navigation/appNavigaiton';
 
 const I_Search = () => {
+  const [searchBarFocused, setSearchBarFocused] = React.useState(false)
 
-    const navigation = useNavigation();
+const searchUsers = (value) =>{
+  const filteredUsers = this.state.users.filter(
+    user=>{
+      let userLowercase = (dummyData.itemsSearchList).toLowercase()
+      let searchTermLowercase = value.toLowercase()
+      return userLowercase.indexOf(searchTermLowercase)> -1
+    }
+  )
+  this.setState({users:filteredUsers})
+}
+
+  const navigation = useNavigation();
   const [selectedCatergoryId, setSelectedCategoryId] = React.useState(dummyData.categories)
 
   function onSelectCategory(category) {
@@ -87,6 +99,9 @@ const I_Search = () => {
             selectionColor="rgba(250,245,245,1)"
             clearButtonMode="while-editing"
             style={styles.serviceSearch}
+            noChangeText={(value) =>searchUsers(value)}
+            onFocus = {()=> setSearchBarFocused(true)}
+onBlur = {()=> setSearchBarFocused(false)}
           ></TextInput>
           <EvilIconsIcon
             name="search"
@@ -125,7 +140,7 @@ const I_Search = () => {
                   >
                     <View style={styles.productName1StackStack}>
                       <View style={styles.productName1Stack}>
-                        <Text style={styles.productName1}>{item.itemName}</Text>
+                        <Text numberOfLines={1} style={styles.productName1}>{item.itemName}</Text>
                         <Image
                           source={item.categoryIcon}
                           resizeMode="contain"
@@ -227,7 +242,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     marginLeft: 4,
     marginTop: -1,
-    textAlignVertical: 'center'
+    textAlignVertical: 'center',    
   },
   cateRoundRow: {
     height: 30,
@@ -337,7 +352,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
-    fontSize: 18
+    fontSize: 16
   },
   cateIcon1: {
     top: 26,

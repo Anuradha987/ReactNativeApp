@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -9,6 +9,7 @@ import {
   Dimensions,
   FlatList,
   TouchableOpacity,
+  Modal
 } from 'react-native';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import EvilIconsIcon from 'react-native-vector-icons/EvilIcons';
@@ -17,12 +18,20 @@ import MaterialIconsIcon from 'react-native-vector-icons/MaterialIcons';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { useFonts } from 'expo-font';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Rating, AirbnbRating } from 'react-native-ratings';
 
 function SSentDetailsAfterAccepting({ navigation }) {
+  const [modalVisible, setModalVisible] = useState(true);
+
+  const windowWidth = Dimensions.get('window').width;
+  const ratingCompleted = (rating) => {
+    console.log('Rating is: ' + rating);
+  };
+
   //poppins insert
   const [loaded] = useFonts({
-    poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
-    poppins700: require('./../../assets/fonts/poppins-700.ttf'),
+    poppinsregular: require('../../assets/fonts/Poppins-Regular.ttf'),
+    poppins700: require('../../assets/fonts/poppins-700.ttf'),
   });
 
   if (!loaded) {
@@ -108,6 +117,38 @@ function SSentDetailsAfterAccepting({ navigation }) {
                       <Text style={styles.completedDate}>27/12/2021</Text>
                     </View>
                   </View>
+
+
+                  {/* User Rating */}
+                  <ImageBackground
+                    style={styles.ratingPanel}
+                    imageStyle={styles.ratingPanel_imageStyle}
+                    source={require("../../assets/images/Gradient_KeixSfJ.png")}
+                  >
+                    <View style={styles.imageRow}>
+                      <Image
+                        source={require("../../assets/images/Nithya-V-Raman-1-e1346782184198.jpg")}
+                        resizeMode="cover"
+                        style={styles.image}
+                      ></Image>
+                      <View style={styles.imageFiller}></View>
+                      
+                    </View>
+                    <Text style={styles.loremIpsum1}>What&#39;s your opinion about</Text>
+                    <Text style={styles.acceptedUserName1}>
+                      Manoja Gamage &#39;s service?
+                    </Text>
+                    <View style={styles.rect}>
+                    <AirbnbRating
+                    starContainerStyle={{justifyContent:'space-between', width:300}}
+                      showRating={false}
+                      count={5}
+                      defaultRating={0}
+                      size={30}
+                      onFinishRating={ratingCompleted}
+                    />
+                    </View>
+                  </ImageBackground>
                 </ScrollView>
               </View>
             </View>
@@ -157,13 +198,12 @@ const styles = StyleSheet.create({
   },
   scrollArea: {
     left: 0,
-    //height: 969,
     position: 'absolute',
     right: 0,
     top: 0,
   },
   scrollArea_contentContainerStyle: {
-    height: 800,
+    height: 1050,
   },
   reqTitle: {
     fontFamily: 'poppinsregular',
@@ -354,84 +394,59 @@ const styles = StyleSheet.create({
     marginLeft: 32,
     marginRight: 12,
   },
-  ratingPanel: {
-    top: 794,
-    left: 17,
-    height: 238,
-    position: 'absolute',
-    borderRadius: 23,
-    right: 17,
-    overflow: 'hidden',
+  scrollAreaStack: {
+    height: 1050,
+    marginTop: 20,
   },
-  ratingPanel_imageStyle: {},
   image: {
     width: 80,
     height: 80,
     borderRadius: 40,
-    marginTop: 16,
-    alignItems: 'center',
-  },
+    marginTop: 16
+  },  
   imageFiller: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: "row"
   },
   closeBtn: {
-    color: 'rgba(115,115,115,1)',
+    color: "rgba(115,115,115,1)",
     fontSize: 29,
     height: 32,
-    width: 29,
+    width: 29
   },
-  imageRow: {
+  ratingPanel: {
+    marginHorizontal: 17,
+    height: 238,
+    borderRadius: 23,    
+    overflow: "hidden", 
+    marginTop:40
+  },
+ imageRow: {
     height: 96,
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: 8,
-    marginLeft: '36%',
-    marginRight: 12,
+    marginLeft: 144,
+    marginRight: 12
   },
   loremIpsum1: {
-    fontFamily: 'poppinsregular',
-    color: '#121212',
-    textAlign: 'center',
+    fontFamily: "poppinsregular",
+    color: "#121212",
+    textAlign: "center",
     marginTop: 7,
-    marginLeft: 8,
+    marginLeft: 8
   },
   acceptedUserName1: {
-    fontFamily: 'poppins700',
-    color: '#121212',
-    textAlign: 'center',
-    marginLeft: 12,
+    fontFamily: "poppins700",
+    color: "#121212",
+    textAlign: "center",
+    marginLeft: 12
   },
   rect: {
     height: 40,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 22,
-    marginLeft: 65,
-    marginRight: 65,
-  },
-  star1: {
-    color: 'rgba(128,128,128,1)',
-    fontSize: 40,
-  },
-  star2: {
-    color: 'rgba(128,128,128,1)',
-    fontSize: 40,
-  },
-  star3: {
-    color: 'rgba(128,128,128,1)',
-    fontSize: 40,
-  },
-  star4: {
-    color: 'rgba(128,128,128,1)',
-    fontSize: 40,
-  },
-  star5: {
-    color: 'rgba(128,128,128,1)',
-    fontSize: 40,
-  },
-  scrollAreaStack: {
-    height: 800,
-    marginTop: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 18,
+    marginHorizontal: 40,
   },
 });
 

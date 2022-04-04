@@ -68,7 +68,7 @@ function MyProfile({navigation}) {
                   resizeMode="contain"
                   style={styles.profileImage}></Image>
               </View>
-              <Text style={styles.personName}>Sankalpa De Silva</Text>
+              <Text numberOfLines={1} style={styles.personName}>Sankalpa De Silva</Text>
               <FontAwesomeIcon
                 name="star"
                 style={styles.icon1}></FontAwesomeIcon>

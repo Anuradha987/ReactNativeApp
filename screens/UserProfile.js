@@ -19,13 +19,20 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Icon from "react-native-vector-icons/SimpleLineIcons";
+import { Rating, AirbnbRating } from 'react-native-ratings';
 import I_My from './I_My/I_My';
 import S_My from './S_My/S_My';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 
+
 function UserProfile({navigation}) {
+
+  const ratingCompleted = (rating) => {
+    console.log("Rating is: " + rating)
+  }
+
     //poppins insert
   const [loaded] = useFonts({
     poppinsregular: require('../assets/fonts/Poppins-Regular.ttf'),
@@ -64,7 +71,7 @@ function UserProfile({navigation}) {
             style={styles.profileImage}
           ></Image>
         </View>
-        <Text style={styles.personName}>Sankalpa De Silva</Text>
+        <Text numberOfLines={1} style={styles.personName}>Sankalpa De Silva</Text>
         <FontAwesomeIcon name="star" style={styles.icon1}></FontAwesomeIcon>
         <Text style={styles.loremIpsum13}>4.1</Text>
       </View>
@@ -137,7 +144,21 @@ function UserProfile({navigation}) {
         ></Image>
       </View>
 
- 
+<View style={{alignItems:'center', textAlign: 'center', marginHorizontal:26}}>
+      <Text style={styles.ratingText1}>How was your experience with </Text>
+    <View style={{flexDirection:'row', }}>
+      <Text style={styles.ratingText2}>Sankalpa De Silva</Text>
+      <Text>?</Text>
+    </View>
+    <AirbnbRating
+      starContainerStyle={{justifyContent:'space-between', width:300, marginTop:10, marginBottom:20}}
+      showRating={false}
+      count={5}
+      defaultRating={0}
+      size={30}
+      onFinishRating={ratingCompleted}
+    />
+</View>
 
   <NavigationContainer independent={true} style={{ marginTop: 769 }}>
               <Tab.Navigator
@@ -210,6 +231,7 @@ rect1Row: { height: 43, marginTop: 769 },
   backIcon:{
     color: '#BBBDC1', 
     fontSize: 20,
+    marginRight:3
   },
   profileImage: {
     top: 134,
@@ -229,10 +251,9 @@ rect1Row: { height: 43, marginTop: 769 },
   personName: {
     top: 183,
     left: 145,
-    position: "absolute",
     fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
-    fontSize: 22
+    fontSize: 22, 
   },
   icon1: {
     left: 146,
@@ -465,6 +486,18 @@ rect1Row: { height: 43, marginTop: 769 },
     marginTop: 18,
     marginLeft: 26,
     marginRight: 32
+  },
+  ratingText1: {
+    fontFamily: "poppinsregular",
+    color: "rgba(212,212,212,1)",
+    marginTop: 40,
+   // marginLeft: 26, 
+    textAlign: 'center'
+  },  
+  ratingText2: {
+    fontFamily: "poppins700",
+    color: "rgba(212,212,212,1)",
+    fontSize:18
   },
   breakingLine: {
     fontFamily: "roboto-regular",

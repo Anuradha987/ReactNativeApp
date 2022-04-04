@@ -111,7 +111,7 @@ const I_Sent = () => {
                       >
                         <View style={styles.itemDetailsCard}>
                           {/* item name */}
-                          <Text style={styles.reqTitle}>{item.reqTitle}</Text>
+                          <Text numberOfLines={1} style={styles.reqTitle}>{item.reqTitle}</Text>
 
                           <View style={styles.cateNameStack}>
                             {/* item category */}
