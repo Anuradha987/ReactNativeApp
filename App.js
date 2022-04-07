@@ -9,7 +9,26 @@ import { Provider } from 'react-redux';
 import rootReducer from "./stores/rootReducer";
 import ReduxThunk from 'redux-thunk'
 import {SSentDetailsAfterAccepting,ViewItems, SAfterApproved, SAfterCompleted, S_RequestsDetails, Notification, MyProfile, NewReqForm, UserProfile, Login, Register, Otp, PasswordRecovery, ResetPassword, AddNewCard, PaymentCards,Categories, AddEditItems } from './screens/index';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 
+useEffect(() => {
+    // Initialize Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyCU-1h2bQY0XxtQj-ZHnhLxC4sgOZy5B1k",
+        authDomain: "quiky-app-1cc8e.firebaseapp.com",
+        projectId: "quiky-app-1cc8e",
+        storageBucket: "quiky-app-1cc8e.appspot.com",
+        messagingSenderId: "965321225165",
+        appId: "1:965321225165:web:6c032434caea3ac0d3ca84",
+        measurementId: "G-KJBQ794H2V"
+      };
+    
+    // Initialize Firebase
+    // "current_key": "AIzaSyD1MPmS8UvwWNvn5YAct9Ttb7lBaLQqKWw"
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  }, []); 
 
 const Stack = createStackNavigator();
 
