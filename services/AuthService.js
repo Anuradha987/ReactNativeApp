@@ -1,4 +1,5 @@
-import axiosInstance from "./api"
+import axiosInstance from "./api";
+import { ToastAndroid } from "react-native";
 
 export class AuthService{
     static async login(data){
@@ -15,6 +16,7 @@ export class AuthService{
         axiosInstance.get('').then(
             function(res){
                 console.log(res.data);
+                ToastAndroid.show(res.data, ToastAndroid.SHORT);
             }
         ).catch(function(error){
             console.log(error);
