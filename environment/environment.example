@@ -1,0 +1,3 @@
+export const environment = {
+    api_url:"https://glacial-retreat-20469.herokuapp.com/"
+};
