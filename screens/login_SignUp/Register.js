@@ -174,23 +174,21 @@ const openCamera = async () => {
       password: data.password,
       profile_img:"test",
       cover_img:"test",
-      description:data.description,
+      description:"test",
       userCategories:[]
     }
 
-    // const userdata = {
-    //   username: "Arunate54",
-    //   email: "arunate23s2@gmail.com",
-    //   password: "hello12345",
-    //   userType: "Customer",
-    //   phone: "0711112378",
-    //   cover_img: "img string",
-    //   description: "description",
-    //   userCategories: ["Pets", "Law", "Environment", "Photography"]
-    // }
     console.log(userdata);
 
-    AuthService.register(userdata);
+    const res = AuthService.register(userdata);
+
+    res.then((res)=>{
+      console.log(res.data);
+      navigation.navigate('Login');
+    }).catch((error)=>{
+      console.log(error);
+    })
+    console.log(res);
   };
 
   //name validation

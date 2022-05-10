@@ -24,13 +24,9 @@ export class AuthService{
     }
 
     static async register(data){
-        axiosInstance.post('/register',data).then(
-            function(res){
-                console.log(res.data);
-            }
-        ).catch(function(error){
-            console.log(error);
-        })
+        const res = await axiosInstance.post('/register',data);
+
+        return res;
     }
 
 
