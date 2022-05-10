@@ -172,9 +172,10 @@ const openCamera = async () => {
       username: data.username,
       userType: "Customer",
       password: data.password,
+      profile_img:"test",
       cover_img:"test",
       description:data.description,
-      userCategories:["Pets", "Law", "Environment", "Photography"]
+      userCategories:[]
     }
 
     // const userdata = {
