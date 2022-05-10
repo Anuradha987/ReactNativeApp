@@ -22,5 +22,17 @@ export class AuthService{
             console.log(error);
         })
     }
+
+    static async register(data){
+        axiosInstance.post('/register',data).then(
+            function(res){
+                console.log(res.data);
+            }
+        ).catch(function(error){
+            console.log(error);
+        })
+    }
+
+
 }
 

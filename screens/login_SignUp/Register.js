@@ -19,6 +19,7 @@ import EntypoIcon from 'react-native-vector-icons/Entypo';
 import { useFonts } from 'expo-font';
 import { icons } from '../../constants';
 import * as ImagePicker from 'expo-image-picker';
+import { AuthService } from '../../services/AuthService';
 
 // https://github.com/RafaelAugustoS/react-native-popup-ui
 
@@ -125,6 +126,7 @@ const openCamera = async () => {
     location: '',
     username: '',
     password: '',
+    description:'',
     secureTextEntry: true,
     isValidName: true,
     isValidEmail: true,
@@ -161,6 +163,33 @@ const openCamera = async () => {
       ...data,
       secureTextEntry: !data.secureTextEntry,
     });
+
+    const userdata = {
+      name: data.name,
+      email: data.email,
+      phone: data.phoneNo,
+      location: data.location,
+      username: data.username,
+      userType: "Customer",
+      password: data.password,
+      cover_img:"test",
+      description:data.description,
+      userCategories:["Pets", "Law", "Environment", "Photography"]
+    }
+
+    // const userdata = {
+    //   username: "Arunate54",
+    //   email: "arunate23s2@gmail.com",
+    //   password: "hello12345",
+    //   userType: "Customer",
+    //   phone: "0711112378",
+    //   cover_img: "img string",
+    //   description: "description",
+    //   userCategories: ["Pets", "Law", "Environment", "Photography"]
+    // }
+    console.log(userdata);
+
+    AuthService.register(userdata);
   };
 
   //name validation
@@ -194,6 +223,38 @@ const openCamera = async () => {
       });
     }
   };
+
+    //name validation
+    const textInputChangeAboutMe = (val) => {
+      if (val.trim().length >= 4) {
+        setData({
+          ...data,
+          name: val,
+          check_textInputChangeName: true,
+          isValidName: true,
+        });
+      } else {
+        setData({
+          ...data,
+          name: val,
+          check_textInputChangeName: false,
+          isValidName: false,
+        });
+      }
+    };
+    const handleValidAboutMe = (val) => {
+      if (val.trim().length >= 4) {
+        setData({
+          ...data,
+          isValidName: true,
+        });
+      } else {
+        setData({
+          ...data,
+          isValidName: false,
+        });
+      }
+    };
 
   //email validation
   // onChangeText={(val) => textInputChangeEmail(val)}

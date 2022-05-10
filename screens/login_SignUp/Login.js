@@ -106,27 +106,27 @@ function Login({ navigation }) {
 
 
   const loginHandle = (userName, password) => {
-    AuthService.test();
-    // const foundUser = dummyData.Users.filter((item) => {
-    //   return userName == item.username && password == item.password;
-    // });
+    // AuthService.test();
+    const foundUser = dummyData.Users.filter((item) => {
+      return userName == item.username && password == item.password;
+    });
 
-    // if (data.username.length == 0 || data.password.length == 0) {
-    //   Alert.alert(
-    //     'Login Failed!',
-    //     'Username or Password fields cannot be empty',
-    //     [{ text: 'Retry' }]
-    //   );
-    //   return;
-    // }
+    if (data.username.length == 0 || data.password.length == 0) {
+      Alert.alert(
+        'Login Failed!',
+        'Username or Password fields cannot be empty',
+        [{ text: 'Retry' }]
+      );
+      return;
+    }
 
-    // if (foundUser.length == 0) {
-    //   Alert.alert('Login Failed!', 'Incorrect Username or Password', [
-    //     { text: 'Retry' },
-    //   ]);
-    //   return;
-    // }
-    // login(foundUser);
+    if (foundUser.length == 0) {
+      Alert.alert('Login Failed!', 'Incorrect Username or Password', [
+        { text: 'Retry' },
+      ]);
+      return;
+    }
+    login(foundUser);
   };
 
 
