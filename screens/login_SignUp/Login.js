@@ -136,9 +136,12 @@ function Login({ navigation }, props) {
     }
 
     AuthService.login(user).then((res)=>{
-      console.log(res.data.token);
-        // login(res.data);
-      // navigation.navigate('MyProfile');
+      console.log(res.data.data);
+      const foundUser ={
+        userToken:res.data.data.token,
+        username:res.data.user.username
+      };
+        login(foundUser);
     }).catch((error)=>{
       console.log(error);
     });

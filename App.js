@@ -100,6 +100,7 @@ const App = () => {
         }
         // console.log('user token: ', userToken);
         dispatch({ type: 'LOGIN', id: userName, token: userToken });
+        navigation.navigate('MyProfile');
       },
 
       //signup
