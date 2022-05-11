@@ -8,7 +8,22 @@ export class RequestService{
     }
 
     static async EditRequest(requestId,data){
-        const res = await axiosInstance.post(`/update_request?request_id=${requestId}`,data);
+        const res = await axiosInstance.put(`/update_request?request_id=${requestId}`,data);
+        return res;
+    }
+
+    static async getSentRequestsByUserId(userId){
+        const res = await axiosInstance.get(`/get_sent_requests?user_id=${usertId}`);
+        return res;
+    }
+
+    static async getRecievedPublicRequests(){
+        const res = await axiosInstance.get(`/get_recieved_public_requests`);
+        return res;
+    }
+
+    static async filterRecievedRequestsByUserIdAndStatus(userId,status){
+        const res = await axiosInstance.get(`/get_recieved_requests_by_status?user_id=${userId}&status=${status}`);
         return res;
     }
 }
