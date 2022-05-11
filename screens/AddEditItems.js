@@ -9,10 +9,10 @@ import {
   Text,
   FlatList, 
   TextInput,
-  Picker, 
   Pressable, 
   Dimensions
 } from "react-native";
+import {Picker} from '@react-native-picker/picker';
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import MaterialRadio from "../components/MaterialRadio";

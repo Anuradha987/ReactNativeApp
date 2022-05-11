@@ -8,9 +8,10 @@ import {
     Text,
     FlatList,
     Animated, 
-    Image, 
-    Picker 
+    Image
   } from "react-native";
+
+  import {Picker} from '@react-native-picker/picker'; 
 
 export default class PickerComponent extends Component {
     constructor(props) {

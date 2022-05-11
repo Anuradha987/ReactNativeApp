@@ -8,9 +8,9 @@ import {
   FlatList,
   Image,
   SafeAreaView,
-  Picker, 
-  Alert,
+  Alert
 } from 'react-native';
+import {Picker} from '@react-native-picker/picker';
 import MaterialChipWithImageAndCloseButton from '../components/MaterialChipWithImageAndCloseButton';
 import MaterialRadio from '../components/MaterialRadio';
 import { useFonts } from 'expo-font';

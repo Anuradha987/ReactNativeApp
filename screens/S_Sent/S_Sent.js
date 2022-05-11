@@ -8,9 +8,9 @@ import {
   Text,
   FlatList,
   Animated,
-  Image,
-  Picker
+  Image
 } from "react-native";
+import {Picker} from '@react-native-picker/picker';
 import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
