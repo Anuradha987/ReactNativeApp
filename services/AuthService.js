@@ -3,13 +3,8 @@ import { ToastAndroid } from "react-native";
 
 export class AuthService{
     static async login(data){
-        axiosInstance.post('/login',data).then(
-            function(res){
-                console.log(res.data);
-            }
-        ).catch(function(error){
-            console.log(error);
-        })
+        const res = await axiosInstance.post('/login',data);
+        return res;
     }
     
     static async test(){

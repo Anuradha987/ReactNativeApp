@@ -180,15 +180,12 @@ const openCamera = async () => {
 
     console.log(userdata);
 
-    const res = AuthService.register(userdata);
-
-    res.then((res)=>{
+    AuthService.register(userdata).then((res)=>{
       console.log(res.data);
       navigation.navigate('Login');
     }).catch((error)=>{
       console.log(error);
-    })
-    console.log(res);
+    });
   };
 
   //name validation

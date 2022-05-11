@@ -90,8 +90,8 @@ const App = () => {
     () => ({
       //sign in
       login: async (foundUser) => {
-        const userToken = String(foundUser[0].userToken);
-        const userName = foundUser[0].username;
+        const userToken = String(foundUser.userToken);
+        const userName = foundUser.username;
 
         try {
           await AsyncStorage.setItem('userToken', userToken);
@@ -189,7 +189,7 @@ const App = () => {
               <Stack.Screen name="ImageBrowserScreen" component={ImageBrowserScreen} />
             </Stack.Navigator>
           ) : ( 
-           <RootStackScreen />        //screens in the login_SIgnUp folder
+           <RootStackScreen loginState={loginState}/>        //screens in the login_SIgnUp folder
           )}
         </NavigationContainer>
       </AuthContext.Provider>

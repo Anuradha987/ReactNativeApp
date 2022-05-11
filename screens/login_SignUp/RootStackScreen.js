@@ -9,9 +9,9 @@ import ResetPassword from './ResetPassword';
 
 const RootStack = createStackNavigator();
 
-const RootStackScreen = ({navigation}) => (
+const RootStackScreen = ({navigation},props) => (
     <RootStack.Navigator headerMode='none'>
-    <RootStack.Screen name="Login" component={Login}/>
+    <RootStack.Screen name="Login" loginState={props.loginState} component={Login}/>
         <RootStack.Screen name="Register" component={Register}/>
         <RootStack.Screen name="PasswordRecovery" component={PasswordRecovery}/>
         <RootStack.Screen name="Otp" component={Otp}/>

@@ -20,7 +20,7 @@ import { AuthService, test } from '../../services/AuthService';
 
 const { width, height } = Dimensions.get('window');
 
-function Login({ navigation }) {
+function Login({ navigation }, props) {
   const { login } = React.useContext(AuthContext);
 
   const [data, setData] = React.useState({
@@ -107,6 +107,7 @@ function Login({ navigation }) {
 
   const loginHandle = (userName, password) => {
     // AuthService.test();
+    console.log("Hello0");
     const foundUser = dummyData.Users.filter((item) => {
       return userName == item.username && password == item.password;
     });
@@ -120,13 +121,27 @@ function Login({ navigation }) {
       return;
     }
 
-    if (foundUser.length == 0) {
-      Alert.alert('Login Failed!', 'Incorrect Username or Password', [
-        { text: 'Retry' },
-      ]);
-      return;
+    // if (foundUser.length == 0) {
+    //   Alert.alert('Login Failed!', 'Incorrect Username or Password', [
+    //     { text: 'Retry' },
+    //   ]);
+    //   return;
+    // }
+    // login(foundUser);
+    console.log(data);
+
+    const user = {
+      email:data.username,
+      password:data.password
     }
-    login(foundUser);
+
+    AuthService.login(user).then((res)=>{
+      console.log(res.data.token);
+        // login(res.data);
+      // navigation.navigate('MyProfile');
+    }).catch((error)=>{
+      console.log(error);
+    });
   };
 
 
