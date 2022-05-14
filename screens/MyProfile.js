@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -22,20 +22,60 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import I_My from './I_My/I_My';
 import S_My from './S_My/S_My';
+import { ServicesService } from '../services/customer/Services';
+import { AuthContext } from '../components/context';
+import { ToastAndroid } from 'react-native-web';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 
 function MyProfile({navigation}) {
+
+
   //poppins insert
   const [loaded] = useFonts({
     poppinsregular: require('../assets/fonts/Poppins-Regular.ttf'),
     poppins700: require('../assets/fonts/poppins-700.ttf'),
   });
 
-  if (!loaded) {
-    return null;
-  }
+  // if (!loaded) {
+  //   return null;
+  // }
+
+  const { sendUserToken,logout } = React.useContext(AuthContext);
+
+  // const [userDetails, setUserDetails]=React.useState(null);
+
+  useEffect(() => {
+
+    setTimeout(async () => {
+      // setIsLoading(false);
+      let userToken;
+      let userId=null;
+      userToken = null;
+      try {
+        userToken = await AsyncStorage.getItem('userToken');
+        userId = await AsyncStorage.getItem('userId');
+        console.log(userToken);
+        ServicesService.getUserDetailsByUserId(userId, userToken).then((res)=>{
+
+          console.log(res.data);
+     
+        }).catch((error)=>{
+          // logout();
+          console.error(error);
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    }, 1000);
+    // const token = await AsyncStorage.getItem('userToken');
+    // ToastAndroid.show(token, ToastAndroid.SHORT);
+    // console.log(token);
+
+  }, [])
+
   return (
     <View style={styles.container}>
       <FlatList

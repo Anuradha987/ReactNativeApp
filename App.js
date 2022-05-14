@@ -39,13 +39,14 @@ const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 const App = () => {
   // const[isLoading, setIsLoading] = React.useState(true);
-  // const[userToken, setUserToken] = React.useState(null);
-
+  const[userToken, setUserToken] = React.useState(null);
+  const[userId, setUserId] = React.useState(null);
 
   // ---------------handling user login-------------------   //
   const initialLoginState = {
     isLoading: true,
     userName: null,
+    userId:null,
     userToken: null,
   };
 
@@ -92,14 +93,16 @@ const App = () => {
       login: async (foundUser) => {
         const userToken = String(foundUser.userToken);
         const userName = foundUser.username;
+        const id = foundUser.id;
 
         try {
           await AsyncStorage.setItem('userToken', userToken);
+          await AsyncStorage.setItem('userId',id);
         } catch (e) {
           console.log(e);
         }
-        // console.log('user token: ', userToken);
-        dispatch({ type: 'LOGIN', id: userName, token: userToken });
+        console.log('user token: ', userToken);
+        dispatch({ type: 'LOGIN', id: id, token: userToken, userName: userName });
         navigation.navigate('MyProfile');
       },
 
@@ -115,10 +118,15 @@ const App = () => {
         // setIsLoading(false);
         try {
           await AsyncStorage.removeItem('userToken');
+          await AsyncStorage.removeItem('userId');
         } catch (e) {
           console.log(e);
         }
         dispatch({ type: 'LOGOUT' });
+      },
+
+      sendUserToken: async () =>{
+        return userToken;
       },
     }),
     []
@@ -131,9 +139,12 @@ const App = () => {
       userToken = null;
       try {
         userToken = await AsyncStorage.getItem('userToken');
+        userId = await AsyncStorage.getItem('userId');
       } catch (e) {
         console.log(e);
       }
+      setUserToken(userToken);
+      setUserId(userId);
       // console.log('user token: ', userToken);
       dispatch({ type: 'RETRIEVE_TOKEN', token: userToken });
     }, 1000);

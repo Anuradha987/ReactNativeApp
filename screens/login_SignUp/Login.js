@@ -136,10 +136,11 @@ function Login({ navigation }, props) {
     }
 
     AuthService.login(user).then((res)=>{
-      console.log(res.data.data);
+      console.log(res.data);
       const foundUser ={
         userToken:res.data.data.token,
-        username:res.data.user.username
+        username:res.data.user.username,
+        id:res.data.user._id
       };
         login(foundUser);
     }).catch((error)=>{
