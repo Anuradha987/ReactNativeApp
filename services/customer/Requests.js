@@ -13,7 +13,7 @@ export class RequestService{
     }
 
     static async getSentRequestsByUserId(userId){
-        const res = await axiosInstance.get(`/get_sent_requests?user_id=${usertId}`);
+        const res = await axiosInstance.get(`/get_sent_requests?user_id=${userId}`);
         return res;
     }
 
