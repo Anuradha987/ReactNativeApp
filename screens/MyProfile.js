@@ -7,8 +7,10 @@ import {
   Image,
   ImageBackground,
   FlatList,
+  ActivityIndicator,
   SafeAreaView,
 } from 'react-native';
+
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import MapView from 'react-native-maps';
@@ -24,7 +26,7 @@ import I_My from './I_My/I_My';
 import S_My from './S_My/S_My';
 import { ServicesService } from '../services/customer/Services';
 import { AuthContext } from '../components/context';
-import { ToastAndroid } from 'react-native-web';
+import { ToastAndroid } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = createMaterialTopTabNavigator();
@@ -39,17 +41,12 @@ function MyProfile({navigation}) {
     poppins700: require('../assets/fonts/poppins-700.ttf'),
   });
 
-  // if (!loaded) {
-  //   return null;
-  // }
-
   const { sendUserToken,logout } = React.useContext(AuthContext);
 
-  // const [userDetails, setUserDetails]=React.useState(null);
+  const [userDetails, setUserDetails]=React.useState(null);
 
-  useEffect(() => {
-
-    setTimeout(async () => {
+  useEffect(async() => {
+    // setTimeout(async () => {
       // setIsLoading(false);
       let userToken;
       let userId=null;
@@ -60,8 +57,9 @@ function MyProfile({navigation}) {
         console.log(userToken);
         ServicesService.getUserDetailsByUserId(userId, userToken).then((res)=>{
 
-          console.log(res.data);
-     
+          console.log(res.data.data[0].username);
+          ToastAndroid.show(res.data.data[0].username,ToastAndroid.SHORT);
+          setUserDetails(res.data);
         }).catch((error)=>{
           // logout();
           console.error(error);
@@ -69,14 +67,43 @@ function MyProfile({navigation}) {
       } catch (e) {
         console.log(e);
       }
-    }, 1000);
+    // }, 1000);
     // const token = await AsyncStorage.getItem('userToken');
     // ToastAndroid.show(token, ToastAndroid.SHORT);
     // console.log(token);
 
   }, [])
 
+  // if (!loaded) {
+  //   return (
+  //     <View
+  //       style={{
+  //         flex: 4,
+  //         backgroundColor: 'rgba(21,31,40,1)',
+  //         justifyContent: 'center',
+  //         alignItems: 'center',
+  //       }}>
+  //       {/* https://github.com/n4kz/react-native-indicators */}
+  //       <ActivityIndicator size="large" />
+  //     </View>
+  //   );
+  // }
+
   return (
+    (!loaded && userDetails === null)? 
+      (
+        <View
+          style={{
+            flex: 4,
+            backgroundColor: 'rgba(21,31,40,1)',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          {/* https://github.com/n4kz/react-native-indicators */}
+          <ActivityIndicator size="large" />
+        </View>
+      ):(
+    
     <View style={styles.container}>
       <FlatList
         showsVerticalScrollIndicator={true}
@@ -230,7 +257,7 @@ function MyProfile({navigation}) {
         }
       />
     </View>
-  );
+  ));
 }
 
 const styles = StyleSheet.create({
