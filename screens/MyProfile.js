@@ -45,9 +45,15 @@ function MyProfile({navigation}) {
 
   const [userDetails, setUserDetails]=React.useState(null);
 
-  useEffect(async() => {
-    // setTimeout(async () => {
-      // setIsLoading(false);
+  useEffect(() => {
+    if(!userDetails){
+    loadUserDetails();
+    }
+    console.log(userDetails);
+  }, []);
+
+  const loadUserDetails = ()=>{
+    setTimeout(async () => {
       let userToken;
       let userId=null;
       userToken = null;
@@ -56,41 +62,22 @@ function MyProfile({navigation}) {
         userId = await AsyncStorage.getItem('userId');
         console.log(userToken);
         ServicesService.getUserDetailsByUserId(userId, userToken).then((res)=>{
-
           console.log(res.data.data[0].username);
           ToastAndroid.show(res.data.data[0].username,ToastAndroid.SHORT);
-          setUserDetails(res.data);
+          setUserDetails(res.data.data[0]);
         }).catch((error)=>{
           // logout();
           console.error(error);
+
         });
       } catch (e) {
         console.log(e);
       }
-    // }, 1000);
-    // const token = await AsyncStorage.getItem('userToken');
-    // ToastAndroid.show(token, ToastAndroid.SHORT);
-    // console.log(token);
-
-  }, [])
-
-  // if (!loaded) {
-  //   return (
-  //     <View
-  //       style={{
-  //         flex: 4,
-  //         backgroundColor: 'rgba(21,31,40,1)',
-  //         justifyContent: 'center',
-  //         alignItems: 'center',
-  //       }}>
-  //       {/* https://github.com/n4kz/react-native-indicators */}
-  //       <ActivityIndicator size="large" />
-  //     </View>
-  //   );
-  // }
+    }, 1000);
+  }
 
   return (
-    (!loaded && userDetails === null)? 
+    (userDetails === null)? 
       (
         <View
           style={{
@@ -107,6 +94,7 @@ function MyProfile({navigation}) {
     <View style={styles.container}>
       <FlatList
         showsVerticalScrollIndicator={true}
+        listKey="1.1"
         ListHeaderComponent={
           <View>
             <View style={styles.rect1Row}></View>
@@ -135,7 +123,7 @@ function MyProfile({navigation}) {
                   resizeMode="contain"
                   style={styles.profileImage}></Image>
               </View>
-              <Text numberOfLines={1} style={styles.personName}>Sankalpa De Silva</Text>
+              <Text numberOfLines={1} style={styles.personName}>{userDetails.username}</Text>
               <FontAwesomeIcon
                 name="star"
                 style={styles.icon1}></FontAwesomeIcon>

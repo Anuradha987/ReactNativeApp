@@ -368,8 +368,8 @@ const styles = StyleSheet.create({
     marginLeft: 14,
   },
   showPasswordIcon: {
-    color: 'rgba(128,128,128,1)',
-    fontSize: 15,
+    // color: 'rgba(128,128,128,1)',
+    // fontSize: 15,
     height: 14,
     width: 14,
     marginRight: 15,
