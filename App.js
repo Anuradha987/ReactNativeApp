@@ -167,7 +167,7 @@ const App = () => {
       </View>
     );
   }
-
+//test npm start crash git push
 
   return (
     <Provider store={store}>
