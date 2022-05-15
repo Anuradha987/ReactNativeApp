@@ -66,6 +66,7 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab}) => 
 
             {/* Greeting text */}
             <FlatList
+            listKey='1.2'
         showsVerticalScrollIndicator={true}
         ListHeaderComponent={
             <View>
@@ -128,6 +129,7 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab}) => 
           }
         > */}
          <FlatList
+         listKey='1.3'
               columnWrapperStyle={{ justifyContent: 'space-between', marginHorizontal:20,  }}
               data={dummyData.categories}
               keyExtractor={(item) => `${item.id}`}
@@ -180,6 +182,7 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab}) => 
       </View>
 
       <FlatList data={dummyData.OtherRecieveRequest}
+              listKey='1.4'
               horizontal
               keyExtractor={(item) => `${item.id}`}
               showsHorizontalScrollIndicator={false}
@@ -220,6 +223,7 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab}) => 
 
 
         <FlatList
+        listKey='1.5'
               onPress={()=>{}}
               data={dummyData.myItemsData}
               keyExtractor={(item) => `${item.id}`}
