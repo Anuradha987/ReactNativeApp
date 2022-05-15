@@ -6,6 +6,7 @@ import {
   Image,
   TextInput,
   FlatList,
+  ActivityIndicator,
   StyleSheet,
 } from 'react-native';
 import { icons, dummyData,} from '../constants';
@@ -23,11 +24,24 @@ const Notification = () => {
     poppins700: require('./../assets/fonts/poppins-700.ttf'),
   });
 
-  if (!loaded) {
-    return null;
-  }
+  // if (!loaded) {
+  //   return null;
+  // }
   return (
-    <View style={styles.container}>
+    (!loaded)?
+    (
+      <View
+        style={{
+          flex: 4,
+          backgroundColor: 'rgba(21,31,40,1)',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        {/* https://github.com/n4kz/react-native-indicators */}
+        <ActivityIndicator size="large" />
+      </View>
+    ):
+    (<View style={styles.container}>
       {/* header */}
       <View style={styles.header}>
         <TouchableOpacity
@@ -48,7 +62,7 @@ const Notification = () => {
       {/* content */}
 
 
-    </View>
+    </View>)
   );
 };
 

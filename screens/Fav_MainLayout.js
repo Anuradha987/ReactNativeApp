@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, ScrollView, Image, Text, FlatList, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, ScrollView, Image, Text, FlatList, TouchableOpacity, ActivityIndicator} from 'react-native';
 import Animated, {useSharedValue, useAnimatedStyle, withTiming} from 'react-native-reanimated';
 import {FONTS, SIZES, COLORS, constants, icons, dummyData} from '../constants';
 import {connect} from 'react-redux'
@@ -16,9 +16,26 @@ import { useFonts } from 'expo-font';
 const Tab = createMaterialTopTabNavigator();
 
 function ServiceProviders() {
+  const [loaded] = useFonts({
+    poppinsregular: require('./../assets/fonts/Poppins-Regular.ttf'),
+    poppins700: require('./../assets/fonts/poppins-700.ttf'),
+  });
 
 return (
-<View style={styles.scrollAreaServices}>
+  (!loaded)?
+  (
+    <View
+      style={{
+        flex: 4,
+        backgroundColor: 'rgba(21,31,40,1)',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+      {/* https://github.com/n4kz/react-native-indicators */}
+      <ActivityIndicator size="large" />
+    </View>
+  ):
+(<View style={styles.scrollAreaServices}>
     <FlatList
         data={dummyData.completedReceieveServicesRequests}
         keyExtractor={(item) => `${item.id}`}
@@ -51,7 +68,7 @@ return (
         </View>
     </TouchableOpacity>
     )}}/>
-</View>
+</View>)
 )}
 
 // items and products flatlist
@@ -232,7 +249,7 @@ const styles = StyleSheet.create({
     fontSize: 10
   },
   serivcesTitle4: {
-    fontFamily: "roboto-regular",
+    // fontFamily: "roboto-regular",
     color: "rgba(255,255,255,1)",
     width: 200,
     fontSize: 10
