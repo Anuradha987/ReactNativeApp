@@ -27,7 +27,9 @@ import {
   PaymentCards,
   Categories,
   AddEditItems,
-  ImageBrowserScreen
+  ImageBrowserScreen,
+  S_Requests,
+  I_My
 } from './screens/index';
 import { AuthContext } from './components/context';
 import RootStackScreen from './screens/login_SignUp/RootStackScreen';
@@ -198,6 +200,8 @@ const App = () => {
               <Stack.Screen name="Categories" component={Categories} />
               <Stack.Screen name="SSentDetailsAfterAccepting" component={SSentDetailsAfterAccepting}/>
               <Stack.Screen name="S_RequestsDetails" component={S_RequestsDetails} />
+              <Stack.Screen name="S_Requests" component={S_Requests} />
+              <Stack.Screen name="I_My" component={I_My} />
               <Stack.Screen name="SAfterCompleted" component={SAfterCompleted} />
               <Stack.Screen name="SAfterApproved" component={SAfterApproved} />
               <Stack.Screen name="AddEditItems" component={AddEditItems} />
