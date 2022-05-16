@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, useEffect } from 'react';
 import {View, Text, TouchableOpacity, Image, TextInput, FlatList, TouchableWithoutFeedback,ScrollView, Keyboard,
     ActivityIndicator} from 'react-native';
 import Animated, {useSharedValue, useAnimatedStyle, withTiming} from 'react-native-reanimated';
@@ -23,6 +23,11 @@ const TabButton = ({label, icon, isFocused, onPress, outerContainerStyle, innerC
     Keyboard.addListener("keyboardDidHide", () => {
       setKeyboardIsOpen(false);
     });
+
+    useEffect(() => {
+        console.log("I_Mainlayout");
+       }, []);
+
     return(
         <TouchableWithoutFeedback onPress={onPress} >
             <Animated.View style={[{flex:1, alignItems: 'center', justifyContent: 'center',}, outerContainerStyle]}>

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -10,6 +10,11 @@ import {
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 
 function PlacingOrders(props) {
+
+  useEffect(() => {
+    console.log("Placing orders");
+   }, []);
+
   return (
     <View style={styles.container}>
 

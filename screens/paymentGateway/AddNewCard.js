@@ -67,6 +67,10 @@ function AddNewCard({navigation}) {
         });
     }
   }
+
+  useEffect(() => {
+    // console.log("SSentDetailsAfterAccepting");
+   }, []);
   
   return (
     (!loaded)?

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, useEffect } from 'react';
 import {View, Text, TouchableOpacity, Image, TextInput, FlatList, StyleSheet,ImageBackground, ScrollView,
   ActivityIndicator } from 'react-native';
 import Animated, {useSharedValue, useAnimatedStyle, withTiming} from 'react-native-reanimated';
@@ -20,6 +20,10 @@ const MT_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab}) => 
         poppinsregular: require('./../assets/fonts/Poppins-Regular.ttf'),
         poppins700: require('./../assets/fonts/poppins-700.ttf'),
     });
+
+    useEffect(() => {
+      console.log("MT_mainlayout");
+     }, []);
 
     return (
       (!loaded)?

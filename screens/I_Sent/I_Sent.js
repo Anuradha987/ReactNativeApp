@@ -29,9 +29,9 @@ const I_Sent = () => {
         poppins700: require('./../../assets/fonts/poppins-700.ttf'),
     });
   
-    if (!loaded) {
-          return null;
-    }
+    useEffect(() => {
+      // console.log("SSentDetailsAfterAccepting");
+     }, []);
 
   return (
     (!loaded)?

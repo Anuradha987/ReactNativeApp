@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, useEffect } from 'react';
 import {StyleSheet, View, ScrollView, Image, Text, FlatList, TouchableOpacity, ActivityIndicator} from 'react-native';
 import Animated, {useSharedValue, useAnimatedStyle, withTiming} from 'react-native-reanimated';
 import {FONTS, SIZES, COLORS, constants, icons, dummyData} from '../constants';
@@ -21,20 +21,24 @@ function ServiceProviders() {
     poppins700: require('./../assets/fonts/poppins-700.ttf'),
   });
 
+  if(!loaded){
+    return null;
+  }
+
 return (
-  (!loaded)?
-  (
-    <View
-      style={{
-        flex: 4,
-        backgroundColor: 'rgba(21,31,40,1)',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      {/* https://github.com/n4kz/react-native-indicators */}
-      <ActivityIndicator size="large" />
-    </View>
-  ):
+  // (!loaded)?
+  // (
+  //   <View
+  //     style={{
+  //       flex: 4,
+  //       backgroundColor: 'rgba(21,31,40,1)',
+  //       justifyContent: 'center',
+  //       alignItems: 'center',
+  //     }}>
+  //     {/* https://github.com/n4kz/react-native-indicators */}
+  //     <ActivityIndicator size="large" />
+  //   </View>
+  // ):
 (<View style={styles.scrollAreaServices}>
     <FlatList
         data={dummyData.completedReceieveServicesRequests}
@@ -116,11 +120,25 @@ const Fav_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelec
     poppins700: require('./../assets/fonts/poppins-700.ttf'),
   });
 
-  if (!loaded) {
-       return null;
-  }
+  useEffect(() => {
+    console.log("Fav_MainLayout");
+   }, []);
+
     return (
-        <Animated.View style={{ flex: 1,backgroundColor:"rgba(21,31,40,1)", ...drawerAnimationStyle}} >
+      (!loaded)?
+      (
+        <View
+          style={{
+            flex: 4,
+            backgroundColor: 'rgba(21,31,40,1)',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          {/* https://github.com/n4kz/react-native-indicators */}
+          <ActivityIndicator size="large" />
+        </View>
+      ):
+        (<Animated.View style={{ flex: 1,backgroundColor:"rgba(21,31,40,1)", ...drawerAnimationStyle}} >
             {/* Header */}
             <Header 
                 containerStyle={{height: 30, paddingHorizontal: SIZES.padding, marginTop: 20,marginBottom:15, alignItems:'center',  }}
@@ -164,7 +182,7 @@ const Fav_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelec
 </NavigationContainer>
 
 
-        </Animated.View>
+        </Animated.View>)
     )
 }
 

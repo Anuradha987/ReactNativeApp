@@ -20,9 +20,10 @@ const TabButton = ({label, icon, isFocused, onPress, outerContainerStyle, innerC
     poppins700: require('./../assets/fonts/poppins-700.ttf'),
   });
 
-//   if (!loaded) {
-//        return null;
-//   }
+  useEffect(() => {
+    console.log("User Profile");
+   }, []);
+  
     return(
         (!loaded)?
         (

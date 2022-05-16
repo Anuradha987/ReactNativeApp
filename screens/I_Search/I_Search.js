@@ -50,6 +50,10 @@ const searchUsers = (value) =>{
   const [loaded] = useFonts({
     poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
   });
+
+  useEffect(() => {
+    // console.log("SSentDetailsAfterAccepting");
+   }, []);
   
   return (
     (!loaded)?

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -90,6 +90,10 @@ searchUsers = (value) =>{
         poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
         poppins700: require('./../../assets/fonts/poppins-700.ttf'),
       });
+
+      useEffect(() => {
+        console.log("S_Search");
+       }, []);
     
   return (
     (!loaded)?

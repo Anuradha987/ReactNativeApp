@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from 'react';
 import { StyleSheet, View, ScrollView, Image, Text, FlatList,  Dimensions, TouchableOpacity,
   ActivityIndicator } from "react-native";
 import { useFonts } from 'expo-font';
@@ -15,6 +15,10 @@ function Categories({navigation}) {
     poppinsregular: require('../assets/fonts/Poppins-Regular.ttf'),
     poppins700: require('../assets/fonts/poppins-700.ttf'),
   });
+
+  useEffect(() => {
+    console.log("Categories");
+   }, []);
 
   return (
     (!loaded)?

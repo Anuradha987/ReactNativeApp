@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -140,6 +140,10 @@ const [loaded] = useFonts({
   poppinsregular: require('../assets/fonts/Poppins-Regular.ttf'),
   poppins700: require('../assets/fonts/poppins-700.ttf'),
 });
+
+useEffect(() => {
+  console.log("New req form");
+ }, []);
 
 return (
   (!loaded)?
