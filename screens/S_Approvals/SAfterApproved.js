@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -8,6 +8,7 @@ import {
   Image,
   FlatList,
   Dimensions,
+  ActivityIndicator
 } from 'react-native';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import FeatherIcon from 'react-native-vector-icons/Feather';
@@ -22,11 +23,25 @@ const SAfterApproved = ({ navigation }) => {
     poppins700: require('./../../assets/fonts/poppins-700.ttf'),
   });
 
-  if (!loaded) {
-    return null;
-  }
+  useEffect(() => {
+    // console.log("SSentDetailsAfterAccepting");
+   }, []);
+
   return (
-    <View style={styles.container}>  
+    (!loaded)?
+    (
+      <View
+        style={{
+          flex: 4,
+          backgroundColor: 'rgba(21,31,40,1)',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        {/* https://github.com/n4kz/react-native-indicators */}
+        <ActivityIndicator size="large" />
+      </View>
+    ):
+    (<View style={styles.container}>  
 
             <View style={styles.header}>
               <TouchableOpacity
@@ -149,7 +164,7 @@ const SAfterApproved = ({ navigation }) => {
           </View>
         }
       />
-    </View>
+    </View>)
   );
 }
 

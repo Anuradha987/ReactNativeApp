@@ -7,7 +7,8 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  ImageBackground, TouchableWithoutFeedback, Dimensions
+  ImageBackground, TouchableWithoutFeedback, Dimensions,
+  ActivityIndicator
 } from "react-native";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
@@ -49,13 +50,26 @@ const searchUsers = (value) =>{
   const [loaded] = useFonts({
     poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
   });
+
+  useEffect(() => {
+    // console.log("SSentDetailsAfterAccepting");
+   }, []);
   
-  if (!loaded) {
-    return null;
-  }
   return (
-    
-    <View style={styles.container}>
+    (!loaded)?
+    (
+      <View
+        style={{
+          flex: 4,
+          backgroundColor: 'rgba(21,31,40,1)',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        {/* https://github.com/n4kz/react-native-indicators */}
+        <ActivityIndicator size="large" />
+      </View>
+    ):
+    (<View style={styles.container}>
       
       <View>
         {/* horizontal scroll bar */}
@@ -109,7 +123,7 @@ onBlur = {()=> setSearchBarFocused(false)}
           ></EvilIconsIcon>
         </View>
         {/* Open the filter.js Component */}
-        <TouchableOpacity style={styles.filterBtn} onPress={()=>{}}>
+        <TouchableOpacity style={styles.filterBtn} onPress={()=>navigation.navigate('Filter')}>
           <View style={styles.filterIconFiller}></View>
           <FontAwesomeIcon
             name="filter"
@@ -182,9 +196,7 @@ onBlur = {()=> setSearchBarFocused(false)}
 
       {/* <View style={{ backgroundColor: "#fff", margin: 50, height: 700 }}></View> */}
       
-    </View>
-
-
+    </View>)
   );
 }
 

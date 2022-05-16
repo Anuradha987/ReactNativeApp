@@ -8,7 +8,8 @@ import {
   Text,
   FlatList,
   Animated,
-  Image
+  Image,
+  ActivityIndicator
 } from "react-native";
 import {Picker} from '@react-native-picker/picker';
 import FeatherIcon from "react-native-vector-icons/Feather";
@@ -37,12 +38,25 @@ const S_Sent = () => {
       poppins700: require('./../../assets/fonts/poppins-700.ttf'),
   });
 
-  if (!loaded) {
-        return null;
-  }
-  return (
+  useEffect(() => {
+    console.log("S_Sent");
+   }, []);
 
-    <View style={styles.container}>
+  return (
+    (!loaded)?
+    (
+      <View
+        style={{
+          flex: 4,
+          backgroundColor: 'rgba(21,31,40,1)',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        {/* https://github.com/n4kz/react-native-indicators */}
+        <ActivityIndicator size="large" />
+      </View>
+    ):
+    (<View style={styles.container}>
       <FlatList
         showsVerticalScrollIndicator={true}
         ListHeaderComponent={
@@ -150,7 +164,7 @@ onPress = open SSentDetailsAfterAccepting.js */}
             </View>
             <View style={{ marginTop: 150 }}></View>
           </View>} />
-    </View>
+    </View>)
   );
 }
 

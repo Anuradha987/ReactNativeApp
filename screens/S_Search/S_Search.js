@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -9,6 +9,7 @@ import {
   Image, 
   Platform, 
   Animated,
+  ActivityIndicator
 } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
@@ -89,13 +90,26 @@ searchUsers = (value) =>{
         poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
         poppins700: require('./../../assets/fonts/poppins-700.ttf'),
       });
-    
-      if (!loaded) {
-           return null;
-      }
 
+      useEffect(() => {
+        console.log("S_Search");
+       }, []);
+    
   return (
-    <View style={styles.container}>
+    (!loaded)?
+    (
+      <View
+        style={{
+          flex: 4,
+          backgroundColor: 'rgba(21,31,40,1)',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        {/* https://github.com/n4kz/react-native-indicators */}
+        <ActivityIndicator size="large" />
+      </View>
+    ):
+    (<View style={styles.container}>
 
       {/* horizontal scroll bar */}
       <View>
@@ -152,7 +166,7 @@ searchUsers = (value) =>{
         </View>
 
         {/* Open the Filter.js component */}
-        <TouchableOpacity style={styles.filterBtn} onPress={navigation.navigate('Filter.js')}>  
+        <TouchableOpacity style={styles.filterBtn} onPress={()=>navigation.navigate('Filter')}>  
           <View style={styles.filterIconFiller}></View>
           <FontAwesomeIcon
             name="filter"
@@ -258,7 +272,7 @@ searchUsers = (value) =>{
                 <EntypoIcon name="plus" style={styles.addIcon}></EntypoIcon>
       </TouchableOpacity>
       <View style={{marginTop:160}}></View>
-    </View>
+    </View>)
   );
 }
 

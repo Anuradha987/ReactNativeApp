@@ -7,7 +7,8 @@ import {
   TextInput,
   TouchableOpacity,
   Dimensions, 
-  ScrollView
+  ScrollView,
+  ActivityIndicator
 } from "react-native";
 import { useFonts } from 'expo-font';
 import DatePicker from 'react-native-datepicker'
@@ -66,13 +67,26 @@ function AddNewCard({navigation}) {
         });
     }
   }
-  
 
-  if (!loaded) {
-       return null;
-  }
+  useEffect(() => {
+    // console.log("SSentDetailsAfterAccepting");
+   }, []);
+  
   return (
-    <View style={styles.container}>
+    (!loaded)?
+    (
+      <View
+        style={{
+          flex: 4,
+          backgroundColor: 'rgba(21,31,40,1)',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        {/* https://github.com/n4kz/react-native-indicators */}
+        <ActivityIndicator size="large" />
+      </View>
+    ):
+    (<View style={styles.container}>
 
     {/*header*/}
     <View style={styles.header}>
@@ -200,7 +214,7 @@ function AddNewCard({navigation}) {
       </TouchableOpacity>
       </ScrollView>
       </KeyboardAwareScrollView>
-    </View>
+    </View>)
   );
 }
 

@@ -5,7 +5,8 @@ import {
   Text,
   Image,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  ActivityIndicator
 } from "react-native";
 import { RadioButton } from 'react-native-paper';
 import {icons, dummyData} from './../constants';
@@ -19,11 +20,24 @@ const CardItem = ({item, isSelected, onPress}) => {
     poppins700: require('../assets/fonts/poppins-700.ttf'),
   });
 
-  if (!loaded) {
-       return null;
-  }   
+  // if (!loaded) {
+  //      return null;
+  // }   
   return(
-      <TouchableOpacity style={{flexDirection:'row', 
+    (!loaded)?
+    (
+      <View
+        style={{
+          flex: 4,
+          backgroundColor: 'rgba(21,31,40,1)',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        {/* https://github.com/n4kz/react-native-indicators */}
+        <ActivityIndicator size="large" />
+      </View>
+    ):
+      (<TouchableOpacity style={{flexDirection:'row', 
                                 height:70, 
                                 alignItems:'center', 
                                 marginTop: 20, 
@@ -42,7 +56,7 @@ const CardItem = ({item, isSelected, onPress}) => {
           <Image source={isSelected ? icons.check_on : icons.check_off}
                  style={styles.radioBtn}
           />
-      </TouchableOpacity>
+      </TouchableOpacity>)
   )}
 
 const styles = StyleSheet.create({

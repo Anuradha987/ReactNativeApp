@@ -136,10 +136,11 @@ function Login({ navigation }, props) {
     }
 
     AuthService.login(user).then((res)=>{
-      console.log(res.data.data);
+      console.log(res.data);
       const foundUser ={
         userToken:res.data.data.token,
-        username:res.data.user.username
+        username:res.data.user.username,
+        id:res.data.user._id
       };
         login(foundUser);
     }).catch((error)=>{
@@ -367,8 +368,8 @@ const styles = StyleSheet.create({
     marginLeft: 14,
   },
   showPasswordIcon: {
-    color: 'rgba(128,128,128,1)',
-    fontSize: 15,
+    // color: 'rgba(128,128,128,1)',
+    // fontSize: 15,
     height: 14,
     width: 14,
     marginRight: 15,

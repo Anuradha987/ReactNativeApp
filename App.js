@@ -27,11 +27,14 @@ import {
   PaymentCards,
   Categories,
   AddEditItems,
-  ImageBrowserScreen
+  ImageBrowserScreen,
+  S_Requests,
+  I_My
 } from './screens/index';
 import { AuthContext } from './components/context';
 import RootStackScreen from './screens/login_SignUp/RootStackScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Filter from './components/Filter';
 
 const Stack = createStackNavigator();
 
@@ -39,13 +42,14 @@ const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 const App = () => {
   // const[isLoading, setIsLoading] = React.useState(true);
-  // const[userToken, setUserToken] = React.useState(null);
-
+  const[userToken, setUserToken] = React.useState(null);
+  const[userId, setUserId] = React.useState(null);
 
   // ---------------handling user login-------------------   //
   const initialLoginState = {
     isLoading: true,
     userName: null,
+    userId:null,
     userToken: null,
   };
 
@@ -92,14 +96,16 @@ const App = () => {
       login: async (foundUser) => {
         const userToken = String(foundUser.userToken);
         const userName = foundUser.username;
+        const id = foundUser.id;
 
         try {
           await AsyncStorage.setItem('userToken', userToken);
+          await AsyncStorage.setItem('userId',id);
         } catch (e) {
           console.log(e);
         }
-        // console.log('user token: ', userToken);
-        dispatch({ type: 'LOGIN', id: userName, token: userToken });
+        console.log('user token: ', userToken);
+        dispatch({ type: 'LOGIN', id: id, token: userToken, userName: userName });
         navigation.navigate('MyProfile');
       },
 
@@ -115,10 +121,15 @@ const App = () => {
         // setIsLoading(false);
         try {
           await AsyncStorage.removeItem('userToken');
+          await AsyncStorage.removeItem('userId');
         } catch (e) {
           console.log(e);
         }
         dispatch({ type: 'LOGOUT' });
+      },
+
+      sendUserToken: async () =>{
+        return userToken;
       },
     }),
     []
@@ -131,9 +142,12 @@ const App = () => {
       userToken = null;
       try {
         userToken = await AsyncStorage.getItem('userToken');
+        userId = await AsyncStorage.getItem('userId');
       } catch (e) {
         console.log(e);
       }
+      setUserToken(userToken);
+      setUserId(userId);
       // console.log('user token: ', userToken);
       dispatch({ type: 'RETRIEVE_TOKEN', token: userToken });
     }, 1000);
@@ -156,6 +170,7 @@ const App = () => {
       </View>
     );
   }
+//test npm start crash git push
 
 
   return (
@@ -175,6 +190,7 @@ const App = () => {
               <Stack.Screen name="Register" component={Register} />
               <Stack.Screen name="Otp" component={Otp} />
               <Stack.Screen name="PasswordRecovery" component={PasswordRecovery} />*/}
+                 <Stack.Screen name="Filter" component={Filter} /> 
               <Stack.Screen name="ResetPassword" component={ResetPassword} /> 
               <Stack.Screen name="AddNewCard" component={AddNewCard} />
               <Stack.Screen name="PaymentCards" component={PaymentCards} />
@@ -184,6 +200,8 @@ const App = () => {
               <Stack.Screen name="Categories" component={Categories} />
               <Stack.Screen name="SSentDetailsAfterAccepting" component={SSentDetailsAfterAccepting}/>
               <Stack.Screen name="S_RequestsDetails" component={S_RequestsDetails} />
+              <Stack.Screen name="S_Requests" component={S_Requests} userId={userId} userToken={userToken}/>
+              <Stack.Screen name="I_My" component={I_My} />
               <Stack.Screen name="SAfterCompleted" component={SAfterCompleted} />
               <Stack.Screen name="SAfterApproved" component={SAfterApproved} />
               <Stack.Screen name="AddEditItems" component={AddEditItems} />

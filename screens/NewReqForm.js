@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -8,7 +8,8 @@ import {
   FlatList,
   Image,
   SafeAreaView,
-  Alert
+  Alert,
+  ActivityIndicator
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import MaterialChipWithImageAndCloseButton from '../components/MaterialChipWithImageAndCloseButton';
@@ -140,11 +141,25 @@ const [loaded] = useFonts({
   poppins700: require('../assets/fonts/poppins-700.ttf'),
 });
 
-if (!loaded) {
-  return null;
-}
+useEffect(() => {
+  console.log("New req form");
+ }, []);
+
 return (
-  <SafeAreaView style={styles.container}>
+  (!loaded)?
+  (
+    <View
+      style={{
+        flex: 4,
+        backgroundColor: 'rgba(21,31,40,1)',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+      {/* https://github.com/n4kz/react-native-indicators */}
+      <ActivityIndicator size="large" />
+    </View>
+  ):
+  (<SafeAreaView style={styles.container}>
     <FlatList
       showsVerticalScrollIndicator={true}
       ListHeaderComponent={
@@ -344,7 +359,7 @@ return (
         </View>
       }
     />
-  </SafeAreaView>
+  </SafeAreaView>)
 );
 }
 

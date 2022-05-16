@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -7,6 +7,7 @@ import {
   Image,
   ImageBackground, 
   FlatList
+  , ActivityIndicator
 } from "react-native";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import FeatherIcon from "react-native-vector-icons/Feather";
@@ -39,11 +40,25 @@ function UserProfile({navigation}) {
     poppins700: require('../assets/fonts/poppins-700.ttf'),
   });
 
-  if (!loaded) {
-    return null;
-  }
+  useEffect(() => {
+   console.log("User Profile");
+  }, []);
+
   return (
-    <View style={styles.container}>
+    (!loaded)?
+    (
+        <View
+          style={{
+            flex: 4,
+            backgroundColor: 'rgba(21,31,40,1)',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          {/* https://github.com/n4kz/react-native-indicators */}
+          <ActivityIndicator size="large" />
+        </View>
+      ):
+    (<View style={styles.container}>
 
        <FlatList
         showsVerticalScrollIndicator={true}
@@ -199,7 +214,7 @@ function UserProfile({navigation}) {
         <View style={{ marginTop: 50 }}></View>
         
       </View>}/>
-    </View>
+    </View>)
   );
 }
 

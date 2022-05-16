@@ -1,5 +1,5 @@
 import React, {useRef ,useEffect}  from 'react';
-import {View, Text, TouchableOpacity, Image, TextInput, FlatList, TouchableWithoutFeedback} from 'react-native';
+import {View, Text, TouchableOpacity, Image, TextInput, FlatList, TouchableWithoutFeedback, ActivityIndicator} from 'react-native';
 import Animated, {useSharedValue, useAnimatedStyle, withTiming} from 'react-native-reanimated';
 import {FONTS, SIZES, COLORS, constants, icons, dummyData} from '../constants';
 import {connect} from 'react-redux'
@@ -20,11 +20,25 @@ const TabButton = ({label, icon, isFocused, onPress, outerContainerStyle, innerC
     poppins700: require('./../assets/fonts/poppins-700.ttf'),
   });
 
-  if (!loaded) {
-       return null;
-  }
+  useEffect(() => {
+    console.log("User Profile");
+   }, []);
+  
     return(
-        <TouchableWithoutFeedback onPress={onPress}>
+        (!loaded)?
+        (
+            <View
+              style={{
+                flex: 4,
+                backgroundColor: 'rgba(21,31,40,1)',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              {/* https://github.com/n4kz/react-native-indicators */}
+              <ActivityIndicator size="large" />
+            </View>
+          ):
+        (<TouchableWithoutFeedback onPress={onPress}>
             <Animated.View style={[{flex:1, alignItems: 'center', justifyContent: 'center'}, outerContainerStyle]}>
 
                 {/* another animated.view used to animate the bottom bar buttons in purple color */}
@@ -44,7 +58,7 @@ const TabButton = ({label, icon, isFocused, onPress, outerContainerStyle, innerC
                 </Animated.View>
 
             </Animated.View>
-        </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>)
     )
 }
 

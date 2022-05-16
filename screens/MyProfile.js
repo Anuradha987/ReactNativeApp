@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -7,8 +7,10 @@ import {
   Image,
   ImageBackground,
   FlatList,
+  ActivityIndicator,
   SafeAreaView,
 } from 'react-native';
+
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import MapView from 'react-native-maps';
@@ -22,24 +24,77 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import I_My from './I_My/I_My';
 import S_My from './S_My/S_My';
+import { ServicesService } from '../services/customer/Services';
+import { AuthContext } from '../components/context';
+import { ToastAndroid } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 
 function MyProfile({navigation}) {
+
+
   //poppins insert
   const [loaded] = useFonts({
     poppinsregular: require('../assets/fonts/Poppins-Regular.ttf'),
     poppins700: require('../assets/fonts/poppins-700.ttf'),
   });
 
-  if (!loaded) {
-    return null;
+  const { sendUserToken,logout } = React.useContext(AuthContext);
+
+  const [userDetails, setUserDetails]=React.useState(null);
+
+  useEffect(() => {
+    if(!userDetails){
+    loadUserDetails();
+    }
+    console.log(userDetails);
+  }, []);
+
+  const loadUserDetails = ()=>{
+    setTimeout(async () => {
+      let userToken;
+      let userId=null;
+      userToken = null;
+      try {
+        userToken = await AsyncStorage.getItem('userToken');
+        userId = await AsyncStorage.getItem('userId');
+        console.log(userToken);
+        ServicesService.getUserDetailsByUserId(userId, userToken).then((res)=>{
+          console.log(res.data.data[0].username);
+          ToastAndroid.show(res.data.data[0].username,ToastAndroid.SHORT);
+          setUserDetails(res.data.data[0]);
+        }).catch((error)=>{
+          // logout();
+          console.error(error);
+
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    }, 1000);
   }
+
   return (
+    (userDetails === null)? 
+      (
+        <View
+          style={{
+            flex: 4,
+            backgroundColor: 'rgba(21,31,40,1)',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          {/* https://github.com/n4kz/react-native-indicators */}
+          <ActivityIndicator size="large" />
+        </View>
+      ):(
+    
     <View style={styles.container}>
       <FlatList
         showsVerticalScrollIndicator={true}
+        listKey="1.1"
         ListHeaderComponent={
           <View>
             <View style={styles.rect1Row}></View>
@@ -68,7 +123,7 @@ function MyProfile({navigation}) {
                   resizeMode="contain"
                   style={styles.profileImage}></Image>
               </View>
-              <Text numberOfLines={1} style={styles.personName}>Sankalpa De Silva</Text>
+              <Text numberOfLines={1} style={styles.personName}>{userDetails.username}</Text>
               <FontAwesomeIcon
                 name="star"
                 style={styles.icon1}></FontAwesomeIcon>
@@ -190,7 +245,7 @@ function MyProfile({navigation}) {
         }
       />
     </View>
-  );
+  ));
 }
 
 const styles = StyleSheet.create({

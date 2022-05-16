@@ -10,7 +10,8 @@ import {
   FlatList, 
   TextInput,
   Pressable, 
-  Dimensions
+  Dimensions,
+  ActivityIndicator
 } from "react-native";
 import {Picker} from '@react-native-picker/picker';
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
@@ -240,12 +241,26 @@ const [selectedValue, setSelectedValue] = useState("All");
     poppinsregular: require('../assets/fonts/Poppins-Regular.ttf'),
     poppins700: require('../assets/fonts/poppins-700.ttf'),
   });
-  if (!loaded) {
-    return null;
-  }
+
+  useEffect(() => {
+    console.log("AddEditItems");
+   }, []);
 
   return (
-    <View style={styles.container}>
+    (!loaded)?
+    (
+      <View
+        style={{
+          flex: 4,
+          backgroundColor: 'rgba(21,31,40,1)',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        {/* https://github.com/n4kz/react-native-indicators */}
+        <ActivityIndicator size="large" />
+      </View>
+    ):
+    (<View style={styles.container}>
  <BottomSheet 
         ref={bs}
          //snapPoints={[430, screenHeight-100,0]}
@@ -479,7 +494,7 @@ const [selectedValue, setSelectedValue] = useState("All");
 
     }/>
 
-    </View>
+    </View>)
   );
 }
 

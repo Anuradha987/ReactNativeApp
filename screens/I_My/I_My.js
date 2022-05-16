@@ -9,7 +9,8 @@ import {
   TextInput,
   Dimensions,
   FlatList,
-  Animated
+  Animated,
+  ActivityIndicator
 } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -31,11 +32,25 @@ const I_My = () => {
       poppins700: require('./../../assets/fonts/poppins-700.ttf'),
   });
 
-  if (!loaded) {
-        return null;
-  }
+  useEffect(() => {
+    // console.log("SSentDetailsAfterAccepting");
+   }, []);
+   
   return (
-    <View style={styles.container}>
+    (!loaded)?
+    (
+      <View
+        style={{
+          flex: 4,
+          backgroundColor: 'rgba(21,31,40,1)',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        {/* https://github.com/n4kz/react-native-indicators */}
+        <ActivityIndicator size="large" />
+      </View>
+    ):
+    (<View style={styles.container}>
       {/* Vertical scroll bar */}
       <FlatList data={dummyData.itemsRequestList}
         showsVerticalScrollIndicator={true}
@@ -175,7 +190,7 @@ const I_My = () => {
         }
       />
       <View style={{ marginTop: 155 }}></View>
-    </View>
+    </View>)
 
   )
 }
