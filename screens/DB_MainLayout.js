@@ -27,11 +27,21 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab}) => 
         poppins700: require('./../assets/fonts/poppins-700.ttf'),
     });
 
-    if (!loaded) {
-        return null;
-    }
     return (
-        <Animated.View style={{ flex: 1,  backgroundColor:"rgba(21,31,40,1)", ...drawerAnimationStyle}} >
+      (!loaded)?
+      (
+        <View
+          style={{
+            flex: 4,
+            backgroundColor: 'rgba(21,31,40,1)',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          {/* https://github.com/n4kz/react-native-indicators */}
+          <ActivityIndicator size="large" />
+        </View>
+      ):
+        (<Animated.View style={{ flex: 1,  backgroundColor:"rgba(21,31,40,1)", ...drawerAnimationStyle}} >
             {/* Header */}
             <Header 
                 containerStyle={{height: 30, paddingHorizontal: SIZES.padding, marginTop: 20,marginBottom:15, alignItems:'center', }}
@@ -266,7 +276,7 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab}) => 
 
 <View style={{marginBottom:80}}></View>
       </View>}/>
-        </Animated.View>
+        </Animated.View>)
     )
 }
 

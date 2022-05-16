@@ -51,12 +51,21 @@ const searchUsers = (value) =>{
     poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
   });
   
-  if (!loaded) {
-    return null;
-  }
   return (
-    
-    <View style={styles.container}>
+    (!loaded)?
+    (
+      <View
+        style={{
+          flex: 4,
+          backgroundColor: 'rgba(21,31,40,1)',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        {/* https://github.com/n4kz/react-native-indicators */}
+        <ActivityIndicator size="large" />
+      </View>
+    ):
+    (<View style={styles.container}>
       
       <View>
         {/* horizontal scroll bar */}
@@ -183,9 +192,7 @@ onBlur = {()=> setSearchBarFocused(false)}
 
       {/* <View style={{ backgroundColor: "#fff", margin: 50, height: 700 }}></View> */}
       
-    </View>
-
-
+    </View>)
   );
 }
 

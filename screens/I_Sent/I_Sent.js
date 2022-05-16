@@ -34,7 +34,20 @@ const I_Sent = () => {
     }
 
   return (
-    <View style={styles.container}>
+    (!loaded)?
+    (
+      <View
+        style={{
+          flex: 4,
+          backgroundColor: 'rgba(21,31,40,1)',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        {/* https://github.com/n4kz/react-native-indicators */}
+        <ActivityIndicator size="large" />
+      </View>
+    ):
+    (<View style={styles.container}>
       <FlatList
         showsVerticalScrollIndicator={true}
         ListHeaderComponent={
@@ -148,7 +161,7 @@ const I_Sent = () => {
             </View>
             <View style={{ marginTop: 130 }}></View>
           </View>} />
-    </View>
+    </View>)
   );
 }
 

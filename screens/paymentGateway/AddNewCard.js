@@ -68,12 +68,21 @@ function AddNewCard({navigation}) {
     }
   }
   
-
-  if (!loaded) {
-       return null;
-  }
   return (
-    <View style={styles.container}>
+    (!loaded)?
+    (
+      <View
+        style={{
+          flex: 4,
+          backgroundColor: 'rgba(21,31,40,1)',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        {/* https://github.com/n4kz/react-native-indicators */}
+        <ActivityIndicator size="large" />
+      </View>
+    ):
+    (<View style={styles.container}>
 
     {/*header*/}
     <View style={styles.header}>
@@ -201,7 +210,7 @@ function AddNewCard({navigation}) {
       </TouchableOpacity>
       </ScrollView>
       </KeyboardAwareScrollView>
-    </View>
+    </View>)
   );
 }
 
