@@ -200,7 +200,7 @@ const App = () => {
               <Stack.Screen name="Categories" component={Categories} />
               <Stack.Screen name="SSentDetailsAfterAccepting" component={SSentDetailsAfterAccepting}/>
               <Stack.Screen name="S_RequestsDetails" component={S_RequestsDetails} />
-              <Stack.Screen name="S_Requests" component={S_Requests} />
+              <Stack.Screen name="S_Requests" component={S_Requests} userId={userId} userToken={userToken}/>
               <Stack.Screen name="I_My" component={I_My} />
               <Stack.Screen name="SAfterCompleted" component={SAfterCompleted} />
               <Stack.Screen name="SAfterApproved" component={SAfterApproved} />

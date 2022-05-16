@@ -4,8 +4,10 @@ import SimpleLineIconsIcon from "react-native-vector-icons/SimpleLineIcons";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import { useFonts } from 'expo-font';
+import { useNavigation } from '@react-navigation/native';
 
 function Filter(props) {
+  const navigation = useNavigation();
     //poppins insert
 const [loaded] = useFonts({
   poppinsregular: require('../assets/fonts/Poppins-Regular.ttf'),
@@ -23,6 +25,7 @@ if (!loaded) {
           <View style={styles.backBtn}>
             <SimpleLineIconsIcon
               name="arrow-left"
+              onPress={()=> navigation.goBack()}
               style={styles.backIcon}
             ></SimpleLineIconsIcon>
           </View>

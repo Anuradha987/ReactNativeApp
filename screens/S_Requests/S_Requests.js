@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -6,7 +6,7 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  FlatList
+  FlatList, ActivityIndicator
 } from "react-native";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import EntypoIcon from "react-native-vector-icons/Entypo";
@@ -14,20 +14,60 @@ import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import { dummyData } from "../../constants";
 import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
+import { RequestService } from "../../services/customer/Requests";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const S_Requests = () => {
+const S_Requests = (props) => {
   const navigation = useNavigation();
       //poppins insert
       const [loaded] = useFonts({
         poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
         poppins700: require('./../../assets/fonts/poppins-700.ttf'),
     });
+
+    const [recievedRequests, setRecievedRequests] = React.useState(null);
   
-    if (!loaded) {
-          return null;
+    useEffect(() => {
+      loadRequests();
+    }, []);
+
+    const loadRequests = ()=>{
+      setTimeout(async () => {
+        let userToken;
+        let userId=null;
+        userToken = null;
+        try {
+          userToken = await AsyncStorage.getItem('userToken');
+          userId = await AsyncStorage.getItem('userId');
+          console.log(userToken," ",userId);
+          RequestService.getRecievedRequestsByUserId("userId",userToken).then((res)=>{
+            console.log(res.status.message);
+            console.log(res.data);
+          }).catch((error)=>{
+            // console.log(userId,"  ", userToken);
+            console.log(error);
+          })
+        } catch (e) {
+          console.log(e);
+        }
+      }, 1000);
     }
+
   return (
-    <View style={styles.container}>
+    (!loaded)?
+    (
+      <View
+        style={{
+          flex: 4,
+          backgroundColor: 'rgba(21,31,40,1)',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        {/* https://github.com/n4kz/react-native-indicators */}
+        <ActivityIndicator size="large" />
+      </View>
+    ):
+    (<View style={styles.container}>
       <FlatList 
         showsVerticalScrollIndicator={true}
         ListHeaderComponent={ 
@@ -155,7 +195,7 @@ const S_Requests = () => {
           </View>
         } />
       <View style={{ marginTop: 175 }}></View>
-    </View>
+    </View>)
   );
 }
 

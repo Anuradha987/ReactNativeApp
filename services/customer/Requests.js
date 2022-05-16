@@ -17,6 +17,11 @@ export class RequestService{
         return res;
     }
 
+    static async getRecievedRequestsByUserId(user_id,token){
+        const res = await axiosInstance.get(`/get_recieved_requests?user_id=${user_id}`,{headers: { Authorization: `Bearer ${token}` }});
+        return res;
+    }
+
     static async getRecievedPublicRequests(token){
         const res = await axiosInstance.get(`/get_recieved_public_requests`,{headers: { Authorization: `Bearer ${token}` }});
         return res;

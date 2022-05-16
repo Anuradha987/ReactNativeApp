@@ -30,11 +30,25 @@ const S_My = () => {
     poppins700: require('./../../assets/fonts/poppins-700.ttf'),
 });
 
-if (!loaded) {
-      return null;
-}
+useEffect(() => {
+  // loadRequests();
+}, []);
+
     return (
-      <View style={styles.container}>
+      (!loaded)?
+      (
+        <View
+          style={{
+            flex: 4,
+            backgroundColor: 'rgba(21,31,40,1)',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          {/* https://github.com/n4kz/react-native-indicators */}
+          <ActivityIndicator size="large" />
+        </View>
+      ):
+      (<View style={styles.container}>
       <FlatList 
                 keyExtractor={(item) => `${item.id}`}
                 showsVerticalScrollIndicator={true}
@@ -134,7 +148,7 @@ if (!loaded) {
         
       </View> */}
       
-    </View>
+    </View>)
   );
 }
 
