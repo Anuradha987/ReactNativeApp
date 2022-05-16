@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Image, TextInput, FlatList, StyleSheet,ImageBackground, ScrollView, } from 'react-native';
+import {View, Text, TouchableOpacity, Image, TextInput, FlatList, StyleSheet,ImageBackground, ScrollView,
+  ActivityIndicator } from 'react-native';
 import Animated, {useSharedValue, useAnimatedStyle, withTiming} from 'react-native-reanimated';
 import {FONTS, SIZES, COLORS, constants, icons, dummyData} from '../constants';
 import {connect} from 'react-redux'

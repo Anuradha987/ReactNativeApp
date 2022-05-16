@@ -7,7 +7,8 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  ImageBackground, TouchableWithoutFeedback, Dimensions
+  ImageBackground, TouchableWithoutFeedback, Dimensions,
+  ActivityIndicator
 } from "react-native";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";

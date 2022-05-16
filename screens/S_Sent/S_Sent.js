@@ -8,7 +8,8 @@ import {
   Text,
   FlatList,
   Animated,
-  Image
+  Image,
+  ActivityIndicator
 } from "react-native";
 import {Picker} from '@react-native-picker/picker';
 import FeatherIcon from "react-native-vector-icons/Feather";

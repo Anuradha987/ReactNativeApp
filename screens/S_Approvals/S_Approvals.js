@@ -7,7 +7,8 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-  FlatList
+  FlatList,
+  ActivityIndicator
 } from "react-native";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import FeatherIcon from "react-native-vector-icons/Feather";

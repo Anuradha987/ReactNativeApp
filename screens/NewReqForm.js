@@ -8,7 +8,8 @@ import {
   FlatList,
   Image,
   SafeAreaView,
-  Alert
+  Alert,
+  ActivityIndicator
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import MaterialChipWithImageAndCloseButton from '../components/MaterialChipWithImageAndCloseButton';

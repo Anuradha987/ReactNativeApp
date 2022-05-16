@@ -10,7 +10,8 @@ import {
   FlatList, 
   TextInput,
   Pressable, 
-  Dimensions
+  Dimensions,
+  ActivityIndicator
 } from "react-native";
 import {Picker} from '@react-native-picker/picker';
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { StyleSheet, View, ScrollView, Image, Text, FlatList,  Dimensions, TouchableOpacity } from "react-native";
+import { StyleSheet, View, ScrollView, Image, Text, FlatList,  Dimensions, TouchableOpacity,
+  ActivityIndicator } from "react-native";
 import { useFonts } from 'expo-font';
 import dummyData from '../constants/dummyData'
 const windowHeight = Dimensions.get('screen').height;

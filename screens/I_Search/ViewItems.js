@@ -9,6 +9,7 @@ import {
   TouchableHighlight,
   Dimensions,
   FlatList,
+  ActivityIndicator
 } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";

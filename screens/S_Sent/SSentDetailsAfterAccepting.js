@@ -9,7 +9,8 @@ import {
   Dimensions,
   FlatList,
   TouchableOpacity,
-  Modal
+  Modal,
+  ActivityIndicator
 } from 'react-native';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import EvilIconsIcon from 'react-native-vector-icons/EvilIcons';

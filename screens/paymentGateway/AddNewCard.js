@@ -7,7 +7,8 @@ import {
   TextInput,
   TouchableOpacity,
   Dimensions, 
-  ScrollView
+  ScrollView,
+  ActivityIndicator
 } from "react-native";
 import { useFonts } from 'expo-font';
 import DatePicker from 'react-native-datepicker'

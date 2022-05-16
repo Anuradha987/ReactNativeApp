@@ -4,7 +4,8 @@ import {
   View,
   Text,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  ActivityIndicator
 } from "react-native";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 

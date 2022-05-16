@@ -9,6 +9,7 @@ import {
   Image, 
   Platform, 
   Animated,
+  ActivityIndicator
 } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";

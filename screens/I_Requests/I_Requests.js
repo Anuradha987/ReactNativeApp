@@ -7,7 +7,8 @@ import {
   Image,
   TextInput, 
   FlatList, 
-  TouchableOpacity
+  TouchableOpacity,
+  ActivityIndicator
 } from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
@@ -25,9 +26,9 @@ const I_Requests = () => {
         poppins700: require('./../../assets/fonts/poppins-700.ttf'),
     });
   
-    if (!loaded) {
-          return null;
-    }
+    // if (!loaded) {
+    //       return null;
+    // }
 
     return (
         <View style={styles.container}>

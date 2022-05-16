@@ -9,7 +9,8 @@ import {
   TextInput,
   Dimensions,
   FlatList,
-  Animated
+  Animated,
+  ActivityIndicator
 } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";

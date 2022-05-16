@@ -9,7 +9,8 @@ import {
   TextInput,
   Dimensions,
   FlatList,
-  Animated
+  Animated,
+  ActivityIndicator
 } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -35,6 +36,7 @@ const I_My = () => {
         return null;
   }
   return (
+
     <View style={styles.container}>
       {/* Vertical scroll bar */}
       <FlatList data={dummyData.itemsRequestList}

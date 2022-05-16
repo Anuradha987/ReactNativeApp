@@ -7,7 +7,8 @@ import {
   ScrollView,
   Text,
   Image,
-  FlatList
+  FlatList,
+  ActivityIndicator
 } from "react-native";
 import {Picker} from '@react-native-picker/picker';
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";

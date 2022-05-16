@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Image, ScrollView, TouchableOpacity,
+  ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import CardItem from './../../components/CardItem';
 import dummyData from '../../constants/dummyData';
