@@ -109,7 +109,7 @@ onBlur = {()=> setSearchBarFocused(false)}
           ></EvilIconsIcon>
         </View>
         {/* Open the filter.js Component */}
-        <TouchableOpacity style={styles.filterBtn} onPress={()=>{}}>
+        <TouchableOpacity style={styles.filterBtn} onPress={()=>navigation.navigate('Filter')}>
           <View style={styles.filterIconFiller}></View>
           <FontAwesomeIcon
             name="filter"

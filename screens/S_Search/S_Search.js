@@ -152,7 +152,7 @@ searchUsers = (value) =>{
         </View>
 
         {/* Open the Filter.js component */}
-        <TouchableOpacity style={styles.filterBtn} onPress={navigation.navigate('Filter.js')}>  
+        <TouchableOpacity style={styles.filterBtn} onPress={()=>navigation.navigate('Filter')}>  
           <View style={styles.filterIconFiller}></View>
           <FontAwesomeIcon
             name="filter"

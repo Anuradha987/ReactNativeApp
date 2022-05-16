@@ -32,6 +32,7 @@ import {
 import { AuthContext } from './components/context';
 import RootStackScreen from './screens/login_SignUp/RootStackScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Filter from './components/Filter';
 
 const Stack = createStackNavigator();
 
@@ -187,6 +188,7 @@ const App = () => {
               <Stack.Screen name="Register" component={Register} />
               <Stack.Screen name="Otp" component={Otp} />
               <Stack.Screen name="PasswordRecovery" component={PasswordRecovery} />*/}
+                 <Stack.Screen name="Filter" component={Filter} /> 
               <Stack.Screen name="ResetPassword" component={ResetPassword} /> 
               <Stack.Screen name="AddNewCard" component={AddNewCard} />
               <Stack.Screen name="PaymentCards" component={PaymentCards} />
