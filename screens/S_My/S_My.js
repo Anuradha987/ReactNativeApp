@@ -50,7 +50,7 @@ useEffect(() => {
         </View>
       ):
       (<View style={styles.container}>
-               <TouchableOpacity style={styles.button} onPress={()=>{}}>
+               <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate('AddEditServices')}}>
               <Text style={styles.submit}>Add New Service</Text>
           </TouchableOpacity>
       <FlatList 
