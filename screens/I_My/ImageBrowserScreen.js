@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import * as ImageManipulator from 'expo-image-manipulator';
 import {ImageBrowser} from 'expo-image-picker-multiple';

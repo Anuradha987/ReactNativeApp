@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -35,9 +35,9 @@ function SSentDetailsAfterAccepting({ navigation }) {
     poppins700: require('../../assets/fonts/poppins-700.ttf'),
   });
 
-  useEffect(() => {
-    console.log("SSentDetailsAfterAccepting");
-   }, []);
+  // useEffect(() => {
+  //   console.log("SSentDetailsAfterAccepting");
+  //  }, []);
 
   return (
     (!loaded)?
