@@ -265,8 +265,8 @@ const [selectedValue, setSelectedValue] = useState("All");
         ref={bs}
          //snapPoints={[430, screenHeight-100,0]}
         snapPoints={[400,screenHeight-30,0]}
-        renderContent={renderInner}
-        renderHeader={renderHeader}
+        // renderContent={()=>renderInner}
+        // renderHeader={renderHeader}
         initialSnap={1}
         callbackNode ={fall}
         enabledGestureInteraction = {true}

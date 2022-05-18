@@ -19,6 +19,7 @@ import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import { dummyData } from '../../constants';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useFonts } from 'expo-font';
+import { useNavigation } from '@react-navigation/native';
 
 //item details that have been sold and the order requests recieved from others
 
@@ -26,6 +27,7 @@ const windowHeight = Dimensions.get('screen').height;
 const windowWidth = Dimensions.get('screen').width;
 
 const I_My = () => {
+  const navigation = useNavigation();      
     //poppins insert
     const [loaded] = useFonts({
       poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
