@@ -107,7 +107,7 @@ function Login({ navigation }, props) {
 
   const loginHandle = (userName, password) => {
     // AuthService.test();
-    console.log("Hello0");
+    console.log("login");
     const foundUser = dummyData.Users.filter((item) => {
       return userName == item.username && password == item.password;
     });
@@ -115,7 +115,7 @@ function Login({ navigation }, props) {
     if (data.username.length == 0 || data.password.length == 0) {
       Alert.alert(
         'Login Failed!',
-        'Username or Password fields cannot be empty',
+        'Email or Password fields cannot be empty',
         [{ text: 'Retry' }]
       );
       return;
@@ -128,12 +128,14 @@ function Login({ navigation }, props) {
     //   return;
     // }
     // login(foundUser);
-    console.log(data);
 
     const user = {
       email:data.username,
       password:data.password
     }
+
+    console.log(user);
+
 
     AuthService.login(user).then((res)=>{
       console.log(res.data);
@@ -181,7 +183,7 @@ function Login({ navigation }, props) {
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                 }}>
-                <Text style={styles.usernamelbl}>Username</Text>
+                <Text style={styles.usernamelbl}>Email</Text>
                 {data.isValidUsername ? null : (
                   <Text style={styles.errMsg}>Invalid Username</Text>
                 )}
