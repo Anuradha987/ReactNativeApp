@@ -61,7 +61,7 @@ const renderHeader =()=>{
 
 
 // function AddEditItems({item, navigation, isSelected}) {
-  const AddEditItems = ({navigation,}) => {
+  const AddEditServices = ({navigation,}) => {
 //  class AddEditItems extends Component {
 //     constructor (props) {
 //       super(props)
@@ -261,6 +261,7 @@ const [selectedValue, setSelectedValue] = useState("All");
       </View>
     ):
     (<View style={styles.container}>
+   
  <BottomSheet 
         ref={bs}
          //snapPoints={[430, screenHeight-100,0]}
@@ -785,5 +786,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddEditItems;
+export default AddEditServices;
 

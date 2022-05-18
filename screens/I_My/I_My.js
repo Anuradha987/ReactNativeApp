@@ -19,6 +19,7 @@ import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import { dummyData } from '../../constants';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useFonts } from 'expo-font';
+import { useNavigation } from '@react-navigation/native';
 
 //item details that have been sold and the order requests recieved from others
 
@@ -26,6 +27,7 @@ const windowHeight = Dimensions.get('screen').height;
 const windowWidth = Dimensions.get('screen').width;
 
 const I_My = () => {
+  const navigation = useNavigation();      
     //poppins insert
     const [loaded] = useFonts({
       poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
@@ -51,6 +53,9 @@ const I_My = () => {
       </View>
     ):
     (<View style={styles.container}>
+                   <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate('AddEditItems')}}>
+              <Text style={styles.submit}>Add New Item</Text>
+          </TouchableOpacity>
       {/* Vertical scroll bar */}
       <FlatList data={dummyData.itemsRequestList}
         showsVerticalScrollIndicator={true}
@@ -200,6 +205,24 @@ const styles = StyleSheet.create({
     flex: 1,
     //backgroundColor: "#fff",
     backgroundColor: "rgba(21,31,40,1)",
+  },
+  button: {
+    height: 47,
+    backgroundColor: "rgba(123,0,255,1)",
+    borderRadius: 8,
+    marginTop: 30,
+    marginLeft: 37,
+    marginRight: 37
+  },
+  submit: {
+    fontFamily: "poppinsregular",
+    color: "rgba(255,255,255,1)",
+    textAlign: "center",
+    marginTop: 9,
+    marginLeft: 8,
+    marginRight: 7,    
+    letterSpacing:0.5, 
+    fontSize:18,
   },
   receivedReqList: {
     width: 365,
