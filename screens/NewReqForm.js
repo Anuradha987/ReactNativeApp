@@ -54,6 +54,7 @@ function NewReqForm({ navigation }) {
     category: "",
     priority: "",
     location: "",
+    description: "",
     attachment: "",
     isValidTo: true,
     isValidTitle: true,
@@ -151,7 +152,7 @@ function NewReqForm({ navigation }) {
   }, []);
 
   const submitHandler = () => {
-    console.log("submit");
+    console.log("submit", userId);
 
     const dataObj = {
       userId: userId,
@@ -161,6 +162,7 @@ function NewReqForm({ navigation }) {
       priority: data.priority,
       location: data.location,
       attachment: data.attachment,
+      to: data.to
     };
 
     console.log(dataObj);
@@ -226,7 +228,7 @@ function NewReqForm({ navigation }) {
               }}
             >
               <Text style={styles.tolbl}>To</Text>
-              <Text style={styles.errMsg}>Error To</Text>
+              {/* <Text style={styles.errMsg}>Error To</Text> */}
             </View>
 
             <View style={styles.categorytxt}>
