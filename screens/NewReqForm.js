@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -20,6 +20,7 @@ import Icon from "react-native-vector-icons/SimpleLineIcons";
 import { LinearGradient } from 'expo-linear-gradient';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import {dummyData} from '../constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function NewReqForm({ navigation }) {
   const [selectedPriority, setSelectedPriority] = React.useState();
@@ -63,6 +64,8 @@ function NewReqForm({ navigation }) {
     check_textInputChangePriority: false,
     check_textInputChangeLocation: false,
   });
+  const [token, setToken] = useState("");
+  const [userId, setUserId] = useState("");
 
     //email validation
   // onChangeText={(val) => textInputChangeTitle(val)}
@@ -143,7 +146,13 @@ const [loaded] = useFonts({
 
 useEffect(() => {
   console.log("New req form");
+  setToken(AsyncStorage.getItem('userToken'))
+  setUserId(AsyncStorage.getItem('userId'))
  }, []);
+
+ const submitHandler = () => {
+   console.log("submit")
+ }
 
 return (
   (!loaded)?
@@ -351,7 +360,7 @@ return (
           </TouchableOpacity>                
           </View>
 
-          <TouchableOpacity style={styles.button} onPress={()=>{}}>
+          <TouchableOpacity style={styles.button} onPress={submitHandler}>
               <Text style={styles.submit}>SUBMIT</Text>
           </TouchableOpacity>
           
