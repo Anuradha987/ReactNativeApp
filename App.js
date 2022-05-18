@@ -35,6 +35,7 @@ import { AuthContext } from './components/context';
 import RootStackScreen from './screens/login_SignUp/RootStackScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Filter from './components/Filter';
+import AddEditServices from './screens/AddEditServices';
 
 const Stack = createStackNavigator();
 
@@ -205,6 +206,7 @@ const App = () => {
               <Stack.Screen name="SAfterCompleted" component={SAfterCompleted} />
               <Stack.Screen name="SAfterApproved" component={SAfterApproved} />
               <Stack.Screen name="AddEditItems" component={AddEditItems} />
+              <Stack.Screen name="AddEditServices" component={AddEditServices} />
               <Stack.Screen name="ImageBrowserScreen" component={ImageBrowserScreen} />
             </Stack.Navigator>
           ) : ( 
