@@ -295,18 +295,19 @@ const styles = StyleSheet.create({
   image1: {
     height: 143,
     width: 112,
-    marginLeft: 150,
-    marginTop: 81,
+    marginLeft: 50,
+    marginRight: 50,
+    marginTop: 50,
   },
   text1: {
-    top: 344,
+    top: 250,
     left: 42,
     position: 'absolute',
     fontFamily: 'poppinsregular',
     color: 'rgba(255,255,255,1)',
   },
   text2: {
-    top: 361,
+    top: 270,
     // marginTop:30,
     left: 42,
     position: 'absolute',
@@ -316,7 +317,7 @@ const styles = StyleSheet.create({
   },
   rect: {
     bottom: 40,
-    top: 424,
+    top: 330,
     left: 16,
     height: 352,
     position: 'absolute',
