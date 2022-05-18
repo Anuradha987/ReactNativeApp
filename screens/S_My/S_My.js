@@ -50,6 +50,9 @@ useEffect(() => {
         </View>
       ):
       (<View style={styles.container}>
+               <TouchableOpacity style={styles.button} onPress={()=>{}}>
+              <Text style={styles.submit}>Add New Service</Text>
+          </TouchableOpacity>
       <FlatList 
                 keyExtractor={(item) => `${item.id}`}
                 showsVerticalScrollIndicator={true}
@@ -157,6 +160,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "rgba(21,31,40,1)"
+  },
+  button: {
+    height: 47,
+    backgroundColor: "rgba(123,0,255,1)",
+    borderRadius: 8,
+    marginTop: 30,
+    marginLeft: 37,
+    marginRight: 37
+  },
+  submit: {
+    fontFamily: "poppinsregular",
+    color: "rgba(255,255,255,1)",
+    textAlign: "center",
+    marginTop: 9,
+    marginLeft: 8,
+    marginRight: 7,    
+    letterSpacing:0.5, 
+    fontSize:18,
   },
   myServiceDetails: {
     width:365,

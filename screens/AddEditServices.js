@@ -261,6 +261,7 @@ const [selectedValue, setSelectedValue] = useState("All");
       </View>
     ):
     (<View style={styles.container}>
+   
  <BottomSheet 
         ref={bs}
          //snapPoints={[430, screenHeight-100,0]}
