@@ -175,7 +175,7 @@ const openCamera = async () => {
       profile_img:"test",
       cover_img:"test",
       description:"test",
-      userCategories:[]
+      userCategories:["Pets", "Law", "Environment", "Photography"]
     }
 
     console.log(userdata);
