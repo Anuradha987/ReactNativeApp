@@ -339,7 +339,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 63,
     position: "absolute",
-    fontFamily: "roboto-700",
+    // fontFamily: "roboto-700",
     color: "rgba(125,123,123,1)",
     width: 10,
     height: 17,
@@ -409,7 +409,7 @@ const styles = StyleSheet.create({
     top: 5,
     left: 63,
     position: "absolute",
-    fontFamily: "roboto-700",
+    // fontFamily: "roboto-700",
     color: "rgba(125,123,123,1)"
   },
   returningDateOrExchangedForlblStack: {
