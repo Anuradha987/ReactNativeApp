@@ -20,6 +20,8 @@ import { dummyData } from '../../constants';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useFonts } from 'expo-font';
 import { useNavigation } from '@react-navigation/native';
+import { ItemsService } from "../../services/customer/Items";
+import { AuthService } from "../../services/AuthService";
 
 //item details that have been sold and the order requests recieved from others
 
@@ -36,6 +38,7 @@ const I_My = () => {
 
   useEffect(() => {
     // console.log("SSentDetailsAfterAccepting");
+    // ItemsService.getItemsByUserId(AuthService)
    }, []);
    
   return (
