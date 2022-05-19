@@ -255,6 +255,9 @@ const [selectedValue, setSelectedValue] = useState("All");
       </View>
     ):
     (<View style={styles.container}>
+      <FlatList showsVerticalScrollIndicator={true}
+        listKey="28.1"
+        ListHeaderComponent={
  <BottomSheet 
         ref={bs}
          //snapPoints={[430, screenHeight-100,0]}
@@ -266,7 +269,7 @@ const [selectedValue, setSelectedValue] = useState("All");
         enabledGestureInteraction = {true}
         enabledHeaderGestureInteraction={true}
         enabledContentGestureInteraction={false}
-      />
+      />}/>
 
 
       {/* <Animated.View style={{opacity: Animated.add(0.1, Animated.multiply(fall,0.1)),}}></Animated.View> */}
