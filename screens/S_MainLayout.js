@@ -25,19 +25,6 @@ const TabButton = ({label, icon, isFocused, onPress, outerContainerStyle, innerC
    }, []);
   
     return(
-        (!loaded)?
-        (
-            <View
-              style={{
-                flex: 4,
-                backgroundColor: 'rgba(21,31,40,1)',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              {/* https://github.com/n4kz/react-native-indicators */}
-              <ActivityIndicator size="large" />
-            </View>
-          ):
         (<TouchableWithoutFeedback onPress={onPress}>
             <Animated.View style={[{flex:1, alignItems: 'center', justifyContent: 'center'}, outerContainerStyle]}>
 
