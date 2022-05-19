@@ -222,7 +222,7 @@ const [selectedValue, setSelectedValue] = useState("All");
    const AddItem = () =>{
 
      const data ={
-      user_id: "620729b1de4a5c278423dbe9",
+      user_id: AuthService.userId,
       name: "test item",
       description: "test description",
       category: "Pets",
@@ -233,7 +233,7 @@ const [selectedValue, setSelectedValue] = useState("All");
       images: "testimagestring",
       location: "testlocation"
      }
-    ItemsService.AddItem(data,token).then((res)=>{
+    ItemsService.AddItem(data,AuthService.userToken).then((res)=>{
       console.log(res.data);
     }).catch((error)=>{
       console.log(error)
@@ -483,7 +483,7 @@ const [selectedValue, setSelectedValue] = useState("All");
       ></TextInput>  
 
 
-      <TouchableOpacity style={styles.button} onPress={()=>{}}>
+      <TouchableOpacity style={styles.button} onPress={()=>{AddItem()}}>
               <Text style={styles.submit}>SUBMIT</Text>
       </TouchableOpacity>
 
