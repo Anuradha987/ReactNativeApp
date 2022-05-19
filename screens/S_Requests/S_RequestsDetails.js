@@ -61,6 +61,7 @@ const S_RequestsDetails = ({ navigation }) => {
       />
 
       <FlatList
+        listKey="21.1"
         showsVerticalScrollIndicator={true}
         ListHeaderComponent={
           <View>

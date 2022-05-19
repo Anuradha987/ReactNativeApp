@@ -41,6 +41,7 @@ return (
   // ):
 (<View style={styles.scrollAreaServices}>
     <FlatList
+    listKey="5.1"
         data={dummyData.completedReceieveServicesRequests}
         keyExtractor={(item) => `${item.id}`}
         showsHorizontalScrollIndicator={true}
@@ -80,6 +81,7 @@ function Items() {
     return (
             <View style={styles.scrollAreaItems}>
             <FlatList
+              listKey="5.2"
                 data={dummyData.completedReceieveServicesRequests}
                 keyExtractor={(item) => `${item.id}`}
                 showsHorizontalScrollIndicator={true}

@@ -161,6 +161,7 @@ return (
   ):
   (<SafeAreaView style={styles.container}>
     <FlatList
+          listKey="7.1"
       showsVerticalScrollIndicator={true}
       ListHeaderComponent={
         <View>

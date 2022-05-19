@@ -60,6 +60,7 @@ const SAfterApproved = ({ navigation }) => {
       />
 
             <FlatList
+                 listKey="17.1"
         showsVerticalScrollIndicator={true}
         ListHeaderComponent={
           <View>

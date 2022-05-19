@@ -64,6 +64,7 @@ const I_My = () => {
           <View>
             {/* horizontal scroll bar */}
             <Animated.FlatList
+              listKey="10.1"
               data={dummyData.myItemsData}
               keyExtractor={(item) => `${item.id}`}
               showsHorizontalScrollIndicator={true}

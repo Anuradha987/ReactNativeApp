@@ -317,6 +317,7 @@ const S_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelecte
                 //                     [{nativeEvent:{contentOffset: {y: scrollY} } }],
                 //                     {useNativeDrawer: true }
                 //                     )}
+                listKey="8.1"
                           ref={flatListRef}
                           horizontal
                           scrollEnabled={false}

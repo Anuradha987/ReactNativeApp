@@ -57,9 +57,11 @@ function Categories({navigation}) {
 {/* container */}
       <View style={styles.scrollArea}>
         <FlatList showsVerticalScrollIndicator={true} 
+        listKey="4.1"
         ListHeaderComponent={
           <View>
             <FlatList
+            listKey="4.2"
               onPress={()=>{}}
               columnWrapperStyle={{ justifyContent: 'space-between', marginHorizontal:20,  }}
               data={dummyData.categories}

@@ -71,6 +71,7 @@ function SSentDetailsAfterAccepting({ navigation }) {
         style={{ left: 0, right: 0, height: 15 }}
       />
       <FlatList
+        listKey="24.1"
         showsVerticalScrollIndicator={true}
         ListHeaderComponent={
           <View>

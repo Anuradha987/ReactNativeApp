@@ -46,6 +46,7 @@ const I_Requests = () => {
       ):
         (<View style={styles.container}>
 <FlatList showsVerticalScrollIndicator={true}
+        listKey="11.1"
         ListHeaderComponent={
             <View>
 <View> 
@@ -66,6 +67,7 @@ const I_Requests = () => {
 
            <View style={styles.scrollArea}>
             <FlatList
+            listKey="11.2"
             data={dummyData.itemSalesHistory}
             keyExtractor={(item) => `${item.id}`}
             showsVerticalScrollIndicator={true}

@@ -71,6 +71,7 @@ const S_Requests = (props) => {
       ) :
       (<View style={styles.container}>
         <FlatList
+          listKey="20.1"
           showsVerticalScrollIndicator={true}
           ListHeaderComponent={
             <View>
@@ -101,7 +102,7 @@ const S_Requests = (props) => {
               {/* Recieved request for me */}
               {recievedRequests.length > 0 ? (
                 (<Text style={styles.requestsForMe}>Requests for me</Text>)
-                  (<FlatList data={dummyData.recieveRequestForMe}
+                  (<FlatList listKey="20.2" data={dummyData.recieveRequestForMe}
                     horizontal
                     keyExtractor={(item) => `${item.id}`}
                     showsHorizontalScrollIndicator={false}
@@ -167,7 +168,7 @@ const S_Requests = (props) => {
                     ></FontAwesomeIcon>
                   </TouchableOpacity>
                 </View>)
-                  (<FlatList data={dummyData.OtherRecieveRequest}
+                  (<FlatList listKey="20.3" data={dummyData.OtherRecieveRequest}
                     keyExtractor={(item) => `${item.id}`}
                     showsVerticalScrollIndicator={true}
                     renderItem={({ item, index }) => {

@@ -473,6 +473,7 @@ const openCamera = async () => {
         style={styles.image}
         imageStyle={styles.image_imageStyle}>
         <FlatList
+          listKey="15.1"
           showsVerticalScrollIndicator={true}
           ListHeaderComponent={
             <View>

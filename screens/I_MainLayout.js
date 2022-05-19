@@ -263,6 +263,7 @@ const I_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelecte
  {/* Content */}
             <View style={{flex:1}}>
             <FlatList ref={flatListRef}
+              listKey="6.1"
                           horizontal
                           scrollEnabled={false}
                           pagingEnabled

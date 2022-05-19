@@ -61,6 +61,7 @@ function UserProfile({navigation}) {
     (<View style={styles.container}>
 
        <FlatList
+             listKey="9.1"
         showsVerticalScrollIndicator={true}
         ListHeaderComponent={
           <View>

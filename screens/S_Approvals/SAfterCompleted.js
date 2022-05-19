@@ -61,6 +61,7 @@ const SAfterCompleted = ({ navigation }) => {
       />
 
             <FlatList
+                       listKey="18.1"
         showsVerticalScrollIndicator={true}
         ListHeaderComponent={
           <View>

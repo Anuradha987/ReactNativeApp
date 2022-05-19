@@ -74,6 +74,7 @@ const searchUsers = (value) =>{
       <View>
         {/* horizontal scroll bar */}
         <FlatList
+          listKey="12.1"
           data={dummyData.categories}
           keyExtractor={(item) => `${item.id}`}
           showsHorizontalScrollIndicator={false}
@@ -136,6 +137,7 @@ onBlur = {()=> setSearchBarFocused(false)}
       {/* Product Cards */}
       <View style={styles.product1GroupRow}>
         <FlatList
+           listKey="12.2"
           columnWrapperStyle={{ justifyContent: 'space-between' }}
           data={dummyData.itemsSearchList}
           numColumns={2}

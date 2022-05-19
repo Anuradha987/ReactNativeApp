@@ -54,11 +54,13 @@ useEffect(() => {
               <Text style={styles.submit}>Add New Service</Text>
           </TouchableOpacity>
       <FlatList 
+                 listKey="19.2"
                 keyExtractor={(item) => `${item.id}`}
                 showsVerticalScrollIndicator={true}
                 ListHeaderComponent={
                   <View>
                     <Animated.FlatList 
+                      listKey="19.1"
                       data={dummyData.myServicesList}
                       keyExtractor={(item) => `${item.id}`}
                       showsHorizontalScrollIndicator={true}

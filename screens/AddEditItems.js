@@ -295,6 +295,7 @@ const [selectedValue, setSelectedValue] = useState("All");
      
 
       <FlatList
+      listKey="2.1"
         showsVerticalScrollIndicator={true}
         ListHeaderComponent={     
           <View>

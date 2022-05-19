@@ -49,7 +49,7 @@ const [selectedPlace, setSelectedPlace] = React.useState(null)
     setSelectedCategoryId(categoryList)    
   }
 
-  loadUsers = async() =>{
+  const loadUsers = async() =>{
     const permission = await Expo.Permission.askAsync(
       Expo.Permission.Camera
     ); 
@@ -57,7 +57,7 @@ const [selectedPlace, setSelectedPlace] = React.useState(null)
       return;
     }
   }
-searchUsers = (value) =>{
+  const searchUsers = (value) =>{
   const filteredUsers = this.state.users.filter(
     user=>{
       let userLowercase = (dummyData.serviceProviderPopUpBox).toLowercase()
@@ -114,6 +114,7 @@ searchUsers = (value) =>{
       {/* horizontal scroll bar */}
       <View>
         <FlatList
+          listKey="22.1"
           data={dummyData.categories}
           keyExtractor={(item) => `${item.id}`}
           showsHorizontalScrollIndicator={false}
