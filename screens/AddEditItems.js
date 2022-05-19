@@ -31,6 +31,8 @@ import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Categories from "./Categories";
 import { ScrollView } from "react-native-gesture-handler";
+import { ItemsService } from "../services/customer/Items";
+import { AuthService } from "../services/AuthService";
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -61,39 +63,8 @@ const renderHeader =()=>{
 
 
 // function AddEditItems({item, navigation, isSelected}) {
-  const AddEditItems = ({navigation,}) => {
-//  class AddEditItems extends Component {
-//     constructor (props) {
-//       super(props)
-//       this.state = {
-//         photos: []
-//       }
-//     }
-  
-//     componentDidUpdate() {
-//       const {params} = this.props.route;
-//       if (params) {
-//         const {photos} = params;
-//         if (photos) this.setState({photos});
-//         delete params.photos;
-//       }
-//     }
-  
-//     renderImage (item, i) {
-//       return (
-//         <Image
-//           style={{ height: 100, width: 100 }}
-//           source={{ uri: item.uri }}
-//           key={i}
-//         />
-//       )
-//     }  
-//     render() {
-//       const { navigate } = this.props.navigation;
+  const AddEditItems = ({navigation}) => {
 
-
-
-  // radio buttons for items available or not available
   const [availability, setAvailability] = React.useState(null);
   const [chosenOption, setChosenOption] = useState('Available');
 const available=[
@@ -244,7 +215,30 @@ const [selectedValue, setSelectedValue] = useState("All");
 
   useEffect(() => {
     console.log("AddEditItems");
+    console.log(AuthService.userId);
+    console.log(AuthService.userToken)
    }, []);
+
+   const AddItem = () =>{
+
+     const data ={
+      user_id: "620729b1de4a5c278423dbe9",
+      name: "test item",
+      description: "test description",
+      category: "Pets",
+      amount: "12",
+      status: "Available",
+      trading_method: "test",
+      price: "23",
+      images: "testimagestring",
+      location: "testlocation"
+     }
+    ItemsService.AddItem(data,token).then((res)=>{
+      console.log(res.data);
+    }).catch((error)=>{
+      console.log(error)
+    })
+   }
 
   return (
     (!loaded)?

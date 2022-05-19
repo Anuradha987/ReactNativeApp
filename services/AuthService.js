@@ -2,6 +2,29 @@ import axiosInstance from "./api";
 import { ToastAndroid } from "react-native";
 
 export class AuthService{
+
+
+    userId=null;
+    userToken=null;
+
+    // set UserId(userId){
+    //     console.log("set user id");
+    //     this.userId=userId;
+    // }
+
+    // set UserToken(userToken){
+    //     console.log("set user token");
+    //     this.userToken=userToken;
+    // }
+
+    // get UserId(){
+    //     return this.userId;
+    // }
+
+    // get UserToken(){
+    //     return this.userToken;
+    // }
+
     static async login(data){
         const res = await axiosInstance.post('/login',data);
         return res;

@@ -36,6 +36,7 @@ import RootStackScreen from './screens/login_SignUp/RootStackScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Filter from './components/Filter';
 import AddEditServices from './screens/AddEditServices';
+import { AuthService } from './services/AuthService';
 
 const Stack = createStackNavigator();
 
@@ -43,8 +44,8 @@ const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 const App = () => {
   // const[isLoading, setIsLoading] = React.useState(true);
-  const[userToken, setUserToken] = React.useState(null);
-  const[userId, setUserId] = React.useState(null);
+  const[userToken, setUserToken] = React.useState('');
+  const[userId, setUserId] = React.useState('');
 
   // ---------------handling user login-------------------   //
   const initialLoginState = {
@@ -118,7 +119,7 @@ const App = () => {
 
       //signout
       logout: async () => {
-        // setUserToken(null);
+        setUserToken(null);
         // setIsLoading(false);
         try {
           await AsyncStorage.removeItem('userToken');
@@ -127,31 +128,25 @@ const App = () => {
           console.log(e);
         }
         dispatch({ type: 'LOGOUT' });
-      },
-
-      sendUserToken: async () =>{
-        return userToken;
-      },
+      }
     }),
     []
   );
 
   useEffect(() => {
-    setTimeout(async () => {
-      // setIsLoading(false);
-      let userToken;
-      userToken = null;
       try {
-        userToken = await AsyncStorage.getItem('userToken');
-        userId = await AsyncStorage.getItem('userId');
+        AsyncStorage.getItem('userToken').then((data)=>{
+          setUserToken(data);
+          AuthService.userToken = data;
+          dispatch({ type: 'RETRIEVE_TOKEN', token: data });
+        });
+        AsyncStorage.getItem('userId').then((data)=>{
+          AuthService.userId = data;
+          setUserId(data);
+        });
       } catch (e) {
         console.log(e);
       }
-      setUserToken(userToken);
-      setUserId(userId);
-      // console.log('user token: ', userToken);
-      dispatch({ type: 'RETRIEVE_TOKEN', token: userToken });
-    }, 1000);
   }, []);
   // ---------------end of handling user login------------------- //
 
@@ -179,7 +174,7 @@ const App = () => {
       <AuthContext.Provider value={authContext}>
         <NavigationContainer>
           <StatusBar barStyle="light-content" />
-          {loginState.userToken !== null ? (
+          {userToken !== null ? (
             <Stack.Navigator
               screenOptions={{ headerShown: false }}
               //  initialRouteName={'Notice Board'}
@@ -205,8 +200,8 @@ const App = () => {
               <Stack.Screen name="I_My" component={I_My} />
               <Stack.Screen name="SAfterCompleted" component={SAfterCompleted} />
               <Stack.Screen name="SAfterApproved" component={SAfterApproved} />
-              <Stack.Screen name="AddEditItems" component={AddEditItems} />
-              <Stack.Screen name="AddEditServices" component={AddEditServices} />
+              <Stack.Screen name="AddEditItems" component={AddEditItems} userId={userId} userToken={userToken}/>
+              <Stack.Screen name="AddEditServices" component={AddEditServices} userId={userId} userToken={userToken}/>
               <Stack.Screen name="ImageBrowserScreen" component={ImageBrowserScreen} />
             </Stack.Navigator>
           ) : ( 
