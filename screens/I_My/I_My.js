@@ -136,17 +136,17 @@ const I_My = () => {
                               resizeMode="contain"
                               style={styles.cateIcon}
                             ></Image>
-                            <Text numberOfLines={1} style={styles.cateName}>{item.cateName}</Text>
+                            <Text numberOfLines={1} style={styles.cateName}>{item.category}</Text>
                           </View>
                           <View style={styles.totalAmountlblRow}>
                             <Text style={styles.totalAmountlbl}>Total Amount</Text>
                             <View style={styles.totalAmountlblFiller}></View>
-                            <Text numberOfLines={1} style={styles.totalAmount}>{item.totalAmount}</Text>
+                            <Text numberOfLines={1} style={styles.totalAmount}>{item.amount}</Text>
                           </View>
                           <View style={styles.forCashlblRow}>
                             <Text style={styles.forCashlbl}>For Cash</Text>
                             <View style={styles.forCashlblFiller}></View>
-                            <Text numberOfLines={1} style={styles.price}>{item.price} /{item.UnitQuantity}</Text>
+                            <Text numberOfLines={1} style={styles.price}>{item.price} /{item.amount}</Text>
                           </View>
                         </LinearGradient>)
                       })}
