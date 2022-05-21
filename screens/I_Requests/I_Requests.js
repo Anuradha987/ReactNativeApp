@@ -1,5 +1,6 @@
 import React, { Component, useEffect } from 'react';
 import {
+  RefreshControl,
   StyleSheet,
   View,
   ScrollView,
@@ -30,12 +31,16 @@ const I_Requests = () => {
 
     useEffect(() => {
       console.log("I_requests");
+      getOrdersByUserId();
+     }, []);
+
+     const getOrdersByUserId = () =>{
       OrderService.getOrdersByUserId(AuthService.userId,"accept",AuthService.userToken).then((res)=>{
         console.log(res.data);
       }).catch((error)=>{
         console.log(error);
       });
-     }, []);
+     }
 
     return (
       (!loaded)?
@@ -54,6 +59,9 @@ const I_Requests = () => {
         (<View style={styles.container}>
 <FlatList showsVerticalScrollIndicator={true}
         listKey="11.1"
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={getOrdersByUserId} />
+        }
         ListHeaderComponent={
             <View>
 <View> 
