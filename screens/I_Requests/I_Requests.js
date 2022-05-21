@@ -81,7 +81,7 @@ const I_Requests = () => {
             //onPress = {()=> naviga}
             renderItem={({ item, index }) => {
                 return (
-                    <View>
+                    <View key={item._id}>
                       {/* open I_My */}
                       <TouchableOpacity style={styles.itemCardStack} onPress={()=>{}}>
                         <View style={styles.itemCard}>
