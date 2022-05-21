@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },  backIcon: {
     color: '#BBBDC1',
-    fontSize: 20,
+    // fontSize: 20,
     marginRight: 2,
   },
   backBtn: {

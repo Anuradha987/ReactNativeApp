@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
   },
   backIcon: {
     color: '#BBBDC1',
-    fontSize: 20,
+    // fontSize: 20,
     height: 22,
     width: 20,
     marginTop: 9,

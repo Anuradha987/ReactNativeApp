@@ -216,7 +216,7 @@ const [selectedValue, setSelectedValue] = useState("All");
   useEffect(() => {
     console.log("AddEditItems");
     console.log(AuthService.userId);
-    console.log(AuthService.userToken)
+    console.log(AuthService.userToken);
    }, []);
 
    const AddItem = () =>{

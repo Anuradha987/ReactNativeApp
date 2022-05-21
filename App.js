@@ -146,10 +146,12 @@ const App = () => {
         AsyncStorage.getItem('userToken').then((data)=>{
           setUserToken(data);
           AuthService.userToken = data;
+          console.log(data);
           dispatch({ type: 'RETRIEVE_TOKEN', token: data });
         });
         AsyncStorage.getItem('userId').then((data)=>{
           AuthService.userId = data;
+          console.log(data);
           setUserId(data);
         });
       } catch (e) {

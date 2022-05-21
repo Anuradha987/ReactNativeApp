@@ -610,18 +610,18 @@ const styles = StyleSheet.create({
   },
   callIcon: {
     color: "rgba(235,112,210,1)",
-    fontSize: 20,
+    // fontSize: 20,
     marginRight: 30
   },
   messageIcon: {
     color: "rgba(235,112,210,1)",
-    fontSize: 20,
+    // fontSize: 20,
     marginRight: 30,
     marginBottom: 1
   },
   requestIcon: {
     color: "rgba(235,112,210,1)",
-    fontSize: 20,
+    // fontSize: 20,
     marginBottom: 1
   },
   icon2Row: {

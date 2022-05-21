@@ -948,7 +948,7 @@ const styles = StyleSheet.create({
   },
   locationIcon: {
     color: 'rgba(128,128,128,1)',
-    fontSize: 20,
+    // fontSize: 20,
     width: 22,
     height: 22,
     marginRight: 14,
@@ -1065,7 +1065,7 @@ const styles = StyleSheet.create({
   },
   backIcon: {
     color: '#BBBDC1',
-    fontSize: 20,
+    // fontSize: 20,
     height: 22,
     width: 20,
     marginTop: 9,

@@ -299,7 +299,7 @@ const styles = StyleSheet.create({
   },
   cateIcon: {
     tintColor: "rgba(79,77,77,1)",
-    fontSize: 20,
+    // fontSize: 20,
     height: 22,
     width: 20
   },

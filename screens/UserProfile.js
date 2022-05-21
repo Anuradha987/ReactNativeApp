@@ -246,7 +246,7 @@ rect1Row: { height: 43, marginTop: 769 },
   },
   backIcon:{
     color: '#BBBDC1', 
-    fontSize: 20,
+    // fontSize: 20,
     marginRight:3
   },
   profileImage: {
@@ -275,7 +275,7 @@ rect1Row: { height: 43, marginTop: 769 },
     left: 146,
     position: "absolute",
     color: "rgba(255,254,0,1)",
-    fontSize: 20,
+    // fontSize: 20,
     top: 219
   },
   loremIpsum13: {
