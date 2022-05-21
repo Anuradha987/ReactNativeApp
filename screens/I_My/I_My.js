@@ -103,6 +103,7 @@ const I_My = () => {
                       {myItems.map((item) => {
                        return (<LinearGradient
                           colors={['#F1F1B0', '#ECDC80', '#EBD670']}
+                          key={item._id}
                           style={styles.myItemDetails}
                         >
                           <View style={styles.publishDateRow}>
