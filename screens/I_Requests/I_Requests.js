@@ -14,6 +14,8 @@ import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommun
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import {dummyData} from '../../constants';
 import { useFonts } from 'expo-font';
+import { OrderService } from '../../services/customer/Orders';
+import { AuthService } from '../../services/AuthService';
 
 // ⚠ The topic of the page should changed to I_SalesHistory. ⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠
 // Details about items/products that have been sold to others in the past are displayed on here. 
@@ -27,7 +29,12 @@ const I_Requests = () => {
     });
 
     useEffect(() => {
-      // console.log("SSentDetailsAfterAccepting");
+      console.log("I_requests");
+      OrderService.getOrdersByUserId(AuthService.userId,"accept",AuthService.userToken).then((res)=>{
+        console.log(res.data);
+      }).catch((error)=>{
+        console.log(error);
+      });
      }, []);
 
     return (

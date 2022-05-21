@@ -58,7 +58,7 @@ const searchUsers = (value) =>{
   useEffect(() => {
     console.log("Explore Items");
     ItemsService.getAllItems(AuthService.userToken).then((res)=>{
-      console.log(res.data.data);
+      // console.log(res.data.data);
       const items =res.data.data;
       setItems(items);
     }).catch((error)=>{

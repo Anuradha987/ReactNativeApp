@@ -1,5 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 import {
+  RefreshControl,
   StyleSheet,
   View,
   ImageBackground,
@@ -22,6 +23,7 @@ import { useFonts } from 'expo-font';
 import { useNavigation } from '@react-navigation/native';
 import { ItemsService } from "../../services/customer/Items";
 import { AuthService } from "../../services/AuthService";
+import { RequestService } from "../../services/customer/Requests";
 
 //item details that have been sold and the order requests recieved from others
 
@@ -30,8 +32,12 @@ const windowWidth = Dimensions.get('screen').width;
 
 const I_My = () => {
   const navigation = useNavigation();
+
+  const [refreshing, setRefreshing] = useState(true);
+
   const [myItems, setMyItems] = React.useState([]);
-  console.log(myItems);
+  const [orderRequests, setOrderRequests] = React.useState([]);
+  // console.log(myItems);
   //poppins insert
   const [loaded] = useFonts({
     poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
@@ -43,25 +49,41 @@ const I_My = () => {
     console.log(AuthService.userId);
     console.log(AuthService.userToken);
     // if(!myItems.length){
-    getMyItems()
+    loadData();
     // }
 
   }, []);
 
   const getMyItems = () => {
     ItemsService.getItemsByUserId(AuthService.userId, AuthService.userToken).then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       const items = res.data.data;
-      console.log(items);
+      // console.log(items);
       setMyItems(items);
-      console.log(myItems);
+      setRefreshing(false);
+      // console.log(myItems);
     }).catch((error) => {
-      console.log(error);
+      // console.log(error);
     })
   }
 
+  const getOrderRequests = () => {
+    RequestService.getRecievedRequestsByUserId(AuthService.userId, AuthService.userToken).then((res)=>{
+      console.log(res.data);
+      const orderRequests = res.data.data;
+      setOrderRequests(orderRequests);
+    }).catch((error)=>{
+      console.log(error);
+    });
+  }
+
+  const loadData= () =>{
+    getMyItems();
+    getOrderRequests();
+  }
+
   return (
-    (!loaded) ?
+    (!loaded || refreshing) ?
       (
         <View
           style={{
@@ -81,6 +103,9 @@ const I_My = () => {
         {/* Vertical scroll bar */}
         <FlatList data={dummyData.itemsRequestList}
           showsVerticalScrollIndicator={true}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={loadData} />
+          }
           //contentContainerStyle={{ paddingBottom: 100 }}
           ListHeaderComponent={
             <View>
@@ -161,12 +186,13 @@ const I_My = () => {
                           <Text style={styles.orderRequestslbl}>Order Requests</Text>
                           <View style={styles.notificationCircle}>
                             {/* <View style={styles.noOfNotificationFiller}></View> */}
-                            <Text numberOfLines={1} style={styles.noOfNotification}>{item.noOfNotification}</Text>
+                            <Text numberOfLines={1} style={styles.noOfNotification}>{orderRequests.length}</Text>
                           </View>
                         </View>
 
                         {/* open the popup box */}
-                        <TouchableOpacity style={styles.reqInfoCard}>
+                        {orderRequests.map((request)=>{
+                          return     <TouchableOpacity style={styles.reqInfoCard}>
                           <View style={styles.reqSenderInfo}>
                             <View style={styles.senderProPicRow}>
                               <Image
@@ -211,6 +237,8 @@ const I_My = () => {
                             </TouchableOpacity>
                           </View>
                         </TouchableOpacity>
+                        })}
+                    
 
                       </LinearGradient>
                     </View>
@@ -262,10 +290,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 10,
     borderRadius: 19,
-    height: 497,
+    height: "auto",
     marginTop: 30,
     marginLeft: 23,
     marginRight: 24,
+    marginBottom:24,
+    paddingBottom:24,
     overflow: "hidden"
   },
   receivedReqList_imageStyle: {},
