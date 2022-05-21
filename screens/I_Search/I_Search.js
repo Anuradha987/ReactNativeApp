@@ -23,9 +23,13 @@ const windowHeight = Dimensions.get('screen').height;
  import ViewItems from "./ViewItems";
 import 'react-native-gesture-handler';
  import appNavigaiton from './../../navigation/appNavigaiton';
+import { ItemsService } from "../../services/customer/Items";
+import { AuthService } from "../../services/AuthService";
 
 const I_Search = () => {
-  const [searchBarFocused, setSearchBarFocused] = React.useState(false)
+  const [searchBarFocused, setSearchBarFocused] = React.useState(false);
+
+  const [items, setItems] = React.useState([]);
 
 const searchUsers = (value) =>{
   const filteredUsers = this.state.users.filter(
@@ -52,7 +56,14 @@ const searchUsers = (value) =>{
   });
 
   useEffect(() => {
-    // console.log("SSentDetailsAfterAccepting");
+    console.log("Explore Items");
+    ItemsService.getAllItems(AuthService.userToken).then((res)=>{
+      console.log(res.data.data);
+      const items =res.data.data;
+      setItems(items);
+    }).catch((error)=>{
+      console.log(error);
+    })
    }, []);
   
   return (
@@ -139,54 +150,57 @@ onBlur = {()=> setSearchBarFocused(false)}
         <FlatList
            listKey="12.2"
           columnWrapperStyle={{ justifyContent: 'space-between' }}
-          data={dummyData.itemsSearchList}
+          data={items}
           numColumns={2}
           keyExtractor={(item) => `${item.id}`}
           showsHorizontalScrollIndicator={true}
           contentContainerStyle={{}}
 
           renderItem={({ item, index }) => {
-            return (
+            if(item.user_id !== AuthService.userId){
+              return (
               
-              <TouchableWithoutFeedback style={styles.product1Group} onPress={()=>navigation.navigate('ViewItems')}>
-                <View style={styles.products1Stack}>
-                  <LinearGradient
-                    colors={['#3b3b4a', '#212126', '#3b3b4a']}
-                    style={styles.products1}
-                  >
-                    <View style={styles.productName1StackStack}>
-                      <View style={styles.productName1Stack}>
-                        <Text numberOfLines={1} style={styles.productName1}>{item.itemName}</Text>
-                        <Image
-                          source={item.categoryIcon}
-                          resizeMode="contain"
-                          style={styles.cateIcon1}
-                        ></Image>
+                <TouchableWithoutFeedback style={styles.product1Group} onPress={()=>navigation.navigate('ViewItems')}>
+                  <View style={styles.products1Stack}>
+                    <LinearGradient
+                      colors={['#3b3b4a', '#212126', '#3b3b4a']}
+                      style={styles.products1}
+                    >
+                      <View style={styles.productName1StackStack}>
+                        <View style={styles.productName1Stack}>
+                          <Text numberOfLines={1} style={styles.productName1}>{item.itemName}</Text>
+                          <Image
+                            source={item.categoryIcon}
+                            resizeMode="contain"
+                            style={styles.cateIcon1}
+                          ></Image>
+                        </View>
+                        <Text style={styles.cateName1}>
+                          {item.cateName}
+                        </Text>
                       </View>
-                      <Text style={styles.cateName1}>
-                        {item.cateName}
-                      </Text>
-                    </View>
-                    <Text style={styles.available}>{item.availability}</Text>
-                    <Text style={styles.tradingMethod1}>{item.tradeMethod}</Text>
-                    <Text style={styles.pricePerUnit}>{item.price} / {item.quantity}</Text>
-
-                    {/* </ImageBackground> */}
-                  </LinearGradient>
-                  <ImageBackground
-                    source={item.itemImage}
-                    resizeMode="cover"
-                    style={styles.productImage1}
-                    imageStyle={styles.productImage1_imageStyle}
-                  >
-                    <IoniconsIcon
-                      name="md-heart"
-                      style={styles.favIcon1}
-                    ></IoniconsIcon>
-                  </ImageBackground>
-                </View>
-              </TouchableWithoutFeedback>
-            );
+                      <Text style={styles.available}>{item.availability}</Text>
+                      <Text style={styles.tradingMethod1}>{item.tradeMethod}</Text>
+                      <Text style={styles.pricePerUnit}>{item.price} / {item.quantity}</Text>
+  
+                      {/* </ImageBackground> */}
+                    </LinearGradient>
+                    <ImageBackground
+                      source={item.itemImage}
+                      resizeMode="cover"
+                      style={styles.productImage1}
+                      imageStyle={styles.productImage1_imageStyle}
+                    >
+                      <IoniconsIcon
+                        name="md-heart"
+                        style={styles.favIcon1}
+                      ></IoniconsIcon>
+                    </ImageBackground>
+                  </View>
+                </TouchableWithoutFeedback>
+              );
+            }
+         
           }} />
 
       </View>
