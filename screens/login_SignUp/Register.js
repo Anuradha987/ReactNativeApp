@@ -20,6 +20,7 @@ import { useFonts } from 'expo-font';
 import { icons } from '../../constants';
 import * as ImagePicker from 'expo-image-picker';
 import { AuthService } from '../../services/AuthService';
+import * as FileSystem from 'expo-file-system';
 
 // https://github.com/RafaelAugustoS/react-native-popup-ui
 
@@ -158,7 +159,7 @@ const openCamera = async () => {
     }
   };
 
-  const updateSecureTextEntry = () => {
+  const updateSecureTextEntry = async () => {
     setData({
       ...data,
       secureTextEntry: !data.secureTextEntry,
@@ -179,13 +180,17 @@ const openCamera = async () => {
     }
 
     console.log(userdata);
+    console.log(cimage);
+    console.log(pimage);
+    const bsPimage = await FileSystem.readAsStringAsync(pimage, { encoding: 'base64' });
+    console.log(bsPimage);
 
-    AuthService.register(userdata).then((res)=>{
-      console.log(res.data);
-      navigation.navigate('Login');
-    }).catch((error)=>{
-      console.log(error);
-    });
+    // AuthService.register(userdata).then((res)=>{
+    //   console.log(res.data);
+    //   navigation.navigate('Login');
+    // }).catch((error)=>{
+    //   console.log(error);
+    // });
   };
 
   //name validation
@@ -1004,7 +1009,7 @@ const styles = StyleSheet.create({
     width: 35,
   },
   showPasswordIcon: {
-    fontSize: 15,
+    // fontSize: 15,
     width: 16,
     height: 16,
     marginLeft: 16,
