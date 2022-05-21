@@ -168,7 +168,7 @@ onBlur = {()=> setSearchBarFocused(false)}
                     >
                       <View style={styles.productName1StackStack}>
                         <View style={styles.productName1Stack}>
-                          <Text numberOfLines={1} style={styles.productName1}>{item.itemName}</Text>
+                          <Text numberOfLines={1} style={styles.productName1}>{item.name}</Text>
                           <Image
                             source={item.categoryIcon}
                             resizeMode="contain"
@@ -176,12 +176,12 @@ onBlur = {()=> setSearchBarFocused(false)}
                           ></Image>
                         </View>
                         <Text style={styles.cateName1}>
-                          {item.cateName}
+                          {item.category}
                         </Text>
                       </View>
-                      <Text style={styles.available}>{item.availability}</Text>
-                      <Text style={styles.tradingMethod1}>{item.tradeMethod}</Text>
-                      <Text style={styles.pricePerUnit}>{item.price} / {item.quantity}</Text>
+                      <Text style={styles.available}>{item.status}</Text>
+                      <Text style={styles.tradingMethod1}>{item.trading_method}</Text>
+                      <Text style={styles.pricePerUnit}>{item.price} / {item.amount}</Text>
   
                       {/* </ImageBackground> */}
                     </LinearGradient>
