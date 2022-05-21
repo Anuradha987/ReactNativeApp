@@ -192,7 +192,7 @@ const I_My = () => {
 
                         {/* open the popup box */}
                         {orderRequests.map((request)=>{
-                          return     <TouchableOpacity style={styles.reqInfoCard}>
+                          return     <TouchableOpacity key={request._id} style={styles.reqInfoCard}>
                           <View style={styles.reqSenderInfo}>
                             <View style={styles.senderProPicRow}>
                               <Image
