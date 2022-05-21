@@ -33,6 +33,9 @@ function Register({ navigation }) {
   const [cimage, setcimage] = React.useState(null);
   const [pimage, setpimage] = React.useState(null);
 
+  const [bsCimg, setBsCimg] = React.useState(null);
+  const [bsPimg, setBsPimg] = React.useState(null);
+
   // This function is triggered when the "Select an image" button pressed
   // const profileImage = async () => {
   //   // Ask the user for the permission to access the media library 
@@ -72,6 +75,10 @@ function Register({ navigation }) {
 
     if (!result.cancelled) {
       setcimage(result.uri);
+      FileSystem.readAsStringAsync(result.uri, { encoding: 'base64' }).then((res)=>{
+        console.log(res);
+        setBsCimg(res);
+      });
     }
   };
   const profileImage = async () => {
@@ -88,6 +95,10 @@ function Register({ navigation }) {
 
     if (!result.cancelled) {
       setpimage(result.uri);
+      FileSystem.readAsStringAsync(result.uri, { encoding: 'base64' }).then((res)=>{
+        console.log(res);
+        setBsPimg(res);
+      });
     }
   };
 
@@ -165,6 +176,15 @@ const openCamera = async () => {
       secureTextEntry: !data.secureTextEntry,
     });
 
+    console.log(cimage);
+    console.log(pimage);
+    // const bsPimage = await FileSystem.readAsStringAsync(pimage, { encoding: 'base64' });
+    // const bsCimage = await FileSystem.readAsStringAsync(cimage, { encoding: 'base64' });
+    // console.log(bsPimage);
+    // console.log(bsCimage);
+
+    if(bsCimg && bsPimg){
+
     const userdata = {
       name: data.name,
       email: data.email,
@@ -173,24 +193,21 @@ const openCamera = async () => {
       username: data.username,
       userType: "Customer",
       password: data.password,
-      profile_img:"test",
-      cover_img:"test",
+      profile_img:bsPimg,
+      cover_img:bsCimg,
       description:"test",
       userCategories:["Pets", "Law", "Environment", "Photography"]
     }
 
     console.log(userdata);
-    console.log(cimage);
-    console.log(pimage);
-    const bsPimage = await FileSystem.readAsStringAsync(pimage, { encoding: 'base64' });
-    console.log(bsPimage);
-
-    // AuthService.register(userdata).then((res)=>{
-    //   console.log(res.data);
-    //   navigation.navigate('Login');
-    // }).catch((error)=>{
-    //   console.log(error);
-    // });
+    // console.log(bsCimage && bsPimage);
+      AuthService.register(userdata).then((res)=>{
+        console.log(res.data);
+        navigation.navigate('Login');
+      }).catch((error)=>{
+        console.log(error);
+      });
+    }
   };
 
   //name validation

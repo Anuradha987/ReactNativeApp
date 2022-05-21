@@ -49,8 +49,8 @@ const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 const App = () => {
   // const navigation = useNavigation();
   // const[isLoading, setIsLoading] = React.useState(true);
-  const[userToken, setUserToken] = React.useState('');
-  const[userId, setUserId] = React.useState('');
+  const[userToken, setUserToken] = React.useState(null);
+  const[userId, setUserId] = React.useState(null);
 
   // ---------------handling user login-------------------   //
   const initialLoginState = {

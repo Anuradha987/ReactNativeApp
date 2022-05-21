@@ -13,6 +13,7 @@ import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import { useFonts } from 'expo-font';
 import { useNavigation } from '@react-navigation/native';
 import Icon from "react-native-vector-icons/EvilIcons";
+import * as RootNavigation from '../navigation/rootNavigation';
 
 const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) => {
   const navigation = useNavigation();

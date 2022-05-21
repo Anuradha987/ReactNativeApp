@@ -103,7 +103,7 @@ function MyProfile({navigation}) {
             <View style={styles.coverImageStackStack}>
               <View style={styles.coverImageStack}>
                 <ImageBackground
-                  source={require('../assets/images/eee4e8f8eb69c3b9a7c38d6cae13c5661.jpg')}
+                  source={{uri: `data:image/gif;base64,${userDetails.cover_img}`}}
                   resizeMode="cover"
                   style={styles.coverImage}
                   imageStyle={styles.coverImage_imageStyle}>
@@ -119,7 +119,7 @@ function MyProfile({navigation}) {
 
 {/* profile picture */}
                 <Image
-                  source={require('./../assets/images/_110435139_parsa.jpg')}
+                  source={{uri: `data:image/gif;base64,${userDetails.profile_img}`}}
                   resizeMode="contain"
                   style={styles.profileImage}></Image>
               </View>
