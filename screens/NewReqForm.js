@@ -20,6 +20,8 @@ import Icon from "react-native-vector-icons/SimpleLineIcons";
 import { LinearGradient } from 'expo-linear-gradient';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import {dummyData} from '../constants';
+import { RequestService } from '../services/customer/Requests';
+import { AuthService } from '../services/AuthService';
 
 function NewReqForm({ navigation }) {
   const [selectedPriority, setSelectedPriority] = React.useState();
@@ -52,6 +54,7 @@ function NewReqForm({ navigation }) {
     category: '',
     priority: '',
     location: '',
+    description: '',
     isValidTo: true,
     isValidTitle: true,
     isValidCategory: true,
@@ -140,6 +143,25 @@ const [loaded] = useFonts({
   poppinsregular: require('../assets/fonts/Poppins-Regular.ttf'),
   poppins700: require('../assets/fonts/poppins-700.ttf'),
 });
+
+const sendNewRequest = () =>{
+  const reqData = {
+    "user_id": AuthService.userId,
+    "to": "",
+    "title": data.title,
+    "description": data.description,
+    "category": data.category,
+    "priority": "Medium",
+    "location": data.location,
+    "attachments": "3423fgsdfgsgdf",
+    "status": "Pending"
+  };
+  RequestService.SendRequest(reqData, AuthService.userToken).then((res)=>{
+    console.log(res.data);
+  }).catch((error)=>{
+    console.log(error);
+  });
+}
 
 useEffect(() => {
   console.log("New req form");
@@ -352,7 +374,7 @@ return (
           </TouchableOpacity>                
           </View>
 
-          <TouchableOpacity style={styles.button} onPress={()=>{}}>
+          <TouchableOpacity style={styles.button} onPress={()=>{sendNewRequest}}>
               <Text style={styles.submit}>SUBMIT</Text>
           </TouchableOpacity>
           
