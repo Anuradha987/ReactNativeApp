@@ -16,6 +16,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { RequestService } from "../../services/customer/Requests";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AuthService } from '../../services/AuthService';
 
 const S_Requests = (props) => {
   const navigation = useNavigation();
@@ -29,25 +30,23 @@ const S_Requests = (props) => {
   const [otherRequests, setOtherRequests] = React.useState([]);
 
   useEffect(() => {
-    loadRequests();
+    console.log("---- sent requests---")
+    // loadRecievedRequests();
   }, []);
 
-  const loadRequests = () => {
+
+
+  const loadRecievedRequests = () => {
     setTimeout(async () => {
-      let userToken;
-      let userId = null;
-      userToken = null;
       try {
-        userToken = await AsyncStorage.getItem('userToken');
-        userId = await AsyncStorage.getItem('userId');
-        console.log(userToken, " ", userId);
-        RequestService.getRecievedRequestsByUserId("userId", userToken).then((res) => {
-          console.log(res.status.message);
+        AuthService.userId
+        console.log(AuthService.userToken, " ", AuthService.userId);
+        RequestService.getRecievedRequestsByUserId(AuthService.userId, AuthService.userToken).then((res) => {
           console.log(res.data);
           setRecievedRequests(res.data);
         }).catch((error) => {
           // console.log(userId,"  ", userToken);
-          console.log(error);
+          console.log("line 60 ",error);
         })
       } catch (e) {
         console.log(e);

@@ -42,8 +42,6 @@ const S_My = () => {
     console.log("S_my");
     console.log(AuthService.userId);
     console.log(AuthService.userToken);
-    if (!myServices.length) {
-    }
     getMyServices();
   }, []);
 
@@ -88,7 +86,6 @@ const S_My = () => {
       </TouchableOpacity>
       <FlatList
         listKey="19.2"
-        keyExtractor={(item) => `${item.id}`}
         showsVerticalScrollIndicator={true}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={getMyServices} />
@@ -105,11 +102,11 @@ const S_My = () => {
               pagingEnabled
               snapToInterval={412}
               decelerationRate={"fast"}
-              renderItem={({ service, index }) => {
+              renderItem={({ item, index }) => {
                 return (
                   <LinearGradient
                     colors={["#F1F1B0", "#ECDC80", "#EBD670"]}
-                    key={service._id}
+                    key={item._id}
                     style={styles.myServiceDetails}
                   >
                     <View style={styles.endWrapperFillerRow}>
@@ -133,9 +130,9 @@ const S_My = () => {
                       </View>
                     </View>
                     {/* <Text style={styles.pageNo}>{myServices.length}.</Text> */}
-                    <Text style={styles.serviceTitle}>{service.title}</Text>
+                    <Text style={styles.serviceTitle}>{item.title}</Text>
                     <Text style={styles.description}>
-                      {service.description}
+                      {item.description}
                     </Text>
                     <View style={styles.cateIconRow}>
                       <Image
@@ -143,7 +140,7 @@ const S_My = () => {
                         resizeMode="contain"
                         style={styles.cateIcon}
                       ></Image>
-                      <Text style={styles.cateName}>{service.category}</Text>
+                      <Text style={styles.cateName}>{item.category}</Text>
                     </View>
                   </LinearGradient>
                 );
@@ -182,6 +179,8 @@ const styles = StyleSheet.create({
   myServiceDetails: {
     width: 365,
     marginHorizontal: 10,
+    marginLeft: 30,
+    marginRight: 30,
     height: 453,
     shadowColor: "rgba(0,0,0,1)",
     shadowOffset: {
