@@ -48,9 +48,9 @@ const I_My = () => {
     console.log("I_my");
     console.log(AuthService.userId);
     console.log(AuthService.userToken);
-    // if(!myItems.length){
+    if(!myItems.length){
     loadData();
-    // }
+    }
 
   }, []);
 
@@ -63,6 +63,7 @@ const I_My = () => {
       setRefreshing(false);
       // console.log(myItems);
     }).catch((error) => {
+      setRefreshing(false);
       // console.log(error);
     })
   }

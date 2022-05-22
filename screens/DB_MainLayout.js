@@ -15,8 +15,8 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from "react-native-vector-icons/EvilIcons";
 import * as RootNavigation from '../navigation/rootNavigation';
 
-const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) => {
-  const navigation = useNavigation();
+const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab,navigation }) => {
+  // const navigation = useNavigation();
 
   const [recievedRequests, setRecievedRequests] = React.useState([]);
   const [recievedOrders, setRecievedOrders] = React.useState([]);

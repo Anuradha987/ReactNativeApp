@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component, useEffect,useState } from 'react';
 import {
   RefreshControl,
   StyleSheet,
@@ -23,6 +23,7 @@ import { AuthService } from '../../services/AuthService';
 
 const I_Requests = () => {
 
+  const [refreshing, setRefreshing] = useState(true);
       //poppins insert
       const [loaded] = useFonts({
         poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
@@ -37,6 +38,7 @@ const I_Requests = () => {
      const getOrdersByUserId = () =>{
       OrderService.getOrdersByUserId(AuthService.userId,"accept",AuthService.userToken).then((res)=>{
         console.log(res.data);
+        setRefreshing(false);
       }).catch((error)=>{
         console.log(error);
       });
