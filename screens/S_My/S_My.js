@@ -45,7 +45,6 @@ const S_My = () => {
     if (!myServices.length) {
     }
     getMyServices();
-
   }, []);
 
   const getMyServices = () => {
@@ -108,55 +107,45 @@ const S_My = () => {
               decelerationRate={"fast"}
               renderItem={({ service, index }) => {
                 return (
-                  <View>
-                    {/* {myServices.map((service) => { */}
-                      return (
-                        <LinearGradient
-                          colors={["#F1F1B0", "#ECDC80", "#EBD670"]}
-                          key={service._id}
-                          style={styles.myServiceDetails}
-                        >
-                          <View style={styles.endWrapperFillerRow}>
-                            <View style={styles.endWrapperFiller}></View>
-                            <View style={styles.editBtnRow}>
-                              <TouchableOpacity style={styles.editBtn}>
-                                <View style={styles.editIconFiller}></View>
-                                <FeatherIcon
-                                  name="edit"
-                                  style={styles.editIcon}
-                                ></FeatherIcon>
-                              </TouchableOpacity>
+                  <LinearGradient
+                    colors={["#F1F1B0", "#ECDC80", "#EBD670"]}
+                    key={service._id}
+                    style={styles.myServiceDetails}
+                  >
+                    <View style={styles.endWrapperFillerRow}>
+                      <View style={styles.endWrapperFiller}></View>
+                      <View style={styles.editBtnRow}>
+                        <TouchableOpacity style={styles.editBtn}>
+                          <View style={styles.editIconFiller}></View>
+                          <FeatherIcon
+                            name="edit"
+                            style={styles.editIcon}
+                          ></FeatherIcon>
+                        </TouchableOpacity>
 
-                              <TouchableOpacity style={styles.deleteBtn}>
-                                <View style={styles.delIconFiller}></View>
-                                <MaterialCommunityIconsIcon
-                                  name="delete-sweep"
-                                  style={styles.delIcon}
-                                ></MaterialCommunityIconsIcon>
-                              </TouchableOpacity>
-                            </View>
-                          </View>
-                          {/* <Text style={styles.pageNo}>{myServices.length}.</Text> */}
-                          <Text style={styles.serviceTitle}>
-                            {service.title}
-                          </Text>
-                          <Text style={styles.description}>
-                            {service.description}
-                          </Text>
-                          <View style={styles.cateIconRow}>
-                            <Image
-                              source={item.cateIcon}
-                              resizeMode="contain"
-                              style={styles.cateIcon}
-                            ></Image>
-                            <Text style={styles.cateName}>
-                              {service.category}
-                            </Text>
-                          </View>
-                        </LinearGradient>
-                      );
-                    
-                  </View>
+                        <TouchableOpacity style={styles.deleteBtn}>
+                          <View style={styles.delIconFiller}></View>
+                          <MaterialCommunityIconsIcon
+                            name="delete-sweep"
+                            style={styles.delIcon}
+                          ></MaterialCommunityIconsIcon>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                    {/* <Text style={styles.pageNo}>{myServices.length}.</Text> */}
+                    <Text style={styles.serviceTitle}>{service.title}</Text>
+                    <Text style={styles.description}>
+                      {service.description}
+                    </Text>
+                    <View style={styles.cateIconRow}>
+                      <Image
+                        source={item.cateIcon}
+                        resizeMode="contain"
+                        style={styles.cateIcon}
+                      ></Image>
+                      <Text style={styles.cateName}>{service.category}</Text>
+                    </View>
+                  </LinearGradient>
                 );
               }}
             />
