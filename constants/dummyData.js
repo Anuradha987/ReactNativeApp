@@ -13,96 +13,115 @@ const categories = [
     {
         id: 1,
         name: "All",
+        category:"all",
         icon: require("../assets/icons/all.png")
     },
     {
         id: 2,
         name: "Agriculture",
+        category:"Agriculture",
         icon: require("../assets/icons/Agricultural.png")
     },
     {
         id: 3,
         name: "Business &\nFinance",
+        category:"Business_Finance",
         icon: require("../assets/icons/business.png")
     },
     {
         id: 4,
         name: "Clothing &\nFashion",
+        category:"All",
         icon: require("../assets/icons/Clothes.png")
     },
     {
         id: 5,
         name: "Computing &\nMobile",
+        category:"Computing_Mobile",
         icon: require("../assets/icons/computing.png")
     },
     {
         id: 6,
         name: "Educational",
+        category:"Educational",
         icon: require("../assets/icons/Education.png")
     },
     {
         id: 7,
         name: "Electronics &\nElectrics",
+        category:"Electronics_Electrics",
         icon: require("../assets/icons/Electronics.png")
     },
     {
         id: 8,
         name: "Entertainment",
+        category:"Entertainment",
         icon: require("../assets/icons/Entertainment.png")
     },
     {
         id: 9,
         name: "Environment",
+        category:"Environment",
         icon: require("../assets/icons/Environment.png")
     },
     {
         id: 10,
         name: "Food &\nDrinks",
+        category:"Food_Drinks",
         icon: require("../assets/icons/foods.png")
     },
     {
         id: 11,
         name: "Health &\nMedication",
+        category:"Health_Medication",
         icon: require("../assets/icons/Health.png")
     },
     {
         id: 12,
         name: "Home &\nGardening",
+        category:"Home_Gardening",
         icon: require("../assets/icons/homeGarden.png")
     },
     {
         id: 13,
         name: "Kids",
+        category:"Kids",
         icon: require("../assets/icons/Kids.png")
     },
     {
         id: 14,
         name: "Law",
+        category:"Law",
         icon: require("../assets/icons/Law.png")
     },
     {
         id: 15,
         name: "Pets",
+        category:"Pets",
         icon: require("../assets/icons/pets.png")
     },
     {
         id: 16,
         name: "Photography",
+        category:"Photography",
         icon: require("../assets/icons/photography.png")
     },
     {
         id: 17,
         name: "Sports &\nFitness",
+        category:"Sports_Fitness",
         icon: require("../assets/icons/Sports.png")
     },
     {
         id: 18,
         name: "Traveling &\nVehicles",
+        category:"Traveling_Vehicles",
         icon: require("../assets/icons/Traveling.png")
     },
     {
         id: 19,
         name: "Other",
+        category:"Other",
         icon: require("../assets/icons/other.png")
     },
 ]

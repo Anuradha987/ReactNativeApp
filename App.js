@@ -41,6 +41,7 @@ import { AuthService } from './services/AuthService';
 import { useNavigation } from '@react-navigation/native';
 import { navigationRef } from './navigation/rootNavigation';
 import * as RootNavigation from './navigation/rootNavigation';
+import PlacingOrders from './screens/PlacingOrders';
 
 const Stack = createStackNavigator();
 
@@ -212,6 +213,7 @@ const App = () => {
               <Stack.Screen name="SAfterApproved" component={SAfterApproved} />
               <Stack.Screen name="AddEditItems" component={AddEditItems}/>
               <Stack.Screen name="AddEditServices" component={AddEditServices}/>
+              <Stack.Screen name="PlacingOrders" component={PlacingOrders}/>
               <Stack.Screen name="DB_MainLayout" component={DB_MainLayout}/>
               <Stack.Screen name="ImageBrowserScreen" component={ImageBrowserScreen} />
             </Stack.Navigator>

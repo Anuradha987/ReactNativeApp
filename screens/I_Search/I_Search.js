@@ -43,7 +43,8 @@ const searchUsers = (value) =>{
 }
 
   const navigation = useNavigation();
-  const [selectedCatergoryId, setSelectedCategoryId] = React.useState(dummyData.categories)
+  const [selectedCatergoryId, setSelectedCategoryId] = React.useState(dummyData.categories);
+  const [selectedCategory, setSelectedCategory] = React.useState("all");
 
   function onSelectCategory(category) {
     let categoryList = dummyData.categories.filter(a => a.selectedCatergoryId.includes(category.id))
@@ -57,13 +58,16 @@ const searchUsers = (value) =>{
 
   useEffect(() => {
     console.log("Explore Items");
-    ItemsService.getAllItems(AuthService.userToken).then((res)=>{
-      // console.log(res.data.data);
-      const items =res.data.data;
-      setItems(items);
-    }).catch((error)=>{
-      console.log(error);
-    })
+    if(!items.length){
+      ItemsService.getAllItems(AuthService.userToken).then((res)=>{
+        // console.log(res.data.data);
+        const items =res.data.data;
+        setItems(items);
+      }).catch((error)=>{
+        console.log(error);
+      });
+    }
+
    }, []);
   
   return (
@@ -96,7 +100,7 @@ const searchUsers = (value) =>{
               <TouchableOpacity style={[styles.categories, selectedCatergoryId == item.id && styles.SelectedCategories]}
                 // onPress={() => {setSelectedCategoryId(item.id)}}
                 // onPress={() => onSelectCategory(item)}
-                onPress ={()=>navigation.navigate('ViewItems')}
+                onPress ={()=>setSelectedCategory(item.category)}
               >
                 <View style={styles.cateRoundRow}>
                   <View style={styles.cateRound}>
@@ -152,15 +156,15 @@ onBlur = {()=> setSearchBarFocused(false)}
           columnWrapperStyle={{ justifyContent: 'space-between' }}
           data={items}
           numColumns={2}
-          keyExtractor={(item) => `${item.id}`}
+          keyExtractor={(item) => `${item._id}`}
           showsHorizontalScrollIndicator={true}
           contentContainerStyle={{}}
 
           renderItem={({ item, index }) => {
-            if(item.user_id !== AuthService.userId){
+            if(item.user_id !== AuthService.userId && (selectedCategory === "all" || selectedCategory === item.category)){
               return (
               
-                <TouchableWithoutFeedback style={styles.product1Group} onPress={()=>navigation.navigate('ViewItems')}>
+                <TouchableWithoutFeedback style={styles.product1Group} onPress={()=>navigation.navigate('ViewItems',{item:item})}>
                   <View style={styles.products1Stack}>
                     <LinearGradient
                       colors={['#3b3b4a', '#212126', '#3b3b4a']}

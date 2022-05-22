@@ -102,20 +102,22 @@ const I_My = () => {
           <Text style={styles.submit}>Add New Item</Text>
         </TouchableOpacity>
         {/* Vertical scroll bar */}
-        <FlatList data={dummyData.itemsRequestList}
+        <FlatList
           showsVerticalScrollIndicator={true}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={loadData} />
           }
+          listKey="10.8"
           //contentContainerStyle={{ paddingBottom: 100 }}
           ListHeaderComponent={
-            <View>
+            <View key={2}>
               {/* horizontal scroll bar */}
               <Animated.FlatList
                 listKey="10.1"
-                data={dummyData.myItemsData}
-                keyExtractor={(item) => `${item.id}`}
+                data={myItems}
+                keyExtractor={(item) => `${item._id}`}
                 showsHorizontalScrollIndicator={true}
+      
                 horizontal
                 snapToAlignment='center'
                 pagingEnabled
@@ -123,10 +125,6 @@ const I_My = () => {
                 decelerationRate={'fast'}
                 // style={{ width: 600,    }}
                 renderItem={({ item, index }) => {
-                  return (
-                    <View>
-                      {/* My items details */}
-                      {myItems.map((item) => {
                        return (<LinearGradient
                           colors={['#F1F1B0', '#ECDC80', '#EBD670']}
                           key={item._id}
@@ -175,8 +173,9 @@ const I_My = () => {
                             <Text numberOfLines={1} style={styles.price}>{item.price} /{item.amount}</Text>
                           </View>
                         </LinearGradient>)
-                      })}
-
+                      }}
+                  />
+          
 
                       {/* Reqests for my items */}
                       <LinearGradient
@@ -242,14 +241,10 @@ const I_My = () => {
                     
 
                       </LinearGradient>
-                    </View>
-                  )
-                }}
-              />
-
             </View>
           }
         />
+        
         <View style={{ marginTop: 155 }}></View>
       </View>)
 

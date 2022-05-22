@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -9,6 +9,8 @@ import {
   TouchableHighlight,
   Dimensions,
   FlatList,
+
+  Modal,
   ActivityIndicator
 } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
@@ -28,54 +30,71 @@ import { useFonts } from 'expo-font';
 import dummyData from './../../constants/dummyData'
 const windowHeight = Dimensions.get('screen').height;
 const windowWidth = Dimensions.get('window').width;
+import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
+import PlacingOrders from '../PlacingOrders';
 
-const ViewItems = ({ navigation }) => {
+const ViewItems = ({ navigation, route }) => {
   //poppins insert
   const [loaded] = useFonts({
     poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
     poppins700: require('./../../assets/fonts/poppins-700.ttf'),
   });
 
+  const { item } = route.params;
+
+  const [modalVisible, setModalVisible] = useState(false);
+
   useEffect(() => {
     // console.log("SSentDetailsAfterAccepting");
-   }, []);
+    console.log(item);
+  }, []);
 
   return (
-    (!loaded)?
-    (
-      <View
-        style={{
-          flex: 4,
-          backgroundColor: 'rgba(21,31,40,1)',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        {/* https://github.com/n4kz/react-native-indicators */}
-        <ActivityIndicator size="large" />
-      </View>
-    ):
-    (<View style={styles.container}>
-      <FlatList
-         listKey="13.1"
-        showsVerticalScrollIndicator={true}
-        ListHeaderComponent={
-          <View style={{ height: 1350 }}>
-            <View style={styles.productImageStack}>
-              <ImageBackground
-                source={require("./../../assets/images/organic-avocados.jpg")}
-                resizeMode="cover"
-                style={styles.productImage}
-                imageStyle={styles.productImage_imageStyle}
-              >
+    (!loaded) ?
+      (
+        <View
+          style={{
+            flex: 4,
+            backgroundColor: 'rgba(21,31,40,1)',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          {/* https://github.com/n4kz/react-native-indicators */}
+          <ActivityIndicator size="large" />
+        </View>
+      ) :
+      (<View style={styles.container}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            setModalVisible(!modalVisible);
+          }}>
+          <PlacingOrders type="cash" closeModel={() => setModalVisible(false)} />
+        </Modal>
+        <FlatList
+          listKey="13.1"
+          showsVerticalScrollIndicator={true}
+          ListHeaderComponent={
+            <View style={{ height: 1350 }}>
+              <View style={styles.productImageStack}>
+                <ImageBackground
+                  source={require("./../../assets/images/organic-avocados.jpg")}
+                  resizeMode="cover"
+                  style={styles.productImage}
+                  imageStyle={styles.productImage_imageStyle}
+                >
 
-                <TouchableOpacity style={styles.backBtn}
-                  onPress={() => navigation.goBack()}>
-                  <Icon name="arrow-left" style={styles.backIcon}></Icon>
-                </TouchableOpacity>
+                  <TouchableOpacity style={styles.backBtn}
+                    onPress={() => navigation.goBack()}>
+                    <Icon name="arrow-left" style={styles.backIcon}></Icon>
+                  </TouchableOpacity>
 
-                
 
-              
+
+
 
                   <View style={styles.slidingDots}>
                     <View style={styles.rect2}></View>
@@ -84,11 +103,11 @@ const ViewItems = ({ navigation }) => {
                     <View style={styles.rect5}></View>
                     <View style={styles.rect6}></View>
                   </View>
-                
-              </ImageBackground>
 
-              <View style={styles.userImageCircleRow}>    
-              <TouchableOpacity style={styles.userImageCircle}>
+                </ImageBackground>
+
+                <View style={styles.userImageCircleRow}>
+                  <TouchableOpacity style={styles.userImageCircle}>
                     <Image
                       source={require("./../../assets/images/avatar-1.jpg")}
                       resizeMode="contain"
@@ -97,158 +116,158 @@ const ViewItems = ({ navigation }) => {
                   </TouchableOpacity></View>
 
 
-              <View style={styles.userDetails}>
-                <View style={styles.userNameStack}>
-                  <Text numberOfLines={1} style={styles.userName}>Natasha Perera</Text>
-                  <Text style={styles.posetedDate}>21/12/20</Text>
-                </View>
-              </View>
-
-              <View style={styles.anemanda}>
-
-                <Text style={styles.itemName} numberOfLines={1} >Avocado</Text>
-                <View style={styles.cateIconRow}>
-                  <Image
-                    source={require("./../../assets/icons/foods.png")}
-                    resizeMode="contain"
-                    style={styles.cateIcon}
-                  ></Image>
-                  <Text style={styles.cateName}>Food &amp; Drinks</Text>
-                </View>
-                <Text style={styles.itemDescription}>
-                  Fresh avocado that plucked from our home garden. 500g harvest have
-                  been collected.A description about the product thatuser sells.
-                </Text>
-                <View style={styles.totalAmountlblRow}>
-                  <Text style={styles.totalAmountlbl}>Total Amount</Text>
-                  <View style={styles.totalAmountlblFiller}></View>
-                  <Text numberOfLines={1} style={styles.totalAmount}>550g</Text>
-                </View>
-                <View style={styles.forCashlblRow}>
-                  <Text style={styles.forCashlbl}>For Cash</Text>
-                <View style={styles.totalCashlblFiller}></View>
-                  <Text numberOfLines={1} style={styles.price}>Rs.30/100g</Text>
-                </View>
-
-                <View style={{ height: 1, marginVertical: 9, marginHorizontal: 12, backgroundColor: "rgba(175,172,172,1)", }}></View>
-
-
-                <View style={styles.contactGroups}>
-                  <TouchableOpacity style={styles.addFavBtn}>
-                    <FeatherIcon name="heart" style={styles.favIcon}></FeatherIcon></TouchableOpacity>
-
-                  <TouchableOpacity style={styles.callBtn}>
-                    <FeatherIcon name="phone" style={styles.callIcon}></FeatherIcon></TouchableOpacity>
-
-                  <TouchableOpacity style={styles.msgBtn}>
-                    <FeatherIcon
-                      name="message-square"
-                      style={styles.msgIcon}
-                    ></FeatherIcon>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity style={styles.sendReqBtn}>
-                    <FontAwesomeIcon
-                      name="share-square-o"
-                      style={styles.sendReqIcon}
-                    ></FontAwesomeIcon>
-                  </TouchableOpacity>
-                </View>
-
-
-                <View style={styles.mapViewStackStack}>
-                  <View style={styles.mapViewStack}>
-                    <MapView
-                      provider={MapView.PROVIDER_GOOGLE}
-                      initialRegion={{
-                        latitude: 37.78825,
-                        longitude: -122.4324,
-                        latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0421
-                      }}
-                      customMapStyle={[]}
-                      style={styles.mapView}
-                    ></MapView>
-                    <EntypoIcon
-                      name="location-pin"
-                      style={styles.locationIcon}
-                    ></EntypoIcon>
-                    <Image
-                      source={require("./../../assets/images/avatar-1.jpg")}
-                      resizeMode="contain"
-                      style={styles.userLocation}
-                    ></Image>
-
+                <View style={styles.userDetails}>
+                  <View style={styles.userNameStack}>
+                    <Text numberOfLines={1} style={styles.userName}>Natasha Perera</Text>
+                    <Text style={styles.posetedDate}>21/12/20</Text>
                   </View>
-                  <Text style={styles.viewOnTheMap}>View on the map</Text>
                 </View>
 
-                <View style={styles.rect1}>
-                  <Text style={styles.similarResults}>Similar results</Text>
-                </View>
+                <View style={styles.anemanda}>
 
-                <FlatList
-                  listKey="13.2"
-                  data={dummyData.itemsSearchList}
-                  keyExtractor={(item) => `${item.id}`}
-                  showsHorizontalScrollIndicator={false}
-                  horizontal
-                  style={{ marginHorizontal: 10, }}
-                  renderItem={({ item, index }) => {
-                    return (
+                  <Text style={styles.itemName} numberOfLines={1} >{item.name}</Text>
+                  <View style={styles.cateIconRow}>
+                    <Image
+                      source={require("./../../assets/icons/foods.png")}
+                      resizeMode="contain"
+                      style={styles.cateIcon}
+                    ></Image>
+                    <Text style={styles.cateName}>{item.category}</Text>
+                  </View>
+                  <Text style={styles.itemDescription}>
+                    {item.description}
+                  </Text>
+                  <View style={styles.totalAmountlblRow}>
+                    <Text style={styles.totalAmountlbl}>Total Amount</Text>
+                    <View style={styles.totalAmountlblFiller}></View>
+                    <Text numberOfLines={1} style={styles.totalAmount}>{item.amount}</Text>
+                  </View>
+                  <View style={styles.forCashlblRow}>
+                    <Text style={styles.forCashlbl}>For Cash</Text>
+                    <View style={styles.totalCashlblFiller}></View>
+                    <Text numberOfLines={1} style={styles.price}>{item.price}</Text>
+                  </View>
 
-                      <View >
-                        <TouchableOpacity style={styles.productsCardStack}>
-                          <LinearGradient
-                            colors={['#3b3b4a', '#212126', '#3b3b4a']}
-                            style={styles.productsCard}
-                          >
+                  <View style={{ height: 1, marginVertical: 9, marginHorizontal: 12, backgroundColor: "rgba(175,172,172,1)", }}></View>
 
-                            <ImageBackground
-                              source={require("./../../assets/images/organic-avocados.jpg")}
-                              resizeMode="cover"
-                              style={styles.productImage1}
-                              imageStyle={styles.productImage1_imageStyle}
+
+                  <View style={styles.contactGroups}>
+                    <TouchableOpacity style={styles.addFavBtn}>
+                      <FeatherIcon name="heart" style={styles.favIcon}></FeatherIcon></TouchableOpacity>
+
+                    <TouchableOpacity style={styles.callBtn}>
+                      <FeatherIcon name="phone" style={styles.callIcon}></FeatherIcon></TouchableOpacity>
+
+                    <TouchableOpacity style={styles.msgBtn}>
+                      <FeatherIcon
+                        name="message-square"
+                        style={styles.msgIcon}
+                      ></FeatherIcon>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.sendReqBtn}>
+                      <FontAwesomeIcon
+                        name="share-square-o"
+                        style={styles.sendReqIcon}
+                      ></FontAwesomeIcon>
+                    </TouchableOpacity>
+                  </View>
+
+
+                  <View style={styles.mapViewStackStack}>
+                    <View style={styles.mapViewStack}>
+                      <MapView
+                        provider={MapView.PROVIDER_GOOGLE}
+                        initialRegion={{
+                          latitude: 37.78825,
+                          longitude: -122.4324,
+                          latitudeDelta: 0.0922,
+                          longitudeDelta: 0.0421
+                        }}
+                        customMapStyle={[]}
+                        style={styles.mapView}
+                      ></MapView>
+                      <EntypoIcon
+                        name="location-pin"
+                        style={styles.locationIcon}
+                      ></EntypoIcon>
+                      <Image
+                        source={require("./../../assets/images/avatar-1.jpg")}
+                        resizeMode="contain"
+                        style={styles.userLocation}
+                      ></Image>
+
+                    </View>
+                    <Text style={styles.viewOnTheMap}>View on the map</Text>
+                  </View>
+
+                  <View style={styles.rect1}>
+                    <Text style={styles.similarResults}>Similar results</Text>
+                  </View>
+
+                  <FlatList
+                    listKey="13.2"
+                    data={dummyData.itemsSearchList}
+                    keyExtractor={(item) => `${item.id}`}
+                    showsHorizontalScrollIndicator={false}
+                    horizontal
+                    style={{ marginHorizontal: 10, }}
+                    renderItem={({ item, index }) => {
+                      return (
+
+                        <View >
+                          <TouchableOpacity style={styles.productsCardStack}>
+                            <LinearGradient
+                              colors={['#3b3b4a', '#212126', '#3b3b4a']}
+                              style={styles.productsCard}
                             >
-                              <IoniconsIcon
-                                name="md-heart"
-                                style={styles.favIcon1}
-                              ></IoniconsIcon>
-                            </ImageBackground>
 
-                            <View style={styles.productNameStackStack}>
-                              <View style={styles.productNameStack}>
-                                <Text numberOfLines={1} style={styles.productName}>Avocado</Text>
-                                <Image
-                                  source={require("./../../assets/icons/foods.png")}
-                                  resizeMode="contain"
-                                  style={styles.cateIcon1}
-                                ></Image>
+                              <ImageBackground
+                                source={require("./../../assets/images/organic-avocados.jpg")}
+                                resizeMode="cover"
+                                style={styles.productImage1}
+                                imageStyle={styles.productImage1_imageStyle}
+                              >
+                                <IoniconsIcon
+                                  name="md-heart"
+                                  style={styles.favIcon1}
+                                ></IoniconsIcon>
+                              </ImageBackground>
+
+                              <View style={styles.productNameStackStack}>
+                                <View style={styles.productNameStack}>
+                                  <Text numberOfLines={1} style={styles.productName}>Avocado</Text>
+                                  <Image
+                                    source={require("./../../assets/icons/foods.png")}
+                                    resizeMode="contain"
+                                    style={styles.cateIcon1}
+                                  ></Image>
+                                </View>
+                                <Text style={styles.cateName1} numberOfLines={1}>
+                                  Electronics &amp; Electrics
+                                </Text>
                               </View>
-                              <Text style={styles.cateName1} numberOfLines={1}>
-                                Electronics &amp; Electrics
-                              </Text>
-                            </View>
-                            <View style={styles.transactionMethod1Stack}>
-                              <Text numberOfLines={1} style={styles.transactionMethod1}>For Cash</Text>
-                              <Text numberOfLines={1} style={styles.price1}>Rs.30/100g</Text>
-                            </View>
-                          </LinearGradient>
+                              <View style={styles.transactionMethod1Stack}>
+                                <Text numberOfLines={1} style={styles.transactionMethod1}>For Cash</Text>
+                                <Text numberOfLines={1} style={styles.price1}>Rs.30/100g</Text>
+                              </View>
+                            </LinearGradient>
 
-                        </TouchableOpacity>
-                      </View>
-                    )
-                  }} />
+                          </TouchableOpacity>
+                        </View>
+                      )
+                    }} />
+                </View>
               </View>
+              <View style={{ marginTop: 110 }}></View>
             </View>
-            <View style={{ marginTop: 110 }}></View>
-          </View>
-        } />
+          } />
 
-      <FixedFooterOrderItem
-        style={styles.fixedFooterOrderItem}
-      ></FixedFooterOrderItem>
-    </View>)
+        <FixedFooterOrderItem
+          style={styles.fixedFooterOrderItem}
+          onPress={() => setModalVisible(true)}
+        ></FixedFooterOrderItem>
+      </View>)
   );
 }
 
@@ -262,6 +281,46 @@ const styles = StyleSheet.create({
     left: 0,
     height: 340,
     right: 0
+  },
+  panel: {
+    padding: 20,
+    backgroundColor: '#FFFFFF',
+    paddingTop: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    borderRadius: 20,
+    marginHorizontal: 15,
+  },
+  panelTitle: {
+    fontSize: 27,
+    height: 35,
+    fontFamily: 'poppinsregular',
+  },
+  panelSubtitle: {
+    fontSize: 14,
+    color: 'gray',
+    height: 30,
+    marginBottom: 10,
+    fontFamily: 'poppinsregular',
+  },
+  panelButton: {
+    padding: 13,
+    borderRadius: 10,
+    backgroundColor: 'rgba(123,0,255,1)',
+    alignItems: 'center',
+    marginVertical: 7,
+    marginHorizontal: 10,
+  },
+  panelButtonTitle: {
+    fontSize: 15,
+    color: 'white',
+    fontFamily: 'poppins700',
+    letterSpacing: 0.2
   },
   productImage_imageStyle: {},
   backBtn: {
@@ -278,7 +337,7 @@ const styles = StyleSheet.create({
   backIcon: {
     color: '#BBBDC1',
     // fontSize: 20,
-    marginRight:2,
+    marginRight: 2,
   },
   userImageCircle: {
     width: 50,
@@ -290,17 +349,17 @@ const styles = StyleSheet.create({
     width: 35,
     height: 35,
     marginTop: 7,
-    marginLeft: 7, 
+    marginLeft: 7,
   },
   slidingDots: {
     width: 88,
     height: 10,
     flexDirection: "row",
-    justifyContent: "space-between", alignItems: 'center', 
+    justifyContent: "space-between", alignItems: 'center',
     marginHorizontal: 150,
-    marginTop: 2, 
-    position:'absolute', 
-    bottom:30, 
+    marginTop: 2,
+    position: 'absolute',
+    bottom: 30,
   },
   rect2: {
     width: 10,
@@ -337,7 +396,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: -45,
     marginLeft: 24,
-    width:55, elevation:30
+    width: 55, elevation: 30
   },
   userDetails: {
     top: 325,
@@ -436,7 +495,7 @@ const styles = StyleSheet.create({
   },
   forCashlbl: {
     fontFamily: "poppinsregular",
-    color: "rgba(255,255,255,1)",    
+    color: "rgba(255,255,255,1)",
     height: 25
   },
   totalCashlblFiller: {
@@ -455,7 +514,7 @@ const styles = StyleSheet.create({
     marginTop: 18,
     marginBottom: 20,
     marginLeft: 25,
-    marginRight:25,
+    marginRight: 25,
   },
   contactGroups: {
     height: 50,

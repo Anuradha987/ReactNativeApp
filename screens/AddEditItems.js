@@ -206,6 +206,8 @@ const available=[
 
 //Trading Method selection
 const [selectedValue, setSelectedValue] = useState("All");
+const [selectedStatus, setSelectedStatus] = useState("Available");
+const [selectedCategory, setSelectedCategory] = useState("Agriculture");
 
 //poppins insert
   const [loaded] = useFonts({
@@ -235,6 +237,7 @@ const [selectedValue, setSelectedValue] = useState("All");
      }
     ItemsService.AddItem(data,AuthService.userToken).then((res)=>{
       console.log(res.data);
+      navigation.goBack();
     }).catch((error)=>{
       console.log(error)
     })
@@ -398,18 +401,34 @@ const [selectedValue, setSelectedValue] = useState("All");
       <Text style={styles.categorylbl}>Category *</Text>
       {/* {data.isValidItemName ? null : (<Text style={styles.errMsg}>Please select a category</Text>)}  */}
       </View>
-      <Pressable style={styles.categorytxt} onPress={()=>bs.current.snapTo(0)}>
-                <View style={styles.cateRoundRow}>
-                  <View style={styles.cateRound}>
-                    <Image
-                      source={require('../assets/icons/Entertainment.png')}
-                      resizeMode="contain"
-                      style={styles.cateIcon2}
-                    ></Image>
-                  </View>
-                  <Text style={styles.cateName2}>Environment</Text>
-                </View>
-          </Pressable>
+      <View style={styles.tradingMethodtxt}
+      >
+        <Picker itemStyle={{ backgroundColor: '#000', }}
+            selectedValue={selectedCategory}
+            dropdownIconColor={'#DDDDDD'}
+            style={{color: "rgba(255,255,255,1)", bottom: 7,fontFamily: "poppinsregular",  fontSize: 15, }}
+            onValueChange={(itemValue, itemIndex) => setSelectedCategory(itemValue)}
+          >
+            {/* https://reactnative.dev/docs/picker */}
+            <Picker.Item label="Agriculture" value="Agriculture" />
+            <Picker.Item label="Business and finance" value="Business_and_finance" />
+            <Picker.Item label="Clothing and fashion" value="Clothing_and_fashion" />
+            <Picker.Item label="Computing and mobile" value="Computing_and_mobile" />
+            <Picker.Item label="Educational" value="Educational" />
+            <Picker.Item label="Electronics and electrics" value="Electronics_and_electrics" />
+            <Picker.Item label="Entertainment" value="Entertainment" />
+            <Picker.Item label="Environment" value="Environment" />
+            <Picker.Item label="Food and drinks" value="Food_and_drinks" />
+            <Picker.Item label="Health and medication" value="Health_and_medication" />
+            <Picker.Item label="Home and gardening" value="Home_and_gardening" />
+            <Picker.Item label="Kids" value="Kids" />
+            <Picker.Item label="Law" value="Law" />
+            <Picker.Item label="Pets" value="Pets" />
+            <Picker.Item label="Photography" value="Photography" />
+            <Picker.Item label="Sports and fitness" value="Sports_and_fitness" />
+            <Picker.Item label="Traveling and vehicles" value="Traveling_and_vehicles" />
+          </Picker>
+        </View>
 
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
       <Text style={styles.totalAmountlbl}>Total Amount Available *</Text>
@@ -431,16 +450,19 @@ const [selectedValue, setSelectedValue] = useState("All");
       <Text style={styles.statuslbl}>Status *</Text>
       {/* {data.isValidItemName ? null : (<Text style={styles.errMsg}>Please select the status</Text>)}  */}
       </View>
-      <View style={styles.availablityRow}>
-      {/* radio buttons */}
-        {/* <RadioButtonAvailability/>
-        <Text style={styles.availablelbl}>Available</Text>
-
-        <RadioButtonAvailability/>
-        <Text style={styles.notAvailablelbl}>Not Available</Text> */}
-        {/* <RadioButtonAvailability data={available} onSelect={(value) => setOption(value)} /> */}
-       
-      </View> 
+      <View style={styles.tradingMethodtxt}
+      >
+        <Picker itemStyle={{ backgroundColor: '#000', }}
+            selectedValue={selectedStatus}
+            dropdownIconColor={'#DDDDDD'}
+            style={{color: "rgba(255,255,255,1)", bottom: 7,fontFamily: "poppinsregular",  fontSize: 15, }}
+            onValueChange={(itemValue, itemIndex) => setSelectedStatus(itemValue)}
+          >
+            {/* https://reactnative.dev/docs/picker */}
+            <Picker.Item label="Available" value="Available" />
+            <Picker.Item label="Unavailable" value="Unavailable" />
+          </Picker>
+        </View>
 
 
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
