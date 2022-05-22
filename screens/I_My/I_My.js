@@ -114,8 +114,8 @@ const I_My = () => {
               {/* horizontal scroll bar */}
               <Animated.FlatList
                 listKey="10.1"
-                data={dummyData.myItemsData}
-                keyExtractor={(item) => `${item.id}`}
+                data={myItems}
+                keyExtractor={(item) => `${item._id}`}
                 showsHorizontalScrollIndicator={true}
                 horizontal
                 snapToAlignment='center'
@@ -124,10 +124,6 @@ const I_My = () => {
                 decelerationRate={'fast'}
                 // style={{ width: 600,    }}
                 renderItem={({ item, index }) => {
-                  return (
-                    <View key={index}>
-                      {/* My items details */}
-                      {myItems.map((item) => {
                        return (<LinearGradient
                           colors={['#F1F1B0', '#ECDC80', '#EBD670']}
                           key={item._id}
@@ -176,11 +172,9 @@ const I_My = () => {
                             <Text numberOfLines={1} style={styles.price}>{item.price} /{item.amount}</Text>
                           </View>
                         </LinearGradient>)
-                      })}
-                    </View>
-                  )
-                }}
-              />
+                      }}
+                  />
+          
 
                       {/* Reqests for my items */}
                       <LinearGradient
