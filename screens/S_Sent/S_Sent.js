@@ -154,16 +154,16 @@ onPress = open SSentDetailsAfterAccepting.js */}
                       >
                         <Text style={styles.reqTitle}>{item.title}</Text>
                         <View style={styles.cateIconRow}>
-                          <Image
+                          {/* <Image
                             source={item.cateIcon}
                             resizeMode="contain"
                             style={styles.cateIcon}
-                          ></Image>
+                          ></Image> */}
                           <View style={styles.categoryStack}>
-                            <Text style={styles.cateName}>{item.category}</Text>
-                            <Text style={styles.sentDate}>{item.sentDate}</Text>
+                            <Text style={styles.cateName}>Category: {item.category}</Text>
                           </View>
                         </View>
+
                         <View style={styles.sentToColumnRow}>
                           <View style={styles.sentToColumn}>
                             <Text style={styles.sentTo}>To: {item.to}</Text>
@@ -172,8 +172,10 @@ onPress = open SSentDetailsAfterAccepting.js */}
                           <View style={styles.sentToColumnFiller}></View>
                           <View
                             style={styles.priority}
-                          ></View>
+                          >
+                          </View>
                         </View>
+
                       </TouchableOpacity>
                     </View>
                   )
@@ -363,7 +365,7 @@ const styles = StyleSheet.create({
   categoryStack: {
     width: 272,
     height: 17,
-    marginLeft: 11,
+    // marginLeft: 11,
     marginTop: 1
   },
   cateIconRow: {
