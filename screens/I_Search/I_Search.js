@@ -1,10 +1,11 @@
-import React, { Component, useEffect } from "react";
+import React, { Component, useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
   ScrollView,
   Image,
   Text,
+  RefreshControl,
   TextInput,
   TouchableOpacity,
   ImageBackground, TouchableWithoutFeedback, Dimensions,
@@ -30,6 +31,7 @@ const I_Search = () => {
   const [searchBarFocused, setSearchBarFocused] = React.useState(false);
 
   const [items, setItems] = React.useState([]);
+  const [refreshing, setRefreshing] = useState(true);
 
 const searchUsers = (value) =>{
   const filteredUsers = this.state.users.filter(
@@ -59,16 +61,21 @@ const searchUsers = (value) =>{
   useEffect(() => {
     console.log("Explore Items");
     if(!items.length){
-      ItemsService.getAllItems(AuthService.userToken).then((res)=>{
-        // console.log(res.data.data);
-        const items =res.data.data;
-        setItems(items);
-      }).catch((error)=>{
-        console.log(error);
-      });
+      loadData();
     }
-
    }, []);
+
+   const loadData = () => {
+    ItemsService.getAllItems(AuthService.userToken).then((res)=>{
+      // console.log(res.data.data);
+      const items =res.data.data;
+      setItems(items);
+      setRefreshing(false);
+    }).catch((error)=>{
+      setRefreshing(false);
+      console.log(error);
+    });
+   }
   
   return (
     (!loaded)?
@@ -84,8 +91,18 @@ const searchUsers = (value) =>{
         <ActivityIndicator size="large" />
       </View>
     ):
+    
     (<View style={styles.container}>
-      
+            <FlatList
+    showsVerticalScrollIndicator={true}
+    refreshControl={
+      <RefreshControl refreshing={refreshing} onRefresh={loadData} />
+    }
+    listKey="90.8"
+    //contentContainerStyle={{ paddingBottom: 100 }}
+    ListHeaderComponent={
+      <View>
+
       <View>
         {/* horizontal scroll bar */}
         <FlatList
@@ -98,8 +115,6 @@ const searchUsers = (value) =>{
           renderItem={({ item, index }) => {
             return (
               <TouchableOpacity style={[styles.categories, selectedCatergoryId == item.id && styles.SelectedCategories]}
-                // onPress={() => {setSelectedCategoryId(item.id)}}
-                // onPress={() => onSelectCategory(item)}
                 onPress ={()=>setSelectedCategory(item.category)}
               >
                 <View style={styles.cateRoundRow}>
@@ -157,13 +172,10 @@ onBlur = {()=> setSearchBarFocused(false)}
           data={items}
           numColumns={2}
           keyExtractor={(item) => `${item._id}`}
-          showsHorizontalScrollIndicator={true}
-          contentContainerStyle={{}}
-
+          // showsHorizontalScrollIndicator={true}
           renderItem={({ item, index }) => {
             if(item.user_id !== AuthService.userId && (selectedCategory === "all" || selectedCategory === item.category)){
-              return (
-              
+              return (   
                 <TouchableWithoutFeedback style={styles.product1Group} onPress={()=>navigation.navigate('ViewItems',{item:item})}>
                   <View style={styles.products1Stack}>
                     <LinearGradient
@@ -206,16 +218,14 @@ onBlur = {()=> setSearchBarFocused(false)}
             }
          
           }} />
-
       </View>
 
-      {/* <TouchableOpacity style={styles.addNewReq}><Image source={icons.cross} style={styles.add}/></TouchableOpacity> */}
-      <TouchableOpacity style={styles.addNewReq} onPress={()=>navigation.navigate('NewReqForm')}>
+      {/* <View style={{ backgroundColor: "#fff", margin: 50, height: 700 }}></View> */}
+      </View>}/>
+            {/* <TouchableOpacity style={styles.addNewReq}><Image source={icons.cross} style={styles.add}/></TouchableOpacity> */}
+            <TouchableOpacity style={styles.addNewReq} onPress={()=>navigation.navigate('NewReqForm')}>
                 <EntypoIcon name="plus" style={styles.addIcon}></EntypoIcon>
       </TouchableOpacity>
-
-      {/* <View style={{ backgroundColor: "#fff", margin: 50, height: 700 }}></View> */}
-      
     </View>)
   );
 }
@@ -223,7 +233,7 @@ onBlur = {()=> setSearchBarFocused(false)}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(21,31,40,1)"
+    backgroundColor: "rgba(21,31,40,1)",
   },
   scrollbar: {
     height: 38,
@@ -578,12 +588,12 @@ const styles = StyleSheet.create({
   },
   product1GroupRow: {
     //card flatlist area
-    height: windowHeight - 317,
-    flexDirection: "row",
+    height: windowHeight,
+    // flexDirection: "row",
     marginTop: 78,
     marginLeft: 15,
     marginRight: 15,
-    marginBottom:100, 
+    // marginBottom:100, 
   },
   addNewReq: {
     width: 70,

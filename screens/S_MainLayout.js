@@ -299,48 +299,16 @@ const S_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelecte
 
             {/* Content */}
             <View style={{flex:1, }}>
-                <FlatList 
-                // onScroll ={Animated.event(
-                //                     [{nativeEvent:{contentOffset: {y: scrollY} } }],
-                //                     {useNativeDrawer: true }
-                //                     )}
-                listKey="8.1"
-                          ref={flatListRef}
-                          horizontal
-                          scrollEnabled={false}
-                          pagingEnabled
-                          snapToAlignment='center'
-                          snapToInterval = {SIZES.width}
-                          showsHorizontalScrollIndicator = {false}
-                          data ={constants.S_bottom_tabs}
-                          keyExtractor = {item => `${item.id}`}
-
-                        //   onMomentumScrollBegin={onMomentumScrollBegin}
-                        //   onMomentumScrollEnd = {onMomentumScrollEnd}
-                        //   onScrollEndDrag = {onScrollEndDrag}
-                        //   onScrollEndDrag = {onScrollEndDrag}
-                        //   scrollEventThrottle = {1}
-
-
-                          renderItem ={({item, index}) => {
-                              return(
                                 <View style={{height: SIZES.height, width: SIZES.width}}>
-                                    {/* if the item.label == home screen the render the home screen. like that it will render the relevant screen */}
-                                    {item.label == constants.screens.S_Search && <S_Search/>}
-                                    {item.label == constants.screens.S_Sent && <S_Sent/>}                                    
-                                    {item.label == constants.screens.S_Requests && <S_Requests/>}
-                                    {item.label == constants.screens.S_Approvals && <S_Approvals/>}
-                                    {item.label == constants.screens.S_My && <S_My/>}
+
+                                    {(selectedTab === constants.screens.S_Search) ? (<S_Search/>):
+                                    (selectedTab === constants.screens.S_Sent) ? (<S_Sent/>):                                   
+                                    (selectedTab === constants.screens.S_Requests) ? (<S_Requests/>):
+                                    (selectedTab === constants.screens.S_Approvals) ? (<S_Approvals/>):
+                                    (selectedTab === constants.screens.S_My) ? (<S_My/>):
+                                    (<S_Search/>)}
                                 </View>
-                              )
-                          }}
-                />
-                
-
             </View>
-
-
-
             {/* Footer */}
             
             {/* <View style={{height: 65, justifyContent:'flex-end',  transform: [{translateY: bottomBarTranslate}]} }> */}
