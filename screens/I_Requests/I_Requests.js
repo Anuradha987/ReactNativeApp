@@ -40,6 +40,7 @@ const I_Requests = () => {
         console.log(res.data);
         setRefreshing(false);
       }).catch((error)=>{
+        setRefreshing(false);
         console.log(error);
       });
      }
@@ -62,7 +63,7 @@ const I_Requests = () => {
 <FlatList showsVerticalScrollIndicator={true}
         listKey="11.1"
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={getOrdersByUserId} />
+          <RefreshControl refreshing={refreshing} onRefresh={()=>getOrdersByUserId()} />
         }
         ListHeaderComponent={
             <View>
