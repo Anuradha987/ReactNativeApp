@@ -38,13 +38,13 @@ const styles = StyleSheet.create({
     borderRadius: 20
   },
   reqTitle1: {
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(255,255,255,1)",
     fontSize: 15,
     textAlign: "right"
   },
   sportsFitness: {
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "#121212",
     textAlign: "right",
     marginTop: 5,

@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     top: 6,
     left: 33,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(255,255,255,1)",
     fontSize: 16
   },
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
     top: 6,
     left: 171,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(255,255,255,1)",
     fontSize: 16
   },
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     top: 6,
     left: 240,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(255,255,255,1)",
     fontSize: 16
   },
@@ -260,12 +260,12 @@ const styles = StyleSheet.create({
     top: 6,
     left: 307,
     position: "absolute",
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(255,255,255,1)",
     fontSize: 16
   },
   distance: {
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(255,255,255,1)",
     fontSize: 15,
     marginTop: 45,

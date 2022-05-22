@@ -213,7 +213,7 @@ return (
 
           <View style={{flexDirection:'row', justifyContent:'space-between', marginTop:25,marginHorizontal:35}}>
             <Text style={styles.tolbl}>To</Text>
-            <Text style={styles.errMsg}>Error To</Text>
+            {/* <Text style={styles.errMsg}>Error To</Text> */}
           </View>
 
         <View style={styles.categorytxt}>
@@ -245,9 +245,6 @@ return (
                   style={styles.selectToWhomeIcon}></EntypoIcon>    
                 </TouchableOpacity>
           </View>
-
-         
-
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-between',marginTop:25,marginHorizontal:35}}>
             <Text style={styles.titlelbl}>Title *</Text>
@@ -311,26 +308,7 @@ return (
             <Text style={styles.errMsg}>Enter the Priority</Text>
           </View>  
           <View style={styles.priorityRadioBtnRow}>
-            <MaterialRadio data={dummyData.priorityCategory} style={{marginRight:0}} onSelect={(value) => setOption(value)}/>
-
-            {/* <MaterialRadio style={styles.highRadioBtn} 
-                           //radio_props={priorityCategory} 
-                           //initial={0} 
-                           onPress={ setChosenOption('high')}
-                           >
-            </MaterialRadio>
-        
-            <View style={styles.redDot}></View>
-            <Text style={styles.high}>High</Text>
-
-            <MaterialRadio style={styles.mediumRadioBtn} onPress={ setChosenOption('medium')}></MaterialRadio>
-            <View style={styles.yellowDot}></View>
-            <Text style={styles.medium}>Medium</Text>
-
-            <MaterialRadio style={styles.lowRadioBtn} onPress={ setChosenOption('low')}></MaterialRadio>
-            <View style={styles.greenDot}></View>
-            <Text style={styles.low}>Low</Text> */}
-
+            {/* <MaterialRadio data={dummyData.priorityCategory} style={{marginRight:0}} onSelect={(value) => setOption(value)}/> */}
 
 
           </View>

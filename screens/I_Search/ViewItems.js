@@ -247,6 +247,7 @@ const ViewItems = ({ navigation }) => {
 
       <FixedFooterOrderItem
         style={styles.fixedFooterOrderItem}
+        onPress={()=>navigation.navigate("PlacingOrders")}
       ></FixedFooterOrderItem>
     </View>)
   );

@@ -4,6 +4,7 @@ import { useFonts } from 'expo-font';
 const windowWidth = Dimensions.get('window').width;
 
 function FixedFooterOrderItem(props) {  
+
   const [loaded] = useFonts({
     poppinsregular: require('../assets/fonts/Poppins-Regular.ttf'),
     poppins700: require('../assets/fonts/poppins-700.ttf'),
@@ -14,7 +15,7 @@ function FixedFooterOrderItem(props) {
   }
   return (
     <View style={[styles.container, props.style]}>
-      <TouchableOpacity style={styles.placeOrderBtn}>
+      <TouchableOpacity style={styles.placeOrderBtn} onPress={props.onPress}>
         <Text style={styles.placeAnOrder}>PLACE AN ORDER</Text>
       </TouchableOpacity>
     </View>

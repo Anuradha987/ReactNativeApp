@@ -35,7 +35,7 @@ function PlacingOrders(props) {
             clearButtonMode="while-editing"
             autoCapitalize="sentences"
             returnKeyType="done"
-            maxLength={"null"}
+            // maxLength={"null"}
             selectTextOnFocus={false}
             placeholderTextColor="rgba(138,138,138,1)"
             selectionColor="rgba(255,255,255,1)"
@@ -65,7 +65,7 @@ function PlacingOrders(props) {
             clearButtonMode="while-editing"
             autoCapitalize="sentences"
             returnKeyType="done"
-            maxLength={"null"}
+            // maxLength={"null"}
             selectTextOnFocus={false}
             placeholderTextColor="rgba(138,138,138,1)"
             selectionColor="rgba(255,255,255,1)"
@@ -95,7 +95,7 @@ function PlacingOrders(props) {
             clearButtonMode="while-editing"
             autoCapitalize="sentences"
             returnKeyType="done"
-            maxLength={"null"}
+            // maxLength={"null"}
             selectTextOnFocus={false}
             placeholderTextColor="rgba(138,138,138,1)"
             selectionColor="rgba(255,255,255,1)"
@@ -107,7 +107,7 @@ function PlacingOrders(props) {
             clearButtonMode="while-editing"
             autoCapitalize="sentences"
             returnKeyType="done"
-            maxLength={"null"}
+            // maxLength={"null"}
             selectTextOnFocus={false}
             placeholderTextColor="rgba(138,138,138,1)"
             selectionColor="rgba(255,255,255,1)"
@@ -137,7 +137,7 @@ function PlacingOrders(props) {
             clearButtonMode="while-editing"
             autoCapitalize="sentences"
             returnKeyType="done"
-            maxLength={"null"}
+            // maxLength={"null"}
             selectTextOnFocus={false}
             placeholderTextColor="rgba(138,138,138,1)"
             selectionColor="rgba(255,255,255,1)"
@@ -149,7 +149,7 @@ function PlacingOrders(props) {
             clearButtonMode="while-editing"
             autoCapitalize="sentences"
             returnKeyType="done"
-            maxLength={"null"}
+            // maxLength={"null"}
             selectTextOnFocus={false}
             placeholderTextColor="rgba(138,138,138,1)"
             selectionColor="rgba(255,255,255,1)"
@@ -179,7 +179,7 @@ function PlacingOrders(props) {
             clearButtonMode="while-editing"
             autoCapitalize="sentences"
             returnKeyType="done"
-            maxLength={"null"}
+            // maxLength={"null"}
             selectTextOnFocus={false}
             placeholderTextColor="rgba(138,138,138,1)"
             selectionColor="rgba(255,255,255,1)"
@@ -191,7 +191,7 @@ function PlacingOrders(props) {
             clearButtonMode="while-editing"
             autoCapitalize="sentences"
             returnKeyType="done"
-            maxLength={"null"}
+            // maxLength={"null"}
             selectTextOnFocus={false}
             placeholderTextColor="rgba(138,138,138,1)"
             selectionColor="rgba(255,255,255,1)"
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
     borderRadius: 42
   },
   transactionMethod1: {
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(206,144,230,1)",
     fontSize: 17,
     textAlign: "center",
@@ -258,13 +258,13 @@ const styles = StyleSheet.create({
     marginRight: 25
   },
   buyquantitytxt1: {
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(207,205,205,1)",
     marginTop: 25,
     marginLeft: 29
   },
   quantity2: {
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(255,255,255,1)",
     height: 42,
     borderRadius: 15,
@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
     
   },
   send: {
-    fontFamily: "poppins-700",
+    // fontFamily: "poppins-700",
     color: "rgba(255,255,255,1)",
     fontSize: 18,
     textAlign: "center",
@@ -323,7 +323,7 @@ const styles = StyleSheet.create({
     borderRadius: 42
   },
   free: {
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(206,144,230,1)",
     fontSize: 17,
     textAlign: "center",
@@ -347,13 +347,13 @@ const styles = StyleSheet.create({
     marginRight: 25
   },
   quantityIWant: {
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(207,205,205,1)",
     marginTop: 25,
     marginLeft: 29
   },
   quantity3: {
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(255,255,255,1)",
     height: 42,
     borderRadius: 15,
@@ -381,7 +381,7 @@ const styles = StyleSheet.create({
   
   },
   send1: {
-    fontFamily: "poppins-700",
+    // fontFamily: "poppins-700",
     color: "rgba(255,255,255,1)",
     fontSize: 18,
     textAlign: "center",
@@ -413,7 +413,7 @@ const styles = StyleSheet.create({
     marginRight: -1
   },
   barter: {
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(206,144,230,1)",
     fontSize: 17,
     textAlign: "center",
@@ -437,13 +437,13 @@ const styles = StyleSheet.create({
     marginRight: 26
   },
   quantityIWant2: {
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(207,205,205,1)",
     marginTop: 25,
     marginLeft: 30
   },
   quantity4: {
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(255,255,255,1)",
     height: 42,
     borderRadius: 15,
@@ -454,13 +454,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 24
   },
   exchangedFor: {
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(207,205,205,1)",
     marginTop: 33,
     marginLeft: 31
   },
   exchangetxt: {
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(255,255,255,1)",
     height: 42,
     borderRadius: 15,
@@ -487,7 +487,7 @@ const styles = StyleSheet.create({
     marginTop: 32,
   },
   send2: {
-    fontFamily: "poppins-700",
+    // fontFamily: "poppins-700",
     color: "rgba(255,255,255,1)",
     fontSize: 18,
     textAlign: "center",
@@ -520,7 +520,7 @@ const styles = StyleSheet.create({
     marginRight: -1
   },
   rent: {
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(206,144,230,1)",
     fontSize: 17,
     textAlign: "center",
@@ -544,13 +544,13 @@ const styles = StyleSheet.create({
     marginRight: 26
   },
   quantityIWant3: {
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(207,205,205,1)",
     marginTop: 25,
     marginLeft: 30
   },
   quantity6: {
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(255,255,255,1)",
     height: 42,
     borderRadius: 15,
@@ -561,13 +561,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 24
   },
   returningDate2: {
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(207,205,205,1)",
     marginTop: 33,
     marginLeft: 31
   },
   returningDatetxt: {
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(255,255,255,1)",
     height: 42,
     borderRadius: 15,
@@ -586,7 +586,7 @@ const styles = StyleSheet.create({
     marginTop: 32,
   },
   send3: {
-    fontFamily: "poppins-700",
+    // fontFamily: "poppins-700",
     color: "rgba(255,255,255,1)",
     fontSize: 18,
     textAlign: "center",
@@ -619,7 +619,7 @@ const styles = StyleSheet.create({
     marginRight: -1
   },
   borrow: {
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(206,144,230,1)",
     fontSize: 17,
     textAlign: "center",
@@ -643,13 +643,13 @@ const styles = StyleSheet.create({
     marginRight: 26
   },
   quantityIWant4: {
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(207,205,205,1)",
     marginTop: 25,
     marginLeft: 30
   },
   quantity8: {
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(255,255,255,1)",
     height: 42,
     borderRadius: 15,
@@ -660,13 +660,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 24
   },
   returningDate3: {
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(207,205,205,1)",
     marginTop: 33,
     marginLeft: 31
   },
   returningDatetxt1: {
-    fontFamily: "poppins-regular",
+    // fontFamily: "poppins-regular",
     color: "rgba(255,255,255,1)",
     height: 42,
     borderRadius: 15,
@@ -685,7 +685,7 @@ const styles = StyleSheet.create({
     marginTop: 32,
   },
   send4: {
-    fontFamily: "poppins-700",
+    // fontFamily: "poppins-700",
     color: "rgba(255,255,255,1)",
     fontSize: 18,
     textAlign: "center",
