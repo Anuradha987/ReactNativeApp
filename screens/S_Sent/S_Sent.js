@@ -43,7 +43,7 @@ const S_Sent = () => {
   useEffect(() => {
     console.log("S_Sent");
     loadSentRequests();
-  }, []);
+  }, [selectedValue]);
 
   const loadSentRequests = () => {
     RequestService.getSentRequestsByUserId(
@@ -52,16 +52,51 @@ const S_Sent = () => {
     )
       .then((res) => {
         console.log(res.data.data);
-        setSentRequests(res.data.data);
 
-        let userIDArray = []
-        for (let i = 0; i < res.data.data.length; i++) {
-          // if (res.data.data[i].to =! " ") {
-          //   console.log(res.data.data[i].to)
-          //   userIDArray.push(res.data.data[i].to)
-          // }
-
+        let filteredArray = [];
+        if (selectedValue === "All") {
+          console.log("inside all");
+          for (let i = 0; i < res.data.data.length; i++) {
+            filteredArray.push(res.data.data[i]);
+          }
+        } else if (selectedValue === "Accepted") {
+          console.log("inside accepted");
+          for (let i = 0; i < res.data.data.length; i++) {
+            if (res.data.data[i].status === "Accepted") {
+              filteredArray.push(res.data.data[i]);
+              console.log("accepted", res.data.data[i]);
+            }
+          }
+        } else if (selectedValue === "Pending") {
+          for (let i = 0; i < res.data.data.length; i++) {
+            if (res.data.data[i].status === "Pending")
+              filteredArray.push(res.data.data[i]);
+          }
+        } else if (selectedValue === "Rejected") {
+          for (let i = 0; i < res.data.data.length; i++) {
+            if (res.data.data[i].status === "Rejected")
+              filteredArray.push(res.data.data[i]);
+          }
+        } else if (selectedValue === "Completed") {
+          for (let i = 0; i < res.data.data.length; i++) {
+            if (res.data.data[i].status === "Completed")
+              filteredArray.push(res.data.data[i]);
+          }
+        } else if (selectedValue === "Cancelled") {
+          for (let i = 0; i < res.data.data.length; i++) {
+            if (res.data.data[i].status === "Cancelled")
+              filteredArray.push(res.data.data[i]);
+          }
+        } else if (selectedValue === "Cancelled By Me") {
+          for (let i = 0; i < res.data.data.length; i++) {
+            if (res.data.data[i].status === "Canceled_by_you")
+              filteredArray.push(res.data.data[i]);
+          }
         }
+        // }
+
+        console.log("filtered arr", filteredArray);
+        setSentRequests(filteredArray);
       })
       .catch((error) => {
         console.log("line 45", error);
@@ -150,7 +185,7 @@ const S_Sent = () => {
             </View>
 
             <View style={styles.scrollArea}>
-              <FlatList
+              {sentRequests.length ? <FlatList
                 listKey="23.2"
                 data={sentRequests}
                 keyExtractor={(item) => `${item._id}`}
@@ -158,12 +193,12 @@ const S_Sent = () => {
                 renderItem={({ item, index }) => {
                   return (
                     <View>
-                      {/* onLongPress= edit or delete request. data disply in the NewReqForm.js
-onPress = open SSentDetailsAfterAccepting.js */}
                       <TouchableOpacity
                         style={styles.serviceReqSent}
                         onPress={() =>
-                          navigation.navigate("SSentDetailsAfterAccepting", { "user": item})
+                          navigation.navigate("SSentDetailsAfterAccepting", {
+                            user: item,
+                          })
                         }
                         onLongPress={() => {}}
                       >
@@ -201,7 +236,7 @@ onPress = open SSentDetailsAfterAccepting.js */}
                     </View>
                   );
                 }}
-              />
+              />: <View><Text style={styles.noRecords}>There is no any {selectedValue} records.</Text></View>}
             </View>
             <View style={{ marginTop: 150 }}></View>
           </View>
@@ -443,5 +478,8 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 15,
   },
+  noRecords : {
+    color: "white", 
+  }
 });
 export default S_Sent;
