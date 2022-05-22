@@ -17,6 +17,9 @@ import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommun
 import { dummyData, icons } from "../../constants";
 import { useFonts } from 'expo-font';
 import { useNavigation } from '@react-navigation/native';
+import { ItemsService } from "../../services/customer/Items";
+import { OrderService } from "../../services/customer/Orders";
+import { AuthService } from "../../services/AuthService";
 
 //Order history. Item orders that have been sent/ Item that have been bought (items buy)
 const I_Sent = () => {
@@ -30,8 +33,18 @@ const I_Sent = () => {
     });
   
     useEffect(() => {
-      // console.log("SSentDetailsAfterAccepting");
+      console.log("I_Sent");
+      getSentOrders();
      }, []);
+
+     const getSentOrders = () =>{
+       OrderService.getOrdersByUserId(AuthService.userId,AuthService.userToken).then((res)=>{
+        console.log("get sent requests");
+        console.log(res.data);
+       }).catch((error)=>{
+        console.log(error);
+       });
+     }
 
   return (
     (!loaded)?
@@ -122,7 +135,7 @@ const I_Sent = () => {
                     <View >
                       {/* item details  */}
                       <TouchableOpacity style={styles.itemDetailsCardStack}
-                                        onPress={()=>navigation.navigate("ViewItems")}  //open viewitems
+                                        onPress={()=>navigation.navigate("ViewItems", {item:item})}  //open viewitems
                                         onLongPress={()=>{}} //edit,cancel or delete order popup boxes
                       >
                         <View style={styles.itemDetailsCard}>

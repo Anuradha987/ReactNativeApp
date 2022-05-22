@@ -7,7 +7,12 @@ export class OrderService{
         return res;
     }
 
-    static async getOrdersByUserId(userId,status,token){
+    static async getOrdersByUserId(userId,token){
+        const res = await axiosInstance.get(`/get_orders?user_id=${userId}&status=`,{headers: { Authorization: `Bearer ${token}` }});
+        return res;
+    }
+
+    static async getOrdersByUserIdAndStatus(userId,status,token){
         const res = await axiosInstance.get(`/get_orders?user_id=${userId}&status=${status}`,{headers: { Authorization: `Bearer ${token}` }});
         return res;
     }
