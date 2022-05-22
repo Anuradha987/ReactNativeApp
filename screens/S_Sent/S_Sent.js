@@ -9,69 +9,70 @@ import {
   FlatList,
   Animated,
   Image,
-  ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
-import {Picker} from '@react-native-picker/picker';
+import { Picker } from "@react-native-picker/picker";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import { dummyData } from "../../constants";
 import PickerComponent from "../../components/PickerComponent";
-import { useFonts } from 'expo-font';
-import { useNavigation } from '@react-navigation/native';
+import { useFonts } from "expo-font";
+import { useNavigation } from "@react-navigation/native";
 import { AuthService } from "../../services/AuthService";
 import { RequestService } from "../../services/customer/Requests";
-//notifi about the rates, votes and commetns of yours services. 
-//details about your requested services. 
+//notifi about the rates, votes and commetns of yours services.
+//details about your requested services.
 //details about upcoming pending services that you have accepted.
-//msgs from others. 
-//your services graphs, eranings.  
-
+//msgs from others.
+//your services graphs, eranings.
 
 const S_Sent = () => {
   const navigation = useNavigation();
-  // for the requests status 
+  // for the requests status
   const [selectedValue, setSelectedValue] = useState("All");
   const [sentRequests, setSentRequests] = React.useState([]);
 
-
-    //poppins insert
-    const [loaded] = useFonts({
-      poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
-      poppins700: require('./../../assets/fonts/poppins-700.ttf'),
+  //poppins insert
+  const [loaded] = useFonts({
+    poppinsregular: require("./../../assets/fonts/Poppins-Regular.ttf"),
+    poppins700: require("./../../assets/fonts/poppins-700.ttf"),
   });
 
   useEffect(() => {
     console.log("S_Sent");
     loadSentRequests();
+  }, []);
 
-   }, []);
+  const loadSentRequests = () => {
+    RequestService.getSentRequestsByUserId(
+      AuthService.userId,
+      AuthService.userToken
+    )
+      .then((res) => {
+        console.log(res.data.data);
+        setSentRequests(res.data.data);
+      })
+      .catch((error) => {
+        console.log("line 45", error);
+      });
+  };
 
-   const loadSentRequests = () => {
-    RequestService.getSentRequestsByUserId(AuthService.userId, AuthService.userToken).then((res) => {
-      console.log(res.data.data);
-      setSentRequests(res.data.data);
-    }).catch((error) => {
-      console.log("line 45",error);
-    })
-  }
-
-  return (
-    (!loaded)?
-    (
-      <View
-        style={{
-          flex: 4,
-          backgroundColor: 'rgba(21,31,40,1)',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        {/* https://github.com/n4kz/react-native-indicators */}
-        <ActivityIndicator size="large" />
-      </View>
-    ):
-    (<View style={styles.container}>
+  return !loaded ? (
+    <View
+      style={{
+        flex: 4,
+        backgroundColor: "rgba(21,31,40,1)",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      {/* https://github.com/n4kz/react-native-indicators */}
+      <ActivityIndicator size="large" />
+    </View>
+  ) : (
+    <View style={styles.container}>
       <FlatList
         listKey="23.1"
         showsVerticalScrollIndicator={true}
@@ -79,13 +80,15 @@ const S_Sent = () => {
           <View>
             <View style={styles.requestStatusRowColumn}>
               <View style={styles.requestStatusRow}>
-                
                 <View style={styles.requestStatus}>
-                  <Picker itemStyle={{ backgroundColor: '#000' }}
+                  <Picker
+                    itemStyle={{ backgroundColor: "#000" }}
                     selectedValue={selectedValue}
-                    dropdownIconColor={'#DDDDDD'}
-                    style={{ color: '#DDDDDD', bottom: 7, left: 5 }}
-                    onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                    dropdownIconColor={"#DDDDDD"}
+                    style={{ color: "#DDDDDD", bottom: 7, left: 5 }}
+                    onValueChange={(itemValue, itemIndex) =>
+                      setSelectedValue(itemValue)
+                    }
                   >
                     {/* https://reactnative.dev/docs/picker */}
                     <Picker.Item label="All" value="All" />
@@ -94,18 +97,21 @@ const S_Sent = () => {
                     <Picker.Item label="Rejected" value="Rejected" />
                     <Picker.Item label="Completed" value="Completed" />
                     <Picker.Item label="Cancelled" value="Cancelled" />
-                    <Picker.Item label="Cancelled By Me" value="Cancelled By Me" />
-
+                    <Picker.Item
+                      label="Cancelled By Me"
+                      value="Cancelled By Me"
+                    />
                   </Picker>
-
                 </View>
                 <View style={styles.requestStatusFiller}></View>
-
 
                 <View style={styles.editBtnRow}>
                   <TouchableOpacity style={styles.editBtn}>
                     <View style={styles.editReqIconFiller}></View>
-                    <FeatherIcon name="edit" style={styles.editReqIcon}></FeatherIcon>
+                    <FeatherIcon
+                      name="edit"
+                      style={styles.editReqIcon}
+                    ></FeatherIcon>
                   </TouchableOpacity>
 
                   <TouchableOpacity style={styles.deleteBtn}>
@@ -116,7 +122,6 @@ const S_Sent = () => {
                     ></MaterialCommunityIconsIcon>
                   </TouchableOpacity>
                 </View>
-
               </View>
 
               <View style={styles.searchingBar}>
@@ -133,12 +138,10 @@ const S_Sent = () => {
                   style={styles.searchIcon}
                 ></EvilIconsIcon>
               </View>
-
             </View>
 
-
             <View style={styles.scrollArea}>
-              <FlatList 
+              <FlatList
                 listKey="23.2"
                 data={sentRequests}
                 keyExtractor={(item) => `${item._id}`}
@@ -146,11 +149,14 @@ const S_Sent = () => {
                 renderItem={({ item, index }) => {
                   return (
                     <View>
-{/* onLongPress= edit or delete request. data disply in the NewReqForm.js
+                      {/* onLongPress= edit or delete request. data disply in the NewReqForm.js
 onPress = open SSentDetailsAfterAccepting.js */}
-                      <TouchableOpacity style={styles.serviceReqSent} 
-                                        onPress={()=> navigation.navigate('SSentDetailsAfterAccepting')} 
-                                        onLongPress={()=> {}}
+                      <TouchableOpacity
+                        style={styles.serviceReqSent}
+                        onPress={() =>
+                          navigation.navigate("SSentDetailsAfterAccepting")
+                        }
+                        onLongPress={() => {}}
                       >
                         <Text style={styles.reqTitle}>{item.title}</Text>
                         <View style={styles.cateIconRow}>
@@ -160,37 +166,46 @@ onPress = open SSentDetailsAfterAccepting.js */}
                             style={styles.cateIcon}
                           ></Image> */}
                           <View style={styles.categoryStack}>
-                            <Text style={styles.cateName}>Category: {item.category}</Text>
+                            <Text style={styles.cateName}>
+                              Category: {item.category}
+                            </Text>
                           </View>
                         </View>
 
                         <View style={styles.sentToColumnRow}>
                           <View style={styles.sentToColumn}>
                             <Text style={styles.sentTo}>To: {item.to}</Text>
-                            <Text style={styles.reqStatus}>Status: {item.status}</Text>
+                            <Text style={styles.reqStatus}>
+                              Status: {item.status}
+                            </Text>
                           </View>
                           <View style={styles.sentToColumnFiller}></View>
-                          <View
-                            style={styles.priority}
-                          >
-                          </View>
+                          {item.priority === "High" ? (
+                            <View style={styles.high}></View>
+                          ) : item.priority === "Medium" ? (
+                            <View style={styles.medium}></View>
+                          ) : (
+                            <View style={styles.low}></View>
+                          )}
                         </View>
-
                       </TouchableOpacity>
                     </View>
-                  )
-                }} />
+                  );
+                }}
+              />
             </View>
             <View style={{ marginTop: 150 }}></View>
-          </View>} />
-    </View>)
+          </View>
+        }
+      />
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(21,31,40,1)"
+    backgroundColor: "rgba(21,31,40,1)",
   },
   requestStatus: {
     height: 40,
@@ -198,7 +213,6 @@ const styles = StyleSheet.create({
     borderColor: "#9c8df0",
     borderRadius: 15,
     width: 164,
-
   },
   requestStatusFiller: {
     flex: 1,
@@ -211,18 +225,18 @@ const styles = StyleSheet.create({
     shadowColor: "rgba(0,0,0,1)",
     shadowOffset: {
       width: 3,
-      height: 4
+      height: 4,
     },
     elevation: 12,
     shadowOpacity: 0.25,
     shadowRadius: 4,
     borderRadius: 9,
     flexDirection: "row",
-    marginRight: 12
+    marginRight: 12,
   },
   editReqIconFiller: {
     flex: 1,
-    flexDirection: "row"
+    flexDirection: "row",
   },
   editReqIcon: {
     color: "rgba(235,212,210,1)",
@@ -230,7 +244,7 @@ const styles = StyleSheet.create({
     height: 25,
     width: 25,
     marginRight: 6,
-    marginTop: 7
+    marginTop: 7,
   },
   deleteBtn: {
     width: 40,
@@ -239,17 +253,17 @@ const styles = StyleSheet.create({
     shadowColor: "rgba(0,0,0,1)",
     shadowOffset: {
       width: 3,
-      height: 4
+      height: 4,
     },
     elevation: 12,
     shadowOpacity: 0.25,
     shadowRadius: 4,
     borderRadius: 9,
-    flexDirection: "row"
+    flexDirection: "row",
   },
   delReqIconFiller: {
     flex: 1,
-    flexDirection: "row"
+    flexDirection: "row",
   },
   delReqIcon: {
     color: "rgba(252,89,89,1)",
@@ -257,18 +271,18 @@ const styles = StyleSheet.create({
     height: 29,
     width: 26,
     marginRight: 6,
-    marginTop: 6
+    marginTop: 6,
   },
   editBtnRow: {
     height: 40,
-    flexDirection: "row"
+    flexDirection: "row",
   },
   requestStatusRow: {
     height: 40,
     flexDirection: "row",
     marginTop: 65,
     //83
-    marginRight: 1
+    marginRight: 1,
   },
   searchingBar: {
     height: 52,
@@ -279,13 +293,13 @@ const styles = StyleSheet.create({
     shadowColor: "rgba(16,16,16,1)",
     shadowOffset: {
       width: 3,
-      height: 3
+      height: 3,
     },
     elevation: 0,
     shadowOpacity: 1,
     shadowRadius: 5,
     flexDirection: "row",
-    marginTop: -122
+    marginTop: -122,
   },
   serviceSearch: {
     fontFamily: "poppinsregular",
@@ -296,7 +310,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: 7,
     marginLeft: 11,
-    marginTop:3
+    marginTop: 3,
   },
   searchIcon: {
     color: "#9c8df0",
@@ -304,12 +318,12 @@ const styles = StyleSheet.create({
     height: 32,
     width: 29,
     marginRight: 10,
-    marginTop: 14
+    marginTop: 14,
   },
   requestStatusRowColumn: {
     marginTop: 38,
     marginLeft: 16,
-    marginRight: 15
+    marginRight: 15,
   },
   scrollArea: {
     borderWidth: 0,
@@ -317,7 +331,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: 50,
     marginTop: 100,
-    marginBottom:30,
+    marginBottom: 30,
     marginLeft: 15,
     marginRight: 15,
   },
@@ -328,19 +342,19 @@ const styles = StyleSheet.create({
     shadowColor: "rgba(0,0,0,1)",
     shadowOffset: {
       width: 3,
-      height: 2
+      height: 2,
     },
     elevation: 100,
     shadowOpacity: 0.83,
     shadowRadius: 6,
-    marginBottom: 10
+    marginBottom: 10,
   },
   reqTitle: {
     fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     fontSize: 15,
     marginTop: 7,
-    marginLeft: 20
+    marginLeft: 20,
   },
   cateIcon: {
     // color: "rgba(220,162,76,1)",
@@ -352,7 +366,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     fontFamily: "poppinsregular",
     color: "rgba(220,162,76,1)",
-    fontSize: 11
+    fontSize: 11,
   },
   sentDate: {
     position: "absolute",
@@ -366,45 +380,59 @@ const styles = StyleSheet.create({
     width: 272,
     height: 17,
     // marginLeft: 11,
-    marginTop: 1
+    marginTop: 1,
   },
   cateIconRow: {
     height: 18,
     flexDirection: "row",
     marginTop: 0,
     marginLeft: 20,
-    marginRight: 15
+    marginRight: 15,
   },
   sentTo: {
     fontFamily: "poppinsregular",
     color: "rgba(197,212,196,1)",
-    fontSize: 13
+    fontSize: 13,
   },
   reqStatus: {
     fontFamily: "poppinsregular",
     color: "rgba(191,190,191,1)",
-    fontSize: 13
+    fontSize: 13,
   },
   sentToColumn: {
-    width: 261, 
+    width: 261,
   },
   sentToColumnFiller: {
     flex: 1,
-    flexDirection: "row"
+    flexDirection: "row",
   },
-  priority: {
+  high: {
     width: 14,
     height: 14,
     borderRadius: 12,
     backgroundColor: "rgba(255,51,51,1)",
-    marginTop: 2
+    marginTop: 2,
+  },
+  medium: {
+    width: 14,
+    height: 14,
+    borderRadius: 12,
+    backgroundColor: "rgba(222,255,0,1)",
+    marginTop: 2,
+  },
+  low: {
+    width: 14,
+    height: 14,
+    borderRadius: 12,
+    backgroundColor: "rgba(71,214,56,1)",
+    marginTop: 2,
   },
   sentToColumnRow: {
     height: 40,
     flexDirection: "row",
     marginTop: 7,
     marginLeft: 20,
-    marginRight: 15
-  }
+    marginRight: 15,
+  },
 });
 export default S_Sent;
