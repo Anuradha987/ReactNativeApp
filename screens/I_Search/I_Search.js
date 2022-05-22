@@ -152,7 +152,7 @@ onBlur = {()=> setSearchBarFocused(false)}
           columnWrapperStyle={{ justifyContent: 'space-between' }}
           data={items}
           numColumns={2}
-          keyExtractor={(item) => `${item.id}`}
+          keyExtractor={(item) => `${item._id}`}
           showsHorizontalScrollIndicator={true}
           contentContainerStyle={{}}
 
