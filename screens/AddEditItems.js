@@ -235,6 +235,7 @@ const [selectedValue, setSelectedValue] = useState("All");
      }
     ItemsService.AddItem(data,AuthService.userToken).then((res)=>{
       console.log(res.data);
+      navigation.goBack();
     }).catch((error)=>{
       console.log(error)
     })
