@@ -158,6 +158,7 @@ const sendNewRequest = () =>{
   };
   RequestService.SendRequest(reqData, AuthService.userToken).then((res)=>{
     console.log(res.data);
+    navigation.goBack();
   }).catch((error)=>{
     console.log(error);
   });
