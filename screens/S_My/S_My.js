@@ -43,8 +43,9 @@ const S_My = () => {
     console.log(AuthService.userId);
     console.log(AuthService.userToken);
     if (!myServices.length) {
-      getMyServices();
     }
+    getMyServices();
+
   }, []);
 
   const getMyServices = () => {
@@ -97,18 +98,18 @@ const S_My = () => {
           <View>
             <Animated.FlatList
               listKey="19.1"
-              data={dummyData.myItemsData}
-              keyExtractor={(item) => `${item.id}`}
+              data={myServices}
+              keyExtractor={(item) => `${item._id}`}
               showsHorizontalScrollIndicator={true}
               horizontal
               snapToAlignment="center"
               pagingEnabled
               snapToInterval={412}
               decelerationRate={"fast"}
-              renderItem={({ item, index }) => {
+              renderItem={({ service, index }) => {
                 return (
                   <View>
-                    {myServices.map((service) => {
+                    {/* {myServices.map((service) => { */}
                       return (
                         <LinearGradient
                           colors={["#F1F1B0", "#ECDC80", "#EBD670"]}
@@ -154,7 +155,7 @@ const S_My = () => {
                           </View>
                         </LinearGradient>
                       );
-                    })}
+                    
                   </View>
                 );
               }}
