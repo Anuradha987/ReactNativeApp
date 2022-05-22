@@ -56,6 +56,7 @@ const ViewItems = ({ navigation }) => {
     ):
     (<View style={styles.container}>
       <FlatList
+         listKey="13.1"
         showsVerticalScrollIndicator={true}
         ListHeaderComponent={
           <View style={{ height: 1350 }}>
@@ -187,6 +188,7 @@ const ViewItems = ({ navigation }) => {
                 </View>
 
                 <FlatList
+                  listKey="13.2"
                   data={dummyData.itemsSearchList}
                   keyExtractor={(item) => `${item.id}`}
                   showsHorizontalScrollIndicator={false}
@@ -275,7 +277,7 @@ const styles = StyleSheet.create({
   },
   backIcon: {
     color: '#BBBDC1',
-    fontSize: 20,
+    // fontSize: 20,
     marginRight:2,
   },
   userImageCircle: {

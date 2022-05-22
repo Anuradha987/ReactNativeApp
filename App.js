@@ -22,6 +22,7 @@ import {
   Register,
   Otp,
   PasswordRecovery,
+  DB_MainLayout,
   ResetPassword,
   AddNewCard,
   PaymentCards,
@@ -36,12 +37,17 @@ import RootStackScreen from './screens/login_SignUp/RootStackScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Filter from './components/Filter';
 import AddEditServices from './screens/AddEditServices';
+import { AuthService } from './services/AuthService';
+import { useNavigation } from '@react-navigation/native';
+import { navigationRef } from './navigation/rootNavigation';
+import * as RootNavigation from './navigation/rootNavigation';
 
 const Stack = createStackNavigator();
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 const App = () => {
+  // const navigation = useNavigation();
   // const[isLoading, setIsLoading] = React.useState(true);
   const[userToken, setUserToken] = React.useState(null);
   const[userId, setUserId] = React.useState(null);
@@ -106,8 +112,11 @@ const App = () => {
           console.log(e);
         }
         console.log('user token: ', userToken);
+        setUserId(id);
+        setUserToken(userToken);
         dispatch({ type: 'LOGIN', id: id, token: userToken, userName: userName });
-        navigation.navigate('MyProfile');
+        // navigation.navigate('MyProfile');
+        RootNavigation.navigate('DB_MainLayout', {});
       },
 
       //signup
@@ -118,7 +127,7 @@ const App = () => {
 
       //signout
       logout: async () => {
-        // setUserToken(null);
+        setUserToken(null);
         // setIsLoading(false);
         try {
           await AsyncStorage.removeItem('userToken');
@@ -127,31 +136,27 @@ const App = () => {
           console.log(e);
         }
         dispatch({ type: 'LOGOUT' });
-      },
-
-      sendUserToken: async () =>{
-        return userToken;
-      },
+      }
     }),
     []
   );
 
   useEffect(() => {
-    setTimeout(async () => {
-      // setIsLoading(false);
-      let userToken;
-      userToken = null;
       try {
-        userToken = await AsyncStorage.getItem('userToken');
-        userId = await AsyncStorage.getItem('userId');
+        AsyncStorage.getItem('userToken').then((data)=>{
+          setUserToken(data);
+          AuthService.userToken = data;
+          console.log(data);
+          dispatch({ type: 'RETRIEVE_TOKEN', token: data });
+        });
+        AsyncStorage.getItem('userId').then((data)=>{
+          AuthService.userId = data;
+          console.log(data);
+          setUserId(data);
+        });
       } catch (e) {
         console.log(e);
       }
-      setUserToken(userToken);
-      setUserId(userId);
-      // console.log('user token: ', userToken);
-      dispatch({ type: 'RETRIEVE_TOKEN', token: userToken });
-    }, 1000);
   }, []);
   // ---------------end of handling user login------------------- //
 
@@ -177,9 +182,9 @@ const App = () => {
   return (
     <Provider store={store}>
       <AuthContext.Provider value={authContext}>
-        <NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
           <StatusBar barStyle="light-content" />
-          {loginState.userToken !== null ? (
+          {userToken !== null ? (
             <Stack.Navigator
               screenOptions={{ headerShown: false }}
               //  initialRouteName={'Notice Board'}
@@ -191,7 +196,7 @@ const App = () => {
               <Stack.Screen name="Register" component={Register} />
               <Stack.Screen name="Otp" component={Otp} />
               <Stack.Screen name="PasswordRecovery" component={PasswordRecovery} />*/}
-                 <Stack.Screen name="Filter" component={Filter} /> 
+              <Stack.Screen name="Filter" component={Filter} /> 
               <Stack.Screen name="ResetPassword" component={ResetPassword} /> 
               <Stack.Screen name="AddNewCard" component={AddNewCard} />
               <Stack.Screen name="PaymentCards" component={PaymentCards} />
@@ -201,12 +206,13 @@ const App = () => {
               <Stack.Screen name="Categories" component={Categories} />
               <Stack.Screen name="SSentDetailsAfterAccepting" component={SSentDetailsAfterAccepting}/>
               <Stack.Screen name="S_RequestsDetails" component={S_RequestsDetails} />
-              <Stack.Screen name="S_Requests" component={S_Requests} userId={userId} userToken={userToken}/>
+              <Stack.Screen name="S_Requests" component={S_Requests}/>
               <Stack.Screen name="I_My" component={I_My} />
               <Stack.Screen name="SAfterCompleted" component={SAfterCompleted} />
               <Stack.Screen name="SAfterApproved" component={SAfterApproved} />
-              <Stack.Screen name="AddEditItems" component={AddEditItems} />
-              <Stack.Screen name="AddEditServices" component={AddEditServices} />
+              <Stack.Screen name="AddEditItems" component={AddEditItems}/>
+              <Stack.Screen name="AddEditServices" component={AddEditServices}/>
+              <Stack.Screen name="DB_MainLayout" component={DB_MainLayout}/>
               <Stack.Screen name="ImageBrowserScreen" component={ImageBrowserScreen} />
             </Stack.Navigator>
           ) : ( 

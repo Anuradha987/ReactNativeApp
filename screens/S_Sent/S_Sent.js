@@ -58,6 +58,7 @@ const S_Sent = () => {
     ):
     (<View style={styles.container}>
       <FlatList
+        listKey="23.1"
         showsVerticalScrollIndicator={true}
         ListHeaderComponent={
           <View>
@@ -123,6 +124,7 @@ const S_Sent = () => {
 
             <View style={styles.scrollArea}>
               <FlatList 
+                listKey="23.2"
                 data={dummyData.servicesRequestsSent}
                 keyExtractor={(item) => `${item.id}`}
                 showsVerticalScrollIndicator={true}

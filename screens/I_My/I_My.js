@@ -1,5 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 import {
+  RefreshControl,
   StyleSheet,
   View,
   ImageBackground,
@@ -20,6 +21,9 @@ import { dummyData } from '../../constants';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useFonts } from 'expo-font';
 import { useNavigation } from '@react-navigation/native';
+import { ItemsService } from "../../services/customer/Items";
+import { AuthService } from "../../services/AuthService";
+import { RequestService } from "../../services/customer/Requests";
 
 //item details that have been sold and the order requests recieved from others
 
@@ -27,175 +31,227 @@ const windowHeight = Dimensions.get('screen').height;
 const windowWidth = Dimensions.get('screen').width;
 
 const I_My = () => {
-  const navigation = useNavigation();      
-    //poppins insert
-    const [loaded] = useFonts({
-      poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
-      poppins700: require('./../../assets/fonts/poppins-700.ttf'),
+  const navigation = useNavigation();
+
+  const [refreshing, setRefreshing] = useState(true);
+
+  const [myItems, setMyItems] = React.useState([]);
+  const [orderRequests, setOrderRequests] = React.useState([]);
+  // console.log(myItems);
+  //poppins insert
+  const [loaded] = useFonts({
+    poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
+    poppins700: require('./../../assets/fonts/poppins-700.ttf'),
   });
 
   useEffect(() => {
-    // console.log("SSentDetailsAfterAccepting");
-   }, []);
-   
+    console.log("I_my");
+    console.log(AuthService.userId);
+    console.log(AuthService.userToken);
+    if(!myItems.length){
+    loadData();
+    }
+
+  }, []);
+
+  const getMyItems = () => {
+    ItemsService.getItemsByUserId(AuthService.userId, AuthService.userToken).then((res) => {
+      // console.log(res.data);
+      const items = res.data.data;
+      // console.log(items);
+      setMyItems(items);
+      setRefreshing(false);
+      // console.log(myItems);
+    }).catch((error) => {
+      setRefreshing(false);
+      // console.log(error);
+    })
+  }
+
+  const getOrderRequests = () => {
+    RequestService.getRecievedRequestsByUserId(AuthService.userId, AuthService.userToken).then((res)=>{
+      console.log(res.data);
+      const orderRequests = res.data.data;
+      setOrderRequests(orderRequests);
+    }).catch((error)=>{
+      console.log(error);
+    });
+  }
+
+  const loadData= () =>{
+    getMyItems();
+    getOrderRequests();
+  }
+
   return (
-    (!loaded)?
-    (
-      <View
-        style={{
-          flex: 4,
-          backgroundColor: 'rgba(21,31,40,1)',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        {/* https://github.com/n4kz/react-native-indicators */}
-        <ActivityIndicator size="large" />
-      </View>
-    ):
-    (<View style={styles.container}>
-                   <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate('AddEditItems')}}>
-              <Text style={styles.submit}>Add New Item</Text>
-          </TouchableOpacity>
-      {/* Vertical scroll bar */}
-      <FlatList data={dummyData.itemsRequestList}
-        showsVerticalScrollIndicator={true}
-         //contentContainerStyle={{ paddingBottom: 100 }}
-        ListHeaderComponent={
-          <View>
-            {/* horizontal scroll bar */}
-            <Animated.FlatList
-              data={dummyData.myItemsData}
-              keyExtractor={(item) => `${item.id}`}
-              showsHorizontalScrollIndicator={true}
-              horizontal
-              snapToAlignment='center'
-              pagingEnabled
-              snapToInterval={412}
-              decelerationRate={'fast'}
-              // style={{ width: 600,    }}
-              renderItem={({ item, index }) => {
-                return (
-                  <View>
-                    {/* My items details */}
-                    <LinearGradient
-                      colors={['#F1F1B0', '#ECDC80', '#EBD670']}
-                      style={styles.myItemDetails}
-                    >
-                      <View style={styles.publishDateRow}>
-                        <Text numberOfLines={1} style={styles.publishDate}>{item.publishDate}</Text>
-                        <View style={styles.publishDateFiller}></View>
-                        <View style={styles.editBtnRow}>
-                          <TouchableOpacity style={styles.editBtn}>
-                            <View style={styles.editIconFiller}></View>
-                            <FeatherIcon name="edit" style={styles.editIcon}></FeatherIcon>
-                          </TouchableOpacity>
-                          <TouchableOpacity style={styles.deleteBtn}>
-                            <View style={styles.delIconFiller}></View>
-                            <MaterialCommunityIconsIcon
-                              name="delete-sweep"
-                              style={styles.delIcon}
-                            ></MaterialCommunityIconsIcon>
-                          </TouchableOpacity>
-                        </View>
-                      </View>
-                      <Text style={styles.pageNo}>{item.pageNo}.</Text>
-                      <Image
-                        source={item.itemImage}
-                        resizeMode="cover"
-                        style={styles.itemImage}
-                      ></Image>
-                      <Text numberOfLines={1} style={styles.itemTitle}>{item.itemTitle}</Text>
-                      <View style={styles.cateIconRow}>
-                        <Image
-                          source={item.cateIcon}
-                          resizeMode="contain"
-                          style={styles.cateIcon}
-                        ></Image>
-                        <Text numberOfLines={1} style={styles.cateName}>{item.cateName}</Text>
-                      </View>
-                      <View style={styles.totalAmountlblRow}>
-                        <Text style={styles.totalAmountlbl}>Total Amount</Text>
-                        <View style={styles.totalAmountlblFiller}></View>
-                        <Text numberOfLines={1} style={styles.totalAmount}>{item.totalAmount}</Text>
-                      </View>
-                      <View style={styles.forCashlblRow}>
-                        <Text style={styles.forCashlbl}>For Cash</Text>
-                        <View style={styles.forCashlblFiller}></View>
-                        <Text numberOfLines={1} style={styles.price}>{item.price} /{item.UnitQuantity}</Text>
-                      </View>
-                    </LinearGradient>
-
-                    {/* Reqests for my items */}
-                    <LinearGradient
-                      colors={['#F1F1B0', '#ECDC80', '#EBD670']}
-                      style={styles.receivedReqList}
-                    >
-                      <View style={styles.orderRequestslblStack}>
-                        <Text style={styles.orderRequestslbl}>Order Requests</Text>
-                        <View style={styles.notificationCircle}>
-                          {/* <View style={styles.noOfNotificationFiller}></View> */}
-                          <Text numberOfLines={1} style={styles.noOfNotification}>{item.noOfNotification}</Text>
-                        </View>
-                      </View>
-
-                      {/* open the popup box */}
-                      <TouchableOpacity style={styles.reqInfoCard}>
-                        <View style={styles.reqSenderInfo}>
-                          <View style={styles.senderProPicRow}>
+    (!loaded || refreshing) ?
+      (
+        <View
+          style={{
+            flex: 4,
+            backgroundColor: 'rgba(21,31,40,1)',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          {/* https://github.com/n4kz/react-native-indicators */}
+          <ActivityIndicator size="large" />
+        </View>
+      ) :
+      (<View style={styles.container}>
+        <TouchableOpacity style={styles.button} onPress={() => { navigation.navigate('AddEditItems') }}>
+          <Text style={styles.submit}>Add New Item</Text>
+        </TouchableOpacity>
+        {/* Vertical scroll bar */}
+        <FlatList data={dummyData.itemsRequestList}
+          showsVerticalScrollIndicator={true}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={loadData} />
+          }
+          //contentContainerStyle={{ paddingBottom: 100 }}
+          ListHeaderComponent={
+            <View>
+              {/* horizontal scroll bar */}
+              <Animated.FlatList
+                listKey="10.1"
+                data={dummyData.myItemsData}
+                keyExtractor={(item) => `${item.id}`}
+                showsHorizontalScrollIndicator={true}
+                horizontal
+                snapToAlignment='center'
+                pagingEnabled
+                snapToInterval={412}
+                decelerationRate={'fast'}
+                // style={{ width: 600,    }}
+                renderItem={({ item, index }) => {
+                  return (
+                    <View>
+                      {/* My items details */}
+                      {myItems.map((item) => {
+                       return (<LinearGradient
+                          colors={['#F1F1B0', '#ECDC80', '#EBD670']}
+                          key={item._id}
+                          style={styles.myItemDetails}
+                        >
+                          <View style={styles.publishDateRow}>
+                            <Text numberOfLines={1} style={styles.publishDate}>{item.publishDate}</Text>
+                            <View style={styles.publishDateFiller}></View>
+                            <View style={styles.editBtnRow}>
+                              <TouchableOpacity style={styles.editBtn}>
+                                <View style={styles.editIconFiller}></View>
+                                <FeatherIcon name="edit" style={styles.editIcon}></FeatherIcon>
+                              </TouchableOpacity>
+                              <TouchableOpacity style={styles.deleteBtn}>
+                                <View style={styles.delIconFiller}></View>
+                                <MaterialCommunityIconsIcon
+                                  name="delete-sweep"
+                                  style={styles.delIcon}
+                                ></MaterialCommunityIconsIcon>
+                              </TouchableOpacity>
+                            </View>
+                          </View>
+                          <Text style={styles.pageNo}>{item.pageNo}.</Text>
+                          <Image
+                            source={item.itemImage}
+                            resizeMode="cover"
+                            style={styles.itemImage}
+                          ></Image>
+                          <Text numberOfLines={1} style={styles.itemTitle}>{item.name}</Text>
+                          <View style={styles.cateIconRow}>
                             <Image
-                              source={item.senderProPic}
-                              //source={require("./../../assets/images/_110435139_parsa.jpg")}
-                              resizeMode="cover"
-                              style={styles.senderProPic}
+                              source={item.cateIcon}
+                              resizeMode="contain"
+                              style={styles.cateIcon}
                             ></Image>
-                             <Text  numberOfLines={1} style={styles.senderName}>{item.senderName}</Text>
+                            <Text numberOfLines={1} style={styles.cateName}>{item.category}</Text>
                           </View>
-                          <View style={styles.senderProPicRowFiller}></View>
-                          <Text style={styles.sendTime}>{item.sendTime}</Text>
-                        </View>
-                        <View style={styles.amountlblStackRowRow}>
-                          <View style={styles.amountlblStackRow}>
-                            <View style={styles.amountlblStack}>
-                              <Text style={styles.amountlbl}>Amount</Text>
-                              <Text style={styles.colonMark1}> :</Text>
-                            </View>
-                            <Text style={styles.amountOrdered}>{item.amountOrdered}</Text>
+                          <View style={styles.totalAmountlblRow}>
+                            <Text style={styles.totalAmountlbl}>Total Amount</Text>
+                            <View style={styles.totalAmountlblFiller}></View>
+                            <Text numberOfLines={1} style={styles.totalAmount}>{item.amount}</Text>
                           </View>
-                          <View style={styles.amountlblStackRowFiller}></View>
-                          <TouchableOpacity style={styles.reqDeclineBtn}>
-                            <Text style={styles.decline}>Decline</Text>
-                          </TouchableOpacity>
-                        </View>
-                        <View style={styles.returningDateOrExchangedForlblStackRowRow}>
-                          <View style={styles.returningDateOrExchangedForlblStackRow}>
-                            <View style={styles.returningDateOrExchangedForlblStack}>
-                              <Text style={styles.returningDateOrExchangedForlbl}>
-                                Returning Date
-                              </Text>
-                              <Text style={styles.colonMark2}> :</Text>
-                            </View>
-                             <Text numberOfLines={1} style={styles.returningDateOrExchangedFor}>{item.returningDateOrExchangedFor}</Text> 
+                          <View style={styles.forCashlblRow}>
+                            <Text style={styles.forCashlbl}>For Cash</Text>
+                            <View style={styles.forCashlblFiller}></View>
+                            <Text numberOfLines={1} style={styles.price}>{item.price} /{item.amount}</Text>
                           </View>
-                          <View
-                            style={styles.returningDateOrExchangedForlblStackRowFiller}
-                          ></View>
-                          <TouchableOpacity style={styles.reqAcceptBtn}>
-                            <Text style={styles.accept}>Accept</Text>
-                          </TouchableOpacity>
-                        </View>
-                      </TouchableOpacity>
-                     
-                    </LinearGradient>
-                  </View>
-                )
-              }}
-            />
+                        </LinearGradient>)
+                      })}
 
-          </View>
-        }
-      />
-      <View style={{ marginTop: 155 }}></View>
-    </View>)
+
+                      {/* Reqests for my items */}
+                      <LinearGradient
+                        colors={['#F1F1B0', '#ECDC80', '#EBD670']}
+                        style={styles.receivedReqList}
+                      >
+                        <View style={styles.orderRequestslblStack}>
+                          <Text style={styles.orderRequestslbl}>Order Requests</Text>
+                          <View style={styles.notificationCircle}>
+                            {/* <View style={styles.noOfNotificationFiller}></View> */}
+                            <Text numberOfLines={1} style={styles.noOfNotification}>{orderRequests.length}</Text>
+                          </View>
+                        </View>
+
+                        {/* open the popup box */}
+                        {orderRequests.map((request)=>{
+                          return     <TouchableOpacity key={request._id} style={styles.reqInfoCard}>
+                          <View style={styles.reqSenderInfo}>
+                            <View style={styles.senderProPicRow}>
+                              <Image
+                                source={item.senderProPic}
+                                //source={require("./../../assets/images/_110435139_parsa.jpg")}
+                                resizeMode="cover"
+                                style={styles.senderProPic}
+                              ></Image>
+                              <Text numberOfLines={1} style={styles.senderName}>{item.senderName}</Text>
+                            </View>
+                            <View style={styles.senderProPicRowFiller}></View>
+                            <Text style={styles.sendTime}>{item.sendTime}</Text>
+                          </View>
+                          <View style={styles.amountlblStackRowRow}>
+                            <View style={styles.amountlblStackRow}>
+                              <View style={styles.amountlblStack}>
+                                <Text style={styles.amountlbl}>Amount</Text>
+                                <Text style={styles.colonMark1}> :</Text>
+                              </View>
+                              <Text style={styles.amountOrdered}>{item.amountOrdered}</Text>
+                            </View>
+                            <View style={styles.amountlblStackRowFiller}></View>
+                            <TouchableOpacity style={styles.reqDeclineBtn}>
+                              <Text style={styles.decline}>Decline</Text>
+                            </TouchableOpacity>
+                          </View>
+                          <View style={styles.returningDateOrExchangedForlblStackRowRow}>
+                            <View style={styles.returningDateOrExchangedForlblStackRow}>
+                              <View style={styles.returningDateOrExchangedForlblStack}>
+                                <Text style={styles.returningDateOrExchangedForlbl}>
+                                  Returning Date
+                                </Text>
+                                <Text style={styles.colonMark2}> :</Text>
+                              </View>
+                              <Text numberOfLines={1} style={styles.returningDateOrExchangedFor}>{item.returningDateOrExchangedFor}</Text>
+                            </View>
+                            <View
+                              style={styles.returningDateOrExchangedForlblStackRowFiller}
+                            ></View>
+                            <TouchableOpacity style={styles.reqAcceptBtn}>
+                              <Text style={styles.accept}>Accept</Text>
+                            </TouchableOpacity>
+                          </View>
+                        </TouchableOpacity>
+                        })}
+                    
+
+                      </LinearGradient>
+                    </View>
+                  )
+                }}
+              />
+
+            </View>
+          }
+        />
+        <View style={{ marginTop: 155 }}></View>
+      </View>)
 
   )
 }
@@ -220,9 +276,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 9,
     marginLeft: 8,
-    marginRight: 7,    
-    letterSpacing:0.5, 
-    fontSize:18,
+    marginRight: 7,
+    letterSpacing: 0.5,
+    fontSize: 18,
   },
   receivedReqList: {
     width: 365,
@@ -235,10 +291,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 10,
     borderRadius: 19,
-    height: 497,
+    height: "auto",
     marginTop: 30,
     marginLeft: 23,
     marginRight: 24,
+    marginBottom:24,
+    paddingBottom:24,
     overflow: "hidden"
   },
   receivedReqList_imageStyle: {},
@@ -257,7 +315,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,1)",
     flexDirection: "row",
     borderRadius: 13,
-    right: 0, 
+    right: 0,
   },
   noOfNotificationFiller: {
     flex: 1,
@@ -274,7 +332,7 @@ const styles = StyleSheet.create({
   orderRequestslblStack: {
     height: 26,
     marginTop: 36,
-    marginHorizontal: 29,  
+    marginHorizontal: 29,
   },
   reqInfoCard: {
     height: 118,
@@ -289,11 +347,11 @@ const styles = StyleSheet.create({
     height: 31,
     backgroundColor: "rgba(31,31,31,1)",
     borderTopRightRadius: 24,
-    borderTopLeftRadius:24,
+    borderTopLeftRadius: 24,
     borderBottomRightRadius: 5,
-    borderBottomLeftRadius:5,
+    borderBottomLeftRadius: 5,
     flexDirection: "row",
-   // marginLeft: 4
+    // marginLeft: 4
   },
   senderProPic: {
     width: 20,
@@ -338,7 +396,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 63,
     position: "absolute",
-    fontFamily: "roboto-700",
+    // fontFamily: "roboto-700",
     color: "rgba(125,123,123,1)",
     width: 10,
     height: 17,
@@ -408,7 +466,7 @@ const styles = StyleSheet.create({
     top: 5,
     left: 63,
     position: "absolute",
-    fontFamily: "roboto-700",
+    // fontFamily: "roboto-700",
     color: "rgba(125,123,123,1)"
   },
   returningDateOrExchangedForlblStack: {
@@ -421,7 +479,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
     width: 175,
     height: 21,
-    marginTop: 5, 
+    marginTop: 5,
   },
   returningDateOrExchangedForlblStackRow: {
     height: 32,
@@ -456,7 +514,7 @@ const styles = StyleSheet.create({
     height: 42,
     flexDirection: "row",
     marginLeft: 16,
-    marginRight: 16, 
+    marginRight: 16,
   },
   myItemDetails: {
     marginHorizontal: 10,
@@ -474,9 +532,9 @@ const styles = StyleSheet.create({
     borderRadius: 19,
     marginTop: 30,
     marginLeft: 24,
-    marginRight: 24, 
-    overflow: "hidden", 
-    width:365
+    marginRight: 24,
+    overflow: "hidden",
+    width: 365
   },
   publishDate: {
     fontFamily: "poppinsregular",
@@ -484,7 +542,7 @@ const styles = StyleSheet.create({
     width: 120,
     fontSize: 11,
     height: 16,
-    marginTop: 7, 
+    marginTop: 7,
   },
   publishDateFiller: {
     flex: 1,
@@ -576,13 +634,13 @@ const styles = StyleSheet.create({
     color: "#121212",
     fontSize: 20,
     textAlign: "center",
-    marginTop: 7,    
+    marginTop: 7,
     marginLeft: 24,
-    marginRight: 24, 
+    marginRight: 24,
   },
   cateIcon: {
     tintColor: "rgba(79,77,77,1)",
-    fontSize: 20,
+    // fontSize: 20,
     height: 22,
     width: 22,
   },
@@ -590,16 +648,16 @@ const styles = StyleSheet.create({
     fontFamily: "poppinsregular",
     color: "rgba(79,77,77,1)",
     marginLeft: 7,
-    marginTop:6,
-    textAlignVertical:'center',
+    marginTop: 6,
+    textAlignVertical: 'center',
   },
   cateIconRow: {
     height: 22,
     flexDirection: "row",
     marginTop: 1,
-    marginHorizontal: 16, 
-    alignItems:'center', 
-    justifyContent:'center',
+    marginHorizontal: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   totalAmountlbl: {
     fontFamily: "poppinsregular",

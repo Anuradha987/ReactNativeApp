@@ -50,6 +50,7 @@ function PendingReq({navigation}) {
     ):
     (<View style={styles.scrollArea}>
       <FlatList
+        listKey="16.1"
         data={dummyData.pendingReceieveServicesRequests}
         keyExtractor={(item) => `${item.id}`}
         showsHorizontalScrollIndicator={true}
@@ -105,6 +106,7 @@ function CompletedReq({navigation}) {
   return (
     <View style={styles.scrollArea}>
       <FlatList
+        listKey="16.2"
         data={dummyData.completedReceieveServicesRequests}
         keyExtractor={(item) => `${item.id}`}
         showsHorizontalScrollIndicator={true}

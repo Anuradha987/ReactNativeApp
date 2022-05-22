@@ -71,6 +71,7 @@ function SSentDetailsAfterAccepting({ navigation }) {
         style={{ left: 0, right: 0, height: 15 }}
       />
       <FlatList
+        listKey="24.1"
         showsVerticalScrollIndicator={true}
         ListHeaderComponent={
           <View>
@@ -181,7 +182,7 @@ const styles = StyleSheet.create({
   },
   backIcon: {
     color: '#BBBDC1',
-    fontSize: 20,
+    // fontSize: 20,
     marginRight: 2,
   },
   backBtn: {

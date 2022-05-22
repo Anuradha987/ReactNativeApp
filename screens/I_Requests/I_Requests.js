@@ -1,5 +1,6 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component, useEffect,useState } from 'react';
 import {
+  RefreshControl,
   StyleSheet,
   View,
   ScrollView,
@@ -14,12 +15,15 @@ import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommun
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import {dummyData} from '../../constants';
 import { useFonts } from 'expo-font';
+import { OrderService } from '../../services/customer/Orders';
+import { AuthService } from '../../services/AuthService';
 
 // ⚠ The topic of the page should changed to I_SalesHistory. ⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠
 // Details about items/products that have been sold to others in the past are displayed on here. 
 
 const I_Requests = () => {
 
+  const [refreshing, setRefreshing] = useState(true);
       //poppins insert
       const [loaded] = useFonts({
         poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
@@ -27,8 +31,19 @@ const I_Requests = () => {
     });
 
     useEffect(() => {
-      // console.log("SSentDetailsAfterAccepting");
+      console.log("I_requests");
+      getOrdersByUserId();
      }, []);
+
+     const getOrdersByUserId = () =>{
+      OrderService.getOrdersByUserId(AuthService.userId,"accept",AuthService.userToken).then((res)=>{
+        console.log(res.data);
+        setRefreshing(false);
+      }).catch((error)=>{
+        setRefreshing(false);
+        console.log(error);
+      });
+     }
 
     return (
       (!loaded)?
@@ -46,6 +61,10 @@ const I_Requests = () => {
       ):
         (<View style={styles.container}>
 <FlatList showsVerticalScrollIndicator={true}
+        listKey="11.1"
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={()=>getOrdersByUserId()} />
+        }
         ListHeaderComponent={
             <View>
 <View> 
@@ -66,6 +85,7 @@ const I_Requests = () => {
 
            <View style={styles.scrollArea}>
             <FlatList
+            listKey="11.2"
             data={dummyData.itemSalesHistory}
             keyExtractor={(item) => `${item.id}`}
             showsVerticalScrollIndicator={true}

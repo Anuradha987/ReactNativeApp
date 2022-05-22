@@ -20,6 +20,7 @@ import { useFonts } from 'expo-font';
 import { icons } from '../../constants';
 import * as ImagePicker from 'expo-image-picker';
 import { AuthService } from '../../services/AuthService';
+import * as FileSystem from 'expo-file-system';
 
 // https://github.com/RafaelAugustoS/react-native-popup-ui
 
@@ -31,6 +32,9 @@ function Register({ navigation }) {
   //image picker
   const [cimage, setcimage] = React.useState(null);
   const [pimage, setpimage] = React.useState(null);
+
+  const [bsCimg, setBsCimg] = React.useState(null);
+  const [bsPimg, setBsPimg] = React.useState(null);
 
   // This function is triggered when the "Select an image" button pressed
   // const profileImage = async () => {
@@ -71,6 +75,10 @@ function Register({ navigation }) {
 
     if (!result.cancelled) {
       setcimage(result.uri);
+      FileSystem.readAsStringAsync(result.uri, { encoding: 'base64' }).then((res)=>{
+        console.log(res);
+        setBsCimg(res);
+      });
     }
   };
   const profileImage = async () => {
@@ -87,6 +95,10 @@ function Register({ navigation }) {
 
     if (!result.cancelled) {
       setpimage(result.uri);
+      FileSystem.readAsStringAsync(result.uri, { encoding: 'base64' }).then((res)=>{
+        console.log(res);
+        setBsPimg(res);
+      });
     }
   };
 
@@ -158,11 +170,20 @@ const openCamera = async () => {
     }
   };
 
-  const updateSecureTextEntry = () => {
+  const updateSecureTextEntry = async () => {
     setData({
       ...data,
       secureTextEntry: !data.secureTextEntry,
     });
+
+    console.log(cimage);
+    console.log(pimage);
+    // const bsPimage = await FileSystem.readAsStringAsync(pimage, { encoding: 'base64' });
+    // const bsCimage = await FileSystem.readAsStringAsync(cimage, { encoding: 'base64' });
+    // console.log(bsPimage);
+    // console.log(bsCimage);
+
+    if(bsCimg && bsPimg){
 
     const userdata = {
       name: data.name,
@@ -172,20 +193,21 @@ const openCamera = async () => {
       username: data.username,
       userType: "Customer",
       password: data.password,
-      profile_img:"test",
-      cover_img:"test",
+      profile_img:bsPimg,
+      cover_img:bsCimg,
       description:"test",
       userCategories:["Pets", "Law", "Environment", "Photography"]
     }
 
     console.log(userdata);
-
-    AuthService.register(userdata).then((res)=>{
-      console.log(res.data);
-      navigation.navigate('Login');
-    }).catch((error)=>{
-      console.log(error);
-    });
+    // console.log(bsCimage && bsPimage);
+      AuthService.register(userdata).then((res)=>{
+        console.log(res.data);
+        navigation.navigate('Login');
+      }).catch((error)=>{
+        console.log(error);
+      });
+    }
   };
 
   //name validation
@@ -473,6 +495,7 @@ const openCamera = async () => {
         style={styles.image}
         imageStyle={styles.image_imageStyle}>
         <FlatList
+          listKey="15.1"
           showsVerticalScrollIndicator={true}
           ListHeaderComponent={
             <View>
@@ -947,7 +970,7 @@ const styles = StyleSheet.create({
   },
   locationIcon: {
     color: 'rgba(128,128,128,1)',
-    fontSize: 20,
+    // fontSize: 20,
     width: 22,
     height: 22,
     marginRight: 14,
@@ -1003,7 +1026,7 @@ const styles = StyleSheet.create({
     width: 35,
   },
   showPasswordIcon: {
-    fontSize: 15,
+    // fontSize: 15,
     width: 16,
     height: 16,
     marginLeft: 16,
@@ -1064,7 +1087,7 @@ const styles = StyleSheet.create({
   },
   backIcon: {
     color: '#BBBDC1',
-    fontSize: 20,
+    // fontSize: 20,
     height: 22,
     width: 20,
     marginTop: 9,

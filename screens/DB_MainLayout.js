@@ -13,9 +13,10 @@ import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import { useFonts } from 'expo-font';
 import { useNavigation } from '@react-navigation/native';
 import Icon from "react-native-vector-icons/EvilIcons";
+import * as RootNavigation from '../navigation/rootNavigation';
 
-const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) => {
-  const navigation = useNavigation();
+const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab,navigation }) => {
+  // const navigation = useNavigation();
 
   const [recievedRequests, setRecievedRequests] = React.useState([]);
   const [recievedOrders, setRecievedOrders] = React.useState([]);
@@ -195,14 +196,15 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
 
 
               {/* Service Requests Recieved */}
-              {recievedRequests.length > 0 ?
-                (<View style={styles.recievedRequestslblRow}>
+              {(!recievedRequests.length) ?
+              <>
+               <View style={styles.recievedRequestslblRow}>
                   <Text style={styles.recievedRequestslbl}>Recieved Requests</Text>
                   <TouchableOpacity style={styles.viewAllView1} onPress={() => navigation.navigate("S_Requests")}>
                     <Text style={styles.viewAlltxt1}>View all</Text>
                   </TouchableOpacity>
-                </View>)
-                  (
+                </View>
+                  
                     <FlatList data={dummyData.OtherRecieveRequest}
                       listKey='1.4'
                       horizontal
@@ -234,20 +236,21 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
                           </TouchableOpacity>
                         )
                       }} />
-                  )
+                </>
                 :
                 null
               }
 
               {/* Recieved Orders */}
 
-              {recievedOrders.length > 0 ? (
+              {!recievedOrders.length ? 
+              <>
                 <View style={styles.itemOrderslblRow}>
                   <Text style={styles.itemOrderslbl}>Item Orders</Text>
                   <TouchableOpacity style={styles.viewAllView2} onPress={() => navigation.navigate('I_My')}>
                     <Text style={styles.viewAlltxt2}>View all</Text>
                   </TouchableOpacity>
-                </View>)(
+                </View>
 
                   <FlatList
                     listKey='1.5'
@@ -286,11 +289,10 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
                             </View>
                           </View>
                         </TouchableOpacity>
-
-
                       )
                     }} />
-                ) : null}
+                    </>
+                 : null}
 
               <View style={{ marginBottom: 80 }}></View>
             </View>} />

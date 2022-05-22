@@ -17,11 +17,11 @@ import MaterialRadio from "../components/MaterialRadio";
 import { useFonts } from "expo-font";
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/SimpleLineIcons";
-import { LinearGradient } from "expo-linear-gradient";
-import EntypoIcon from "react-native-vector-icons/Entypo";
-import { dummyData } from "../constants";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ServicesService } from "../services/customer/Services";
+import { LinearGradient } from 'expo-linear-gradient';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
+import {dummyData} from '../constants';
+import { RequestService } from '../services/customer/Requests';
+import { AuthService } from '../services/AuthService';
 
 function NewReqForm({ navigation }) {
   const [selectedPriority, setSelectedPriority] = React.useState();
@@ -49,13 +49,12 @@ function NewReqForm({ navigation }) {
   ];
 
   const [data, setData] = React.useState({
-    to: "",
-    title: "",
-    category: "",
-    priority: "",
-    location: "",
-    description: "",
-    attachment: "",
+    to: '',
+    title: '',
+    category: '',
+    priority: '',
+    location: '',
+    description: '',
     isValidTo: true,
     isValidTitle: true,
     isValidCategory: true,
@@ -151,8 +150,28 @@ function NewReqForm({ navigation }) {
     setUserId(AsyncStorage.getItem("userId"));
   }, []);
 
-  const submitHandler = () => {
-    console.log("submit", userId);
+const sendNewRequest = () =>{
+  const reqData = {
+    "user_id": AuthService.userId,
+    "to": "",
+    "title": data.title,
+    "description": data.description,
+    "category": data.category,
+    "priority": "Medium",
+    "location": data.location,
+    "attachments": "3423fgsdfgsgdf",
+    "status": "Pending"
+  };
+  RequestService.SendRequest(reqData, AuthService.userToken).then((res)=>{
+    console.log(res.data);
+  }).catch((error)=>{
+    console.log(error);
+  });
+}
+
+useEffect(() => {
+  console.log("New req form");
+ }, []);
 
     const dataObj = {
       userId: userId,
@@ -187,21 +206,13 @@ function NewReqForm({ navigation }) {
       {/* https://github.com/n4kz/react-native-indicators */}
       <ActivityIndicator size="large" />
     </View>
-  ) : (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        showsVerticalScrollIndicator={true}
-        ListHeaderComponent={
-          <View>
-            <View style={styles.header}>
-              <TouchableOpacity
-                style={styles.backBtn}
-                onPress={() => navigation.goBack()}
-              >
-                <Icon name="arrow-left" style={styles.backIcon}></Icon>
-              </TouchableOpacity>
-              <Text style={styles.newRequest}>NEW REQUEST</Text>
-            </View>
+  ):
+  (<SafeAreaView style={styles.container}>
+    <FlatList
+          listKey="7.1"
+      showsVerticalScrollIndicator={true}
+      ListHeaderComponent={
+        <View>
 
             <LinearGradient
               start={{ x: 0, y: 0.5 }}
@@ -377,62 +388,7 @@ function NewReqForm({ navigation }) {
             <Text style={styles.low}>Low</Text> */}
             </View>
 
-            {/* Automatically fill the textinput from the user's location that have provided during the registration */}
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                marginTop: 25,
-                marginHorizontal: 35,
-              }}
-            >
-              <Text style={styles.locationlbl}>Location *</Text>
-              {data.isValidLocation ? null : (
-                <Text style={styles.errMsg}>Invalid Location</Text>
-              )}
-            </View>
-
-            <View style={styles.locationContainer}>
-              <TextInput
-                placeholder=""
-                clearButtonMode="while-editing"
-                returnKeyType="done"
-                onChangeText={(val) => textInputChangeLocation(val)}
-                onEndEditing={(e) => handleValidLocation(e.nativeEvent.text)}
-                style={styles.locationtxt}
-              ></TextInput>
-
-              <TouchableOpacity
-                style={styles.locationIconArea}
-                onPress={() => {}}
-              >
-                <EntypoIcon
-                  name="location-pin"
-                  style={styles.locationIcon}
-                ></EntypoIcon>
-              </TouchableOpacity>
-            </View>
-
-            <Text style={styles.attachmentslbl}>Attachments</Text>
-
-            <View style={styles.attachmentstxt}>
-              <View style={{ flex: 1, overflow: "hidden" }}>
-                <MaterialChipWithImageAndCloseButton
-                  style={styles.materialChipWithImageAndCloseButton}
-                ></MaterialChipWithImageAndCloseButton>
-              </View>
-              <TouchableOpacity
-                style={styles.attachmentIconArea}
-                onPress={() => {}}
-              >
-                <EntypoIcon
-                  name="attachment"
-                  style={styles.attachmentIcon}
-                ></EntypoIcon>
-              </TouchableOpacity>
-            </View>
-
-            <TouchableOpacity style={styles.button} onPress={submitHandler}>
+          <TouchableOpacity style={styles.button} onPress={()=>{sendNewRequest}}>
               <Text style={styles.submit}>SUBMIT</Text>
             </TouchableOpacity>
 
@@ -821,6 +777,334 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 4,
   },
+  elevation: 45,
+  shadowOpacity: 1,
+  shadowRadius: 15,
+  borderWidth: 0,
+  borderColor: '#000000',
+  marginTop: 0,
+},
+pageTitle: {
+  fontFamily: 'poppins700',
+  color: 'rgba(224,224,224,1)',
+  fontSize: 17,
+  marginTop: 17,
+  marginLeft: 30,
+},
+paragraph: {
+  fontFamily: 'poppinsregular',
+  color: 'rgba(234,234,234,1)',
+  fontSize: 12,
+  textAlign: 'justify',
+  marginTop: 26,
+  marginHorizontal: 30,
+},
+br: {
+  height: 1,
+  margin:15,
+  backgroundColor: 'rgba(175,172,172,1)',
+},
+newRequest: {
+  fontFamily:'poppins700',
+  color: '#9c8df0',
+  textAlign: 'center',
+  flex: 1,
+  marginRight: 35,
+  marginTop: 7,
+  fontSize: 17,
+  letterSpacing: 0,
+},
+header: {
+  flexDirection: 'row',
+  marginTop: 20,
+  marginBottom:10,
+  marginLeft: 15,
+  marginRight: 15,
+},
+backIcon: {
+  color: '#BBBDC1',
+  // fontSize: 20,
+  marginRight:2
+},
+backBtn: {
+  width: 40,
+  height: 40,
+  marginLeft: 10,
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderWidth: 1,
+  borderColor: '#BBBDC1',
+  borderRadius: 12,
+},
+tolbl: {
+  fontFamily: 'poppinsregular',
+  color: 'rgba(170,170,170,1)',
+},
+errMsg:{
+  color: 'red', 
+  fontFamily: 'poppinsregular',
+  fontSize:10,
+  marginTop:5,
+},
+proPicRound: {
+  width: 30,
+  height: 30,
+  backgroundColor: "rgba(81,81,81,0.69)",
+  borderRadius: 15,
+  marginLeft:10,
+},
+proPicImage: {
+  width: 25,
+  height: 25,
+  marginTop: 2,
+  marginLeft: 2
+},
+recieverName: {
+  marginTop: 3,
+  fontFamily: 'poppinsregular',
+  color: 'rgba(255,255,255,1)',
+  fontSize: 15,
+  marginLeft: 12,
+},
+proPicRow: {
+  height: 30,
+  flexDirection: "row",
+  flex: 1,
+  marginLeft: 5,
+  marginTop: 3, 
+  overflow:'hidden',
+},
+selectToWhomeIconArea :{
+  height:37, 
+  width:42, 
+  justifyContent:'center', 
+  alignItems:'center',
+},
+selectToWhomeIcon:{  
+  color: 'rgba(128,128,128,1)',
+  fontSize: 28,
+  position:'absolute'
+}, 
+selectToWhome:{
+   height:42, 
+    width:42, 
+    justifyContent:'center', 
+    alignItems:'center',
+},
+titlelbl: {
+  fontFamily: 'poppinsregular',
+  color: 'rgba(170,170,170,1)',
+},
+titletxt: {
+  fontFamily: 'poppinsregular',
+  color: 'rgba(255,255,255,1)',
+  height: 42,
+  paddingHorizontal:10,
+  borderRadius: 15,
+  borderWidth: 2,
+  borderColor: 'rgba(255,0,246,1)',
+  fontSize: 15,
+  marginHorizontal: 28,
+},
+descriptionlbl: {
+  fontFamily: 'poppinsregular',
+  color: 'rgba(170,170,170,1)',
+  marginTop: 24,
+  marginHorizontal: 35,
+},
+descriptiontxt: {
+  fontFamily: 'poppinsregular',
+  color: 'rgba(255,255,255,1)',
+  height: 142,
+  paddingHorizontal:10,
+  borderRadius: 15,
+  borderWidth: 2,
+  borderColor: 'rgba(255,0,246,1)',
+  fontSize: 15,
+  marginHorizontal: 28,
+  textAlignVertical: "top",
+  paddingVertical:6
+},
+categorylbl: {
+  fontFamily: 'poppinsregular',
+  color: 'rgba(170,170,170,1)',
+},
+categorytxt: {
+  height: 42,
+  borderRadius: 15,
+  borderWidth: 2,
+  borderColor: 'rgba(255,0,246,1)',
+  flexDirection:'row', 
+  marginHorizontal: 28,
+},
+priority: {
+  fontFamily: 'poppinsregular',
+  color: 'rgba(170,170,170,1)',
+},
+locationlbl: {
+  fontFamily: 'poppinsregular',
+  color: 'rgba(170,170,170,1)',
+},
+locationView: {
+  height: 43,
+  backgroundColor: 'rgba(81,81,81,0.4)',
+  borderRadius: 8,
+  flexDirection: 'row',
+  marginLeft: 16,
+  marginRight: 16,
+},
+locationContainer:{  
+  borderRadius: 15,
+  borderWidth: 2,
+  borderColor: 'rgba(255,0,246,1)',
+  flexDirection:'row', 
+  marginHorizontal: 28,
+},
+locationtxt: {
+  fontFamily: 'poppinsregular',
+  color: 'rgba(255,255,255,1)',
+  height: 42,
+  fontSize: 15,
+  marginRight: 0,
+  marginLeft:10,
+  alignItems:'flex-end',
+  justifyContent:'flex-end',
+  overflow:'hidden', 
+  flex:1,
+},
+locationIconArea:{
+  height:42, 
+  width:42, 
+  justifyContent:'center', 
+  alignItems:'center',
+}, 
+locationIcon: {
+  color: 'rgba(128,128,128,1)',
+  fontSize: 25,
+  position:'absolute'
+},
+attachmentslbl: {
+  fontFamily: 'poppinsregular',
+  color: 'rgba(170,170,170,1)',
+  marginTop: 24,
+  marginHorizontal: 35,
+},
+materialChipWithImageAndCloseButton: {
+  width: 200,
+  height: 32,
+  top: 2.5,
+  elevation:90,
+  marginLeft:10,
+},
+attachmentstxt: {
+  height: 42,
+  borderRadius: 15,
+  borderWidth: 2,
+  borderColor: 'rgba(255,0,246,1)',
+  flexDirection:'row', 
+  marginHorizontal: 28,
+},
+attachmentIconArea :{
+  height:38, 
+  width:42, 
+  justifyContent:'center', 
+  alignItems:'center',
+},
+attachmentIcon:{  
+  color: 'rgba(128,128,128,1)',
+  // fontSize: 20,
+  position:'absolute'
+}, 
+button: {
+  height: 47,
+  backgroundColor: "rgba(123,0,255,1)",
+  borderRadius: 8,
+  marginTop: 60,
+  marginLeft: 37,
+  marginRight: 37
+},
+submit: {
+  fontFamily: "poppinsregular",
+  color: "rgba(255,255,255,1)",
+  textAlign: "center",
+  marginTop: 9,
+  marginLeft: 8,
+  marginRight: 7,    
+  letterSpacing:0.5, 
+  fontSize:18,
+},
+highRadioBtn: {
+  height: 34,
+  width: 34,
+},
+redDot: {
+  width: 12,
+  height:12,
+  backgroundColor: 'rgba(255,51,51,1)',
+  borderRadius: 6,
+  marginLeft: 10,
+  marginTop: 12,
+
+},
+high: {
+  fontFamily: 'poppinsregular',
+  color: 'rgba(255,255,255,1)',
+  fontSize: 12,
+  height: 19,
+  width: 49,
+  marginLeft: 4,
+  marginTop: 8,
+},
+mediumRadioBtn: {
+  height: 34,
+  width: 34, 
+  marginLeft:10
+},
+yellowDot: {
+  width: 12,
+  height: 12,
+  backgroundColor: 'rgba(255,238,51,1)',
+  borderRadius: 6,
+  marginLeft: 10,
+  marginTop:12,
+},
+medium: {
+  fontFamily: 'poppinsregular',
+  color: 'rgba(255,255,255,1)',
+  fontSize: 12,
+  height: 19,
+  width: 56,
+  marginLeft: 5,
+  marginTop: 8,
+},
+lowRadioBtn: {
+  height: 34,
+  width: 34,
+  marginLeft:20,
+},
+greenDot: {
+  width: 12,
+  height: 12,
+  backgroundColor: 'rgba(68,255,51,1)',
+  borderRadius: 6,
+  marginLeft: 10,
+  marginTop:12,
+},
+low: {
+  fontFamily: 'poppinsregular',
+  color: 'rgba(255,255,255,1)',
+  fontSize: 12,
+  height: 19,
+  width: 49,
+  marginLeft: 4,
+  marginTop: 8,
+},
+priorityRadioBtnRow: {
+  height: 34,
+  flexDirection: 'row',
+  marginLeft: 10,
+  marginRight: 4, 
+},
 });
 
 export default NewReqForm;

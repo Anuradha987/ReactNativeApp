@@ -49,7 +49,7 @@ const [selectedPlace, setSelectedPlace] = React.useState(null)
     setSelectedCategoryId(categoryList)    
   }
 
-  loadUsers = async() =>{
+  const loadUsers = async() =>{
     const permission = await Expo.Permission.askAsync(
       Expo.Permission.Camera
     ); 
@@ -57,7 +57,7 @@ const [selectedPlace, setSelectedPlace] = React.useState(null)
       return;
     }
   }
-searchUsers = (value) =>{
+  const searchUsers = (value) =>{
   const filteredUsers = this.state.users.filter(
     user=>{
       let userLowercase = (dummyData.serviceProviderPopUpBox).toLowercase()
@@ -114,6 +114,7 @@ searchUsers = (value) =>{
       {/* horizontal scroll bar */}
       <View>
         <FlatList
+          listKey="22.1"
           data={dummyData.categories}
           keyExtractor={(item) => `${item.id}`}
           showsHorizontalScrollIndicator={false}
@@ -609,18 +610,18 @@ const styles = StyleSheet.create({
   },
   callIcon: {
     color: "rgba(235,112,210,1)",
-    fontSize: 20,
+    // fontSize: 20,
     marginRight: 30
   },
   messageIcon: {
     color: "rgba(235,112,210,1)",
-    fontSize: 20,
+    // fontSize: 20,
     marginRight: 30,
     marginBottom: 1
   },
   requestIcon: {
     color: "rgba(235,112,210,1)",
-    fontSize: 20,
+    // fontSize: 20,
     marginBottom: 1
   },
   icon2Row: {

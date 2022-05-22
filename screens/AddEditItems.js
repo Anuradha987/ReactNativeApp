@@ -31,6 +31,8 @@ import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Categories from "./Categories";
 import { ScrollView } from "react-native-gesture-handler";
+import { ItemsService } from "../services/customer/Items";
+import { AuthService } from "../services/AuthService";
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -61,39 +63,8 @@ const renderHeader =()=>{
 
 
 // function AddEditItems({item, navigation, isSelected}) {
-  const AddEditItems = ({navigation,}) => {
-//  class AddEditItems extends Component {
-//     constructor (props) {
-//       super(props)
-//       this.state = {
-//         photos: []
-//       }
-//     }
-  
-//     componentDidUpdate() {
-//       const {params} = this.props.route;
-//       if (params) {
-//         const {photos} = params;
-//         if (photos) this.setState({photos});
-//         delete params.photos;
-//       }
-//     }
-  
-//     renderImage (item, i) {
-//       return (
-//         <Image
-//           style={{ height: 100, width: 100 }}
-//           source={{ uri: item.uri }}
-//           key={i}
-//         />
-//       )
-//     }  
-//     render() {
-//       const { navigate } = this.props.navigation;
+  const AddEditItems = ({navigation}) => {
 
-
-
-  // radio buttons for items available or not available
   const [availability, setAvailability] = React.useState(null);
   const [chosenOption, setChosenOption] = useState('Available');
 const available=[
@@ -244,7 +215,30 @@ const [selectedValue, setSelectedValue] = useState("All");
 
   useEffect(() => {
     console.log("AddEditItems");
+    console.log(AuthService.userId);
+    console.log(AuthService.userToken);
    }, []);
+
+   const AddItem = () =>{
+
+     const data ={
+      user_id: AuthService.userId,
+      name: "test item",
+      description: "test description",
+      category: "Pets",
+      amount: "12",
+      status: "Available",
+      trading_method: "test",
+      price: "23",
+      images: "testimagestring",
+      location: "testlocation"
+     }
+    ItemsService.AddItem(data,AuthService.userToken).then((res)=>{
+      console.log(res.data);
+    }).catch((error)=>{
+      console.log(error)
+    })
+   }
 
   return (
     (!loaded)?
@@ -261,6 +255,9 @@ const [selectedValue, setSelectedValue] = useState("All");
       </View>
     ):
     (<View style={styles.container}>
+      <FlatList showsVerticalScrollIndicator={true}
+        listKey="28.1"
+        ListHeaderComponent={
  <BottomSheet 
         ref={bs}
          //snapPoints={[430, screenHeight-100,0]}
@@ -272,7 +269,7 @@ const [selectedValue, setSelectedValue] = useState("All");
         enabledGestureInteraction = {true}
         enabledHeaderGestureInteraction={true}
         enabledContentGestureInteraction={false}
-      />
+      />}/>
 
 
       {/* <Animated.View style={{opacity: Animated.add(0.1, Animated.multiply(fall,0.1)),}}></Animated.View> */}
@@ -295,6 +292,7 @@ const [selectedValue, setSelectedValue] = useState("All");
      
 
       <FlatList
+      listKey="2.1"
         showsVerticalScrollIndicator={true}
         ListHeaderComponent={     
           <View>
@@ -485,7 +483,7 @@ const [selectedValue, setSelectedValue] = useState("All");
       ></TextInput>  
 
 
-      <TouchableOpacity style={styles.button} onPress={()=>{}}>
+      <TouchableOpacity style={styles.button} onPress={()=>{AddItem()}}>
               <Text style={styles.submit}>SUBMIT</Text>
       </TouchableOpacity>
 

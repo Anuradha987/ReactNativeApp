@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
   },
   backIcon: {
     color: '#BBBDC1',
-    fontSize: 20,
+    // fontSize: 20,
     marginRight: 2,
   },
   text: {
@@ -346,7 +346,7 @@ const styles = StyleSheet.create({
   },
   calenderIcon: {
     color: "rgba(128,128,128,1)",
-    fontSize: 20,
+    // fontSize: 20,
     height: 20,
     width: 18,
     marginLeft: 12,

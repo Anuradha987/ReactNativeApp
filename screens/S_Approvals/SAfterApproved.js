@@ -60,6 +60,7 @@ const SAfterApproved = ({ navigation }) => {
       />
 
             <FlatList
+                 listKey="17.1"
         showsVerticalScrollIndicator={true}
         ListHeaderComponent={
           <View>
@@ -489,7 +490,7 @@ const styles = StyleSheet.create({
   },
   backIcon: {
     color: '#BBBDC1',
-    fontSize: 20,
+    // fontSize: 20,
     marginRight:2,
   },
   servicesRequest: {
