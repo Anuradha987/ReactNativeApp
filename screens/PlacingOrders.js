@@ -3,6 +3,7 @@ import {
   StyleSheet,
   View,
   Text,
+  FlatList,
   TextInput,
   TouchableOpacity,
   ActivityIndicator
@@ -16,6 +17,10 @@ function PlacingOrders(props) {
    }, []);
 
   return (
+    <FlatList
+    listKey="70.1"
+showsVerticalScrollIndicator={true}
+ListHeaderComponent={
     <View style={styles.container}>
 
       <View style={styles.cashPopup}>
@@ -204,7 +209,7 @@ function PlacingOrders(props) {
       </View>
 
 
-    </View>
+    </View>}/>
   );
 }
 
