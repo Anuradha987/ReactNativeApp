@@ -160,7 +160,7 @@ onBlur = {()=> setSearchBarFocused(false)}
             if(item.user_id !== AuthService.userId){
               return (
               
-                <TouchableWithoutFeedback style={styles.product1Group} onPress={()=>navigation.navigate('ViewItems')}>
+                <TouchableWithoutFeedback style={styles.product1Group} onPress={()=>navigation.navigate('ViewItems',{item:item})}>
                   <View style={styles.products1Stack}>
                     <LinearGradient
                       colors={['#3b3b4a', '#212126', '#3b3b4a']}
