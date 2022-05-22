@@ -31,6 +31,8 @@ import Animated from "react-native-reanimated";
 import BottomSheet from "reanimated-bottom-sheet";
 import Categories from "./Categories";
 import { ScrollView } from "react-native-gesture-handler";
+import { ServicesService } from "../services/customer/Services";
+import { AuthService } from "../services/AuthService";
 
 const screenHeight = Dimensions.get("window").height;
 
@@ -79,174 +81,70 @@ const renderHeader = () => {
 
 // function AddEditItems({item, navigation, isSelected}) {
 const AddEditServices = ({ navigation }) => {
-  //  class AddEditItems extends Component {
-  //     constructor (props) {
-  //       super(props)
-  //       this.state = {
-  //         photos: []
-  //       }
-  //     }
-
-  //     componentDidUpdate() {
-  //       const {params} = this.props.route;
-  //       if (params) {
-  //         const {photos} = params;
-  //         if (photos) this.setState({photos});
-  //         delete params.photos;
-  //       }
-  //     }
-
-  //     renderImage (item, i) {
-  //       return (
-  //         <Image
-  //           style={{ height: 100, width: 100 }}
-  //           source={{ uri: item.uri }}
-  //           key={i}
-  //         />
-  //       )
-  //     }
-  //     render() {
-  //       const { navigate } = this.props.navigation;
-
-  // radio buttons for items available or not available
-  const [availability, setAvailability] = React.useState(null);
-  const [chosenOption, setChosenOption] = useState("Available");
-  const available = [
-    { value: "Available", label: "Available" },
-    { value: "Not Available", label: "Not Available" },
-  ];
 
   const [data, setData] = useState({
     itemname: "",
+    itemdescription: "",
     category: "",
-    totalAmount: "",
-    status: "",
-    tradingMethod: "",
-    price_exchage: "",
-    isValidItemName: true,
-    isValidtotalAmount: true,
-    isValidPrice_Exchanged: true,
-    check_textInputChangeItemName: false,
-    check_textInputChangeTotalAmount: false,
-    check_textInputChangePrice_exchanged: false,
+
+    isValidTitle: true,
+    check_textInputChangeItemTitle: false,
+
+    isValidDescription: true,
+    check_textInputChangeItemDescription: false,
   });
+
+  const [selectedValue, setSelectedValue] = useState("Agriculture");
+
   //name validation
-  const textInputChangeName = (val) => {
+  const textInputChangeTitle = (val) => {
     if (val.trim().length >= 1) {
       setData({
         ...data,
         itemname: val,
-        check_textInputChangeItemName: true,
+        check_textInputChangeItemTitle: true,
+        isValidTitle: true,
+      });
+    } else {
+      setData({
+        ...data,
+        itemname: val,
+        check_textInputChangeItemTitle: false,
+        isValidTitle: false,
+      });
+    }
+  };
+  const handleValidTitle = (val) => {
+    if (val.trim().length >= 1) {
+      setData({
+        ...data,
         isValidItemName: true,
       });
     } else {
       setData({
         ...data,
-        itemname: val,
-        check_textInputChangeItemName: false,
-        isValidItemName: false,
-      });
-    }
-  };
-  const handleValidName = (val) => {
-    if (val.trim().length >= 1) {
-      setData({
-        ...data,
-        isValidItemName: true,
-      });
-    } else {
-      setData({
-        ...data,
         isValidItemName: false,
       });
     }
   };
 
-  //total amount validation
-  const textInputChangeTotalAmount = (val) => {
+  const textInputChangeDescription = (val) => {
     if (val.trim().length >= 1) {
       setData({
         ...data,
-        totalAmount: val,
-        check_textInputChangeTotalAmount: true,
-        isValidtotalAmount: true,
+        itemdescription: val,
+        check_textInputChangeItemDescription: true,
+        isValidItemDescription: true,
       });
     } else {
       setData({
         ...data,
-        totalAmount: val,
-        check_textInputChangeTotalAmount: false,
-        isValidtotalAmount: false,
+        itemdescription: val,
+        check_textInputChangeItemDescription: false,
+        isValidItemDescription: false,
       });
     }
   };
-  const handleValidTotalAmount = (val) => {
-    if (val.trim().length >= 1) {
-      setData({
-        ...data,
-        isValidtotalAmount: true,
-      });
-    } else {
-      setData({
-        ...data,
-        isValidtotalAmount: false,
-      });
-    }
-  };
-
-  //price or exchanged for validation
-  const textInputChangePrice_exchange = (val) => {
-    if (val.trim().length >= 1) {
-      setData({
-        ...data,
-        price_exchage: val,
-        check_textInputChangePrice_exchanged: true,
-        isValidPrice_Exchanged: true,
-      });
-    } else {
-      setData({
-        ...data,
-        price_exchage: val,
-        check_textInputChangePrice_exchanged: false,
-        isValidPrice_Exchanged: false,
-      });
-    }
-  };
-  const handleValidTotalPrice_exchange = (val) => {
-    if (val.trim().length >= 1) {
-      setData({
-        ...data,
-        isValidPrice_Exchanged: true,
-      });
-    } else {
-      setData({
-        ...data,
-        isValidPrice_Exchanged: false,
-      });
-    }
-  };
-
-  //image picker
-  const [itemImage, setItemImage] = React.useState(null);
-
-  const itemImages = async () => {
-    // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-    });
-
-    console.log(result);
-
-    if (!result.cancelled) {
-      setpimage(result.uri);
-    }
-  };
-
-  //Trading Method selection
-  const [selectedValue, setSelectedValue] = useState("All");
 
   //poppins insert
   const [loaded] = useFonts({
@@ -255,8 +153,26 @@ const AddEditServices = ({ navigation }) => {
   });
 
   useEffect(() => {
-    console.log("AddEditItems");
+    console.log("AddEditItems", AuthService.userToken);
   }, []);
+
+  const setChangedCategory = (itemValue) => {
+    setData({
+      ...data,
+      category: itemValue,
+    });
+  }
+
+  const handleSubmitService = () => {
+    console.log("submit")
+    console.log(data)
+
+    ServicesService.AddService(data, AuthService.userToken).then((res)=>{
+      console.log(res.data);
+    }).catch((error)=>{
+      console.log(error);
+    });
+  }
 
   return !loaded ? (
     <View
@@ -291,8 +207,6 @@ const AddEditServices = ({ navigation }) => {
         }
       />
 
-      {/* <Animated.View style={{opacity: Animated.add(0.1, Animated.multiply(fall,0.1)),}}></Animated.View> */}
-
       {/* header */}
       <View style={styles.header}>
         <TouchableOpacity
@@ -320,7 +234,7 @@ const AddEditServices = ({ navigation }) => {
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
               <Text style={styles.namelbl}>Title *</Text>
-              {data.isValidItemName ? null : (
+              {data.isValidTitle ? null : (
                 <Text style={styles.errMsg}>Please enter the valid title</Text>
               )}
             </View>
@@ -331,9 +245,8 @@ const AddEditServices = ({ navigation }) => {
               returnKeyType="next"
               maxLength={40}
               style={styles.nametxt}
-              onChangeText={(val) => textInputChangeName(val)}
-              onEndEditing={(e) => handleValidName(e.nativeEvent.text)}
-              // onSubmitEditing={() => { this.secondTextInput.focus(); }}
+              onChangeText={(val) => textInputChangeTitle(val)}
+              onEndEditing={(e) => handleValidTitle(e.nativeEvent.text)}
             ></TextInput>
 
             <Text style={styles.descriptionlbl}>Description</Text>
@@ -345,31 +258,8 @@ const AddEditServices = ({ navigation }) => {
               autoCapitalize="sentences"
               returnKeyType="next"
               style={styles.descriptiontxt}
-              // ref={(input) => { this.secondTextInput = input; }}
+              onChangeText={(val) => textInputChangeDescription(val)}
             ></TextInput>
-
-            {/* https://github.com/andrey-shostik/react-native-closing-swipe-list/blob/master/src/ClosingSwipeList/index.js */}
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <Text style={styles.categorylbl}>Category *</Text>
-              {/* {data.isValidItemName ? null : (<Text style={styles.errMsg}>Please select a category</Text>)}  */}
-            </View>
-            <Pressable
-              style={styles.categorytxt}
-              onPress={() => bs.current.snapTo(0)}
-            >
-              <View style={styles.cateRoundRow}>
-                <View style={styles.cateRound}>
-                  <Image
-                    source={require("../assets/icons/Entertainment.png")}
-                    resizeMode="contain"
-                    style={styles.cateIcon2}
-                  ></Image>
-                </View>
-                <Text style={styles.cateName2}>Environment</Text>
-              </View>
-            </Pressable>
 
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}
@@ -387,19 +277,33 @@ const AddEditServices = ({ navigation }) => {
                   fontFamily: "poppinsregular",
                   fontSize: 15,
                 }}
-                onValueChange={(itemValue, itemIndex) =>
+                onValueChange={(itemValue, itemIndex) => {
                   setSelectedValue(itemValue)
+                  setChangedCategory(itemValue)
+                }
                 }
               >
-                <Picker.Item label="Cash" value="Cash" />
-                <Picker.Item label="Barter" value="Barter" />
-                <Picker.Item label="Free" value="Free" />
-                <Picker.Item label="Rent" value="Rent" />
-                <Picker.Item label="Borrow" value="Borrow" />
+                <Picker.Item label="Agriculture" value="Agriculture" />
+                <Picker.Item label="Business and finance" value="Business_and_finance" />
+                <Picker.Item label="Clothing and fashion" value="Clothing_and_fashion" />
+                <Picker.Item label="Computing and mobile" value="Computing_and_mobile" />
+                <Picker.Item label="Educational" value="Educational" />
+                <Picker.Item label="Electronics and electrics" value="Electronics_and_electrics" />
+                <Picker.Item label="Entertainment" value="Entertainment" />
+                <Picker.Item label="Environment" value="Environment" />
+                <Picker.Item label="Food and drinks" value="Food_and_drinks" />
+                <Picker.Item label="Health and medication" value="Health_and_medication" />
+                <Picker.Item label="Home and gardening" value="Home_and_gardening" />
+                <Picker.Item label="Kids" value="Kids" />
+                <Picker.Item label="Law" value="Law" />
+                <Picker.Item label="Pets" value="Pets" />
+                <Picker.Item label="Photography" value="Photography" />
+                <Picker.Item label="Sports and fitness" value="Sports_and_fitness" />
+                <Picker.Item label="Traveling and vehicles" value="Traveling_and_vehicles" />
               </Picker>
             </View>
 
-            <TouchableOpacity style={styles.button} onPress={() => {}}>
+            <TouchableOpacity style={styles.button} onPress={handleSubmitService}>
               <Text style={styles.submit}>SUBMIT</Text>
             </TouchableOpacity>
 
