@@ -20,6 +20,8 @@ import { dummyData } from "../../constants";
 import PickerComponent from "../../components/PickerComponent";
 import { useFonts } from 'expo-font';
 import { useNavigation } from '@react-navigation/native';
+import { AuthService } from "../../services/AuthService";
+import { RequestService } from "../../services/customer/Requests";
 //notifi about the rates, votes and commetns of yours services. 
 //details about your requested services. 
 //details about upcoming pending services that you have accepted.
@@ -31,6 +33,8 @@ const S_Sent = () => {
   const navigation = useNavigation();
   // for the requests status 
   const [selectedValue, setSelectedValue] = useState("All");
+  const [sentRequests, setSentRequests] = React.useState([]);
+
 
     //poppins insert
     const [loaded] = useFonts({
@@ -40,7 +44,18 @@ const S_Sent = () => {
 
   useEffect(() => {
     console.log("S_Sent");
+    loadSentRequests();
+
    }, []);
+
+   const loadSentRequests = () => {
+    RequestService.getSentRequestsByUserId(AuthService.userId, AuthService.userToken).then((res) => {
+      console.log(res.data.data);
+      setSentRequests(res.data.data);
+    }).catch((error) => {
+      console.log("line 45",error);
+    })
+  }
 
   return (
     (!loaded)?
@@ -125,8 +140,8 @@ const S_Sent = () => {
             <View style={styles.scrollArea}>
               <FlatList 
                 listKey="23.2"
-                data={dummyData.servicesRequestsSent}
-                keyExtractor={(item) => `${item.id}`}
+                data={sentRequests}
+                keyExtractor={(item) => `${item._id}`}
                 showsVerticalScrollIndicator={true}
                 renderItem={({ item, index }) => {
                   return (
@@ -137,28 +152,30 @@ onPress = open SSentDetailsAfterAccepting.js */}
                                         onPress={()=> navigation.navigate('SSentDetailsAfterAccepting')} 
                                         onLongPress={()=> {}}
                       >
-                        <Text style={styles.reqTitle}>{item.reqTitle}</Text>
+                        <Text style={styles.reqTitle}>{item.title}</Text>
                         <View style={styles.cateIconRow}>
-                          <Image
+                          {/* <Image
                             source={item.cateIcon}
                             resizeMode="contain"
                             style={styles.cateIcon}
-                          ></Image>
+                          ></Image> */}
                           <View style={styles.categoryStack}>
-                            <Text style={styles.cateName}>{item.cateName}</Text>
-                            <Text style={styles.sentDate}>{item.sentDate}</Text>
+                            <Text style={styles.cateName}>Category: {item.category}</Text>
                           </View>
                         </View>
+
                         <View style={styles.sentToColumnRow}>
                           <View style={styles.sentToColumn}>
-                            <Text style={styles.sentTo}>To: {item.sentTo}</Text>
-                            <Text style={styles.reqStatus}>Status: {item.reqStatus}</Text>
+                            <Text style={styles.sentTo}>To: {item.to}</Text>
+                            <Text style={styles.reqStatus}>Status: {item.status}</Text>
                           </View>
                           <View style={styles.sentToColumnFiller}></View>
                           <View
                             style={styles.priority}
-                          ></View>
+                          >
+                          </View>
                         </View>
+
                       </TouchableOpacity>
                     </View>
                   )
@@ -348,7 +365,7 @@ const styles = StyleSheet.create({
   categoryStack: {
     width: 272,
     height: 17,
-    marginLeft: 11,
+    // marginLeft: 11,
     marginTop: 1
   },
   cateIconRow: {
