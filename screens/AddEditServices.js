@@ -33,6 +33,8 @@ import Categories from "./Categories";
 import { ScrollView } from "react-native-gesture-handler";
 import { ServicesService } from "../services/customer/Services";
 import { AuthService } from "../services/AuthService";
+import { useNavigation } from '@react-navigation/native';
+
 
 const screenHeight = Dimensions.get("window").height;
 
@@ -81,6 +83,7 @@ const renderHeader = () => {
 
 // function AddEditItems({item, navigation, isSelected}) {
 const AddEditServices = ({ navigation }) => {
+  // const navigation = useNavigation();
 
   const [data, setData] = useState({
     itemname: "",
@@ -167,8 +170,17 @@ const AddEditServices = ({ navigation }) => {
     console.log("submit")
     console.log(data)
 
-    ServicesService.AddService(data, AuthService.userToken).then((res)=>{
+    let obj = {
+      user_id: AuthService.userId,
+      title:  data.itemname,
+      description: data.itemdescription,
+      category: data.category
+    }
+
+    ServicesService.AddService(obj, AuthService.userToken).then((res)=>{
       console.log(res.data);
+      // navigation.navigate('Login');
+      navigation.goBack()
     }).catch((error)=>{
       console.log(error);
     });
