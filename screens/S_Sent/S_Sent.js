@@ -53,6 +53,15 @@ const S_Sent = () => {
       .then((res) => {
         console.log(res.data.data);
         setSentRequests(res.data.data);
+
+        let userIDArray = []
+        for (let i = 0; i < res.data.data.length; i++) {
+          // if (res.data.data[i].to =! " ") {
+          //   console.log(res.data.data[i].to)
+          //   userIDArray.push(res.data.data[i].to)
+          // }
+
+        }
       })
       .catch((error) => {
         console.log("line 45", error);
@@ -154,7 +163,7 @@ onPress = open SSentDetailsAfterAccepting.js */}
                       <TouchableOpacity
                         style={styles.serviceReqSent}
                         onPress={() =>
-                          navigation.navigate("SSentDetailsAfterAccepting")
+                          navigation.navigate("SSentDetailsAfterAccepting", { "user": item})
                         }
                         onLongPress={() => {}}
                       >
