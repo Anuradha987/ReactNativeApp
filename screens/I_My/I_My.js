@@ -104,12 +104,13 @@ const I_My = () => {
         {/* Vertical scroll bar */}
         <FlatList data={dummyData.itemsRequestList}
           showsVerticalScrollIndicator={true}
+          listKey="10.8"
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={loadData} />
           }
           //contentContainerStyle={{ paddingBottom: 100 }}
           ListHeaderComponent={
-            <View>
+            <View key={2}>
               {/* horizontal scroll bar */}
               <Animated.FlatList
                 listKey="10.1"
@@ -124,7 +125,7 @@ const I_My = () => {
                 // style={{ width: 600,    }}
                 renderItem={({ item, index }) => {
                   return (
-                    <View>
+                    <View key={index}>
                       {/* My items details */}
                       {myItems.map((item) => {
                        return (<LinearGradient
@@ -176,7 +177,10 @@ const I_My = () => {
                           </View>
                         </LinearGradient>)
                       })}
-
+                    </View>
+                  )
+                }}
+              />
 
                       {/* Reqests for my items */}
                       <LinearGradient
@@ -242,14 +246,10 @@ const I_My = () => {
                     
 
                       </LinearGradient>
-                    </View>
-                  )
-                }}
-              />
-
             </View>
           }
         />
+        
         <View style={{ marginTop: 155 }}></View>
       </View>)
 

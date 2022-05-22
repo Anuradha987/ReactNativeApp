@@ -61,7 +61,7 @@ const I_Requests = () => {
       ):
         (<View style={styles.container}>
 <FlatList showsVerticalScrollIndicator={true}
-        listKey="11.1"
+        listKey="91.1"
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={()=>getOrdersByUserId()} />
         }
@@ -92,7 +92,7 @@ const I_Requests = () => {
             //onPress = {()=> naviga}
             renderItem={({ item, index }) => {
                 return (
-                    <View>
+                    <View key={index}>
                       {/* open I_My */}
                       <TouchableOpacity style={styles.itemCardStack} onPress={()=>{}}>
                         <View style={styles.itemCard}>
