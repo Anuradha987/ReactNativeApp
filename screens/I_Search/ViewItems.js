@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -9,6 +9,8 @@ import {
   TouchableHighlight,
   Dimensions,
   FlatList,
+  
+  Modal,
   ActivityIndicator
 } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
@@ -28,6 +30,8 @@ import { useFonts } from 'expo-font';
 import dummyData from './../../constants/dummyData'
 const windowHeight = Dimensions.get('screen').height;
 const windowWidth = Dimensions.get('window').width;
+import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
+import PlacingOrders from '../PlacingOrders';
 
 const ViewItems = ({ navigation }) => {
   //poppins insert
@@ -35,6 +39,8 @@ const ViewItems = ({ navigation }) => {
     poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
     poppins700: require('./../../assets/fonts/poppins-700.ttf'),
   });
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     // console.log("SSentDetailsAfterAccepting");
@@ -55,6 +61,16 @@ const ViewItems = ({ navigation }) => {
       </View>
     ):
     (<View style={styles.container}>
+              <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}>
+        <PlacingOrders type="cash" closeModel={()=>setModalVisible(false)}/>
+      </Modal>
       <FlatList
          listKey="13.1"
         showsVerticalScrollIndicator={true}
@@ -247,7 +263,7 @@ const ViewItems = ({ navigation }) => {
 
       <FixedFooterOrderItem
         style={styles.fixedFooterOrderItem}
-        onPress={()=>navigation.navigate("PlacingOrders")}
+        onPress={()=>setModalVisible(true)}
       ></FixedFooterOrderItem>
     </View>)
   );
@@ -263,6 +279,46 @@ const styles = StyleSheet.create({
     left: 0,
     height: 340,
     right: 0
+  },
+  panel: {
+    padding: 20,
+    backgroundColor: '#FFFFFF',
+    paddingTop: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    borderRadius: 20,
+    marginHorizontal:15,
+  }, 
+  panelTitle: {
+    fontSize: 27,
+    height: 35,
+    fontFamily: 'poppinsregular',
+  },
+  panelSubtitle: {
+    fontSize: 14,
+    color: 'gray',
+    height: 30,
+    marginBottom: 10,
+    fontFamily: 'poppinsregular',
+  },
+  panelButton: {
+    padding: 13,
+    borderRadius: 10,
+    backgroundColor: 'rgba(123,0,255,1)',
+    alignItems: 'center',
+    marginVertical: 7,
+    marginHorizontal:10, 
+  },
+  panelButtonTitle: {
+    fontSize: 15,
+    color: 'white',
+    fontFamily: 'poppins700',
+    letterSpacing:0.2
   },
   productImage_imageStyle: {},
   backBtn: {

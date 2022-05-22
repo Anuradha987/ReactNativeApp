@@ -102,12 +102,12 @@ const I_My = () => {
           <Text style={styles.submit}>Add New Item</Text>
         </TouchableOpacity>
         {/* Vertical scroll bar */}
-        <FlatList data={dummyData.itemsRequestList}
+        <FlatList
           showsVerticalScrollIndicator={true}
-          listKey="10.8"
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={loadData} />
           }
+          listKey="10.8"
           //contentContainerStyle={{ paddingBottom: 100 }}
           ListHeaderComponent={
             <View key={2}>
@@ -117,6 +117,7 @@ const I_My = () => {
                 data={myItems}
                 keyExtractor={(item) => `${item._id}`}
                 showsHorizontalScrollIndicator={true}
+      
                 horizontal
                 snapToAlignment='center'
                 pagingEnabled

@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -12,46 +12,46 @@ import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 
 function PlacingOrders(props) {
 
+  const [modalVisible, setModalVisible] = useState(false);
+
   useEffect(() => {
     console.log("Placing orders");
    }, []);
 
   return (
-    <FlatList
-    listKey="70.1"
-showsVerticalScrollIndicator={true}
-ListHeaderComponent={
+  
     <View style={styles.container}>
-
+  {(props.type === "cash") ? (
       <View style={styles.cashPopup}>
-        <View style={styles.popupBoxFiller}></View>
-        <View style={styles.popupBox}>
-          <View style={styles.transactionMethod1Row}>
-            <Text style={styles.transactionMethod1}>Cash</Text>
-            <View style={styles.transactionMethod1Filler}></View>
-            <EvilIconsIcon
-              name="close"
-              style={styles.closeBtn1}
-            ></EvilIconsIcon>
-          </View>
-          <Text style={styles.buyquantitytxt1}>Quantity I want to buy</Text>
-          <TextInput
-            placeholder="Ex: 5, 100g, 500ml"
-            clearButtonMode="while-editing"
-            autoCapitalize="sentences"
-            returnKeyType="done"
-            // maxLength={"null"}
-            selectTextOnFocus={false}
-            placeholderTextColor="rgba(138,138,138,1)"
-            selectionColor="rgba(255,255,255,1)"
-            style={styles.quantity2}
-          ></TextInput>
-          <TouchableOpacity style={styles.orderBtn1}>
-            <Text style={styles.send}>Send</Text>
-          </TouchableOpacity>
+      <View style={styles.popupBoxFiller}></View>
+      <View style={styles.popupBox}>
+        <View style={styles.transactionMethod1Row}>
+          <Text style={styles.transactionMethod1}>Cash</Text>
+          <View style={styles.transactionMethod1Filler}></View>
+          <EvilIconsIcon
+            name="close"
+            style={styles.closeBtn1}
+            onPress={props.closeModel}
+          ></EvilIconsIcon>
         </View>
+        <Text style={styles.buyquantitytxt1}>Quantity I want to buy</Text>
+        <TextInput
+          placeholder="Ex: 5, 100g, 500ml"
+          clearButtonMode="while-editing"
+          autoCapitalize="sentences"
+          returnKeyType="done"
+          // maxLength={"null"}
+          selectTextOnFocus={false}
+          placeholderTextColor="rgba(138,138,138,1)"
+          selectionColor="rgba(255,255,255,1)"
+          style={styles.quantity2}
+        ></TextInput>
+        <TouchableOpacity style={styles.orderBtn1}>
+          <Text style={styles.send}>Send</Text>
+        </TouchableOpacity>
       </View>
-
+    </View>
+    ):(
 
       <View style={styles.freePopup}>
         <View style={styles.popupBox1Filler}></View>
@@ -81,9 +81,14 @@ ListHeaderComponent={
           </TouchableOpacity>
         </View>
       </View>
+    )
+  }
+ 
 
 
-      <View style={styles.barterPopup}>
+
+
+      {/* <View style={styles.barterPopup}>
         <View style={styles.popupBox2Filler}></View>
         <View style={styles.popupBox2}>
           <View style={styles.barterRow}>
@@ -122,10 +127,10 @@ ListHeaderComponent={
             <Text style={styles.send2}>Send</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </View> */}
 
 
-      <View style={styles.rentPopup}>
+      {/* <View style={styles.rentPopup}>
         <View style={styles.popupBox3Filler}></View>
         <View style={styles.popupBox3}>
           <View style={styles.rentRow}>
@@ -164,10 +169,10 @@ ListHeaderComponent={
             <Text style={styles.send3}>Send</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </View> */}
 
 
-      <View style={styles.borrowPopup}>
+      {/* <View style={styles.borrowPopup}>
         <View style={styles.popupBox4Filler}></View>
         <View style={styles.popupBox4}>
           <View style={styles.borrowRow}>
@@ -206,16 +211,18 @@ ListHeaderComponent={
             <Text style={styles.send4}>Send</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </View> */}
 
 
-    </View>}/>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    padding:20,
+    justifyContent:'center'
   },
   cashPopup: {
     height: 260,
