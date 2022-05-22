@@ -44,7 +44,7 @@ function Categories({navigation}) {
       </TouchableOpacity>
         <Text style={styles.text}>Categories</Text>
       <TouchableOpacity style={styles.closeBtn}
-                onPress={() => {}}>
+                onPress={() => navigation.goBack()}>
                 <CrossIcon name="close" style={styles.closeIcon}></CrossIcon>
     </TouchableOpacity>  
       </View>
