@@ -17,6 +17,7 @@ import {dummyData} from '../../constants';
 import { useFonts } from 'expo-font';
 import { OrderService } from '../../services/customer/Orders';
 import { AuthService } from '../../services/AuthService';
+import { RequestService } from '../../services/customer/Requests';
 
 // ⚠ The topic of the page should changed to I_SalesHistory. ⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠
 // Details about items/products that have been sold to others in the past are displayed on here. 
@@ -32,11 +33,11 @@ const I_Requests = () => {
 
     useEffect(() => {
       console.log("I_requests");
-      getOrdersByUserId();
+      getCompletedRequestsByUserId();
      }, []);
 
-     const getOrdersByUserId = () =>{
-      OrderService.getOrdersByUserId(AuthService.userId,"accept",AuthService.userToken).then((res)=>{
+     const getCompletedRequestsByUserId = () =>{
+      RequestService.filterRecievedRequestsByUserIdAndStatus(AuthService.userId,"Completed",AuthService.userToken).then((res)=>{
         console.log(res.data);
         setRefreshing(false);
       }).catch((error)=>{

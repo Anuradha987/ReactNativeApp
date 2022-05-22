@@ -8,7 +8,7 @@ export class OrderService{
     }
 
     static async getOrdersByUserId(userId,token){
-        const res = await axiosInstance.get(`/get_orders?user_id=${userId}&status=`,{headers: { Authorization: `Bearer ${token}` }});
+        const res = await axiosInstance.get(`/get_orders?user_id=${userId}`,{headers: { Authorization: `Bearer ${token}` }});
         return res;
     }
 
