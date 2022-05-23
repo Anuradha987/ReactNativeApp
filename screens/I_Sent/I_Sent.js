@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import {
   StyleSheet,
+  RefreshControl,
   View,
   TextInput,
   TouchableOpacity,
@@ -25,6 +26,10 @@ import { AuthService } from "../../services/AuthService";
 const I_Sent = () => {
   const navigation = useNavigation();
   const [selectedValue, setSelectedValue] = useState("All");
+  const [refreshing, setRefreshing] = useState(true);
+
+  const [orders, setOrders] = useState([]);
+  const [orderItems, setOrderItems] = useState([]);
 
       //poppins insert
       const [loaded] = useFonts({
@@ -34,16 +39,24 @@ const I_Sent = () => {
   
     useEffect(() => {
       console.log("I_Sent");
-      getSentOrders();
+      getSentOrdersByUserId();
      }, []);
 
-     const getSentOrders = () =>{
-       OrderService.getOrdersByUserId(AuthService.userId,AuthService.userToken).then((res)=>{
-        console.log("get sent requests");
+     const getSentOrdersByUserId = () =>{
+      OrderService.getOrdersByUserId(AuthService.userId,AuthService.userToken).then((res)=>{
         console.log(res.data);
-       }).catch((error)=>{
+        ItemsService.getAllItems(AuthService.userToken).then((res)=>{
+          console.log(res.data);
+          setOrderItems(res.data.data);
+          setRefreshing(false);
+        }).catch((error)=>{
+          console.log(error);
+        });
+        setOrders(res.data.data);
+      }).catch((error)=>{
+        setRefreshing(false);
         console.log(error);
-       });
+      });
      }
 
   return (
@@ -64,6 +77,9 @@ const I_Sent = () => {
       <FlatList
         listKey="14.1"
         showsVerticalScrollIndicator={true}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={()=>getSentOrdersByUserId()} />
+        }
         ListHeaderComponent={
           <View>
             <View style={styles.searchingBarColumn}>
@@ -126,16 +142,18 @@ const I_Sent = () => {
             <View style={styles.scrollArea}>
               <FlatList
                 listKey="14.2"
-                data={dummyData.itemOrdersSent}
-                keyExtractor={(item) => `${item.id}`}
+                data={orders}
+                keyExtractor={(item) => `${item._id}`}
                 showsVerticalScrollIndicator={true}
                 renderItem={({ item, index }) => {
+                  const itemDetails = orderItems.filter((orderItem)=>item.item_id === orderItem._id);
+                  console.log(itemDetails);
                   return (
                        // <View style={styles.scrollArea_contentContainerStyle}>
                     <View >
                       {/* item details  */}
                       <TouchableOpacity style={styles.itemDetailsCardStack}
-                                        onPress={()=>navigation.navigate("ViewItems", {item:item})}  //open viewitems
+                                        onPress={()=>navigation.navigate("ViewItems", {item:itemDetails[0]})}  //open viewitems
                                         onLongPress={()=>{}} //edit,cancel or delete order popup boxes
                       >
                         <View style={styles.itemDetailsCard}>
@@ -145,10 +163,10 @@ const I_Sent = () => {
                           <View style={styles.cateNameStack}>
                             {/* item category */}
                             <Text style={styles.cateName}><Image
-                            source={item.cateIcon}
+                            source={dummyData.itemOrdersSent[0].cateIcon}
                             resizeMode="contain"
                             style={styles.cateIcon}
-                          ></Image>  {item.cateName}</Text>                 
+                          ></Image>  {dummyData.itemOrdersSent[0].cateName}</Text>                 
                           </View>
                      
                           
@@ -159,7 +177,7 @@ const I_Sent = () => {
                         </View>
                         {/* item image */}
                         <Image
-                          source={item.itemImage}
+                          source={dummyData.itemOrdersSent[0].itemImage}
                           resizeMode="cover"
                           style={styles.itemImage}
                         ></Image>
