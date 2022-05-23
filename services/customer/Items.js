@@ -21,4 +21,10 @@ export class ItemsService{
         const res = await axiosInstance.delete(`/delete_item?id=${itemId}`,{headers: { Authorization: `Bearer ${token}` }});
         return res;
     }
+
+    static async updateItem(itemId,token,data){
+        console.log("update")
+        const res = await axiosInstance.put(`/update_item?item_id=${itemId}`,data,{headers: { Authorization: `Bearer ${token}` }});
+        return res;
+    }
 }

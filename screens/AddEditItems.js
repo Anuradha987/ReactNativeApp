@@ -294,7 +294,7 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
       images: "testimagestring",
       location: "testlocation"
      }
-
+    
      console.log(payload);
     ItemsService.AddItem(payload,AuthService.userToken).then((res)=>{
       console.log(res.data);
@@ -320,6 +320,17 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
      images: "testimagestring",
      location: "testlocation"
     }
+
+    console.log(AuthService.userId);
+    console.log(AuthService.userToken);
+    console.log(item._id);
+
+    ItemsService.updateItem(item._id,AuthService.userToken,payload).then((res)=>{
+      console.log(res.data);
+      navigation.goBack();
+    }).catch((error)=>{
+      console.log(error);
+    });
    }
 
    const clearData = () =>{
