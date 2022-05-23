@@ -28,12 +28,13 @@ import { ServicesService } from '../services/customer/Services';
 import { AuthContext } from '../components/context';
 import { ToastAndroid } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ReportService } from '../services/customer/Report';
+import { AuthService } from '../services/AuthService';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 
 function MyProfile({navigation}) {
-
 
   //poppins insert
   const [loaded] = useFonts({
@@ -42,6 +43,7 @@ function MyProfile({navigation}) {
   });
 
   const { sendUserToken,logout } = React.useContext(AuthContext);
+  
 
   const [userDetails, setUserDetails]=React.useState(null);
 
@@ -51,6 +53,15 @@ function MyProfile({navigation}) {
     }
     console.log(userDetails);
   }, []);
+
+  const deleteAccount = () =>{
+    ReportService.deleteUserById(AuthService.userId,AuthService.userToken).then((res)=>{
+      console.log(res.data);
+      logout();
+    }).catch((error)=>{
+      console.log(error);
+    });
+  }
 
   const loadUserDetails = ()=>{
     setTimeout(async () => {
@@ -227,7 +238,7 @@ function MyProfile({navigation}) {
                 </View>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.deleteUserBar}>
+              <TouchableOpacity style={styles.deleteUserBar} onPress={deleteAccount}>
                 <View style={styles.deleteIconRow}>
                   {/* <MaterialIconsIcon
                     name="DeleteForever"
