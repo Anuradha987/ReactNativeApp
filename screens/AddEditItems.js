@@ -2,6 +2,7 @@ import React, { Component, useState, useMemo, useEffect } from "react";
 import {
   StyleSheet,
   View,
+  RefreshControl,
   // ScrollView,
   Image,
   ImageBackground,
@@ -33,6 +34,7 @@ import Categories from "./Categories";
 import { ScrollView } from "react-native-gesture-handler";
 import { ItemsService } from "../services/customer/Items";
 import { AuthService } from "../services/AuthService";
+import { ToastAndroid } from "react-native";
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -67,6 +69,7 @@ const renderHeader =()=>{
 
   const [availability, setAvailability] = React.useState(null);
   const [chosenOption, setChosenOption] = useState('Available');
+  const [refreshing, setRefreshing] = useState(true);
 const available=[
   { value: 'Available', label: 'Available'}, 
   { value:'Not Available', label: 'Not Available'},
@@ -76,11 +79,13 @@ const available=[
   const [data, setData] = useState({
     itemname: '',
     category:'',
+    description:'',
     totalAmount:'',
     status:'',
     tradingMethod:'', 
     price_exchage: '',
     isValidItemName: true,
+    isValidDescription: true,
     isValidtotalAmount: true,
     isValidPrice_Exchanged: true,
     check_textInputChangeItemName: false,
@@ -115,6 +120,36 @@ const available=[
       setData({
         ...data,
         isValidItemName: false,
+      });
+    }
+  };
+
+  const textInputChangeDescription = (val) => {
+    if (val.trim().length >= 1) {
+      setData({
+        ...data,
+        description: val,
+        isValidDescription: true,
+      });
+    } else {
+      setData({
+        ...data,
+        description: val,
+        isValidDescription: false,
+      });
+    }
+  };
+
+  const handleValidDescription = (val) => {
+    if (val.trim().length >= 1) {
+      setData({
+        ...data,
+        isValidDescription: true,
+      });
+    } else {
+      setData({
+        ...data,
+        isValidDescription: false,
       });
     }
   };
@@ -205,7 +240,7 @@ const available=[
 
 
 //Trading Method selection
-const [selectedValue, setSelectedValue] = useState("All");
+const [selectedPaymentMethod, setSelectedValue] = useState("Cash");
 const [selectedStatus, setSelectedStatus] = useState("Available");
 const [selectedCategory, setSelectedCategory] = useState("Agriculture");
 
@@ -222,25 +257,50 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
    }, []);
 
    const AddItem = () =>{
-
-     const data ={
+     ToastAndroid.show("Item Adding Started...",ToastAndroid.SHORT);
+     const payload ={
       user_id: AuthService.userId,
-      name: "test item",
-      description: "test description",
-      category: "Pets",
-      amount: "12",
-      status: "Available",
-      trading_method: "test",
-      price: "23",
+      name: data.itemname,
+      description: data.description,
+      category: selectedCategory,
+      amount: data.totalAmount,
+      status: selectedStatus,
+      trading_method: selectedPaymentMethod,
+      price: data.price_exchage,
       images: "testimagestring",
       location: "testlocation"
      }
-    ItemsService.AddItem(data,AuthService.userToken).then((res)=>{
+
+     console.log(payload);
+    ItemsService.AddItem(payload,AuthService.userToken).then((res)=>{
       console.log(res.data);
+      ToastAndroid.show("Item Added...",ToastAndroid.SHORT);
       navigation.goBack();
     }).catch((error)=>{
+  
       console.log(error)
     })
+   }
+
+   const clearData = () =>{
+    setData(
+      {
+        itemname: '',
+        category:'',
+        description:'',
+        totalAmount:'',
+        status:'',
+        tradingMethod:'', 
+        price_exchage: '',
+        isValidItemName: true,
+        isValidDescription: true,
+        isValidtotalAmount: true,
+        isValidPrice_Exchanged: true,
+        check_textInputChangeItemName: false,
+        check_textInputChangeTotalAmount: false,
+        check_textInputChangePrice_exchanged: false,
+      }
+    );
    }
 
   return (
@@ -260,6 +320,9 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
     (<View style={styles.container}>
       <FlatList showsVerticalScrollIndicator={true}
         listKey="28.1"
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={clearData} />
+        }
         ListHeaderComponent={
  <BottomSheet 
         ref={bs}
@@ -378,6 +441,7 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
         autoCapitalize="sentences"
         returnKeyType="next"
         maxLength={40}
+        value={data.itemname}
         style={styles.nametxt}        
         onChangeText={(val) => textInputChangeName(val)}
         onEndEditing={(e) => handleValidName(e.nativeEvent.text)}
@@ -390,9 +454,12 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
         clearButtonMode="while-editing"
         numberOfLines={4}
         multiline={true}
+        value={data.description}
         autoCapitalize="sentences"
         returnKeyType="next" 
         style={styles.descriptiontxt}
+        onChangeText={(val) => textInputChangeDescription(val)}
+        onEndEditing={(e) => handleValidDescription(e.nativeEvent.text)}
         // ref={(input) => { this.secondTextInput = input; }}
       ></TextInput>
       
@@ -472,7 +539,7 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
       <View style={styles.tradingMethodtxt}
       >
         <Picker itemStyle={{ backgroundColor: '#000', }}
-            selectedValue={selectedValue}
+            selectedValue={selectedPaymentMethod}
             dropdownIconColor={'#DDDDDD'}
             style={{color: "rgba(255,255,255,1)", bottom: 7,fontFamily: "poppinsregular",  fontSize: 15, }}
             onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}

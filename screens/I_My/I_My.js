@@ -13,6 +13,7 @@ import {
   Animated,
   ActivityIndicator
 } from "react-native";
+import { useFocusEffect } from '@react-navigation/native';
 import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import EntypoIcon from "react-native-vector-icons/Entypo";
@@ -44,15 +45,17 @@ const I_My = () => {
     poppins700: require('./../../assets/fonts/poppins-700.ttf'),
   });
 
-  useEffect(() => {
+  useFocusEffect( 
+    React.useCallback(() => {
+    setRefreshing(true);
     console.log("I_my");
     console.log(AuthService.userId);
     console.log(AuthService.userToken);
-    if(!myItems.length){
+    // if(!myItems.length){
     loadData();
-    }
-
-  }, []);
+    // }
+  
+  }, []));
 
   const getMyItems = () => {
     ItemsService.getItemsByUserId(AuthService.userId, AuthService.userToken).then((res) => {
@@ -76,6 +79,21 @@ const I_My = () => {
     }).catch((error)=>{
       console.log(error);
     });
+  }
+
+  const deleteItem = (itemId) =>{
+    ItemsService.deleteItem(itemId,AuthService.userToken).then((res)=>{
+      console.log(res.data);
+      console.log(myItems);
+      console.log(itemId);
+      const items = myItems.filter((item)=>{if(item._id !== itemId){
+        return item;
+      }});
+      console.log(items);
+      setMyItems(items);
+    }).catch((error)=>{
+      console.log(error);
+    })
   }
 
   const loadData= () =>{
@@ -138,7 +156,7 @@ const I_My = () => {
                                 <View style={styles.editIconFiller}></View>
                                 <FeatherIcon name="edit" style={styles.editIcon}></FeatherIcon>
                               </TouchableOpacity>
-                              <TouchableOpacity style={styles.deleteBtn}>
+                              <TouchableOpacity style={styles.deleteBtn} onPress={()=>deleteItem(item._id)}>
                                 <View style={styles.delIconFiller}></View>
                                 <MaterialCommunityIconsIcon
                                   name="delete-sweep"
