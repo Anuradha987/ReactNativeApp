@@ -18,6 +18,7 @@ import { useFonts } from 'expo-font';
 import { OrderService } from '../../services/customer/Orders';
 import { AuthService } from '../../services/AuthService';
 import { RequestService } from '../../services/customer/Requests';
+import { ItemsService } from '../../services/customer/Items';
 
 // ⚠ The topic of the page should changed to I_SalesHistory. ⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠
 // Details about items/products that have been sold to others in the past are displayed on here. 
@@ -25,6 +26,8 @@ import { RequestService } from '../../services/customer/Requests';
 const I_Requests = () => {
 
   const [refreshing, setRefreshing] = useState(true);
+  const [completedOrders, setCompletedOrders] = useState([]);
+  const [orderItems, setOrderItems] = useState([]);
       //poppins insert
       const [loaded] = useFonts({
         poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
@@ -33,13 +36,20 @@ const I_Requests = () => {
 
     useEffect(() => {
       console.log("I_requests");
-      getCompletedRequestsByUserId();
+      getCompletedOrdersByUserId();
      }, []);
 
-     const getCompletedRequestsByUserId = () =>{
-      RequestService.filterRecievedRequestsByUserIdAndStatus(AuthService.userId,"Completed",AuthService.userToken).then((res)=>{
+     const getCompletedOrdersByUserId = () =>{
+      OrderService.getOrdersByUserIdAndStatus(AuthService.userId,"Completed",AuthService.userToken).then((res)=>{
         console.log(res.data);
-        setRefreshing(false);
+        ItemsService.getAllItems(AuthService.userToken).then((res)=>{
+          console.log(res.data);
+          setOrderItems(res.data.data);
+          setRefreshing(false);
+        }).catch((error)=>{
+          console.log(error);
+        });
+        setCompletedOrders(res.data.data);
       }).catch((error)=>{
         setRefreshing(false);
         console.log(error);
@@ -47,7 +57,7 @@ const I_Requests = () => {
      }
 
     return (
-      (!loaded)?
+      (!loaded) || refreshing)?
       (
         <View
           style={{
@@ -64,7 +74,7 @@ const I_Requests = () => {
 <FlatList showsVerticalScrollIndicator={true}
         listKey="91.1"
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={()=>getOrdersByUserId()} />
+          <RefreshControl refreshing={refreshing} onRefresh={()=>getCompletedOrdersByUserId()} />
         }
         ListHeaderComponent={
             <View>
@@ -87,36 +97,40 @@ const I_Requests = () => {
            <View style={styles.scrollArea}>
             <FlatList
             listKey="11.2"
-            data={dummyData.itemSalesHistory}
-            keyExtractor={(item) => `${item.id}`}
+            data={completedOrders}
+            keyExtractor={(item) => `${item._id}`}
             showsVerticalScrollIndicator={true}
             //onPress = {()=> naviga}
             renderItem={({ item, index }) => {
+              const itemDetails = orderItems.filter((orderItem)=>item.item_id === orderItem._id);
+              console.log(itemDetails);
                 return (
-                    <View key={index}>
+                    <View>
                       {/* open I_My */}
                       <TouchableOpacity style={styles.itemCardStack} onPress={()=>{}}>
                         <View style={styles.itemCard}>
-                          <Text numberOfLines={1} style={styles.itemTitle}>{item.itemTitle}</Text>
+                          <Text numberOfLines={1} style={styles.itemTitle}>{itemDetails[0].name}</Text>
 
                           <View style={styles.cateNameStack}>
-                            <Text style={styles.cateName}><Image
-                              source={item.cateIcon}
+                            <Text style={styles.cateName}>
+                              <Image
+                              source={dummyData.itemSalesHistory[0].cateIcon}
                               resizeMode="contain"
                               style={styles.cateIcon}
-                            ></Image>  {item.cateName}</Text>
+                            ></Image>  
+                            {itemDetails[0].category}</Text>
                             
                           </View>
 
                          
 
                           <View style={styles.priceperUnitStack}>
-                            <Text numberOfLines={1} style={styles.priceperUnit}>{item.price} / {item.unit}</Text>
-                            <Text numberOfLines={1} style={styles.transactionMethod}>{item.transactionMethod}</Text>
+                            <Text numberOfLines={1} style={styles.priceperUnit}>{itemDetails[0].price} / {item.amount}</Text>
+                            <Text numberOfLines={1} style={styles.transactionMethod}>{item.order_type}</Text>
                           </View>
                         </View>
                         <Image
-                          source={item.itemImage}
+                          source={dummyData.itemSalesHistory[0].itemImage}
                           resizeMode="cover"
                           style={styles.itemImage}
                         ></Image>
@@ -131,8 +145,7 @@ const I_Requests = () => {
         <View style={{ marginTop: 150 }}></View>
 
         </View>}/>
-      </View>)
-    );
+      </View>);
   }
   
 const styles = StyleSheet.create({
