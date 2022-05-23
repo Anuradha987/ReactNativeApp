@@ -75,7 +75,7 @@ const available=[
   { value:'Not Available', label: 'Not Available'},
 ]
   const { item } = route.params;
-  const [mode,setMode] = React.useState('ADD A NEW ITEM');
+  const [editMode,setEditMode] = React.useState(false);
 
   const [data, setData] = useState({
     itemname: '',
@@ -241,7 +241,7 @@ const available=[
 
 
 //Trading Method selection
-const [selectedPaymentMethod, setSelectedValue] = useState("Cash");
+const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("Cash");
 const [selectedStatus, setSelectedStatus] = useState("Available");
 const [selectedCategory, setSelectedCategory] = useState("Agriculture");
 
@@ -257,7 +257,26 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
     console.log(AuthService.userToken);
     console.log(item);
     if(item){
-      setMode('EDIT ITEM');
+      setEditMode(true);
+      setData({
+        itemname: item.name,
+        category:'',
+        description:item.description,
+        totalAmount:item.amount,
+        status:'',
+        tradingMethod:'', 
+        price_exchage: item.price,
+        isValidItemName: true,
+        isValidDescription: true,
+        isValidtotalAmount: true,
+        isValidPrice_Exchanged: true,
+        check_textInputChangeItemName: false,
+        check_textInputChangeTotalAmount: false,
+        check_textInputChangePrice_exchanged: false,
+      });
+      setSelectedStatus(item.status);
+      setSelectedCategory(item.category);
+      setSelectedPaymentMethod(item.trading_method);
     }
    }, []);
 
@@ -285,6 +304,22 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
   
       console.log(error)
     })
+   }
+
+   const EditItem = () =>{
+    ToastAndroid.show("Item Editing Started...",ToastAndroid.SHORT);
+    const payload ={
+     user_id: AuthService.userId,
+     name: data.itemname,
+     description: data.description,
+     category: selectedCategory,
+     amount: data.totalAmount,
+     status: selectedStatus,
+     trading_method: selectedPaymentMethod,
+     price: data.price_exchage,
+     images: "testimagestring",
+     location: "testlocation"
+    }
    }
 
    const clearData = () =>{
@@ -350,7 +385,7 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
         <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
           <Icon name="arrow-left" style={styles.backIcon}></Icon>
         </TouchableOpacity>
-        <Text style={styles.servicesRequest}>{mode}</Text>
+        <Text style={styles.servicesRequest}>{editMode ? 'EDIT ITEM' : 'ADD A NEW ITEM'}</Text>
       </View>
 
       <LinearGradient
@@ -511,6 +546,7 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
         placeholder=""
         clearButtonMode="while-editing"
         returnKeyType="next"
+        value={data.totalAmount}
         keyboardType="numbers-and-punctuation"
         onChangeText={(val) => textInputChangeTotalAmount(val)}
         onEndEditing={(e) => handleValidTotalAmount(e.nativeEvent.text)}
@@ -547,7 +583,7 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
             selectedValue={selectedPaymentMethod}
             dropdownIconColor={'#DDDDDD'}
             style={{color: "rgba(255,255,255,1)", bottom: 7,fontFamily: "poppinsregular",  fontSize: 15, }}
-            onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+            onValueChange={(itemValue, itemIndex) => setSelectedPaymentMethod(itemValue)}
           >
             {/* https://reactnative.dev/docs/picker */}
             <Picker.Item label="Cash" value="Cash" />
@@ -570,6 +606,7 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
         clearButtonMode="while-editing"
         returnKeyType="done"
         selectionColor="rgba(255,255,255,1)"
+        value={data.price_exchage}
         keyboardType="numbers-and-punctuation"        
         onChangeText={(val) => textInputChangePrice_exchange(val)}
         onEndEditing={(e) => handleValidTotalPrice_exchange(e.nativeEvent.text)}
@@ -577,7 +614,7 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
       ></TextInput>  
 
 
-      <TouchableOpacity style={styles.button} onPress={()=>{AddItem()}}>
+      <TouchableOpacity style={styles.button} onPress={()=>{editMode? EditItem() : AddItem()}}>
               <Text style={styles.submit}>SUBMIT</Text>
       </TouchableOpacity>
 
@@ -619,6 +656,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   servicesRequest: {
+    zIndex:-10,
     position:'absolute',
     fontFamily: 'poppins700',
     textAlign: 'center',
