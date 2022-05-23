@@ -65,7 +65,7 @@ const renderHeader =()=>{
 
 
 // function AddEditItems({item, navigation, isSelected}) {
-  const AddEditItems = ({navigation}) => {
+  const AddEditItems = ({navigation,route}) => {
 
   const [availability, setAvailability] = React.useState(null);
   const [chosenOption, setChosenOption] = useState('Available');
@@ -74,7 +74,8 @@ const available=[
   { value: 'Available', label: 'Available'}, 
   { value:'Not Available', label: 'Not Available'},
 ]
-
+  const { item } = route.params;
+  const [mode,setMode] = React.useState('ADD A NEW ITEM');
 
   const [data, setData] = useState({
     itemname: '',
@@ -254,6 +255,10 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
     console.log("AddEditItems");
     console.log(AuthService.userId);
     console.log(AuthService.userToken);
+    console.log(item);
+    if(item){
+      setMode('EDIT ITEM');
+    }
    }, []);
 
    const AddItem = () =>{
@@ -345,7 +350,7 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
         <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
           <Icon name="arrow-left" style={styles.backIcon}></Icon>
         </TouchableOpacity>
-        <Text style={styles.servicesRequest}>ADD A NEW ITEM</Text>
+        <Text style={styles.servicesRequest}>{mode}</Text>
       </View>
 
       <LinearGradient
@@ -614,9 +619,11 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   servicesRequest: {
+    position:'absolute',
     fontFamily: 'poppins700',
     textAlign: 'center',
-    marginLeft: 60,
+    // marginLeft: 60,
+    width:'100%',
     marginTop: 7,
     color: '#9c8df0',
     fontSize: 17,

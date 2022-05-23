@@ -116,7 +116,7 @@ const I_My = () => {
         </View>
       ) :
       (<View style={styles.container}>
-        <TouchableOpacity style={styles.button} onPress={() => { navigation.navigate('AddEditItems') }}>
+        <TouchableOpacity style={styles.button} onPress={() => { navigation.navigate('AddEditItems',{item:null}) }}>
           <Text style={styles.submit}>Add New Item</Text>
         </TouchableOpacity>
         {/* Vertical scroll bar */}
@@ -154,7 +154,7 @@ const I_My = () => {
                             <View style={styles.editBtnRow}>
                               <TouchableOpacity style={styles.editBtn}>
                                 <View style={styles.editIconFiller}></View>
-                                <FeatherIcon name="edit" style={styles.editIcon}></FeatherIcon>
+                                <FeatherIcon name="edit" style={styles.editIcon} onPress={()=> navigation.navigate('AddEditItems', {item:item}) }></FeatherIcon>
                               </TouchableOpacity>
                               <TouchableOpacity style={styles.deleteBtn} onPress={()=>deleteItem(item._id)}>
                                 <View style={styles.delIconFiller}></View>
