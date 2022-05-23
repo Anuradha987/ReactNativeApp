@@ -220,7 +220,7 @@ function MyProfile({navigation}) {
 
 {/* account actions */}
             <View style={styles.profileSettings}>
-              <TouchableOpacity style={styles.signoutUserBar}>
+              <TouchableOpacity style={styles.signoutUserBar} onPress={()=>logout()}>
                 <View style={styles.signoutIconRow}>
                   <MaterialIconsIcon
                     name="logout"

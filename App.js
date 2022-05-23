@@ -137,6 +137,7 @@ const App = () => {
           console.log(e);
         }
         dispatch({ type: 'LOGOUT' });
+        RootNavigation.navigate('Login', {});
       }
     }),
     []
@@ -157,6 +158,7 @@ const App = () => {
         });
       } catch (e) {
         console.log(e);
+        RootNavigation.navigate('Login', {});
       }
   }, []);
   // ---------------end of handling user login------------------- //
@@ -185,20 +187,16 @@ const App = () => {
       <AuthContext.Provider value={authContext}>
         <NavigationContainer ref={navigationRef}>
           <StatusBar barStyle="light-content" />
-          {userToken !== null ? (
-            <Stack.Navigator
-              screenOptions={{ headerShown: false }}
-              //  initialRouteName={'Notice Board'}
-            >
+       
+              {userToken !== null ? (
+                         <Stack.Navigator
+                         screenOptions={{ headerShown: false }}
+                         //  initialRouteName={'Notice Board'}
+                       >
               <Stack.Screen name="Notice Board" component={CustomDrawer} />
               <Stack.Screen name="ViewItems" component={ViewItems} />
               <Stack.Screen name="NewReqForm" component={NewReqForm} />
-            {/*<Stack.Screen name="Login" component={Login} />
-              <Stack.Screen name="Register" component={Register} />
-              <Stack.Screen name="Otp" component={Otp} />
-              <Stack.Screen name="PasswordRecovery" component={PasswordRecovery} />*/}
               <Stack.Screen name="Filter" component={Filter} /> 
-              <Stack.Screen name="ResetPassword" component={ResetPassword} /> 
               <Stack.Screen name="AddNewCard" component={AddNewCard} />
               <Stack.Screen name="PaymentCards" component={PaymentCards} />
               <Stack.Screen name="MyProfile" component={MyProfile} />
@@ -216,10 +214,21 @@ const App = () => {
               <Stack.Screen name="PlacingOrders" component={PlacingOrders}/>
               <Stack.Screen name="DB_MainLayout" component={DB_MainLayout}/>
               <Stack.Screen name="ImageBrowserScreen" component={ImageBrowserScreen} />
-            </Stack.Navigator>
-          ) : ( 
-           <RootStackScreen loginState={loginState}/>        //screens in the login_SIgnUp folder
-          )}
+              </Stack.Navigator>
+              ):(
+                <Stack.Navigator
+              screenOptions={{ headerShown: false }}
+              //  initialRouteName={'Notice Board'}
+            >
+                <Stack.Screen name="Login" loginState={loginState} component={Login}/>
+                <Stack.Screen name="Notice Board" component={CustomDrawer} />
+                <Stack.Screen name="Register" component={Register}/>
+                <Stack.Screen name="PasswordRecovery" component={PasswordRecovery}/>
+                <Stack.Screen name="Otp" component={Otp}/>
+                <Stack.Screen name="ResetPassword" component={ResetPassword}/>
+                </Stack.Navigator>
+              )}
+       
         </NavigationContainer>
       </AuthContext.Provider>
     </Provider>
