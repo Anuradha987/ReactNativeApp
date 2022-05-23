@@ -115,6 +115,8 @@ const App = () => {
         console.log('user token: ', userToken);
         setUserId(id);
         setUserToken(userToken);
+        AuthService.userId = id;
+        AuthService.userToken = userToken;
         dispatch({ type: 'LOGIN', id: id, token: userToken, userName: userName });
         // navigation.navigate('MyProfile');
         RootNavigation.navigate('DB_MainLayout', {});
@@ -130,6 +132,8 @@ const App = () => {
       logout: async () => {
         setUserToken(null);
         // setIsLoading(false);
+        AuthService.userId = null;
+        AuthService.userToken = null;
         try {
           await AsyncStorage.removeItem('userToken');
           await AsyncStorage.removeItem('userId');
@@ -144,6 +148,7 @@ const App = () => {
   );
 
   useEffect(() => {
+    if(!AuthService.userId && !AuthService.userToken){
       try {
         AsyncStorage.getItem('userToken').then((data)=>{
           setUserToken(data);
@@ -160,6 +165,7 @@ const App = () => {
         console.log(e);
         RootNavigation.navigate('Login', {});
       }
+    }
   }, []);
   // ---------------end of handling user login------------------- //
 
@@ -188,7 +194,7 @@ const App = () => {
         <NavigationContainer ref={navigationRef}>
           <StatusBar barStyle="light-content" />
        
-              {userToken !== null ? (
+              {AuthService.userToken !== null ? (
                          <Stack.Navigator
                          screenOptions={{ headerShown: false }}
                          //  initialRouteName={'Notice Board'}
