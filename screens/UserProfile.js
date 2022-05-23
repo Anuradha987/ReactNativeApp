@@ -23,6 +23,9 @@ import Icon from "react-native-vector-icons/SimpleLineIcons";
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import I_My from './I_My/I_My';
 import S_My from './S_My/S_My';
+import { ReportService } from '../services/customer/Report';
+import { AuthService } from '../services/AuthService';
+import { ToastAndroid } from 'react-native';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
@@ -43,6 +46,20 @@ function UserProfile({navigation}) {
   useEffect(() => {
    console.log("User Profile");
   }, []);
+
+  const reportUser = () =>{
+    const data = {
+      user_id: "620729b1de4a5c278423dbe9",
+      victim_user_id: AuthService.userId,
+      description: "Test reporting description."
+  };
+    ReportService.AddReport(data,AuthService.userToken).then((res)=>{
+      console.log(res.data);
+      ToastAndroid.show(res.data.message,ToastAndroid.SHORT);
+    }).catch((error)=>{
+      console.log(error);
+    });
+  }
 
   return (
     (!loaded)?
@@ -202,7 +219,7 @@ function UserProfile({navigation}) {
             </NavigationContainer>
             
                   
-      <TouchableOpacity style={styles.reportingUserBar}>
+      <TouchableOpacity style={styles.reportingUserBar} onPress={reportUser}>
         <View style={styles.thumbsaDownIconRow}>
           <MaterialIconsIcon
             name="thumb-down"

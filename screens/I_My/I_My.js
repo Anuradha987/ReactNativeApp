@@ -80,7 +80,7 @@ const I_My = () => {
 
   const loadData= () =>{
     getMyItems();
-    getOrderRequests();
+    // getOrderRequests();
   }
 
   return (
