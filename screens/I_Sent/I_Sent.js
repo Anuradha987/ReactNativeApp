@@ -151,6 +151,7 @@ const I_Sent = () => {
                     console.log(itemDetails);
                     if(itemDetails[0]){
                        const category = dummyData.itemOrdersSent.filter((item)=>(item.cateName == itemDetails[0].category));
+                       const d = new Date(item.order_created_date); 
                       return (
                         // <View style={styles.scrollArea_contentContainerStyle}>
                      <View >
@@ -176,9 +177,9 @@ const I_Sent = () => {
                       
                            
   
-                           <Text style={styles.reqStatus}>{item.reqStatus}</Text>
-                           <Text style={styles.priceperUnit}>{item.price} / {item.quantity}</Text>
-                           <Text style={styles.transactionMethod}>{item.transactionMethod}</Text>
+                           <Text style={styles.reqStatus}>{item.status}</Text>
+                           <Text style={styles.priceperUnit}>{itemDetails[0].price} / {itemDetails[0].amount}</Text>
+                           <Text style={styles.transactionMethod}>{item.order_type}</Text>
                          </View>
                          {/* item image */}
                          <Image
@@ -189,7 +190,7 @@ const I_Sent = () => {
                          <View style={styles.orderDetails}>
                            <View style={styles.amountReturningDateFiller}></View>
                            <Text style={styles.amountReturningDate}>
-                             {item.amountReturningDate}
+                             {d.toISOString().substring(0,10)+'   '+d.toISOString().substring(11,16)}
                            </Text>
                          </View>
                        </TouchableOpacity>
