@@ -25,7 +25,7 @@ import { AuthService } from "../../services/AuthService";
 //Order history. Item orders that have been sent/ Item that have been bought (items buy)
 const I_Sent = () => {
   const navigation = useNavigation();
-  const [selectedValue, setSelectedValue] = useState("All");
+  const [orderStatus, setOrderStatus] = useState("All");
   const [refreshing, setRefreshing] = useState(true);
 
   const [orders, setOrders] = useState([]);
@@ -102,10 +102,10 @@ const I_Sent = () => {
               <View style={styles.requestStatusRow}>
                 <View style={styles.requestStatus}>
                   <Picker itemStyle={{ backgroundColor: '#000' }}
-                    selectedValue={selectedValue}
+                    selectedValue={orderStatus}
                     dropdownIconColor={'#DDDDDD'}
                     style={{ color: '#DDDDDD', bottom: 7, left: 5 }}
-                    onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                    onValueChange={(itemValue, itemIndex) => setOrderStatus(itemValue)}
                   >
                     {/* https://reactnative.dev/docs/picker */}
                     <Picker.Item label="All" value="All" />
@@ -146,50 +146,57 @@ const I_Sent = () => {
                 keyExtractor={(item) => `${item._id}`}
                 showsVerticalScrollIndicator={true}
                 renderItem={({ item, index }) => {
-                  const itemDetails = orderItems.filter((orderItem)=>item.item_id === orderItem._id);
-                  console.log(itemDetails);
-                  return (
-                       // <View style={styles.scrollArea_contentContainerStyle}>
-                    <View >
-                      {/* item details  */}
-                      <TouchableOpacity style={styles.itemDetailsCardStack}
-                                        onPress={()=>navigation.navigate("ViewItems", {item:itemDetails[0]})}  //open viewitems
-                                        onLongPress={()=>{}} //edit,cancel or delete order popup boxes
-                      >
-                        <View style={styles.itemDetailsCard}>
-                          {/* item name */}
-                          <Text numberOfLines={1} style={styles.reqTitle}>{item.reqTitle}</Text>
-
-                          <View style={styles.cateNameStack}>
-                            {/* item category */}
-                            <Text style={styles.cateName}><Image
-                            source={dummyData.itemOrdersSent[0].cateIcon}
-                            resizeMode="contain"
-                            style={styles.cateIcon}
-                          ></Image>  {dummyData.itemOrdersSent[0].cateName}</Text>                 
-                          </View>
-                     
-                          
-
-                          <Text style={styles.reqStatus}>{item.reqStatus}</Text>
-                          <Text style={styles.priceperUnit}>{item.price} / {item.quantity}</Text>
-                          <Text style={styles.transactionMethod}>{item.transactionMethod}</Text>
-                        </View>
-                        {/* item image */}
-                        <Image
-                          source={dummyData.itemOrdersSent[0].itemImage}
-                          resizeMode="cover"
-                          style={styles.itemImage}
-                        ></Image>
-                        <View style={styles.orderDetails}>
-                          <View style={styles.amountReturningDateFiller}></View>
-                          <Text style={styles.amountReturningDate}>
-                            {item.amountReturningDate}
-                          </Text>
-                        </View>
-                      </TouchableOpacity>
-                    </View>
-                  )
+                  if(item.status === orderStatus || orderStatus === "All"){
+                    const itemDetails = orderItems.filter((orderItem)=>item.item_id === orderItem._id);
+                    console.log(itemDetails);
+                    if(itemDetails[0]){
+                       const category = dummyData.itemOrdersSent.filter((item)=>(item.cateName == itemDetails[0].category));
+                      return (
+                        // <View style={styles.scrollArea_contentContainerStyle}>
+                     <View >
+                       {/* item details  */}
+                       <TouchableOpacity style={styles.itemDetailsCardStack}
+                                         onPress={()=>navigation.navigate("ViewItems", {item:itemDetails[0]})}  //open viewitems
+                                         onLongPress={()=>{}} //edit,cancel or delete order popup boxes
+                       >
+                         <View style={styles.itemDetailsCard}>
+                           {/* item name */}
+                           <Text numberOfLines={1} style={styles.reqTitle}>{itemDetails[0].name}</Text>
+  
+                           <View style={styles.cateNameStack}>
+                             {/* item category */}
+                             <Text style={styles.cateName}>
+                               {/* <Image
+                             source={ null}
+                             resizeMode="contain"
+                             style={styles.cateIcon}
+                           ></Image>  */}
+                            {itemDetails[0].category}</Text>                 
+                           </View>
+                      
+                           
+  
+                           <Text style={styles.reqStatus}>{item.reqStatus}</Text>
+                           <Text style={styles.priceperUnit}>{item.price} / {item.quantity}</Text>
+                           <Text style={styles.transactionMethod}>{item.transactionMethod}</Text>
+                         </View>
+                         {/* item image */}
+                         <Image
+                           source={dummyData.itemOrdersSent[0].itemImage}
+                           resizeMode="cover"
+                           style={styles.itemImage}
+                         ></Image>
+                         <View style={styles.orderDetails}>
+                           <View style={styles.amountReturningDateFiller}></View>
+                           <Text style={styles.amountReturningDate}>
+                             {item.amountReturningDate}
+                           </Text>
+                         </View>
+                       </TouchableOpacity>
+                     </View>
+                   )
+                    }
+                  }
                 }} />
             </View>
             <View style={{ marginTop: 130 }}></View>
