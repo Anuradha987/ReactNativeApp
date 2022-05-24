@@ -32,6 +32,9 @@ const windowHeight = Dimensions.get('screen').height;
 const windowWidth = Dimensions.get('window').width;
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import PlacingOrders from '../PlacingOrders';
+import { OrderService } from '../../services/customer/Orders';
+import { ToastAndroid } from 'react-native';
+import { AuthService } from '../../services/AuthService';
 
 const ViewItems = ({ navigation, route }) => {
   //poppins insert
@@ -48,6 +51,28 @@ const ViewItems = ({ navigation, route }) => {
     // console.log("SSentDetailsAfterAccepting");
     console.log(item);
   }, []);
+
+  const sendOrder = (quantity) =>{
+    ToastAndroid.show("Order adding...",ToastAndroid.SHORT);
+    setModalVisible(false);
+    if(quantity)
+    console.log(quantity);
+    const data={
+    user_id: AuthService.userId,
+    to: item.user_id,
+    item_id: item._id,
+    amount: quantity,
+    order_type: "cash",
+    status: "Pending"
+    }
+    OrderService.AddOrder(data,AuthService.userToken).then((res)=>{
+      console.log(res.data);
+      ToastAndroid.show(res.data.message,ToastAndroid.SHORT);
+    }).catch((error)=>{
+      ToastAndroid.show(res.data.message,ToastAndroid.SHORT);
+      console.log(error);
+    });
+   }
 
   return (
     (!loaded) ?
@@ -72,7 +97,7 @@ const ViewItems = ({ navigation, route }) => {
             Alert.alert('Modal has been closed.');
             setModalVisible(!modalVisible);
           }}>
-          <PlacingOrders type="cash" closeModel={() => setModalVisible(false)} />
+          <PlacingOrders type="cash" item={item} sendOrder={sendOrder} closeModel={() => setModalVisible(false)} />
         </Modal>
         <FlatList
           listKey="13.1"

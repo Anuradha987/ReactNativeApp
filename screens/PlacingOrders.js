@@ -9,10 +9,14 @@ import {
   ActivityIndicator
 } from "react-native";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
+import { ToastAndroid } from 'react-native';
+import { AuthService } from '../services/AuthService';
+import { OrderService } from '../services/customer/Orders';
 
 function PlacingOrders(props) {
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [quantity, setQuantity] = useState('');
 
   useEffect(() => {
     console.log("Placing orders");
@@ -42,11 +46,13 @@ function PlacingOrders(props) {
           returnKeyType="done"
           // maxLength={"null"}
           selectTextOnFocus={false}
+          value={quantity}
+          onChangeText={(val)=>{setQuantity(val)}}
           placeholderTextColor="rgba(138,138,138,1)"
           selectionColor="rgba(255,255,255,1)"
           style={styles.quantity2}
         ></TextInput>
-        <TouchableOpacity style={styles.orderBtn1}>
+        <TouchableOpacity style={styles.orderBtn1} onPress={()=>props.sendOrder(quantity)}>
           <Text style={styles.send}>Send</Text>
         </TouchableOpacity>
       </View>
