@@ -26,6 +26,7 @@ import {
   ResetPassword,
   AddNewCard,
   PaymentCards,
+  I_SalesHistory,
   Categories,
   AddEditItems,
   ImageBrowserScreen,
@@ -42,6 +43,7 @@ import { useNavigation } from '@react-navigation/native';
 import { navigationRef } from './navigation/rootNavigation';
 import * as RootNavigation from './navigation/rootNavigation';
 import PlacingOrders from './screens/PlacingOrders';
+// import I_SalesHistory from './screens/I_SalesHistory/I_SalesHistory';
 
 const Stack = createStackNavigator();
 
@@ -213,6 +215,7 @@ const App = () => {
               <Stack.Screen name="S_RequestsDetails" component={S_RequestsDetails} />
               <Stack.Screen name="S_Requests" component={S_Requests}/>
               <Stack.Screen name="I_My" component={I_My} />
+              <Stack.Screen name="I_SalesHistory" component={I_SalesHistory} />
               <Stack.Screen name="SAfterCompleted" component={SAfterCompleted} />
               <Stack.Screen name="SAfterApproved" component={SAfterApproved} />
               <Stack.Screen name="AddEditItems" component={AddEditItems}/>

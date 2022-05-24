@@ -12,8 +12,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Icon from "react-native-vector-icons/EvilIcons";
 import { Extrapolate, interpolate, useAnimatedScrollHandler } from 'react-native-reanimated'
 //these are the screens that renders within the I_MainLayout
-import { I_Approvals, I_Sent, I_My, I_Requests, I_Search } from '.';
+import { I_Approvals, I_Sent, I_My, I_Search } from '.';
 import { NavService } from '../services/NavService';
+import I_SalesHistory from './I_SalesHistory/I_SalesHistory';
 
 
 const TabButton = ({ label, icon, isFocused, onPress, outerContainerStyle, innerContainerStyle }) => {
@@ -181,7 +182,7 @@ const I_MainLayout = ({ drawerAnimationStyle, navigation, selectedTab, setSelect
             I_SentTabColor.value = withTiming(COLORS.white, { duration: 500 })
         }
 
-        if (selectedTab == constants.screens.I_Requests) {
+        if (selectedTab == constants.screens.I_SalesHistory) {
             flatListRef?.current?.scrollToIndex({
                 index: 2, animated: false
             })
@@ -268,7 +269,7 @@ const I_MainLayout = ({ drawerAnimationStyle, navigation, selectedTab, setSelect
             <View style={{ flex: 1 }}>
                 <View style={{ height: SIZES.height, width: SIZES.width }}>
                     {(selectedTab == constants.screens.I_Sent) ?<I_Sent /> :
-                     (selectedTab == constants.screens.I_Requests) ? (<I_Requests />) :
+                     (selectedTab == constants.screens.I_SalesHistory) ? (<I_SalesHistory />) :
                      (selectedTab == constants.screens.I_My) ? (<I_My />) :
                      (selectedTab == constants.screens.I_Search) ? (<I_Search />) :
                      ( <I_Search />)
@@ -330,10 +331,10 @@ const I_MainLayout = ({ drawerAnimationStyle, navigation, selectedTab, setSelect
 
                     <TabButton label='History'
                         icon={icons.clock}
-                        isFocused={selectedTab == constants.screens.I_Requests}
+                        isFocused={selectedTab == constants.screens.I_SalesHistory}
                         outerContainerStyle={I_RequestsFlexStyle}
                         innerContainerStyle={I_RequestsColorStyle}
-                        onPress={() => setSelectedTab(constants.screens.I_Requests)}
+                        onPress={() => setSelectedTab(constants.screens.I_SalesHistory)}
                     />
 
                     {/* <TabButton label = 'Approvals'

@@ -38,8 +38,7 @@ import I_My from './I_My/I_My'
 
 
 //Item Requests
-import I_Requests from './I_Requests/I_Requests'
-
+import I_SalesHistory from './I_SalesHistory/I_SalesHistory';
 
 import MyProfile from './MyProfile'
 import NewReqForm from './NewReqForm';
@@ -78,7 +77,7 @@ export {
     ViewItems,
     I_Sent,
     I_My,
-    I_Requests, 
+    I_SalesHistory, 
 
     MyProfile, 
     NewReqForm, 

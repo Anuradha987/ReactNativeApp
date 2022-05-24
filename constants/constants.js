@@ -20,7 +20,7 @@ const screens = {
     I_Search        : 'Explore  Items' ,
     I_Sent          : 'Sent  Orders' , 
     I_My            : 'My  Items' ,
-    I_Requests      : 'Sales History' , 
+    I_SalesHistory      : 'Sales History' , 
 
     Fav_MainLayout  : 'Favourite MainLayout',
     MT_MainLayout   : 'MT_MainLayout'
@@ -61,7 +61,7 @@ const I_bottom_tabs = [
     },
     {
         id: 2,
-        label: screens.I_Requests,
+        label: screens.I_SalesHistory,
     },
     {
         id: 3,

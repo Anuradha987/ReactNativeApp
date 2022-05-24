@@ -23,7 +23,7 @@ import { ItemsService } from '../../services/customer/Items';
 // ⚠ The topic of the page should changed to I_SalesHistory. ⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠⚠
 // Details about items/products that have been sold to others in the past are displayed on here. 
 
-const I_Requests = () => {
+const I_SalesHistory = () => {
 
   const [refreshing, setRefreshing] = useState(true);
   const [completedOrders, setCompletedOrders] = useState([]);
@@ -281,4 +281,4 @@ searchIcon: {
 }
 });
 
-export default I_Requests
+export default I_SalesHistory
