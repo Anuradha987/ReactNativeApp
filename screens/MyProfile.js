@@ -19,7 +19,7 @@ import MaterialIconsIcon from 'react-native-vector-icons/MaterialIcons';
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 import { useFonts } from 'expo-font';
 import { dummyData, icons } from '../constants';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import I_My from './I_My/I_My';
@@ -34,7 +34,8 @@ import { AuthService } from '../services/AuthService';
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 
-function MyProfile({navigation}) {
+function MyProfile() {
+  const navigation = useNavigation();
 
   //poppins insert
   const [loaded] = useFonts({
@@ -229,7 +230,7 @@ function MyProfile({navigation}) {
                 </View>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.editUserBar}>
+              <TouchableOpacity style={styles.editUserBar} onPress={()=>navigation.navigate('UpdateUserDetails')}>
                 <View style={styles.editIconRow}>
                   <FontAwesomeIcon
                     name="edit"

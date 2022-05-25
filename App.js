@@ -211,7 +211,7 @@ const App = () => {
               <Stack.Screen name="MyProfile" component={MyProfile} />
               <Stack.Screen name="Notification" component={Notification} />
               <Stack.Screen name="UserProfile" component={UserProfile} />
-              <Stack.Screen name="UpdateUserProfile" component={UpdateUserDetails} />
+              <Stack.Screen name="UpdateUserDetails" component={UpdateUserDetails} />
               <Stack.Screen name="Categories" component={Categories} />
               <Stack.Screen name="SSentDetailsAfterAccepting" component={SSentDetailsAfterAccepting}/>
               <Stack.Screen name="S_RequestsDetails" component={S_RequestsDetails} />

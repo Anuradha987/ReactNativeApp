@@ -57,6 +57,7 @@ import AddEditItems from './AddEditItems';
 import Fav_MainLayout from './Fav_MainLayout';
 import MT_MainLayout from './MT_MainLayout';
 import ImageBrowserScreen from './I_My/ImageBrowserScreen';
+import UpdateUserDetails from './login_SignUp/UpdateUserDetails';
 
 export {
     DB_MainLayout,    
@@ -71,7 +72,6 @@ export {
     SAfterCompleted, 
     S_Requests, 
     S_RequestsDetails,
-
     I_MainLayout,
     I_Search, 
     ViewItems,
@@ -98,4 +98,5 @@ export {
     Fav_MainLayout, 
     MT_MainLayout,
     ImageBrowserScreen, 
+    UpdateUserDetails
 }

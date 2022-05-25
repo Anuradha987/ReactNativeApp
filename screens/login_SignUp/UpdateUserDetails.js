@@ -508,67 +508,10 @@ const openCamera = async () => {
                   style={styles.backIcon}></SimpleLineIconsIcon>
               </TouchableOpacity>
 
-              <Text style={styles.text1}>
-                Hello! Welcome to Quiky App. Get registered and explore what you
-                want.
-              </Text>
-              <Text style={styles.text2}>Let&#39;s get Started!</Text>
-
               {/* registration form box */}
               <View style={styles.rect}>
                 {/* cover and profile picture */}
-                <View style={styles.coverImageStack}>
-                  <TouchableOpacity style={styles.coverImage} onPress={coverImage}>
-                    <MaterialCommunityIconsIcon name="image-plus" style={styles.addCoverPhotoIcon}></MaterialCommunityIconsIcon>
-                    <View style={styles.buttonContainer}>
-        {/* <Button onPress={showImagePicker} title="Select an image" />
-        <Button onPress={openCamera} title="Open camera" /> */}
-         
-      </View>
-
-      {/* <View style={styles.imageContainer}>
-        {
-          pickedImagePath !== '' && <Image
-            source={{ uri: pickedImagePath }}
-            style={styles.image}
-          />
-        }
-      </View> */}
-                    {cimage && (
-                      <Image
-                        source={{ uri: cimage }}
-                        resizeMode="cover"
-                        style={{
-                          right: 0,
-                          top: 0,
-                          left: 0,
-                          width: '100%',
-                          height: 154,
-                          borderRadius: 20,
-                        }}
-                      />
-                    )}
-                  </TouchableOpacity>
-                  
-                  <TouchableOpacity style={styles.proPicCircle} onPress={() => setModalVisible(true)}>
-                    <EntypoIcon name="camera" style={styles.camIcon}></EntypoIcon>
-                    {pimage && (
-                      <Image
-                        source={{ uri: pimage,  }}
-                        resizeMode="cover" 
-                        style={{
-                          right: 0,
-                          top: 0,
-                          left: 0,
-                          width: 110,
-                          height: 110,
-                          borderRadius: 50,
-                          position: 'absolute',
-                        }}
-                      />
-                    )}
-                  </TouchableOpacity>
-                </View>
+           
 
                 <View
                   style={{
@@ -614,31 +557,6 @@ const openCamera = async () => {
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                   }}>
-                  <Text style={styles.emaillbl}>Email *</Text>
-                  {data.isValidEmail ? null : ( <Text style={styles.errMsg}>Invalid Email</Text>)}
-                </View>
-                <View style={styles.emailView}>
-                  <TextInput
-                    placeholder=""
-                    placeholderTextColor="rgba(230, 230, 230,1)"
-                    selectionColor="rgba(255,255,255,1)"
-                    returnKeyType="next"
-                    clearButtonMode="while-editing"
-                    autoCapitalize="none"
-                    // ref={(input) => { this.thirdTextInput = input; }}
-                    // onSubmitEditing={() => { this.forthTextInput.focus(); }}
-                    blurOnSubmit={false}
-                    keyboardType="email-address"
-                    onChangeText={(val) => textInputChangeEmail(val)}
-                    onEndEditing={(e) => handleValidEmail(e.nativeEvent.text)}
-                    style={styles.emailtxt}></TextInput>
-                </View>
-
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}>
                   <Text style={styles.phoneNolbl}>Phone Number *</Text>
                   {data.isValidPhone ? null : ( <Text style={styles.errMsg}>Invalid Phone number</Text>)}
                 </View>
@@ -656,35 +574,6 @@ const openCamera = async () => {
                     onChangeText={(val) => textInputChangePhone(val)}
                     onEndEditing={(e) => handleValidPhone(e.nativeEvent.text)}
                     style={styles.phoneNotxt}></TextInput>
-                </View>
-
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}>
-                  <Text style={styles.locationlbl}>Location *</Text>
-                  {data.isValidLocation ? null : ( <Text style={styles.errMsg}>Invalid Location</Text>)}
-                </View>
-                <View style={styles.locationView}>
-                  <TextInput
-                    placeholder=""
-                    placeholderTextColor="rgba(230, 230, 230,1)"
-                    selectionColor="rgba(255,255,255,1)"
-                    returnKeyType="next"
-                    clearButtonMode="while-editing"
-                    autoCapitalize="none"
-                    // ref={(input) => { this.fifthTextInput = input; }}
-                    // onSubmitEditing={() => { this.sixthTextInput.focus(); }}
-                    blurOnSubmit={false}
-                    onChangeText={(val) => textInputChangeLocation(val)}
-                    onEndEditing={(e) =>
-                      handleValidLocation(e.nativeEvent.text)
-                    }
-                    style={styles.locationtxt}></TextInput>
-                  <EntypoIcon
-                    name="location-pin"
-                    style={styles.locationIcon}></EntypoIcon>
                 </View>
 
                 <View
@@ -713,15 +602,15 @@ const openCamera = async () => {
                     style={styles.usernametxt}></TextInput>
                 </View>
 
-                <View
+                {/* <View
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                   }}>
                   <Text style={styles.passwordlbl}>Password *</Text>
                   {data.isValidPassword ? null : ( <Text style={styles.errMsg}>Password must be 6 characters long</Text>)}
-                </View>
-                <View style={styles.passwordView}>
+                </View> */}
+                {/* <View style={styles.passwordView}>
                   <TextInput
                     placeholder=""
                     placeholderTextColor="rgba(230, 230, 230,1)"
@@ -747,26 +636,13 @@ const openCamera = async () => {
                       style={styles.showPasswordIcon}
                     />
                   </TouchableOpacity>
-                </View>
+                </View> */}
 
                 <TouchableOpacity
                   style={styles.signInBtn}
                   onPress={updateSecureTextEntry}>
-                  <Text style={styles.signIn}>Create Account</Text>
+                  <Text style={styles.signIn}>Save Changes</Text>
                 </TouchableOpacity>
-
-                <Text style={styles.text3}>
-                  By creating account, you agree to our {'\n'}Terms and
-                  Conditions.
-                </Text>
-
-                <View style={styles.goToSignIn}>
-                  <Text style={styles.text4}>Already have an account?</Text>
-                  <TouchableOpacity
-                    onPressIn={() => navigation.navigate('Login')}>
-                    <Text style={styles.signInText}>Sign In</Text>
-                  </TouchableOpacity>
-                </View>
               </View>
             </View>
           }
