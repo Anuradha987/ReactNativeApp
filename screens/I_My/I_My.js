@@ -25,6 +25,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ItemsService } from "../../services/customer/Items";
 import { AuthService } from "../../services/AuthService";
 import { RequestService } from "../../services/customer/Requests";
+import { OrderService } from "../../services/customer/Orders";
 
 //item details that have been sold and the order requests recieved from others
 
@@ -37,7 +38,7 @@ const I_My = () => {
   const [refreshing, setRefreshing] = useState(true);
 
   const [myItems, setMyItems] = React.useState([]);
-  const [orderRequests, setOrderRequests] = React.useState([]);
+  const [pendingOrders, setPendingOrders] = React.useState([]);
   // console.log(myItems);
   //poppins insert
   const [loaded] = useFonts({
@@ -59,24 +60,20 @@ const I_My = () => {
 
   const getMyItems = () => {
     ItemsService.getItemsByUserId(AuthService.userId, AuthService.userToken).then((res) => {
-      // console.log(res.data);
       const items = res.data.data;
-      // console.log(items);
       setMyItems(items);
       setRefreshing(false);
-      // console.log(myItems);
     }).catch((error) => {
       setRefreshing(false);
-      // console.log(error);
     })
   }
 
-  const getOrderRequests = () => {
-    RequestService.getRecievedRequestsByUserId(AuthService.userId, AuthService.userToken).then((res)=>{
+  const getRecievedPendingOrdersByUserId = () => {
+    OrderService.getRecievedOrders(AuthService.userId, "Pending", AuthService.userToken).then((res) => {
       console.log(res.data);
-      const orderRequests = res.data.data;
-      setOrderRequests(orderRequests);
-    }).catch((error)=>{
+      setPendingOrders(res.data.data);
+    }).catch((error) => {
+      // setRefreshing(false);
       console.log(error);
     });
   }
@@ -98,7 +95,7 @@ const I_My = () => {
 
   const loadData= () =>{
     getMyItems();
-    // getOrderRequests();
+    getRecievedPendingOrdersByUserId();
   }
 
   return (
@@ -204,13 +201,13 @@ const I_My = () => {
                           <Text style={styles.orderRequestslbl}>Order Requests</Text>
                           <View style={styles.notificationCircle}>
                             {/* <View style={styles.noOfNotificationFiller}></View> */}
-                            <Text numberOfLines={1} style={styles.noOfNotification}>{orderRequests.length}</Text>
+                            <Text numberOfLines={1} style={styles.noOfNotification}>{pendingOrders.length}</Text>
                           </View>
                         </View>
 
                         {/* open the popup box */}
-                        {orderRequests.map((request)=>{
-                          return     <TouchableOpacity key={request._id} style={styles.reqInfoCard}>
+                        {pendingOrders.map((item)=>{
+                          return     <TouchableOpacity key={item._id} style={styles.reqInfoCard}>
                           <View style={styles.reqSenderInfo}>
                             <View style={styles.senderProPicRow}>
                               <Image
