@@ -1,4 +1,4 @@
-import React, { Component, useEffect,useState } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import {
   RefreshControl,
   StyleSheet,
@@ -6,14 +6,14 @@ import {
   ScrollView,
   Text,
   Image,
-  TextInput, 
-  FlatList, 
+  TextInput,
+  FlatList,
   TouchableOpacity,
   ActivityIndicator
 } from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
-import {dummyData} from '../../constants';
+import { dummyData } from '../../constants';
 import { useFonts } from 'expo-font';
 import { OrderService } from '../../services/customer/Orders';
 import { AuthService } from '../../services/AuthService';
@@ -28,58 +28,58 @@ const I_SalesHistory = () => {
   const [refreshing, setRefreshing] = useState(true);
   const [completedOrders, setCompletedOrders] = useState([]);
   const [orderItems, setOrderItems] = useState([]);
-      //poppins insert
-      const [loaded] = useFonts({
-        poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
-        poppins700: require('./../../assets/fonts/poppins-700.ttf'),
-    });
+  //poppins insert
+  const [loaded] = useFonts({
+    poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
+    poppins700: require('./../../assets/fonts/poppins-700.ttf'),
+  });
 
-    useEffect(() => {
-      console.log("I_requests");
-      getCompletedOrdersByUserId();
-     }, []);
+  useEffect(() => {
+    console.log("I_requests");
+    getRecievedCompletedOrdersByUserId();
+  }, []);
 
-     const getCompletedOrdersByUserId = () =>{
-      OrderService.getOrdersByUserIdAndStatus(AuthService.userId,"Completed",AuthService.userToken).then((res)=>{
+  const getRecievedCompletedOrdersByUserId = () => {
+    OrderService.getRecievedOrders(AuthService.userId, "Completed", AuthService.userToken).then((res) => {
+      console.log(res.data);
+      ItemsService.getAllItems(AuthService.userToken).then((res) => {
         console.log(res.data);
-        ItemsService.getAllItems(AuthService.userToken).then((res)=>{
-          console.log(res.data);
-          setOrderItems(res.data.data);
-          setRefreshing(false);
-        }).catch((error)=>{
-          console.log(error);
-        });
-        setCompletedOrders(res.data.data);
-      }).catch((error)=>{
+        setOrderItems(res.data.data);
         setRefreshing(false);
+      }).catch((error) => {
         console.log(error);
       });
-     }
+      setCompletedOrders(res.data.data);
+    }).catch((error) => {
+      setRefreshing(false);
+      console.log(error);
+    });
+  }
 
-    return (
-      (!loaded) || refreshing)?
-      (
-        <View
-          style={{
-            flex: 4,
-            backgroundColor: 'rgba(21,31,40,1)',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          {/* https://github.com/n4kz/react-native-indicators */}
-          <ActivityIndicator size="large" />
-        </View>
-      ):
-        (<View style={styles.container}>
-<FlatList showsVerticalScrollIndicator={true}
+  return (
+    (!loaded) || refreshing) ?
+    (
+      <View
+        style={{
+          flex: 4,
+          backgroundColor: 'rgba(21,31,40,1)',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        {/* https://github.com/n4kz/react-native-indicators */}
+        <ActivityIndicator size="large" />
+      </View>
+    ) :
+    (<View style={styles.container}>
+      <FlatList showsVerticalScrollIndicator={true}
         listKey="91.1"
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={()=>getCompletedOrdersByUserId()} />
+          <RefreshControl refreshing={refreshing} onRefresh={() => getRecievedCompletedOrdersByUserId()} />
         }
         ListHeaderComponent={
+          <View>
             <View>
-<View> 
-        <View style={styles.searchingBar}>
+              <View style={styles.searchingBar}>
                 <TextInput
                   placeholder="Search a service..."
                   returnKeyType="go"
@@ -94,76 +94,80 @@ const I_SalesHistory = () => {
                 ></EvilIconsIcon>
               </View>
 
-           <View style={styles.scrollArea}>
-            <FlatList
-            listKey="11.2"
-            data={completedOrders}
-            keyExtractor={(item) => `${item._id}`}
-            showsVerticalScrollIndicator={true}
-            //onPress = {()=> naviga}
-            renderItem={({ item, index }) => {
-              const itemDetails = orderItems.filter((orderItem)=>item.item_id === orderItem._id);
-              console.log(itemDetails);
-                return (
-                    <View>
-                      {/* open I_My */}
-                      <TouchableOpacity style={styles.itemCardStack} onPress={()=>{}}>
-                        <View style={styles.itemCard}>
-                          <Text numberOfLines={1} style={styles.itemTitle}>{itemDetails[0].name}</Text>
+              <View style={styles.scrollArea}>
+                <FlatList
+                  listKey="11.2"
+                  data={completedOrders}
+                  keyExtractor={(item) => `${item._id}`}
+                  showsVerticalScrollIndicator={true}
+                  //onPress = {()=> naviga}
+                  renderItem={({ item, index }) => {
+                    const itemDetails = orderItems.filter((orderItem) => item.item_id === orderItem._id);
+                    console.log(itemDetails);
+                    if (itemDetails) {
+                      return (
+                        <View>
+                          {/* open I_My */}
+                          <TouchableOpacity style={styles.itemCardStack} onPress={() => { }}>
+                            <View style={styles.itemCard}>
+                              <Text numberOfLines={1} style={styles.itemTitle}>{itemDetails[0].name}</Text>
 
-                          <View style={styles.cateNameStack}>
-                            <Text style={styles.cateName}>
-                              <Image
-                              source={dummyData.itemSalesHistory[0].cateIcon}
-                              resizeMode="contain"
-                              style={styles.cateIcon}
-                            ></Image>  
-                            {itemDetails[0].category}</Text>
-                            
-                          </View>
+                              <View style={styles.cateNameStack}>
+                                <Text style={styles.cateName}>
+                                  <Image
+                                    source={dummyData.itemSalesHistory[0].cateIcon}
+                                    resizeMode="contain"
+                                    style={styles.cateIcon}
+                                  ></Image>
+                                  {itemDetails[0].category}</Text>
 
-                         
+                              </View>
 
-                          <View style={styles.priceperUnitStack}>
-                            <Text numberOfLines={1} style={styles.priceperUnit}>{itemDetails[0].price} / {item.amount}</Text>
-                            <Text numberOfLines={1} style={styles.transactionMethod}>{item.order_type}</Text>
-                          </View>
+
+
+                              <View style={styles.priceperUnitStack}>
+                                <Text numberOfLines={1} style={styles.priceperUnit}>{itemDetails[0].price} / {item.amount}</Text>
+                                <Text numberOfLines={1} style={styles.transactionMethod}>{item.order_type}</Text>
+                              </View>
+                            </View>
+                            <Image
+                              source={dummyData.itemSalesHistory[0].itemImage}
+                              resizeMode="cover"
+                              style={styles.itemImage}
+                            ></Image>
+                          </TouchableOpacity>
                         </View>
-                        <Image
-                          source={dummyData.itemSalesHistory[0].itemImage}
-                          resizeMode="cover"
-                          style={styles.itemImage}
-                        ></Image>
-                      </TouchableOpacity>
-                      </View>
-          )}}/>
-        
-        </View>
+                      )
+                    }
+
+                  }} />
+
+              </View>
 
 
-        </View>
-        <View style={{ marginTop: 150 }}></View>
+            </View>
+            <View style={{ marginTop: 150 }}></View>
 
-        </View>}/>
-      </View>);
-  }
-  
+          </View>} />
+    </View>);
+}
+
 const styles = StyleSheet.create({
-container: {
+  container: {
     flex: 1,
     backgroundColor: "rgba(21,31,40,1)"
-},
-scrollArea: {
+  },
+  scrollArea: {
     //height: 61,
-    borderWidth:0,
+    borderWidth: 0,
     borderColor: "#000000",
     //flex: 1,
     marginBottom: 50,
     marginTop: 40,
     marginLeft: 12,
-    marginRight: 12, 
-},
-itemCard: {
+    marginRight: 12,
+  },
+  itemCard: {
     top: 14,
     left: 73,
     height: 87,
@@ -171,17 +175,17 @@ itemCard: {
     backgroundColor: "rgba(81,81,81,0.69)",
     borderRadius: 20,
     right: 0,
-    alignItems: "flex-end", 
-},
-itemTitle: {
+    alignItems: "flex-end",
+  },
+  itemTitle: {
     fontFamily: "poppinsregular",
     color: "rgba(255,255,255,1)",
     fontSize: 14,
     textAlign: "right",
     marginTop: 10,
-    marginRight: 10, 
-},
-cateName: {
+    marginRight: 10,
+  },
+  cateName: {
     position: "absolute",
     fontFamily: "poppinsregular",
     color: "#70d6eb",
@@ -189,19 +193,19 @@ cateName: {
     top: 0,
     fontSize: 11,
     right: 0
-},
-cateIcon: {
+  },
+  cateIcon: {
     right: 94,
     height: 18,
     width: 18
-},
-cateNameStack: {
-  height: 20,
-  top:1,
-  marginTop: -5,
-  marginRight: 9, 
-},
-priceperUnit: {
+  },
+  cateNameStack: {
+    height: 20,
+    top: 1,
+    marginTop: -5,
+    marginRight: 9,
+  },
+  priceperUnit: {
     top: 0,
     position: "absolute",
     fontFamily: "poppinsregular",
@@ -210,9 +214,9 @@ priceperUnit: {
     fontSize: 12,
     height: 18,
     right: 59,
-  //  width: 122
-},
-transactionMethod: {
+    //  width: 122
+  },
+  transactionMethod: {
     top: 0,
     position: "absolute",
     fontFamily: "poppinsregular",
@@ -221,28 +225,28 @@ transactionMethod: {
     fontSize: 13,
     height: 20,
     right: 0,
-   // width: 83
-},
-priceperUnitStack: {
+    // width: 83
+  },
+  priceperUnitStack: {
     width: 181,
     height: 20,
     marginTop: 10,
     marginRight: 11
-},
-itemImage: {
+  },
+  itemImage: {
     top: 0,
     left: 0,
     width: 126,
     height: 111,
     position: "absolute",
     borderRadius: 20
-},
-itemCardStack: {
+  },
+  itemCardStack: {
     height: 111,
-    marginTop: 0, 
-    marginBottom:15
-},
-searchingBar: {
+    marginTop: 0,
+    marginBottom: 15
+  },
+  searchingBar: {
     height: 52,
     borderWidth: 0,
     borderColor: "rgba(31,30,30,0.43)",
@@ -250,8 +254,8 @@ searchingBar: {
     backgroundColor: "rgba(75,81,101,0.43)",
     shadowColor: "rgba(16,16,16,1)",
     shadowOffset: {
-    width: 3,
-    height: 3
+      width: 3,
+      height: 3
     },
     shadowOpacity: 1,
     shadowRadius: 5,
@@ -259,8 +263,8 @@ searchingBar: {
     marginTop: 12,
     marginLeft: 16,
     marginRight: 16
-},
-serviceSearch: {
+  },
+  serviceSearch: {
     fontFamily: "poppinsregular",
     color: "#fff",
     height: 52,
@@ -269,16 +273,16 @@ serviceSearch: {
     flex: 1,
     marginRight: 13,
     marginLeft: 11,
-    marginTop:3
-},
-searchIcon: {
-  color: "#9c8df0",
-  fontSize: 29,
-  width: 29,
-  height: 32,
-  marginRight: 10,
-  marginTop: 14
-}
+    marginTop: 3
+  },
+  searchIcon: {
+    color: "#9c8df0",
+    fontSize: 29,
+    width: 29,
+    height: 32,
+    marginRight: 10,
+    marginTop: 14
+  }
 });
 
 export default I_SalesHistory
