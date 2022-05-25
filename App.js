@@ -43,6 +43,7 @@ import { useNavigation } from '@react-navigation/native';
 import { navigationRef } from './navigation/rootNavigation';
 import * as RootNavigation from './navigation/rootNavigation';
 import PlacingOrders from './screens/PlacingOrders';
+import UpdateUserDetails from './screens/login_SignUp/UpdateUserDetails';
 // import I_SalesHistory from './screens/I_SalesHistory/I_SalesHistory';
 
 const Stack = createStackNavigator();
@@ -210,6 +211,7 @@ const App = () => {
               <Stack.Screen name="MyProfile" component={MyProfile} />
               <Stack.Screen name="Notification" component={Notification} />
               <Stack.Screen name="UserProfile" component={UserProfile} />
+              <Stack.Screen name="UpdateUserProfile" component={UpdateUserDetails} />
               <Stack.Screen name="Categories" component={Categories} />
               <Stack.Screen name="SSentDetailsAfterAccepting" component={SSentDetailsAfterAccepting}/>
               <Stack.Screen name="S_RequestsDetails" component={S_RequestsDetails} />
