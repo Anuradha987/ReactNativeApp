@@ -27,7 +27,6 @@ const I_SalesHistory = () => {
 
   const [refreshing, setRefreshing] = useState(true);
   const [completedOrders, setCompletedOrders] = useState([]);
-  const [orderItems, setOrderItems] = useState([]);
   //poppins insert
   const [loaded] = useFonts({
     poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
@@ -42,13 +41,7 @@ const I_SalesHistory = () => {
   const getRecievedCompletedOrdersByUserId = () => {
     OrderService.getRecievedOrders(AuthService.userId, "Completed", AuthService.userToken).then((res) => {
       console.log(res.data);
-      ItemsService.getAllItems(AuthService.userToken).then((res) => {
-        console.log(res.data);
-        setOrderItems(res.data.data);
-        setRefreshing(false);
-      }).catch((error) => {
-        console.log(error);
-      });
+      setRefreshing(false);
       setCompletedOrders(res.data.data);
     }).catch((error) => {
       setRefreshing(false);
@@ -102,15 +95,12 @@ const I_SalesHistory = () => {
                   showsVerticalScrollIndicator={true}
                   //onPress = {()=> naviga}
                   renderItem={({ item, index }) => {
-                    const itemDetails = orderItems.filter((orderItem) => item.item_id === orderItem._id);
-                    console.log(itemDetails);
-                    if (itemDetails) {
                       return (
                         <View>
                           {/* open I_My */}
                           <TouchableOpacity style={styles.itemCardStack} onPress={() => { }}>
                             <View style={styles.itemCard}>
-                              <Text numberOfLines={1} style={styles.itemTitle}>{itemDetails[0].name}</Text>
+                              <Text numberOfLines={1} style={styles.itemTitle}>{item.item_id.name}</Text>
 
                               <View style={styles.cateNameStack}>
                                 <Text style={styles.cateName}>
@@ -119,14 +109,12 @@ const I_SalesHistory = () => {
                                     resizeMode="contain"
                                     style={styles.cateIcon}
                                   ></Image>
-                                  {itemDetails[0].category}</Text>
+                                  {item.item_id.category}</Text>
 
                               </View>
 
-
-
                               <View style={styles.priceperUnitStack}>
-                                <Text numberOfLines={1} style={styles.priceperUnit}>{itemDetails[0].price} / {item.amount}</Text>
+                                <Text numberOfLines={1} style={styles.priceperUnit}>{item.item_id.price} / {item.amount}</Text>
                                 <Text numberOfLines={1} style={styles.transactionMethod}>{item.order_type}</Text>
                               </View>
                             </View>
@@ -138,8 +126,6 @@ const I_SalesHistory = () => {
                           </TouchableOpacity>
                         </View>
                       )
-                    }
-
                   }} />
 
               </View>
