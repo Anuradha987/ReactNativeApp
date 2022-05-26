@@ -45,13 +45,7 @@ const I_Sent = () => {
      const getSentOrdersByUserId = () =>{
       OrderService.getOrdersByUserId(AuthService.userId,AuthService.userToken).then((res)=>{
         console.log(res.data);
-        // ItemsService.getAllItems(AuthService.userToken).then((res)=>{
-        //   console.log(res.data);
-        //   setOrderItems(res.data.data);
-        //   setRefreshing(false);
-        // }).catch((error)=>{
-        //   console.log(error);
-        // });
+        setRefreshing(false);
         setOrders(res.data.data);
       }).catch((error)=>{
         setRefreshing(false);
