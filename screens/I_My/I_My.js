@@ -26,6 +26,7 @@ import { ItemsService } from "../../services/customer/Items";
 import { AuthService } from "../../services/AuthService";
 import { RequestService } from "../../services/customer/Requests";
 import { OrderService } from "../../services/customer/Orders";
+import { ToastAndroid } from "react-native";
 
 //item details that have been sold and the order requests recieved from others
 
@@ -96,6 +97,21 @@ const I_My = () => {
   const loadData= () =>{
     getMyItems();
     getRecievedPendingOrdersByUserId();
+  }
+
+  const acceptRejectOrders = (order_id,order,action) =>{
+    const data = {
+      ...order, status:action
+    }
+    ToastAndroid.show("please wait...",ToastAndroid.SHORT);
+    OrderService.EditOrder(order_id,data,AuthService.userToken).then((res)=>{
+      console.log(res.data);
+      const updatedPendingOrders = pendingOrders.filter((order)=>order._id !== order_id);
+      setPendingOrders(updatedPendingOrders);
+      ToastAndroid.show("done...",ToastAndroid.SHORT);
+    }).catch((error)=>{
+      console.log(error);
+    });
   }
 
   return (
@@ -230,7 +246,7 @@ const I_My = () => {
                               <Text style={styles.amountOrdered}>{item.amountOrdered}</Text>
                             </View>
                             <View style={styles.amountlblStackRowFiller}></View>
-                            <TouchableOpacity style={styles.reqDeclineBtn}>
+                            <TouchableOpacity style={styles.reqDeclineBtn} onPress={()=>acceptRejectOrders(item._id,item,"Rejected")}>
                               <Text style={styles.decline}>Decline</Text>
                             </TouchableOpacity>
                           </View>
@@ -247,7 +263,7 @@ const I_My = () => {
                             <View
                               style={styles.returningDateOrExchangedForlblStackRowFiller}
                             ></View>
-                            <TouchableOpacity style={styles.reqAcceptBtn}>
+                            <TouchableOpacity style={styles.reqAcceptBtn} onPress={()=>acceptRejectOrders(item._id,item,"Completed")}>
                               <Text style={styles.accept}>Accept</Text>
                             </TouchableOpacity>
                           </View>
