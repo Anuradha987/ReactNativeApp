@@ -116,18 +116,18 @@ const I_Sent = () => {
 
                 {/* edit btn */}
                 <View style={styles.editBtnRow}>
-                  <TouchableOpacity style={styles.editBtn}>
+                  {/* <TouchableOpacity style={styles.editBtn}>
                     <View style={styles.editReqIconFiller}></View>
                     <FeatherIcon name="edit" style={styles.editReqIcon}></FeatherIcon>
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                   {/* delete btn */}
-                  <TouchableOpacity style={styles.deleteBtn}>
+                  {/* <TouchableOpacity style={styles.deleteBtn}>
                     <View style={styles.delReqIconFiller}></View>
                     <MaterialCommunityIconsIcon
                       name="delete-sweep"
                       style={styles.delReqIcon}
                     ></MaterialCommunityIconsIcon>
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                 </View>
               </View>
             </View>
