@@ -174,7 +174,8 @@ onBlur = {()=> setSearchBarFocused(false)}
           keyExtractor={(item) => `${item._id}`}
           // showsHorizontalScrollIndicator={true}
           renderItem={({ item, index }) => {
-            if(item.user_id !== AuthService.userId && (selectedCategory === "all" || selectedCategory === item.category)){
+            console.log(item.user_id._id , AuthService.userId)
+            if(item.user_id._id !== AuthService.userId && (selectedCategory === "all" || selectedCategory === item.category)){
               return (   
                 <TouchableWithoutFeedback style={styles.product1Group} onPress={()=>navigation.navigate('ViewItems',{item:item})}>
                   <View style={styles.products1Stack}>
