@@ -54,17 +54,20 @@ function NewReqForm({ navigation }) {
   const [data, setData] = React.useState({
     to: '',
     title: '',
+    description:'',
     category: '',
     priority: '',
     location: '',
     description: '',
     isValidTo: true,
     isValidTitle: true,
+    isValidDescription: true,
     isValidCategory: true,
     isValidPriority: true,
     isValidLocation: true,
     check_textInputChangeTo: false,
     check_textInputChangeTitle: false,
+    check_textInputChangeDescription: false,
     check_textInputChangeCategory: false,
     check_textInputChangePriority: false,
     check_textInputChangeLocation: false,
@@ -100,6 +103,37 @@ function NewReqForm({ navigation }) {
       setData({
         ...data,
         isValidTitle: false,
+      });
+    }
+  };
+
+  const textInputChangeDescription = (val) => {
+    if (val.trim().length >0) {
+      setData({
+        ...data,
+        title: val,
+        check_textInputChangeDescription: true,
+        isValidDescription: true,
+      });
+    } else {
+      setData({
+        ...data,
+        title: val,
+        check_textInputChangeDescription: false,
+        isValidDescription: false,
+      });
+    }
+  };
+  const handleValidDescription = (val) => {
+    if (val.trim().length >0) {
+      setData({
+        ...data,
+        isValidDescription: true,
+      });
+    } else {
+      setData({
+        ...data,
+        isValidDescription: false,
       });
     }
   };
@@ -153,12 +187,13 @@ const sendNewRequest = () =>{
     "to": "",
     "title": data.title,
     "description": data.description,
-    "category": data.category,
-    "priority": "Medium",
+    "category": selectedCategory,
+    "priority": priority,
     "location": data.location,
     "attachments": "3423fgsdfgsgdf",
     "status": "Pending"
   };
+  console.log(reqData);
   RequestService.SendRequest(reqData, AuthService.userToken).then((res)=>{
     console.log(res.data);
     navigation.goBack();
@@ -275,6 +310,8 @@ return (
             multiline={true}
             autoCapitalize="sentences"
             returnKeyType="next"
+            onChangeText={(val) => textInputChangeDescription(val)}
+            onEndEditing={(e)=>handleValidDescription(e.nativeEvent.text)}
             //ref={(input) => { this.thirdTextInput = input; }}  
             style={styles.descriptiontxt}></TextInput>
 
@@ -362,7 +399,7 @@ return (
             
 
 
-          <Text style={styles.attachmentslbl}>Attachments</Text>
+          {/* <Text style={styles.attachmentslbl}>Attachments</Text>
 
           <View style={styles.attachmentstxt}>
             <View style={{flex:1, overflow:'hidden'}}>
@@ -373,9 +410,9 @@ return (
             name="attachment"
             style={styles.attachmentIcon}></EntypoIcon>    
           </TouchableOpacity>                
-          </View>
+          </View> */}
 
-          <TouchableOpacity style={styles.button} onPress={()=>{sendNewRequest}}>
+          <TouchableOpacity style={styles.button} onPress={()=>{sendNewRequest()}}>
               <Text style={styles.submit}>SUBMIT</Text>
           </TouchableOpacity>
           
