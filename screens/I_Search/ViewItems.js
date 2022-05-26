@@ -43,7 +43,7 @@ const ViewItems = ({ navigation, route }) => {
     poppins700: require('./../../assets/fonts/poppins-700.ttf'),
   });
 
-  const { item } = route.params;
+  const { item, from, to } = route.params;
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -143,7 +143,7 @@ const ViewItems = ({ navigation, route }) => {
 
                 <View style={styles.userDetails}>
                   <View style={styles.userNameStack}>
-                    <Text numberOfLines={1} style={styles.userName}>Natasha Perera</Text>
+                    <Text numberOfLines={1} style={styles.userName}>{from === 'sent'? to.username : item.user_id.username}</Text>
                     <Text style={styles.posetedDate}>21/12/20</Text>
                   </View>
                 </View>

@@ -151,7 +151,7 @@ const I_Sent = () => {
                      <View >
                        {/* item details  */}
                        <TouchableOpacity style={styles.itemDetailsCardStack}
-                                         onPress={()=>navigation.navigate("ViewItems", {item:item.item_id})}  //open viewitems
+                                         onPress={()=>navigation.navigate("ViewItems", {item:item.item_id, from:"sent",to:item.to})}  //open viewitems
                                          onLongPress={()=>{}} //edit,cancel or delete order popup boxes
                        >
                          <View style={styles.itemDetailsCard}>

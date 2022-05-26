@@ -177,7 +177,7 @@ onBlur = {()=> setSearchBarFocused(false)}
             console.log(item.user_id._id , AuthService.userId)
             if(item.user_id._id !== AuthService.userId && (selectedCategory === "all" || selectedCategory === item.category)){
               return (   
-                <TouchableWithoutFeedback style={styles.product1Group} onPress={()=>navigation.navigate('ViewItems',{item:item})}>
+                <TouchableWithoutFeedback style={styles.product1Group} onPress={()=>navigation.navigate('ViewItems',{item:item,from:"explore",to:null})}>
                   <View style={styles.products1Stack}>
                     <LinearGradient
                       colors={['#3b3b4a', '#212126', '#3b3b4a']}
