@@ -45,13 +45,13 @@ const I_Sent = () => {
      const getSentOrdersByUserId = () =>{
       OrderService.getOrdersByUserId(AuthService.userId,AuthService.userToken).then((res)=>{
         console.log(res.data);
-        ItemsService.getAllItems(AuthService.userToken).then((res)=>{
-          console.log(res.data);
-          setOrderItems(res.data.data);
-          setRefreshing(false);
-        }).catch((error)=>{
-          console.log(error);
-        });
+        // ItemsService.getAllItems(AuthService.userToken).then((res)=>{
+        //   console.log(res.data);
+        //   setOrderItems(res.data.data);
+        //   setRefreshing(false);
+        // }).catch((error)=>{
+        //   console.log(error);
+        // });
         setOrders(res.data.data);
       }).catch((error)=>{
         setRefreshing(false);
@@ -147,22 +147,22 @@ const I_Sent = () => {
                 showsVerticalScrollIndicator={true}
                 renderItem={({ item, index }) => {
                   if(item.status === orderStatus || orderStatus === "All"){
-                    const itemDetails = orderItems.filter((orderItem)=>item.item_id === orderItem._id);
-                    console.log(itemDetails);
-                    if(itemDetails[0]){
-                       const category = dummyData.itemOrdersSent.filter((item)=>(item.cateName == itemDetails[0].category));
+                    // const itemDetails = orderItems.filter((orderItem)=>item.item_id === orderItem._id);
+                    // console.log(itemDetails);
+                    // if(itemDetails[0]){
+                      //  const category = dummyData.itemOrdersSent.filter((item)=>(item.cateName == itemDetails[0].category));
                        const d = new Date(item.order_created_date); 
                       return (
                         // <View style={styles.scrollArea_contentContainerStyle}>
                      <View >
                        {/* item details  */}
                        <TouchableOpacity style={styles.itemDetailsCardStack}
-                                         onPress={()=>navigation.navigate("ViewItems", {item:itemDetails[0]})}  //open viewitems
+                                         onPress={()=>navigation.navigate("ViewItems", {item:item.item_id})}  //open viewitems
                                          onLongPress={()=>{}} //edit,cancel or delete order popup boxes
                        >
                          <View style={styles.itemDetailsCard}>
                            {/* item name */}
-                           <Text numberOfLines={1} style={styles.reqTitle}>{itemDetails[0].name}</Text>
+                           <Text numberOfLines={1} style={styles.reqTitle}>{item.item_id.name}</Text>
   
                            <View style={styles.cateNameStack}>
                              {/* item category */}
@@ -172,13 +172,13 @@ const I_Sent = () => {
                              resizeMode="contain"
                              style={styles.cateIcon}
                            ></Image>  */}
-                            {itemDetails[0].category}</Text>                 
+                            {item.item_id.category}</Text>                 
                            </View>
                       
                            
   
                            <Text style={styles.reqStatus}>{item.status}</Text>
-                           <Text style={styles.priceperUnit}>{itemDetails[0].price} / {itemDetails[0].amount}</Text>
+                           <Text style={styles.priceperUnit}>{item.item_id.price} / {item.item_id.amount}</Text>
                            <Text style={styles.transactionMethod}>{item.order_type}</Text>
                          </View>
                          {/* item image */}
@@ -198,7 +198,7 @@ const I_Sent = () => {
                    )
                     }
                   }
-                }} />
+                }/>
             </View>
             <View style={{ marginTop: 130 }}></View>
           </View>} />
