@@ -31,11 +31,13 @@ const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 
 
-function UserProfile({navigation}) {
+function UserProfile({navigation, route}) {
 
   const ratingCompleted = (rating) => {
     console.log("Rating is: " + rating)
   }
+
+  const { userDetails } = route.params;
 
     //poppins insert
   const [loaded] = useFonts({
@@ -104,7 +106,7 @@ function UserProfile({navigation}) {
             style={styles.profileImage}
           ></Image>
         </View>
-        <Text numberOfLines={1} style={styles.personName}>Sankalpa De Silva</Text>
+        <Text numberOfLines={1} style={styles.personName}>{userDetails.username}</Text>
         <FontAwesomeIcon name="star" style={styles.icon1}></FontAwesomeIcon>
         <Text style={styles.loremIpsum13}>4.1</Text>
       </View>

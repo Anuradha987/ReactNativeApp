@@ -140,13 +140,16 @@ const ViewItems = ({ navigation, route }) => {
                     ></Image>
                   </TouchableOpacity></View>
 
-
+  
                 <View style={styles.userDetails}>
+                <TouchableOpacity  onPress={()=>navigation.navigate("UserProfile",{userDetails:from === 'sent'? to : item.user_id })}>
                   <View style={styles.userNameStack}>
                     <Text numberOfLines={1} style={styles.userName}>{from === 'sent'? to.username : item.user_id.username}</Text>
                     <Text style={styles.posetedDate}>21/12/20</Text>
                   </View>
+                  </TouchableOpacity>
                 </View>
+            
 
                 <View style={styles.anemanda}>
 
