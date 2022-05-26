@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -26,6 +26,9 @@ import { AuthService } from '../services/AuthService';
 function NewReqForm({ navigation }) {
   const [selectedPriority, setSelectedPriority] = React.useState();
   const [option, setOption] = React.useState(null);
+
+  const [selectedCategory, setSelectedCategory] = useState("Agriculture");
+  const [priority,setPriority] = useState("High");
 
   const data1 = [
     {
@@ -280,39 +283,58 @@ return (
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop:25, marginHorizontal:35}}>
             <Text style={styles.categorylbl}>Category *</Text>
             {/* {data.isValidName ? null : (<Text style={styles.errMsg}>Enter the valid name</Text>)} */}
-            <Text style={styles.errMsg}>Enter the category</Text>
+            {/* <Text style={styles.errMsg}>Enter the category</Text> */}
           </View>          
 
-          <View style={styles.categorytxt}>
-                <View style={styles.cateRoundRow}>
-                  <View style={styles.cateRound}>
-                    <Image
-                      source={require('../assets/icons/Entertainment.png')}
-                      resizeMode="contain"
-                      style={styles.cateIcon2}
-                    ></Image>
-                  </View>
-                  <Text style={styles.cateName2}>Environment</Text>
-                </View>
-
-                <TouchableOpacity style={styles.selectCategoryIconArea} onPress={()=>{}}>
-                <EntypoIcon
-                  name="chevron-small-down"
-                  style={styles.selectCategoryIcon}></EntypoIcon>    
-                </TouchableOpacity>
-          </View>
+          <View style={styles.tradingMethodtxt}
+      >
+        <Picker itemStyle={{ backgroundColor: '#000', }}
+            selectedValue={selectedCategory}
+            dropdownIconColor={'#DDDDDD'}
+            style={{color: "rgba(255,255,255,1)", bottom: 7,fontFamily: "poppinsregular",  fontSize: 15, }}
+            onValueChange={(itemValue, itemIndex) => setSelectedCategory(itemValue)}
+          >
+            {/* https://reactnative.dev/docs/picker */}
+            <Picker.Item label="Agriculture" value="Agriculture" />
+            <Picker.Item label="Business and finance" value="Business_and_finance" />
+            <Picker.Item label="Clothing and fashion" value="Clothing_and_fashion" />
+            <Picker.Item label="Computing and mobile" value="Computing_and_mobile" />
+            <Picker.Item label="Educational" value="Educational" />
+            <Picker.Item label="Electronics and electrics" value="Electronics_and_electrics" />
+            <Picker.Item label="Entertainment" value="Entertainment" />
+            <Picker.Item label="Environment" value="Environment" />
+            <Picker.Item label="Food and drinks" value="Food_and_drinks" />
+            <Picker.Item label="Health and medication" value="Health_and_medication" />
+            <Picker.Item label="Home and gardening" value="Home_and_gardening" />
+            <Picker.Item label="Kids" value="Kids" />
+            <Picker.Item label="Law" value="Law" />
+            <Picker.Item label="Pets" value="Pets" />
+            <Picker.Item label="Photography" value="Photography" />
+            <Picker.Item label="Sports and fitness" value="Sports_and_fitness" />
+            <Picker.Item label="Traveling and vehicles" value="Traveling_and_vehicles" />
+          </Picker>
+        </View>
 
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-between',marginTop:25, marginHorizontal:35}}>
           <Text style={styles.priority}>Priority *</Text>
             {/* {data.isValidName ? null : (<Text style={styles.errMsg}>Enter the valid name</Text>)} */}
-            <Text style={styles.errMsg}>Enter the Priority</Text>
+            {/* <Text style={styles.errMsg}>Enter the Priority</Text> */}
           </View>  
-          <View style={styles.priorityRadioBtnRow}>
-            {/* <MaterialRadio data={dummyData.priorityCategory} style={{marginRight:0}} onSelect={(value) => setOption(value)}/> */}
-
-
-          </View>
+          <View style={styles.tradingMethodtxt}
+      >
+        <Picker itemStyle={{ backgroundColor: '#000', }}
+            selectedValue={priority}
+            dropdownIconColor={'#DDDDDD'}
+            style={{color: "rgba(255,255,255,1)", bottom: 7,fontFamily: "poppinsregular",  fontSize: 15, }}
+            onValueChange={(itemValue, itemIndex) => setPriority(itemValue)}
+          >
+            {/* https://reactnative.dev/docs/picker */}
+            <Picker.Item label="High" value="High" />
+            <Picker.Item label="Medium" value="Medium" />
+            <Picker.Item label="Low" value="Low" />
+          </Picker>
+        </View>
 
 
 {/* Automatically fill the textinput from the user's location that have provided during the registration */}
@@ -483,6 +505,16 @@ errMsg:{
   fontFamily: 'poppinsregular',
   fontSize:10,
   marginTop:5,
+},
+tradingMethodtxt: {
+  fontFamily: "poppinsregular",
+  color: "rgba(255,255,255,1)",
+  height: 42,
+  borderRadius: 15,
+  borderWidth: 2,
+  borderColor: "rgba(255,0,246,1)",
+  fontSize: 15,
+  marginHorizontal: 28,
 },
 proPicRound: {
   width: 30,
