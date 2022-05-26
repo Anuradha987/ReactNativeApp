@@ -14,6 +14,8 @@ import { useFonts } from 'expo-font';
 import { useNavigation } from '@react-navigation/native';
 import Icon from "react-native-vector-icons/EvilIcons";
 import * as RootNavigation from '../navigation/rootNavigation';
+import { OrderService } from '../services/customer/Orders';
+import { AuthService } from '../services/AuthService';
 
 const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) => {
   const navigation = useNavigation();
@@ -35,7 +37,28 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
 
   useEffect(() => {
     console.log("DB_MainLayout");
+    OrderService.getRecievedOrders(AuthService.userId,"Pending", AuthService.userToken).then((res)=>{
+      console.log(res.data);
+      setRecievedOrders(res.data.data);
+    }).catch((error)=>{
+      console.log(error);
+    });
   }, []);
+
+  const acceptRejectOrders = (order_id,order,action) =>{
+    const data = {
+      ...order, status:action
+    }
+    ToastAndroid.show("please wait...",ToastAndroid.SHORT);
+    OrderService.EditOrder(order_id,data,AuthService.userToken).then((res)=>{
+      console.log(res.data);
+      const updatedPendingOrders = pendingOrders.filter((order)=>order._id !== order_id);
+      setRecievedOrders(updatedPendingOrders);
+      ToastAndroid.show("done...",ToastAndroid.SHORT);
+    }).catch((error)=>{
+      console.log(error);
+    });
+  }
 
   return (
     (!loaded) ?
@@ -243,7 +266,7 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
 
               {/* Recieved Orders */}
 
-              {!recievedOrders.length ? 
+              {recievedOrders.length ? 
               <>
                 <View style={styles.itemOrderslblRow}>
                   <Text style={styles.itemOrderslbl}>Item Orders</Text>
@@ -255,20 +278,21 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
                   <FlatList
                     listKey='1.5'
                     onPress={() => { }}
-                    data={dummyData.myItemsData}
-                    keyExtractor={(item) => `${item.id}`}
+                    data={recievedOrders}
+                    keyExtractor={(item) => `${item._id}`}
                     style={styles.scrollAreaItemOrders}
                     renderItem={({ item, index }) => {
+                      const d= new Date(item.order_created_date); 
                       return (
                         <TouchableOpacity style={styles.ordersBox}>
                           <View style={styles.itemImageRow}>
                             <Image
-                              source={item.itemImage}
+                              source={dummyData.myItemsData[0].itemImage}
                               resizeMode="cover"
                               style={styles.itemImage}
                             ></Image>
                             <View style={styles.senderNameColumn}>
-                              <Text style={styles.senderName}>Sunimal Kumara</Text>
+                              <Text style={styles.senderName}>{item.user_id.username}</Text>
                               <View style={styles.amountlblColumnRowRow}>
                                 <View style={styles.amountlblColumnRow}>
 
@@ -277,12 +301,12 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
                                     <Text style={styles.returningDateOrBarterFor}>Returning {"\n"}Date : </Text>
                                   </View>
                                   <View style={styles.amounttxtColumn}>
-                                    <Text style={styles.amounttxt}>1250g</Text>
-                                    <Text style={styles.returningDateOrBarterFortxt}>20/01/22</Text>
+                                    <Text style={styles.amounttxt}>{item.amount}</Text>
+                                    <Text style={styles.returningDateOrBarterFortxt}>{d.toISOString().substring(0,10)}</Text>
                                   </View>
                                 </View>
 
-                                <TouchableOpacity style={styles.orderAcceptBtn} onPress={() => { }}>
+                                <TouchableOpacity style={styles.orderAcceptBtn} onPress={() => {acceptRejectOrders(item._id,item,"Accepted") }}>
                                   <Text style={styles.accept1}>Accept</Text>
                                 </TouchableOpacity>
                               </View>

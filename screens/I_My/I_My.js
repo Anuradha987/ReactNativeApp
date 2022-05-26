@@ -263,7 +263,7 @@ const I_My = () => {
                             <View
                               style={styles.returningDateOrExchangedForlblStackRowFiller}
                             ></View>
-                            <TouchableOpacity style={styles.reqAcceptBtn} onPress={()=>acceptRejectOrders(item._id,item,"Completed")}>
+                            <TouchableOpacity style={styles.reqAcceptBtn} onPress={()=>acceptRejectOrders(item._id,item,"Accepted")}>
                               <Text style={styles.accept}>Accept</Text>
                             </TouchableOpacity>
                           </View>
