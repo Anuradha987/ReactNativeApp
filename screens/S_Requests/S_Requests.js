@@ -18,6 +18,7 @@ import { useFonts } from "expo-font";
 import { RequestService } from "../../services/customer/Requests";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthService } from "../../services/AuthService";
+import { ToastAndroid } from "react-native";
 
 const S_Requests = (props) => {
   const navigation = useNavigation();
@@ -37,15 +38,14 @@ const S_Requests = (props) => {
   }, []);
 
   const loadRecievedRequests = () => {
-    console.log(AuthService.userToken, " ", AuthService.userId);
-    RequestService.getRecievedRequestsByUserId(
+    RequestService.filterRecievedRequestsByUserIdAndStatus(
       AuthService.userId,
+      "Pending",
       AuthService.userToken
     )
       .then((res) => {
         let dataArr = res.data.data;
-        console.log(res.data.data);
-        console.log(dataArr.length);
+        console.log(dataArr)
         setRecievedRequests(dataArr);
       })
       .catch((error) => {
@@ -54,16 +54,43 @@ const S_Requests = (props) => {
   };
 
   const loadRecievedPublicRequests = () => {
-    console.log(AuthService.userToken, " ", AuthService.userId);
     RequestService.getRecievedPublicRequests(AuthService.userToken)
       .then((res) => {
         let dataArr = res.data.data;
-        console.log(res.data.data);
-        console.log(dataArr.length);
         setOtherRequests(dataArr);
       })
       .catch((error) => {
         console.log("line 60 ", error);
+      });
+  };
+
+  const acceptRejectRequests = (request_id, request, action, type) => {
+    console.log("data", request_id, request, action,type);
+    const data = {
+      ...request,
+      status: action,
+    };
+    ToastAndroid.show("please wait...", ToastAndroid.SHORT);
+
+    RequestService.EditRequest(request_id, data, AuthService.userToken)
+      .then((res) => {
+        console.log(res.data);
+        if (type === "Private") {
+          const updatedRecivedRequests = recievedRequests.filter(
+            (request) => request._id !== request
+          );
+          setRecievedRequests(updatedRecivedRequests);
+          ToastAndroid.show("done...", ToastAndroid.SHORT);
+        } else {
+          const updatedOtherRequests = otherRequests.filter(
+            (request) => request._id !== request
+          );
+          setRecievedRequests(updatedOtherRequests);
+          ToastAndroid.show("done...", ToastAndroid.SHORT);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -162,10 +189,30 @@ const S_Requests = (props) => {
                       </View>
 
                       <View style={styles.reqDeleteBtnRow}>
-                        <TouchableOpacity style={styles.reqDeleteBtn}>
+                        <TouchableOpacity
+                          style={styles.reqDeleteBtn}
+                          onPress={() =>
+                            acceptRejectRequests(
+                              item._id,
+                              item,
+                              "Rejected",
+                              "Private"
+                            )
+                          }
+                        >
                           <Text style={styles.decline}>Decline</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.reqAcceptBtn}>
+                        <TouchableOpacity
+                          style={styles.reqAcceptBtn}
+                          onPress={() =>
+                            acceptRejectRequests(
+                              item._id,
+                              item,
+                              "Accepted",
+                              "Private"
+                            )
+                          }
+                        >
                           <Text style={styles.accept}>Accept</Text>
                         </TouchableOpacity>
                       </View>
@@ -197,6 +244,7 @@ const S_Requests = (props) => {
                   keyExtractor={(item) => `${item._id}`}
                   showsVerticalScrollIndicator={true}
                   renderItem={({ item, index }) => {
+                    const d = new Date(item.created_date);
                     return (
                       <TouchableOpacity
                         style={styles.serviceReqRecieveOther}
@@ -207,13 +255,23 @@ const S_Requests = (props) => {
                             <Text style={styles.reqTitleOthers}>
                               {item.title}
                             </Text>
-                            <TouchableOpacity style={styles.reqAcceptBtnOthers}>
+                            <TouchableOpacity
+                              style={styles.reqAcceptBtnOthers}
+                              onPress={() =>
+                                acceptRejectRequests(
+                                  item._id,
+                                  item,
+                                  "Accepted",
+                                  "Public"
+                                )
+                              }
+                            >
                               <View style={styles.acceptOthersFiller}></View>
                               <Text style={styles.acceptOthers}>Accept</Text>
                             </TouchableOpacity>
                           </View>
                           <Text style={styles.sendingDateOther}>
-                            {item.created_date}
+                            {d.toISOString().substring(0, 10)}
                           </Text>
                           <Text style={styles.CateNameOther}>
                             {item.category}
