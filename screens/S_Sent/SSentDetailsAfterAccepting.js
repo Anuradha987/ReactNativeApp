@@ -24,7 +24,6 @@ import { Rating, AirbnbRating } from "react-native-ratings";
 function SSentDetailsAfterAccepting({ route, navigation }) {
   const { user } = route.params;
   const [modalVisible, setModalVisible] = useState(true);
-  const [userDetails, setUserDetails] = useState();
 
   const windowWidth = Dimensions.get("window").width;
   const ratingCompleted = (rating) => {
@@ -39,7 +38,6 @@ function SSentDetailsAfterAccepting({ route, navigation }) {
 
   useEffect(() => {
     console.log("SSentDetailsAfterAccepting", user);
-    setUserDetails(user);
   }, []);
 
   return !loaded ? (
@@ -175,7 +173,7 @@ function SSentDetailsAfterAccepting({ route, navigation }) {
                         What&#39;s your opinion about
                       </Text>
                       <Text style={styles.acceptedUserName1}>
-                        Manoja Gamage &#39;s service?
+                        {user.user_id.username} &#39;s service?
                       </Text>
                       <View style={styles.rect}>
                         <AirbnbRating

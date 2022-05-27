@@ -17,7 +17,8 @@ import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { useFonts } from 'expo-font';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const S_RequestsDetails = ({ navigation }) => { 
+const S_RequestsDetails = ({ route, navigation }) => { 
+  const { user } = route.params;
   //poppins insert
   const [loaded] = useFonts({
     poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
@@ -25,7 +26,7 @@ const S_RequestsDetails = ({ navigation }) => {
   });
 
   useEffect(() => {
-    // loadRequests();
+    console.log("s-request details page", user)
   }, []);
 
   return (

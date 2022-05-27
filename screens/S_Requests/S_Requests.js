@@ -150,7 +150,9 @@ const S_Requests = (props) => {
                   return (
                     <TouchableOpacity
                       style={styles.serviceReqSentMe}
-                      onPress={() => navigation.navigate("S_RequestsDetails")}
+                      onPress={() => navigation.navigate("S_RequestsDetails", {
+                        user: item
+                      })}
                     >
                       <View style={styles.senderImageRow}>
                         <Image
@@ -248,7 +250,7 @@ const S_Requests = (props) => {
                     return (
                       <TouchableOpacity
                         style={styles.serviceReqRecieveOther}
-                        onPress={() => navigation.navigate("S_RequestsDetails")}
+                        onPress={() => navigation.navigate("S_RequestsDetails", {user: item})}
                       >
                         <View style={styles.reqTitleOthersStackStack}>
                           <View style={styles.reqTitleOthersStack}>
