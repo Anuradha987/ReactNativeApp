@@ -126,7 +126,7 @@ Logout */}
                                       icon = {icons.transaction}
                                       isFocused = {selectedTab == constants.screens.MT_MainLayout}
                                       onPress ={()=> {  setSelectedTab(constants.screens.MT_MainLayout)
-                                                        navigation.navigate("UserProfile")                                   
+                                                        navigation.navigate("UserProfile",{userDetails:null})                                   
                                       }}
                     />
                                                        

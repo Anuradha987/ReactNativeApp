@@ -106,7 +106,7 @@ function UserProfile({navigation, route}) {
             style={styles.profileImage}
           ></Image>
         </View>
-        <Text numberOfLines={1} style={styles.personName}>{userDetails.username}</Text>
+        <Text numberOfLines={1} style={styles.personName}>{userDetails ? userDetails.username : "Test"}</Text>
         <FontAwesomeIcon name="star" style={styles.icon1}></FontAwesomeIcon>
         <Text style={styles.loremIpsum13}>4.1</Text>
       </View>
