@@ -36,9 +36,6 @@ const S_Requests = (props) => {
   }, []);
 
   const loadRecievedRequests = () => {
-    // setTimeout(async () => {
-    // try {
-    AuthService.userId;
     console.log(AuthService.userToken, " ", AuthService.userId);
     RequestService.getRecievedRequestsByUserId(
       AuthService.userId,
@@ -49,16 +46,12 @@ const S_Requests = (props) => {
 
         console.log(res.data.data);
         console.log(dataArr.length);
-        // setRecievedRequests(dataArr);
+        setRecievedRequests(dataArr);
         // console.log("length", recievedRequests.length);
       })
       .catch((error) => {
         console.log("line 60 ", error);
       });
-    // } catch (e) {
-    //   console.log(e);
-    // }
-    // }, 1000);
   };
 
   return !loaded ? (
@@ -79,7 +72,6 @@ const S_Requests = (props) => {
         showsVerticalScrollIndicator={true}
         ListHeaderComponent={
           <View>
-            {/* Searching bar */}
             <View style={styles.searchingBar}>
               <TextInput
                 placeholder="Search a service..."
@@ -94,6 +86,7 @@ const S_Requests = (props) => {
                 style={styles.searchIcon}
               ></EvilIconsIcon>
             </View>
+
             <Text style={styles.priority}>Priority :</Text>
             <View style={styles.priorityStack}>
               <Text style={styles.low}>Low</Text>
@@ -103,10 +96,10 @@ const S_Requests = (props) => {
               <View style={styles.yellowDot}></View>
               <View style={styles.redDot}></View>
             </View>
-            {/* Recieved request for me */}(
-            {/* <Text style={styles.requestsForMe}>Requests for me</Text> */}
+            <Text style={styles.requestsForMe}>Requests for me</Text>
 
-            {/* {recievedRequests.length ? <FlatList
+            {recievedRequests.length ? (
+              <FlatList
                 listKey="20.2"
                 data={recievedRequests}
                 horizontal
@@ -121,10 +114,10 @@ const S_Requests = (props) => {
                     >
                       <View style={styles.senderImageRow}>
                         <Image
-                              source={item.senderImage}
-                              resizeMode="contain"
-                              style={styles.senderImage}
-                            ></Image>
+                          source={item.senderImage}
+                          resizeMode="contain"
+                          style={styles.senderImage}
+                        ></Image>
                         <View style={styles.sendingDateStackColumn}>
                           <View style={styles.sendingDateStack}>
                             <Text style={styles.sendingDate}>
@@ -134,19 +127,27 @@ const S_Requests = (props) => {
                               {item.user_id.username}
                             </Text>
                           </View>
-                          <View style={styles.priorityDot}></View>
+                          {/* <View style={styles.priorityDot}></View> */}
+                          {item.priority === "High" ? (
+                            <View style={styles.highCardDot}></View>
+                          ) : item.priority === "Medium" ? (
+                            <View style={styles.mediumCardDot}></View>
+                          ) : (
+                            <View style={styles.lowCardDot}></View>
+                          )}
                         </View>
                       </View>
                       <Text style={styles.reqTitle}>{item.title}</Text>
 
                       <View style={styles.cateIconRow}>
                         <Image
-                              source={item.cateIcon}
-                              resizeMode="contain"
-                              style={styles.cateIcon}
-                            ></Image>
+                          source={item.cateIcon}
+                          resizeMode="contain"
+                          style={styles.cateIcon}
+                        ></Image>
                         <Text style={styles.cateName}>{item.category}</Text>
                       </View>
+
                       <View style={styles.reqDeleteBtnRow}>
                         <TouchableOpacity style={styles.reqDeleteBtn}>
                           <Text style={styles.decline}>Decline</Text>
@@ -157,71 +158,13 @@ const S_Requests = (props) => {
                       </View>
                     </TouchableOpacity>
                   );
-                }}t
-              /> : null
-            } */}
-             {/* <Text style={styles.requestsForMe}>Requests for me</Text> */}
-            {/* other requests */}
-            {/* {recievedRequests.length
-              ? (<View style={styles.rect3}>
-                  <Text style={styles.otherRequests}>Other Requests</Text>
-                  <View style={styles.otherRequestsFiller}></View>
-                  <TouchableOpacity style={styles.filterBtn}>
-                    <View style={styles.filterIconFiller}></View>
-                    <FontAwesomeIcon
-                      name="filter"
-                      style={styles.filterIcon}
-                    ></FontAwesomeIcon>
-                  </TouchableOpacity>
-                </View>)(
-                  <FlatList
-                    listKey="20.3"
-                    data={dummyData.OtherRecieveRequest}
-                    keyExtractor={(item) => `${item.id}`}
-                    showsVerticalScrollIndicator={true}
-                    renderItem={({ item, index }) => {
-                      return (
-                        <TouchableOpacity
-                          style={styles.serviceReqRecieveOther}
-                          onPress={() =>
-                            navigation.navigate("S_RequestsDetails")
-                          }
-                        >
-                          <View style={styles.reqTitleOthersStackStack}>
-                            <View style={styles.reqTitleOthersStack}>
-                              <Text style={styles.reqTitleOthers}>
-                                {item.reqTitleOthers}
-                              </Text>
-                              <TouchableOpacity
-                                style={styles.reqAcceptBtnOthers}
-                              >
-                                <View style={styles.acceptOthersFiller}></View>
-                                <Text style={styles.acceptOthers}>Accept</Text>
-                              </TouchableOpacity>
-                            </View>
-                            <Text style={styles.sendingDateOther}>
-                              {item.sendingDateOther}
-                            </Text>
-                            <Text style={styles.CateNameOther}>
-                              {item.CateNameOther}
-                            </Text>
-                            <Image
-                              source={item.cateIconOthers}
-                              resizeMode="contain"
-                              style={styles.cateIconOthers}
-                            ></Image>
-                            <View style={styles.priorityDotOther}></View>
-                          </View>
-                        </TouchableOpacity>
-                      );
-                    }}
-                  />
-                )
-              :  <View><Text style={styles.noRecords}>There is no any records.</Text></View>
-            } */}
+                }}
+              />
+            ) : null}
           </View>
         }
       />
+
       <View style={{ marginTop: 175 }}></View>
     </View>
   );
@@ -639,9 +582,36 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginLeft: 11,
   },
-  noRecords : {
-    color: "white", 
-  }
+  noRecords: {
+    color: "white",
+  },
+  highCardDot: {
+    backgroundColor: "rgba(255,51,51,1)",
+
+    width: 14,
+    height: 14,
+    borderRadius: 7,
+    marginTop: 1,
+    marginLeft: 196,
+  },
+  mediumCardDot: {
+    backgroundColor: "rgba(222,255,0,1)",
+
+    width: 14,
+    height: 14,
+    borderRadius: 7,
+    marginTop: 1,
+    marginLeft: 196,
+  },
+  lowCardDot: {
+    backgroundColor: "rgba(71,214,56,1)",
+
+    width: 14,
+    height: 14,
+    borderRadius: 7,
+    marginTop: 1,
+    marginLeft: 196,
+  },
 });
 
 export default S_Requests;
