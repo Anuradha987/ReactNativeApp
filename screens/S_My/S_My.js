@@ -39,7 +39,7 @@ const S_My = () => {
 
   useEffect(() => {
     // loadRequests();
-    console.log("S_my");
+    console.log("------S_my---");
     console.log(AuthService.userId);
     console.log(AuthService.userToken);
     getMyServices();
@@ -71,7 +71,6 @@ const S_My = () => {
         alignItems: "center",
       }}
     >
-      {/* https://github.com/n4kz/react-native-indicators */}
       <ActivityIndicator size="large" />
     </View>
   ) : (
