@@ -40,6 +40,10 @@ function SSentDetailsAfterAccepting({ route, navigation }) {
     console.log("SSentDetailsAfterAccepting", user);
   }, []);
 
+  const created_date = new Date(user.created_date);
+  const accept_date = new Date(user.created_date);
+  const complete_date = new Date(user.created_date);
+
   return !loaded ? (
     <View
       style={{
@@ -121,7 +125,7 @@ function SSentDetailsAfterAccepting({ route, navigation }) {
                       {user.to === "" ? (
                         <Text style={styles.toWhome}>Public</Text>
                       ) : (
-                        <Text style={styles.toWhome}>{user.to}</Text>
+                        <Text style={styles.toWhome}>{user.to.username}</Text>
                       )}
                     </View>
 
@@ -141,17 +145,17 @@ function SSentDetailsAfterAccepting({ route, navigation }) {
                       <View style={styles.group1}>
                         <Text style={styles.postedDatelbl}>Posted Date :</Text>
                         <Text style={styles.acceptedBylbl}>Accepted By :</Text>
-                        <Text style={styles.acceptedOnlbl}>Accepted On :</Text>
-                        <Text style={styles.completedOnlbl}>
+                        {user.accept_date && <Text style={styles.acceptedOnlbl}>Accepted On :</Text>}
+                        {user.complete_date && <Text style={styles.completedOnlbl}>
                           Completed On :
-                        </Text>
+                        </Text>}
                       </View>
 
                       <View style={styles.postedDateColumn}>
-                        <Text style={styles.postedDate}>20/12/2021</Text>
+                        <Text style={styles.postedDate}>{created_date.toISOString().substring(0, 10)}</Text>
                         <Text style={styles.acceptedBy}>{user.to}</Text>
-                        <Text style={styles.acceptedDate}>22/12/2021</Text>
-                        <Text style={styles.completedDate}>27/12/2021</Text>
+                        {user.accept_date && <Text style={styles.acceptedDate}>{accept_date.toISOString().substring(0, 10)}</Text>}
+                        {user.complete_date && <Text style={styles.completedDate}>{complete_date.toISOString().substring(0, 10)}</Text>}
                       </View>
                     </View>
 
