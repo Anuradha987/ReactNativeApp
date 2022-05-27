@@ -44,7 +44,6 @@ const S_Requests = (props) => {
     )
       .then((res) => {
         let dataArr = res.data.data;
-
         console.log(res.data.data);
         console.log(dataArr.length);
         setRecievedRequests(dataArr);
@@ -59,7 +58,6 @@ const S_Requests = (props) => {
     RequestService.getRecievedPublicRequests(AuthService.userToken)
       .then((res) => {
         let dataArr = res.data.data;
-
         console.log(res.data.data);
         console.log(dataArr.length);
         setOtherRequests(dataArr);
@@ -181,7 +179,6 @@ const S_Requests = (props) => {
             {/* other requests */}
             {otherRequests.length ? (
               <View>
-
                 <View style={styles.rect3}>
                   <Text style={styles.otherRequests}>Other Requests</Text>
                   <View style={styles.otherRequestsFiller}></View>
