@@ -146,16 +146,13 @@ const S_RequestsDetails = ({ route, navigation }) => {
             </ImageBackground>
 
             <Text style={styles.description}>
-              Just click on a symbol to copy any check mark or any tick to the
-              clipboard and then paste them where ever you like. The tick &amp;
-              check mark symbols are often used. A small description about the
-              request.
+              {user.description}
             </Text>
 
             {/* category and its icon */}
             <View style={styles.cateIconRow}>
               <EntypoIcon name="home" style={styles.cateIcon}></EntypoIcon>
-              <Text style={styles.cateName}>Food &amp; Drinks</Text>
+              <Text style={styles.cateName}>{user.category}</Text>
             </View>
 
             <View style={styles.priorityRow}>

@@ -91,10 +91,7 @@ function SSentDetailsAfterAccepting({ route, navigation }) {
                     {/* accepted request title and description */}
                     <Text style={styles.reqTitle}>{user.title}</Text>
                     <Text style={styles.reqDescription}>
-                      A small description about the request.Just click on a
-                      symbol to copy any check mark or any tick to the clipboard
-                      and then paste them where ever you like. The tick &amp;
-                      check mark symbols are often used.{" "}
+                     {user.description}
                     </Text>
 
                     {/* request category */}
