@@ -158,6 +158,7 @@ const S_RequestsDetails = ({ route, navigation }) => {
             <View style={styles.priorityRow}>
               <Text style={styles.priority}>Priority :</Text>
               {/* <View style={styles.priorityDot}></View> */}
+
               {user.priority === "High" ? (
                 <View style={styles.high}></View>
               ) : user.priority === "Medium" ? (
@@ -165,8 +166,10 @@ const S_RequestsDetails = ({ route, navigation }) => {
               ) : (
                 <View style={styles.low}></View>
               )}
+
               <Text style={styles.priorityName}>{user.priority}</Text>
             </View>
+            
             <View style={styles.toRow}>
               <Text style={styles.to}>To :</Text>
               {user.to === "" ? (

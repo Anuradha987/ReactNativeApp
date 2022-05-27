@@ -142,17 +142,17 @@ function SSentDetailsAfterAccepting({ route, navigation }) {
                       <View style={styles.group1}>
                         <Text style={styles.postedDatelbl}>Posted Date :</Text>
                         <Text style={styles.acceptedBylbl}>Accepted By :</Text>
-                        {user.accept_date && <Text style={styles.acceptedOnlbl}>Accepted On :</Text>}
-                        {user.complete_date && <Text style={styles.completedOnlbl}>
+                        {user.accept_date ? <Text style={styles.acceptedOnlbl}>Accepted On :</Text> : null}
+                        {user.complete_date ? <Text style={styles.completedOnlbl}>
                           Completed On :
-                        </Text>}
+                        </Text> : null}
                       </View>
 
                       <View style={styles.postedDateColumn}>
                         <Text style={styles.postedDate}>{created_date.toISOString().substring(0, 10)}</Text>
-                        <Text style={styles.acceptedBy}>{user.to}</Text>
-                        {user.accept_date && <Text style={styles.acceptedDate}>{accept_date.toISOString().substring(0, 10)}</Text>}
-                        {user.complete_date && <Text style={styles.completedDate}>{complete_date.toISOString().substring(0, 10)}</Text>}
+                        <Text style={styles.acceptedBy}>{user.to} name</Text>
+                        {user.accept_date ? <Text style={styles.acceptedDate}>{accept_date.toISOString().substring(0, 10)}</Text> : null}
+                        {user.complete_date ? <Text style={styles.completedDate}>{complete_date.toISOString().substring(0, 10)}</Text> : null}
                       </View>
                     </View>
 
