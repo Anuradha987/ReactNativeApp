@@ -161,7 +161,70 @@ const S_Requests = (props) => {
                 }}
               />
             ) : null}
+
+      <Text style={styles.requestsForMe}>Requests for me</Text>
+      {/* other requests */}
+      {/* {recievedRequests.length
+              ? (<View style={styles.rect3}>
+                  <Text style={styles.otherRequests}>Other Requests</Text>
+                  <View style={styles.otherRequestsFiller}></View>
+                  <TouchableOpacity style={styles.filterBtn}>
+                    <View style={styles.filterIconFiller}></View>
+                    <FontAwesomeIcon
+                      name="filter"
+                      style={styles.filterIcon}
+                    ></FontAwesomeIcon>
+                  </TouchableOpacity>
+                </View>)(
+                  <FlatList
+                    listKey="20.3"
+                    data={dummyData.OtherRecieveRequest}
+                    keyExtractor={(item) => `${item.id}`}
+                    showsVerticalScrollIndicator={true}
+                    renderItem={({ item, index }) => {
+                      return (
+                        <TouchableOpacity
+                          style={styles.serviceReqRecieveOther}
+                          onPress={() =>
+                            navigation.navigate("S_RequestsDetails")
+                          }
+                        >
+                          <View style={styles.reqTitleOthersStackStack}>
+                            <View style={styles.reqTitleOthersStack}>
+                              <Text style={styles.reqTitleOthers}>
+                                {item.reqTitleOthers}
+                              </Text>
+                              <TouchableOpacity
+                                style={styles.reqAcceptBtnOthers}
+                              >
+                                <View style={styles.acceptOthersFiller}></View>
+                                <Text style={styles.acceptOthers}>Accept</Text>
+                              </TouchableOpacity>
+                            </View>
+                            <Text style={styles.sendingDateOther}>
+                              {item.sendingDateOther}
+                            </Text>
+                            <Text style={styles.CateNameOther}>
+                              {item.CateNameOther}
+                            </Text>
+                            <Image
+                              source={item.cateIconOthers}
+                              resizeMode="contain"
+                              style={styles.cateIconOthers}
+                            ></Image>
+                            <View style={styles.priorityDotOther}></View>
+                          </View>
+                        </TouchableOpacity>
+                      );
+                    }}
+                  />
+                )
+              :  <View><Text style={styles.noRecords}>There is no any records.</Text></View>
+            } */}
+
           </View>
+
+
         }
       />
 
