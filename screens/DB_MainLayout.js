@@ -16,6 +16,7 @@ import Icon from "react-native-vector-icons/EvilIcons";
 import * as RootNavigation from '../navigation/rootNavigation';
 import { OrderService } from '../services/customer/Orders';
 import { AuthService } from '../services/AuthService';
+import {RequestService} from '../services/customer/Requests';
 
 const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) => {
   const navigation = useNavigation();
@@ -37,13 +38,24 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
 
   useEffect(() => {
     console.log("DB_MainLayout");
+    loadData();
+  }, []);
+
+  const loadData = () =>{
     OrderService.getRecievedOrders(AuthService.userId,"Pending", AuthService.userToken).then((res)=>{
       console.log(res.data);
       setRecievedOrders(res.data.data);
     }).catch((error)=>{
       console.log(error);
     });
-  }, []);
+
+    RequestService.filterRecievedRequestsByUserIdAndStatus(AuthService.userId,"Pending",AuthService.userToken).then((res)=>{
+      console.log(res.data);
+      setRecievedRequests(res.data.data);
+    }).catch((error)=>{
+      console.log(error);
+    });
+  }
 
   const acceptRejectOrders = (order_id,order,action) =>{
     const data = {
@@ -219,7 +231,7 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
 
 
               {/* Service Requests Recieved */}
-              {(!recievedRequests.length) ?
+              {(recievedRequests.length) ?
               <>
                <View style={styles.recievedRequestslblRow}>
                   <Text style={styles.recievedRequestslbl}>Recieved Requests</Text>
@@ -228,20 +240,20 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
                   </TouchableOpacity>
                 </View>
                   
-                    <FlatList data={dummyData.OtherRecieveRequest}
+                    <FlatList data={recievedRequests}
                       listKey='1.4'
                       horizontal
-                      keyExtractor={(item) => `${item.id}`}
+                      keyExtractor={(item) => `${item._id}`}
                       showsHorizontalScrollIndicator={false}
                       style={{ marginHorizontal: 10 }}
                       renderItem={({ item, index }) => {
                         return (
                           <TouchableOpacity style={styles.reqBox}>
                             <View style={styles.sentDateRow}>
-                              <Text style={styles.sentDate}>{item.publishDate}</Text>
-                              <View style={styles.priorityDot}></View>
+                              <Text style={styles.sentDate}>{item.created_date.substring(0,10)}</Text>
+                              <View style={item.priority === "High" ? styles.highPriorityDot : item.priority === "Low" ? styles.lowPriorityDot : styles.priorityDot}></View>
                             </View>
-                            <Text style={styles.serviceTitle}>{item.senderName}</Text>
+                            <Text style={styles.serviceTitle}>{item.user_id.username}</Text>
                             <View style={styles.cateIconRow}>
                               {/* <Icon name="archive"></Icon> */}
                               <Image source={require('./../assets/icons/foods.png')}
@@ -594,6 +606,24 @@ const styles = StyleSheet.create({
     width: 14,
     height: 14,
     backgroundColor: "rgba(248,231,28,1)",
+    borderRadius: 10,
+    marginLeft: 8,
+    marginTop: 1,
+    right: 1, position: 'absolute'
+  },
+  highPriorityDot: {
+    width: 14,
+    height: 14,
+    backgroundColor: "red",
+    borderRadius: 10,
+    marginLeft: 8,
+    marginTop: 1,
+    right: 1, position: 'absolute'
+  },
+  lowPriorityDot: {
+    width: 14,
+    height: 14,
+    backgroundColor: "green",
     borderRadius: 10,
     marginLeft: 8,
     marginTop: 1,
