@@ -243,7 +243,7 @@ const I_My = () => {
                                 <Text style={styles.amountlbl}>Amount</Text>
                                 <Text style={styles.colonMark1}> :</Text>
                               </View>
-                              <Text style={styles.amountOrdered}>{item.amountOrdered}</Text>
+                              <Text style={styles.amountOrdered}>{item.amount}</Text>
                             </View>
                             <View style={styles.amountlblStackRowFiller}></View>
                             <TouchableOpacity style={styles.reqDeclineBtn} onPress={()=>acceptRejectOrders(item._id,item,"Rejected")}>
@@ -254,11 +254,11 @@ const I_My = () => {
                             <View style={styles.returningDateOrExchangedForlblStackRow}>
                               <View style={styles.returningDateOrExchangedForlblStack}>
                                 <Text style={styles.returningDateOrExchangedForlbl}>
-                                  Returning Date
+                                  Date
                                 </Text>
                                 <Text style={styles.colonMark2}> :</Text>
                               </View>
-                              <Text numberOfLines={1} style={styles.returningDateOrExchangedFor}>{item.returningDateOrExchangedFor}</Text>
+                              <Text numberOfLines={1} style={styles.returningDateOrExchangedFor}>{item.order_created_date.substring(0,10)}</Text>
                             </View>
                             <View
                               style={styles.returningDateOrExchangedForlblStackRowFiller}
