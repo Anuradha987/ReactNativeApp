@@ -30,6 +30,7 @@ import { ToastAndroid } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ReportService } from '../services/customer/Report';
 import { AuthService } from '../services/AuthService';
+import { useFocusEffect } from '@react-navigation/native';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
@@ -48,12 +49,13 @@ function MyProfile() {
 
   const [userDetails, setUserDetails]=React.useState(null);
 
-  useEffect(() => {
+  useFocusEffect( 
+    React.useCallback(() => {
     if(!userDetails){
     loadUserDetails();
     }
     console.log(userDetails);
-  }, []);
+  }, []));
 
   const deleteAccount = () =>{
     ReportService.deleteUserById(AuthService.userId,AuthService.userToken).then((res)=>{
