@@ -21,6 +21,9 @@ import { dummyData } from '../../constants';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
+import { RequestService } from '../../services/customer/Requests';
+import { AuthService } from '../../services/AuthService';
+import { ToastAndroid } from "react-native";
 
 function PendingReq({navigation}) {
 // const navigation = useNavigation();
@@ -30,12 +33,55 @@ function PendingReq({navigation}) {
         poppins700: require('./../../assets/fonts/poppins-700.ttf'),
     });
 
+  const [recievedRequests, setRecievedRequests] = React.useState([]);
+
     useEffect(() => {
       console.log("s approvals");
+      loadAcceptedRquests()
      }, []);
+
+     const loadAcceptedRquests = () => {
+      RequestService.filterRecievedRequestsByUserIdAndStatus(
+        AuthService.userId,
+        "Accepted",
+        AuthService.userToken
+      )
+        .then((res) => {
+          let dataArr = res.data.data;
+          console.log(dataArr);
+          setRecievedRequests(dataArr);
+        })
+        .catch((error) => {
+          console.log("line 60 ", error);
+        });
+    };
+
+    const completeCancelRequests = (request_id, request, action) => {
+      console.log("data", request_id, request, action);
+      const data = {
+        ...request,
+        status: action,
+      };
+
+      ToastAndroid.show("please wait...", ToastAndroid.SHORT);
   
-  return (
-    (!loaded)?
+      RequestService.EditRequest(request_id, data, AuthService.userToken)
+        .then((res) => {
+          console.log(res.data);
+          const updatedRequests = recievedRequests.filter(
+            (request) => request._id !== request
+          );
+          console.log("updatedRequests",updatedRequests)
+          setRecievedRequests(updatedRequests);
+          ToastAndroid.show("done...", ToastAndroid.SHORT);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+    };
+  
+  return !loaded?
     (
       <View
         style={{
@@ -44,50 +90,70 @@ function PendingReq({navigation}) {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        {/* https://github.com/n4kz/react-native-indicators */}
         <ActivityIndicator size="large" />
       </View>
-    ):
+    ) :
     (<View style={styles.scrollArea}>
       <FlatList
         listKey="16.1"
-        data={dummyData.pendingReceieveServicesRequests}
-        keyExtractor={(item) => `${item.id}`}
+        data={recievedRequests}
+        keyExtractor={(item) => `${item._id}`}
         showsHorizontalScrollIndicator={true}
         style={styles.scrollArea_contentContainerStyle}
         renderItem={({ item, index }) => {
           return (
-            <TouchableOpacity style={styles.serviceReqReceived} onPress={()=>navigation.navigate('SAfterApproved')}>
+            <TouchableOpacity style={styles.serviceReqReceived} 
+            // onPress={()=>navigation.navigate('SAfterApproved')}
+            >
               <View style={styles.senderImageRow}>
                 <Image
                   source={item.senderImage}
                   resizeMode="contain"
                   style={styles.senderImage}
                 ></Image>
+
                 <View style={styles.acceptDateStackStack}>
                   <View style={styles.acceptDateStack}>
-                    <Text style={styles.acceptDate}>{item.acceptDate}</Text>
-                    <Text style={styles.senderName}>{item.senderName}</Text>
+                    {/* <Text style={styles.acceptDate}>{item.acceptDate}</Text> */}
+                    <Text style={styles.senderName}>{item.user_id.username}</Text>
                   </View>
                   <View style={styles.priorityDot} ></View>
                 </View>
+
               </View>
-              <Text style={styles.reqTitle}>{item.reqTitle}</Text>
+
+              <Text style={styles.reqTitle}>{item.title}</Text>
               <View style={styles.cateIconRow}>
                 <Image
                   source={item.cateIcon}
                   resizeMode="contain"
                   style={styles.cateIcon}
                 ></Image>
-                <Text style={styles.cateName}>{item.cateName}</Text>
+                <Text style={styles.cateName}>{item.category}</Text>
               </View>
               <View style={styles.endWrapperFillerRow}>
                 <View style={styles.endWrapperFiller}></View>
                 <View style={styles.reqCancelBtnRow}>
-                  <TouchableOpacity style={styles.reqCancelBtn}>
+                  <TouchableOpacity style={styles.reqCancelBtn}
+                  onPress={() =>
+                    completeCancelRequests(
+                      item._id,
+                      item,
+                      "Canceled"
+                    )
+                  }
+                  >
                     <Text style={styles.cancel}>Cancel</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.reqCompleteBtn}>
+                  <TouchableOpacity style={styles.reqCompleteBtn}
+                  onPress={() =>
+                    completeCancelRequests(
+                      item._id,
+                      item,
+                      "Completed"
+                    )
+                  }
+                  >
                     <Text style={styles.complete}>Complete</Text>
                   </TouchableOpacity>
                 </View>
@@ -96,7 +162,7 @@ function PendingReq({navigation}) {
 
           )
         }} />
-    </View>)
+    </View>
   );
 }
 
