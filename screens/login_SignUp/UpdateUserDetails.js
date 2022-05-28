@@ -677,7 +677,7 @@ const styles = StyleSheet.create({
     opacity: 0.74,
   },
   rect: {
-    height: 1216,
+    height: 616,
     backgroundColor: 'rgba(6,0,38,0.65)',
     borderRadius: 20,
     marginTop: 230,
