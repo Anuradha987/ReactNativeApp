@@ -262,7 +262,11 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
               <>
                <View style={styles.recievedRequestslblRow}>
                   <Text style={styles.recievedRequestslbl}>Recieved Requests</Text>
-                  <TouchableOpacity style={styles.viewAllView1} onPress={() => navigation.navigate("S_Requests")}>
+                  <TouchableOpacity style={styles.viewAllView1}    
+                   onPress ={()=> {  setSelectedTab(constants.screens.S_Requests) 
+                                                        navigation.navigate("S_MainLayout")             
+                                      }}
+                                      >
                     <Text style={styles.viewAlltxt1}>View all</Text>
                   </TouchableOpacity>
                 </View>
@@ -309,7 +313,9 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
               <>
                 <View style={styles.itemOrderslblRow}>
                   <Text style={styles.itemOrderslbl}>Item Orders</Text>
-                  <TouchableOpacity style={styles.viewAllView2} onPress={() => navigation.navigate('I_My')}>
+                  <TouchableOpacity style={styles.viewAllView2}          onPress ={()=> {  setSelectedTab(constants.screens.I_My) 
+                                                        navigation.navigate("I_MainLayout")                                    
+                                      }}>
                     <Text style={styles.viewAlltxt2}>View all</Text>
                   </TouchableOpacity>
                 </View>
@@ -847,4 +853,5 @@ const styles = StyleSheet.create({
 });
 
 
-export default DB_MainLayout;
+export default connect(mapStateToProps, mapDispatchToProps)
+(DB_MainLayout)

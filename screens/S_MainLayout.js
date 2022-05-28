@@ -143,7 +143,7 @@ const S_MainLayout = ({drawerAnimationStyle, navigation, selectedTab, setSelecte
 
        //set a title for first loading the app
        React.useEffect(()=> {
-        setSelectedTab(constants.screens.S_Search)
+        // setSelectedTab(constants.screens.S_Search)
     }, [])
 
     React.useEffect(() => {

@@ -152,8 +152,8 @@ const I_MainLayout = ({ drawerAnimationStyle, navigation, selectedTab, setSelect
 
     //set a title for first loading the app
     React.useEffect(() => {
-        setSelectedTab(constants.screens.I_Search);
-        NavService.selectedItemPage = constants.screens.I_Search;
+        // setSelectedTab(constants.screens.I_Search);
+        // NavService.selectedItemPage = constants.screens.I_Search;
     }, [])
 
     React.useEffect(() => {
