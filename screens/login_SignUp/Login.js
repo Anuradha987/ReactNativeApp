@@ -11,6 +11,7 @@ import {
   SafeAreaView,
   ScrollView,
   Alert,
+  ToastAndroid,
 } from 'react-native';
 import { icons, dummyData } from '../../constants';
 import { useFonts } from 'expo-font';
@@ -135,7 +136,7 @@ function Login({ navigation }, props) {
     }
 
     console.log(user);
-
+    ToastAndroid.show("Please wait...",ToastAndroid.SHORT);
 
     AuthService.login(user).then((res)=>{
       console.log(res.data);
@@ -145,8 +146,10 @@ function Login({ navigation }, props) {
         id:res.data.user._id
       };
         login(foundUser);
+        ToastAndroid.show("login successful...",ToastAndroid.SHORT);
     }).catch((error)=>{
       console.log(error);
+      ToastAndroid.show(error,ToastAndroid.SHORT);
     });
   };
 
