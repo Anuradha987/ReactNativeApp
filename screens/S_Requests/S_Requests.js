@@ -45,7 +45,7 @@ const S_Requests = (props) => {
     )
       .then((res) => {
         let dataArr = res.data.data;
-        console.log(dataArr)
+        console.log(dataArr);
         setRecievedRequests(dataArr);
       })
       .catch((error) => {
@@ -65,7 +65,7 @@ const S_Requests = (props) => {
   };
 
   const acceptRejectRequests = (request_id, request, action, type) => {
-    console.log("data", request_id, request, action,type);
+    console.log("data", request_id, request, action, type);
     const data = {
       ...request,
       status: action,
@@ -150,9 +150,11 @@ const S_Requests = (props) => {
                   return (
                     <TouchableOpacity
                       style={styles.serviceReqSentMe}
-                      onPress={() => navigation.navigate("S_RequestsDetails", {
-                        user: item
-                      })}
+                      onPress={() =>
+                        navigation.navigate("S_RequestsDetails", {
+                          user: item,
+                        })
+                      }
                     >
                       <View style={styles.senderImageRow}>
                         <Image
@@ -222,14 +224,26 @@ const S_Requests = (props) => {
                   );
                 }}
               />
-            ) : null}
+            ) : (
+              <View
+                style={{
+                  flex: 4,
+                  backgroundColor: "rgba(21,31,40,1)",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <ActivityIndicator size="large" />
+              </View>
+            )}
 
             {/* <Text style={styles.requestsForMe}>Requests for public</Text> */}
             {/* other requests */}
+            <Text style={styles.otherRequests}>Other Requests</Text>
+
             {otherRequests.length ? (
               <View>
                 <View style={styles.rect3}>
-                  <Text style={styles.otherRequests}>Other Requests</Text>
                   <View style={styles.otherRequestsFiller}></View>
                   <TouchableOpacity style={styles.filterBtn}>
                     <View style={styles.filterIconFiller}></View>
@@ -250,7 +264,11 @@ const S_Requests = (props) => {
                     return (
                       <TouchableOpacity
                         style={styles.serviceReqRecieveOther}
-                        onPress={() => navigation.navigate("S_RequestsDetails", {user: item})}
+                        onPress={() =>
+                          navigation.navigate("S_RequestsDetails", {
+                            user: item,
+                          })
+                        }
                       >
                         <View style={styles.reqTitleOthersStackStack}>
                           <View style={styles.reqTitleOthersStack}>
@@ -299,7 +317,16 @@ const S_Requests = (props) => {
               </View>
             ) : (
               <View>
-                <Text style={styles.noRecords}>There is no any records.</Text>
+                <View
+                  style={{
+                    flex: 4,
+                    backgroundColor: "rgba(21,31,40,1)",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <ActivityIndicator size="large" />
+                </View>
               </View>
             )}
           </View>
