@@ -195,7 +195,7 @@ function MyProfile() {
 
 
 {/* my services and items that have published. (S_My and I_My) */}
-            <NavigationContainer independent={true} style={{ marginTop: 769 }}>
+            {/* <NavigationContainer independent={true} style={{ marginTop: 769 }}>
               <Tab.Navigator
                 screenOptions={{
                   tabBarActiveTintColor: '#9c8df0',
@@ -218,7 +218,7 @@ function MyProfile() {
                 <Tab.Screen name="My Services" component={S_My} />
                 <Tab.Screen name="My Items" component={I_My} />
               </Tab.Navigator>
-            </NavigationContainer>
+            </NavigationContainer> */}
 
 {/* account actions */}
             <View style={styles.profileSettings}>
