@@ -62,6 +62,7 @@ const I_My = () => {
   const getMyItems = () => {
     ItemsService.getItemsByUserId(AuthService.userId, AuthService.userToken).then((res) => {
       const items = res.data.data;
+      console.log(items);
       setMyItems(items);
       setRefreshing(false);
     }).catch((error) => {
@@ -180,7 +181,7 @@ const I_My = () => {
                           </View>
                           <Text style={styles.pageNo}>{item.pageNo}.</Text>
                           <Image
-                            source={item.itemImage}
+                            source={{uri: `data:image/gif;base64,${item.images}`}}
                             resizeMode="cover"
                             style={styles.itemImage}
                           ></Image>
