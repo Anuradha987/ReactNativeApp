@@ -111,14 +111,14 @@ function NewReqForm({ navigation }) {
     if (val.trim().length >0) {
       setData({
         ...data,
-        title: val,
+        description: val,
         check_textInputChangeDescription: true,
         isValidDescription: true,
       });
     } else {
       setData({
         ...data,
-        title: val,
+        description: val,
         check_textInputChangeDescription: false,
         isValidDescription: false,
       });
