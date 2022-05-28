@@ -1,6 +1,6 @@
-import React, { Component, useEffect,useState } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import {
-  View,  RefreshControl, Text, TouchableOpacity, Image, TextInput, FlatList, StyleSheet, ImageBackground, ScrollView,
+  View, RefreshControl, Text, TouchableOpacity, Image, TextInput, FlatList, StyleSheet, ImageBackground, ScrollView,
   ActivityIndicator
 } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
@@ -16,7 +16,7 @@ import Icon from "react-native-vector-icons/EvilIcons";
 import * as RootNavigation from '../navigation/rootNavigation';
 import { OrderService } from '../services/customer/Orders';
 import { AuthService } from '../services/AuthService';
-import {RequestService} from '../services/customer/Requests';
+import { RequestService } from '../services/customer/Requests';
 import { ToastAndroid } from "react-native";
 import { useFocusEffect } from '@react-navigation/native';
 
@@ -39,59 +39,59 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
     poppins700: require('./../assets/fonts/poppins-700.ttf'),
   });
 
-  useFocusEffect( 
+  useFocusEffect(
     React.useCallback(() => {
-    console.log("DB_MainLayout");
-    if(!recievedOrders.length && !recievedRequests.length){
-      loadData();
-    }
-  }, []));
+      console.log("DB_MainLayout");
+      if (!recievedOrders.length && !recievedRequests.length) {
+        loadData();
+      }
+    }, []));
 
-  const loadData = () =>{
+  const loadData = () => {
     setRefreshing(true);
-    OrderService.getRecievedOrders(AuthService.userId,"Pending", AuthService.userToken).then((res)=>{
+    OrderService.getRecievedOrders(AuthService.userId, "Pending", AuthService.userToken).then((res) => {
       console.log(res.data);
       setRecievedOrders(res.data.data);
-    }).catch((error)=>{
+    }).catch((error) => {
       console.log(error);
     });
 
-    RequestService.filterRecievedRequestsByUserIdAndStatus(AuthService.userId,"Pending",AuthService.userToken).then((res)=>{
+    RequestService.filterRecievedRequestsByUserIdAndStatus(AuthService.userId, "Pending", AuthService.userToken).then((res) => {
       console.log(res.data);
       setRecievedRequests(res.data.data);
       setRefreshing(false);
-    }).catch((error)=>{
+    }).catch((error) => {
       console.log(error);
       setRefreshing(false);
     });
   }
 
-  const acceptRejectOrders = (order_id,order,action) =>{
+  const acceptRejectOrders = (order_id, order, action) => {
     const data = {
-      ...order, status:action
+      ...order, status: action
     }
-    ToastAndroid.show("please wait...",ToastAndroid.SHORT);
-    OrderService.EditOrder(order_id,data,AuthService.userToken).then((res)=>{
+    ToastAndroid.show("please wait...", ToastAndroid.SHORT);
+    OrderService.EditOrder(order_id, data, AuthService.userToken).then((res) => {
       console.log(res.data);
-      const updatedPendingOrders = pendingOrders.filter((order)=>order._id !== order_id);
+      const updatedPendingOrders = pendingOrders.filter((order) => order._id !== order_id);
       setRecievedOrders(updatedPendingOrders);
-      ToastAndroid.show("done...",ToastAndroid.SHORT);
-    }).catch((error)=>{
+      ToastAndroid.show("done...", ToastAndroid.SHORT);
+    }).catch((error) => {
       console.log(error);
     });
   }
 
-  const acceptRejectRequest = (req_id,req,action) =>{
+  const acceptRejectRequest = (req_id, req, action) => {
     const data = {
-      ...req, status:action
+      ...req, status: action
     }
-    ToastAndroid.show("please wait...",ToastAndroid.SHORT);
-    RequestService.EditRequest(req_id,data,AuthService.userToken).then((res)=>{
+    ToastAndroid.show("please wait...", ToastAndroid.SHORT);
+    RequestService.EditRequest(req_id, data, AuthService.userToken).then((res) => {
       console.log(res.data);
-      const updatedPendingReqs = recievedRequests.filter((req)=>req._id !== req_id);
+      const updatedPendingReqs = recievedRequests.filter((req) => req._id !== req_id);
       setRecievedRequests(updatedPendingReqs);
-      ToastAndroid.show("done...",ToastAndroid.SHORT);
-    }).catch((error)=>{
+      ToastAndroid.show("done...", ToastAndroid.SHORT);
+    }).catch((error) => {
       console.log(error);
     });
   }
@@ -259,49 +259,50 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
 
               {/* Service Requests Recieved */}
               {(recievedRequests.length) ?
-              <>
-               <View style={styles.recievedRequestslblRow}>
-                  <Text style={styles.recievedRequestslbl}>Recieved Requests</Text>
-                  <TouchableOpacity style={styles.viewAllView1}    
-                   onPress ={()=> {  setSelectedTab(constants.screens.S_Requests) 
-                                                        navigation.navigate("S_MainLayout")             
-                                      }}
-                                      >
-                    <Text style={styles.viewAlltxt1}>View all</Text>
-                  </TouchableOpacity>
-                </View>
-                  
-                    <FlatList data={recievedRequests}
-                      listKey='1.4'
-                      horizontal
-                      keyExtractor={(item) => `${item._id}`}
-                      showsHorizontalScrollIndicator={false}
-                      style={{ marginHorizontal: 10 }}
-                      renderItem={({ item, index }) => {
-                        return (
-                          <TouchableOpacity style={styles.reqBox}>
-                            <View style={styles.sentDateRow}>
-                              <Text style={styles.sentDate}>{item.created_date.substring(0,10)}</Text>
-                              <View style={item.priority === "High" ? styles.highPriorityDot : item.priority === "Low" ? styles.lowPriorityDot : styles.priorityDot}></View>
-                            </View>
-                            <Text style={styles.serviceTitle}>{item.user_id.username}</Text>
-                            <View style={styles.cateIconRow}>
-                              {/* <Icon name="archive"></Icon> */}
-                              <Image source={require('./../assets/icons/foods.png')}
-                                style={styles.cateIcon}
-                                resizeMode="contain">
-                              </Image>
-                              <Text style={styles.cateName}>Food &amp; Drink</Text>
-                            </View>
-                            <View style={styles.toPublicOrMeRow}>
-                              <Text style={styles.toPublicOrMe}>To: Public /Me</Text>
-                              <TouchableOpacity style={styles.acceptReqBtn} onPress={()=>acceptRejectRequest(item._id,item,"Accepted")}>
-                                <Text style={styles.accept}>Accept</Text>
-                              </TouchableOpacity>
-                            </View>
-                          </TouchableOpacity>
-                        )
-                      }} />
+                <>
+                  <View style={styles.recievedRequestslblRow}>
+                    <Text style={styles.recievedRequestslbl}>Recieved Requests</Text>
+                    <TouchableOpacity style={styles.viewAllView1}
+                      onPress={() => {
+                        setSelectedTab(constants.screens.S_Requests)
+                        navigation.navigate("S_MainLayout")
+                      }}
+                    >
+                      <Text style={styles.viewAlltxt1}>View all</Text>
+                    </TouchableOpacity>
+                  </View>
+
+                  <FlatList data={recievedRequests}
+                    listKey='1.4'
+                    horizontal
+                    keyExtractor={(item) => `${item._id}`}
+                    showsHorizontalScrollIndicator={false}
+                    style={{ marginHorizontal: 10 }}
+                    renderItem={({ item, index }) => {
+                      return (
+                        <TouchableOpacity style={styles.reqBox}>
+                          <View style={styles.sentDateRow}>
+                            <Text style={styles.sentDate}>{item.created_date.substring(0, 10)}</Text>
+                            <View style={item.priority === "High" ? styles.highPriorityDot : item.priority === "Low" ? styles.lowPriorityDot : styles.priorityDot}></View>
+                          </View>
+                          <Text style={styles.serviceTitle}>{item.user_id.username}</Text>
+                          <View style={styles.cateIconRow}>
+                            {/* <Icon name="archive"></Icon> */}
+                            <Image source={require('./../assets/icons/foods.png')}
+                              style={styles.cateIcon}
+                              resizeMode="contain">
+                            </Image>
+                            <Text style={styles.cateName}>Food &amp; Drink</Text>
+                          </View>
+                          <View style={styles.toPublicOrMeRow}>
+                            <Text style={styles.toPublicOrMe}>To: Public /Me</Text>
+                            <TouchableOpacity style={styles.acceptReqBtn} onPress={() => acceptRejectRequest(item._id, item, "Accepted")}>
+                              <Text style={styles.accept}>Accept</Text>
+                            </TouchableOpacity>
+                          </View>
+                        </TouchableOpacity>
+                      )
+                    }} />
                 </>
                 :
                 null
@@ -309,16 +310,17 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
 
               {/* Recieved Orders */}
 
-              {recievedOrders.length ? 
-              <>
-                <View style={styles.itemOrderslblRow}>
-                  <Text style={styles.itemOrderslbl}>Item Orders</Text>
-                  <TouchableOpacity style={styles.viewAllView2}          onPress ={()=> {  setSelectedTab(constants.screens.I_My) 
-                                                        navigation.navigate("I_MainLayout")                                    
-                                      }}>
-                    <Text style={styles.viewAlltxt2}>View all</Text>
-                  </TouchableOpacity>
-                </View>
+              {recievedOrders.length ?
+                <>
+                  <View style={styles.itemOrderslblRow}>
+                    <Text style={styles.itemOrderslbl}>Item Orders</Text>
+                    <TouchableOpacity style={styles.viewAllView2} onPress={() => {
+                      setSelectedTab(constants.screens.I_My)
+                      navigation.navigate("I_MainLayout")
+                    }}>
+                      <Text style={styles.viewAlltxt2}>View all</Text>
+                    </TouchableOpacity>
+                  </View>
 
                   <FlatList
                     listKey='1.5'
@@ -331,11 +333,21 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
                       return (
                         <TouchableOpacity style={styles.ordersBox}>
                           <View style={styles.itemImageRow}>
-                            <Image
-                              source={dummyData.myItemsData[0].itemImage}
-                              resizeMode="cover"
-                              style={styles.itemImage}
-                            ></Image>
+                            {item.item_id.images.length > 30 ?
+
+                              <Image
+                                source={{ uri: `data:image/gif;base64,${item.item_id.images}` }}
+                                resizeMode="cover"
+                                style={styles.itemImage}
+                              ></Image>
+                              :
+                              <Image
+                                source={dummyData.myItemsData[0].itemImage}
+                                resizeMode="cover"
+                                style={styles.itemImage}
+                              ></Image>
+                            }
+
                             <View style={styles.senderNameColumn}>
                               <Text style={styles.senderName}>{item.user_id.username}</Text>
                               <View style={styles.amountlblColumnRowRow}>
@@ -347,11 +359,11 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
                                   </View>
                                   <View style={styles.amounttxtColumn}>
                                     <Text style={styles.amounttxt}>{item.amount}</Text>
-                                    <Text style={styles.returningDateOrBarterFortxt}>{item.order_created_date.substring(0,10)}</Text>
+                                    <Text style={styles.returningDateOrBarterFortxt}>{item.order_created_date.substring(0, 10)}</Text>
                                   </View>
                                 </View>
 
-                                <TouchableOpacity style={styles.orderAcceptBtn} onPress={() => {acceptRejectOrders(item._id,item,"Accepted") }}>
+                                <TouchableOpacity style={styles.orderAcceptBtn} onPress={() => { acceptRejectOrders(item._id, item, "Accepted") }}>
                                   <Text style={styles.accept1}>Accept</Text>
                                 </TouchableOpacity>
                               </View>
@@ -360,8 +372,8 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
                         </TouchableOpacity>
                       )
                     }} />
-                    </>
-                 : null}
+                </>
+                : null}
 
               <View style={{ marginBottom: 80 }}></View>
             </View>} />
@@ -854,4 +866,4 @@ const styles = StyleSheet.create({
 
 
 export default connect(mapStateToProps, mapDispatchToProps)
-(DB_MainLayout)
+  (DB_MainLayout)
