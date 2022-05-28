@@ -11,7 +11,8 @@ import {
   SafeAreaView,
   Button, 
   Modal,
-  Pressable
+  Pressable,
+  ToastAndroid
 } from 'react-native';
 import SimpleLineIconsIcon from 'react-native-vector-icons/SimpleLineIcons';
 import MaterialCommunityIconsIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -198,14 +199,17 @@ const openCamera = async () => {
       description:"test",
       userCategories:["Pets", "Law", "Environment", "Photography"]
     }
+    ToastAndroid.show("please wait...",ToastAndroid.SHORT);
 
     console.log(userdata);
     // console.log(bsCimage && bsPimage);
       AuthService.register(userdata).then((res)=>{
         console.log(res.data);
+        ToastAndroid.show("registraion successful...",ToastAndroid.SHORT);
         navigation.navigate('Login');
       }).catch((error)=>{
         console.log(error);
+        ToastAndroid.show("registration failed...",ToastAndroid.SHORT);
       });
     }
   };

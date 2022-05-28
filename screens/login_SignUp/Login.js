@@ -149,7 +149,7 @@ function Login({ navigation }, props) {
         ToastAndroid.show("login successful...",ToastAndroid.SHORT);
     }).catch((error)=>{
       console.log(error);
-      ToastAndroid.show(error,ToastAndroid.SHORT);
+      ToastAndroid.show("Login Failed...",ToastAndroid.SHORT);
     });
   };
 
