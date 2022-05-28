@@ -18,6 +18,7 @@ import { useFonts } from "expo-font";
 import { RequestService } from "../../services/customer/Requests";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthService } from "../../services/AuthService";
+import { ToastAndroid } from "react-native";
 
 const S_Requests = (props) => {
   const navigation = useNavigation();
@@ -28,29 +29,68 @@ const S_Requests = (props) => {
   });
 
   const [recievedRequests, setRecievedRequests] = React.useState([]);
-  // const [otherRequests, setOtherRequests] = React.useState([]);
+  const [otherRequests, setOtherRequests] = React.useState([]);
 
   useEffect(() => {
     console.log("---- s requests---");
     loadRecievedRequests();
+    loadRecievedPublicRequests();
   }, []);
 
   const loadRecievedRequests = () => {
-    console.log(AuthService.userToken, " ", AuthService.userId);
-    RequestService.getRecievedRequestsByUserId(
+    RequestService.filterRecievedRequestsByUserIdAndStatus(
       AuthService.userId,
+      "Pending",
       AuthService.userToken
     )
       .then((res) => {
         let dataArr = res.data.data;
-
-        console.log(res.data.data);
-        console.log(dataArr.length);
+        console.log(dataArr)
         setRecievedRequests(dataArr);
-        // console.log("length", recievedRequests.length);
       })
       .catch((error) => {
         console.log("line 60 ", error);
+      });
+  };
+
+  const loadRecievedPublicRequests = () => {
+    RequestService.getRecievedPublicRequests(AuthService.userToken)
+      .then((res) => {
+        let dataArr = res.data.data;
+        setOtherRequests(dataArr);
+      })
+      .catch((error) => {
+        console.log("line 60 ", error);
+      });
+  };
+
+  const acceptRejectRequests = (request_id, request, action, type) => {
+    console.log("data", request_id, request, action,type);
+    const data = {
+      ...request,
+      status: action,
+    };
+    ToastAndroid.show("please wait...", ToastAndroid.SHORT);
+
+    RequestService.EditRequest(request_id, data, AuthService.userToken)
+      .then((res) => {
+        console.log(res.data);
+        if (type === "Private") {
+          const updatedRecivedRequests = recievedRequests.filter(
+            (request) => request._id !== request
+          );
+          setRecievedRequests(updatedRecivedRequests);
+          ToastAndroid.show("done...", ToastAndroid.SHORT);
+        } else {
+          const updatedOtherRequests = otherRequests.filter(
+            (request) => request._id !== request
+          );
+          setRecievedRequests(updatedOtherRequests);
+          ToastAndroid.show("done...", ToastAndroid.SHORT);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -110,7 +150,9 @@ const S_Requests = (props) => {
                   return (
                     <TouchableOpacity
                       style={styles.serviceReqSentMe}
-                      onPress={() => navigation.navigate("S_RequestsDetails")}
+                      onPress={() => navigation.navigate("S_RequestsDetails", {
+                        user: item
+                      })}
                     >
                       <View style={styles.senderImageRow}>
                         <Image
@@ -149,10 +191,30 @@ const S_Requests = (props) => {
                       </View>
 
                       <View style={styles.reqDeleteBtnRow}>
-                        <TouchableOpacity style={styles.reqDeleteBtn}>
+                        <TouchableOpacity
+                          style={styles.reqDeleteBtn}
+                          onPress={() =>
+                            acceptRejectRequests(
+                              item._id,
+                              item,
+                              "Rejected",
+                              "Private"
+                            )
+                          }
+                        >
                           <Text style={styles.decline}>Decline</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.reqAcceptBtn}>
+                        <TouchableOpacity
+                          style={styles.reqAcceptBtn}
+                          onPress={() =>
+                            acceptRejectRequests(
+                              item._id,
+                              item,
+                              "Accepted",
+                              "Private"
+                            )
+                          }
+                        >
                           <Text style={styles.accept}>Accept</Text>
                         </TouchableOpacity>
                       </View>
@@ -162,10 +224,11 @@ const S_Requests = (props) => {
               />
             ) : null}
 
-      <Text style={styles.requestsForMe}>Requests for me</Text>
-      {/* other requests */}
-      {/* {recievedRequests.length
-              ? (<View style={styles.rect3}>
+            {/* <Text style={styles.requestsForMe}>Requests for public</Text> */}
+            {/* other requests */}
+            {otherRequests.length ? (
+              <View>
+                <View style={styles.rect3}>
                   <Text style={styles.otherRequests}>Other Requests</Text>
                   <View style={styles.otherRequestsFiller}></View>
                   <TouchableOpacity style={styles.filterBtn}>
@@ -175,56 +238,71 @@ const S_Requests = (props) => {
                       style={styles.filterIcon}
                     ></FontAwesomeIcon>
                   </TouchableOpacity>
-                </View>)(
-                  <FlatList
-                    listKey="20.3"
-                    data={dummyData.OtherRecieveRequest}
-                    keyExtractor={(item) => `${item.id}`}
-                    showsVerticalScrollIndicator={true}
-                    renderItem={({ item, index }) => {
-                      return (
-                        <TouchableOpacity
-                          style={styles.serviceReqRecieveOther}
-                          onPress={() =>
-                            navigation.navigate("S_RequestsDetails")
-                          }
-                        >
-                          <View style={styles.reqTitleOthersStackStack}>
-                            <View style={styles.reqTitleOthersStack}>
-                              <Text style={styles.reqTitleOthers}>
-                                {item.reqTitleOthers}
-                              </Text>
-                              <TouchableOpacity
-                                style={styles.reqAcceptBtnOthers}
-                              >
-                                <View style={styles.acceptOthersFiller}></View>
-                                <Text style={styles.acceptOthers}>Accept</Text>
-                              </TouchableOpacity>
-                            </View>
-                            <Text style={styles.sendingDateOther}>
-                              {item.sendingDateOther}
+                </View>
+
+                <FlatList
+                  listKey="20.3"
+                  data={otherRequests}
+                  keyExtractor={(item) => `${item._id}`}
+                  showsVerticalScrollIndicator={true}
+                  renderItem={({ item, index }) => {
+                    const d = new Date(item.created_date);
+                    return (
+                      <TouchableOpacity
+                        style={styles.serviceReqRecieveOther}
+                        onPress={() => navigation.navigate("S_RequestsDetails", {user: item})}
+                      >
+                        <View style={styles.reqTitleOthersStackStack}>
+                          <View style={styles.reqTitleOthersStack}>
+                            <Text style={styles.reqTitleOthers}>
+                              {item.title}
                             </Text>
-                            <Text style={styles.CateNameOther}>
-                              {item.CateNameOther}
-                            </Text>
-                            <Image
-                              source={item.cateIconOthers}
-                              resizeMode="contain"
-                              style={styles.cateIconOthers}
-                            ></Image>
-                            <View style={styles.priorityDotOther}></View>
+                            <TouchableOpacity
+                              style={styles.reqAcceptBtnOthers}
+                              onPress={() =>
+                                acceptRejectRequests(
+                                  item._id,
+                                  item,
+                                  "Accepted",
+                                  "Public"
+                                )
+                              }
+                            >
+                              <View style={styles.acceptOthersFiller}></View>
+                              <Text style={styles.acceptOthers}>Accept</Text>
+                            </TouchableOpacity>
                           </View>
-                        </TouchableOpacity>
-                      );
-                    }}
-                  />
-                )
-              :  <View><Text style={styles.noRecords}>There is no any records.</Text></View>
-            } */}
-
+                          <Text style={styles.sendingDateOther}>
+                            {d.toISOString().substring(0, 10)}
+                          </Text>
+                          <Text style={styles.CateNameOther}>
+                            {item.category}
+                          </Text>
+                          <Image
+                            source={item.cateIconOthers}
+                            resizeMode="contain"
+                            style={styles.cateIconOthers}
+                          ></Image>
+                          {/* <View style={styles.priorityDotOther}></View> */}
+                          {item.priority === "High" ? (
+                            <View style={styles.highCardDot}></View>
+                          ) : item.priority === "Medium" ? (
+                            <View style={styles.mediumCardDot}></View>
+                          ) : (
+                            <View style={styles.lowCardDot}></View>
+                          )}
+                        </View>
+                      </TouchableOpacity>
+                    );
+                  }}
+                />
+              </View>
+            ) : (
+              <View>
+                <Text style={styles.noRecords}>There is no any records.</Text>
+              </View>
+            )}
           </View>
-
-
         }
       />
 
@@ -566,13 +644,13 @@ const styles = StyleSheet.create({
   },
   reqAcceptBtnOthers: {
     top: 3,
-    width: 57,
+    width: 60,
     height: 54,
     position: "absolute",
     borderWidth: 2,
     borderColor: "rgba(8,255,0,1)",
     borderRadius: 10,
-    right: -47,
+    right: -4,
     shadowColor: "rgba(8,255,0,1)",
     shadowOffset: {
       width: 0,

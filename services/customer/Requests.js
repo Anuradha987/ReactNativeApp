@@ -28,6 +28,7 @@ export class RequestService{
     }
 
     static async filterRecievedRequestsByUserIdAndStatus(userId,status,token){
+        console.log(status)
         const res = await axiosInstance.get(`/get_recieved_requests_by_status?user_id=${userId}&status=${status}`,{headers: { Authorization: `Bearer ${token}` }});
         return res;
     }

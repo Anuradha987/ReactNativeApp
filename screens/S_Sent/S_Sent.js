@@ -149,7 +149,7 @@ const S_Sent = () => {
                 </View>
                 <View style={styles.requestStatusFiller}></View>
 
-                <View style={styles.editBtnRow}>
+                {/* <View style={styles.editBtnRow}>
                   <TouchableOpacity style={styles.editBtn}>
                     <View style={styles.editReqIconFiller}></View>
                     <FeatherIcon
@@ -165,7 +165,7 @@ const S_Sent = () => {
                       style={styles.delReqIcon}
                     ></MaterialCommunityIconsIcon>
                   </TouchableOpacity>
-                </View>
+                </View> */}
               </View>
 
               <View style={styles.searchingBar}>

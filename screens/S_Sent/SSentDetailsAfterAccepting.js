@@ -24,7 +24,6 @@ import { Rating, AirbnbRating } from "react-native-ratings";
 function SSentDetailsAfterAccepting({ route, navigation }) {
   const { user } = route.params;
   const [modalVisible, setModalVisible] = useState(true);
-  const [userDetails, setUserDetails] = useState();
 
   const windowWidth = Dimensions.get("window").width;
   const ratingCompleted = (rating) => {
@@ -39,8 +38,11 @@ function SSentDetailsAfterAccepting({ route, navigation }) {
 
   useEffect(() => {
     console.log("SSentDetailsAfterAccepting", user);
-    setUserDetails(user);
   }, []);
+
+  const created_date = new Date(user.created_date);
+  const accept_date = new Date(user.created_date);
+  const complete_date = new Date(user.created_date);
 
   return !loaded ? (
     <View
@@ -89,10 +91,7 @@ function SSentDetailsAfterAccepting({ route, navigation }) {
                     {/* accepted request title and description */}
                     <Text style={styles.reqTitle}>{user.title}</Text>
                     <Text style={styles.reqDescription}>
-                      A small description about the request.Just click on a
-                      symbol to copy any check mark or any tick to the clipboard
-                      and then paste them where ever you like. The tick &amp;
-                      check mark symbols are often used.{" "}
+                     {user.description}
                     </Text>
 
                     {/* request category */}
@@ -123,7 +122,7 @@ function SSentDetailsAfterAccepting({ route, navigation }) {
                       {user.to === "" ? (
                         <Text style={styles.toWhome}>Public</Text>
                       ) : (
-                        <Text style={styles.toWhome}>{user.to}</Text>
+                        <Text style={styles.toWhome}>{user.to.username}</Text>
                       )}
                     </View>
 
@@ -143,17 +142,17 @@ function SSentDetailsAfterAccepting({ route, navigation }) {
                       <View style={styles.group1}>
                         <Text style={styles.postedDatelbl}>Posted Date :</Text>
                         <Text style={styles.acceptedBylbl}>Accepted By :</Text>
-                        <Text style={styles.acceptedOnlbl}>Accepted On :</Text>
-                        <Text style={styles.completedOnlbl}>
+                        {user.accept_date ? <Text style={styles.acceptedOnlbl}>Accepted On :</Text> : null}
+                        {user.complete_date ? <Text style={styles.completedOnlbl}>
                           Completed On :
-                        </Text>
+                        </Text> : null}
                       </View>
 
                       <View style={styles.postedDateColumn}>
-                        <Text style={styles.postedDate}>20/12/2021</Text>
-                        <Text style={styles.acceptedBy}>{user.to}</Text>
-                        <Text style={styles.acceptedDate}>22/12/2021</Text>
-                        <Text style={styles.completedDate}>27/12/2021</Text>
+                        <Text style={styles.postedDate}>{created_date.toISOString().substring(0, 10)}</Text>
+                        <Text style={styles.acceptedBy}>{user.to} name</Text>
+                        {user.accept_date ? <Text style={styles.acceptedDate}>{accept_date.toISOString().substring(0, 10)}</Text> : null}
+                        {user.complete_date ? <Text style={styles.completedDate}>{complete_date.toISOString().substring(0, 10)}</Text> : null}
                       </View>
                     </View>
 
@@ -175,7 +174,7 @@ function SSentDetailsAfterAccepting({ route, navigation }) {
                         What&#39;s your opinion about
                       </Text>
                       <Text style={styles.acceptedUserName1}>
-                        Manoja Gamage &#39;s service?
+                        {user.user_id.username} &#39;s service?
                       </Text>
                       <View style={styles.rect}>
                         <AirbnbRating
