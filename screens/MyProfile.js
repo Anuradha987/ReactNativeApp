@@ -230,7 +230,7 @@ function MyProfile() {
                 </View>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.editUserBar} onPress={()=>navigation.navigate('UpdateUserDetails')}>
+              <TouchableOpacity style={styles.editUserBar} onPress={()=>navigation.navigate('UpdateUserDetails', {user:userDetails})}>
                 <View style={styles.editIconRow}>
                   <FontAwesomeIcon
                     name="edit"

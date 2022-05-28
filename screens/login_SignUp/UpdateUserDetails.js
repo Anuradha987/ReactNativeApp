@@ -1,4 +1,4 @@
-import React, { Component, useRef, useState } from 'react';
+import React, { Component, useRef, useState,useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -22,11 +22,14 @@ import * as ImagePicker from 'expo-image-picker';
 import { AuthService } from '../../services/AuthService';
 import * as FileSystem from 'expo-file-system';
 import { ServicesService } from '../../services/customer/Services';
+import { ToastAndroid } from 'react-native';
 
 // https://github.com/RafaelAugustoS/react-native-popup-ui
 
-function UpdateUserDetails({ navigation }) {
+function UpdateUserDetails({ navigation, route }) {
   const [modalVisible, setModalVisible] = useState(false);
+
+  const { user } = route.params;
 
   const [pickedImagePath, setPickedImagePath] = useState('');
   
@@ -146,14 +149,25 @@ const openCamera = async () => {
     isValidPhone: true,
     isValidLocation: true,
     isValidUsername: true,
+    isValidDescription: true,
     isValidPassword: true,
     check_textInputChangeName: false,
     check_textInputChangeEmail: false,
     check_textInputChangePhone: false,
     check_textInputChangeLocation: false,
     check_textInputChangeUsername: false,
+    check_textInputChangeDescription: false,
     check_textInputChangePassword: false,
   });
+
+  useEffect(() => {
+    console.log(user);
+    const updatedData = {
+      ...data, username: user.username, phoneNo:user.phone, description:user.description
+    }
+    setData(updatedData);
+  }, [])
+  
 
   const handlePasswordChange = (val) => {
     if (val.trim().length >= 8) {
@@ -177,45 +191,32 @@ const openCamera = async () => {
       secureTextEntry: !data.secureTextEntry,
     });
 
-    console.log(cimage);
-    console.log(pimage);
     // const bsPimage = await FileSystem.readAsStringAsync(pimage, { encoding: 'base64' });
     // const bsCimage = await FileSystem.readAsStringAsync(cimage, { encoding: 'base64' });
     // console.log(bsPimage);
     // console.log(bsCimage);
 
-    if(bsCimg && bsPimg){
-
-    const userdata = {
-      name: data.name,
-      email: data.email,
-      phone: data.phoneNo,
-      location: data.location,
-      username: data.username,
-      userType: "Customer",
-      password: data.password,
-      profile_img:bsPimg,
-      cover_img:bsCimg,
-      description:"test",
-      userCategories:["Pets", "Law", "Environment", "Photography"]
-    }
-
-    console.log(userdata);
-
-    AuthService.updateUserDetailsByUserId(AuthService.userId,userdata,AuthService.userToken).then((res)=>{
-      console.log(res.data);
-      navigation.goBack();
-    }).catch((error)=>{
-      console.log(error);
-    });
-
-    // console.log(bsCimage && bsPimage);
-      // AuthService.register(userdata).then((res)=>{
-      //   console.log(res.data);
-      //   navigation.navigate('Login');
-      // }).catch((error)=>{
-      //   console.log(error);
-      // });
+    if(data.phoneNo && data.username && data.description){
+      ToastAndroid.show("Please wait...",ToastAndroid.SHORT);
+      const userdata = {
+        phone: data.phoneNo,
+        username: data.username,
+        description:data.description,
+        userCategories:["Pets", "Law", "Environment", "Photography"]
+      }
+  
+      console.log(userdata);
+  
+      AuthService.updateUserDetailsByUserId(AuthService.userId,userdata,AuthService.userToken).then((res)=>{
+        ToastAndroid.show("Changes saved...",ToastAndroid.SHORT);
+        console.log(res.data);
+        navigation.goBack();
+      }).catch((error)=>{
+        ToastAndroid.show(error,ToastAndroid.SHORT);
+        console.log(error);
+      });
+    }else{
+      ToastAndroid.show("Please fill all...",ToastAndroid.SHORT);
     }
   };
 
@@ -426,6 +427,37 @@ const openCamera = async () => {
     }
   };
 
+  const textInputChangeDescription = (val) => {
+    if (val.trim().length >= 4) {
+      setData({
+        ...data,
+        description: val,
+        check_textInputChangeDescription: true,
+        isValidDescription: true,
+      });
+    } else {
+      setData({
+        ...data,
+        description: val,
+        check_textInputChangeDescription: false,
+        isValidDescription: false,
+      });
+    }
+  };
+  const handleValidDescription = (val) => {
+    if (val.trim().length >= 4) {
+      setData({
+        ...data,
+        isValidDescription: true,
+      });
+    } else {
+      setData({
+        ...data,
+        isValidDescription: false,
+      });
+    }
+  };
+
   //validating password
   const textInputChangePassword = (val) => {
     if (val.trim().length >= 6) {
@@ -522,7 +554,7 @@ const openCamera = async () => {
                 {/* cover and profile picture */}
            
 
-                <View
+                {/* <View
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
@@ -543,7 +575,7 @@ const openCamera = async () => {
                     onChangeText={(val) => textInputChangeName(val)}
                     onEndEditing={(e) => handleValidName(e.nativeEvent.text)}
                     style={styles.nametxt}></TextInput>
-                </View>
+                </View> */}
 
                 <Text style={styles.aboutMelbl}>About me</Text>
                 <View style={styles.aboutMeView}>
@@ -556,7 +588,10 @@ const openCamera = async () => {
                     autoCapitalize="sentences"
                     // ref={(input) => { secondTextInput = input; }}
                     blurOnSubmit={false}
+                    value={data.description}
                     // onSubmitEditing={() => { this.thirdTextInput.focus(); }}
+                    onChangeText={(val) => textInputChangeDescription(val)}
+                    onEndEditing={(e) => handleValidDescription(e.nativeEvent.text)}
                     multiline={true}
                     style={styles.aboutMetxt}></TextInput>
                 </View>
@@ -580,6 +615,7 @@ const openCamera = async () => {
                     // onSubmitEditing={() => { this.fifthTextInput.focus(); }}
                     blurOnSubmit={false}
                     keyboardType="phone-pad"
+                    value={data.phoneNo}
                     onChangeText={(val) => textInputChangePhone(val)}
                     onEndEditing={(e) => handleValidPhone(e.nativeEvent.text)}
                     style={styles.phoneNotxt}></TextInput>
@@ -601,6 +637,7 @@ const openCamera = async () => {
                     returnKeyType="next"
                     clearButtonMode="while-editing"
                     autoCapitalize="none"
+                    value={data.username}
                     // ref={(input) => { this.sixthTextInput = input; }}
                     // onSubmitEditing={() => { this.seventhTextInput.focus(); }}
                     blurOnSubmit={false}
