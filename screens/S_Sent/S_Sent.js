@@ -112,7 +112,6 @@ const S_Sent = () => {
         alignItems: "center",
       }}
     >
-      {/* https://github.com/n4kz/react-native-indicators */}
       <ActivityIndicator size="large" />
     </View>
   ) : (
@@ -185,58 +184,68 @@ const S_Sent = () => {
             </View>
 
             <View style={styles.scrollArea}>
-              {sentRequests.length ? <FlatList
-                listKey="23.2"
-                data={sentRequests}
-                keyExtractor={(item) => `${item._id}`}
-                showsVerticalScrollIndicator={true}
-                renderItem={({ item, index }) => {
-                  return (
-                    <View>
-                      <TouchableOpacity
-                        style={styles.serviceReqSent}
-                        onPress={() =>
-                          navigation.navigate("SSentDetailsAfterAccepting", {
-                            user: item,
-                          })
-                        }
-                        onLongPress={() => {}}
-                      >
-                        <Text style={styles.reqTitle}>{item.title}</Text>
-                        <View style={styles.cateIconRow}>
-                          {/* <Image
+              {sentRequests.length ? (
+                <FlatList
+                  listKey="23.2"
+                  data={sentRequests}
+                  keyExtractor={(item) => `${item._id}`}
+                  showsVerticalScrollIndicator={true}
+                  renderItem={({ item, index }) => {
+                    return (
+                      <View>
+                        <TouchableOpacity
+                          style={styles.serviceReqSent}
+                          onPress={() =>
+                            navigation.navigate("SSentDetailsAfterAccepting", {
+                              user: item,
+                            })
+                          }
+                          onLongPress={() => {}}
+                        >
+                          <Text style={styles.reqTitle}>{item.title}</Text>
+                          <View style={styles.cateIconRow}>
+                            {/* <Image
                             source={item.cateIcon}
                             resizeMode="contain"
                             style={styles.cateIcon}
                           ></Image> */}
-                          <View style={styles.categoryStack}>
-                            <Text style={styles.cateName}>
-                              Category: {item.category}
-                            </Text>
+                            <View style={styles.categoryStack}>
+                              <Text style={styles.cateName}>
+                                Category: {item.category}
+                              </Text>
+                            </View>
                           </View>
-                        </View>
 
-                        <View style={styles.sentToColumnRow}>
-                          <View style={styles.sentToColumn}>
-                            <Text style={styles.sentTo}>To: {item.to}</Text>
-                            <Text style={styles.reqStatus}>
-                              Status: {item.status}
-                            </Text>
+                          <View style={styles.sentToColumnRow}>
+                            <View style={styles.sentToColumn}>
+                              <Text style={styles.sentTo}>
+                                To: {item.to.username}
+                              </Text>
+                              <Text style={styles.reqStatus}>
+                                Status: {item.status}
+                              </Text>
+                            </View>
+                            <View style={styles.sentToColumnFiller}></View>
+                            {item.priority === "High" ? (
+                              <View style={styles.high}></View>
+                            ) : item.priority === "Medium" ? (
+                              <View style={styles.medium}></View>
+                            ) : (
+                              <View style={styles.low}></View>
+                            )}
                           </View>
-                          <View style={styles.sentToColumnFiller}></View>
-                          {item.priority === "High" ? (
-                            <View style={styles.high}></View>
-                          ) : item.priority === "Medium" ? (
-                            <View style={styles.medium}></View>
-                          ) : (
-                            <View style={styles.low}></View>
-                          )}
-                        </View>
-                      </TouchableOpacity>
-                    </View>
-                  );
-                }}
-              />: <View><Text style={styles.noRecords}>There is no any {selectedValue} records.</Text></View>}
+                        </TouchableOpacity>
+                      </View>
+                    );
+                  }}
+                />
+              ) : (
+                <View>
+                  <Text style={styles.noRecords}>
+                    There is no any {selectedValue} records.
+                  </Text>
+                </View>
+              )}
             </View>
             <View style={{ marginTop: 150 }}></View>
           </View>
@@ -478,8 +487,8 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 15,
   },
-  noRecords : {
-    color: "white", 
-  }
+  noRecords: {
+    color: "white",
+  },
 });
 export default S_Sent;
