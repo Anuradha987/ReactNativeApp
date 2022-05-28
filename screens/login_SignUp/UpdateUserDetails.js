@@ -21,6 +21,7 @@ import { icons } from '../../constants';
 import * as ImagePicker from 'expo-image-picker';
 import { AuthService } from '../../services/AuthService';
 import * as FileSystem from 'expo-file-system';
+import { ServicesService } from '../../services/customer/Services';
 
 // https://github.com/RafaelAugustoS/react-native-popup-ui
 
@@ -200,13 +201,21 @@ const openCamera = async () => {
     }
 
     console.log(userdata);
+
+    AuthService.updateUserDetailsByUserId(AuthService.userId,userdata,AuthService.userToken).then((res)=>{
+      console.log(res.data);
+      navigation.goBack();
+    }).catch((error)=>{
+      console.log(error);
+    });
+
     // console.log(bsCimage && bsPimage);
-      AuthService.register(userdata).then((res)=>{
-        console.log(res.data);
-        navigation.navigate('Login');
-      }).catch((error)=>{
-        console.log(error);
-      });
+      // AuthService.register(userdata).then((res)=>{
+      //   console.log(res.data);
+      //   navigation.navigate('Login');
+      // }).catch((error)=>{
+      //   console.log(error);
+      // });
     }
   };
 

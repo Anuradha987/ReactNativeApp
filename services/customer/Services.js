@@ -17,9 +17,4 @@ export class ServicesService{
         const res = await axiosInstance.get(`/user_details?user_id=${userId}`,{headers: { Authorization: `Bearer ${token}` }});
         return res;
     }
-
-    static async updateUserDetailsByUserId(userId,data,token){
-        const res = await axiosInstance.put(`/user_details?user_id=${userId}`,data,{headers: { Authorization: `Bearer ${token}` }});
-        return res;
-    }
 }

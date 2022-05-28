@@ -47,6 +47,11 @@ export class AuthService{
         return res;
     }
 
+    static async updateUserDetailsByUserId(userId,data,token){
+        const res = await axiosInstance.put(`/user_details?user_id=${userId}`,data,{headers: { Authorization: `Bearer ${token}` }});
+        return res;
+    }
+
 
 }
 
