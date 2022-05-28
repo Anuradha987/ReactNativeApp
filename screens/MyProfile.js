@@ -161,8 +161,7 @@ function MyProfile() {
             </View>
 
             <Text style={styles.descriptionAboutUser}>
-              I am an executive supporter at Dialog Axiata. i can help things
-              related to dialog services. Small description of my self.
+              {userDetails.description}
             </Text>
 
             {/* Email here*/}
@@ -170,7 +169,7 @@ function MyProfile() {
                 <Image source={icons.email}
                 resizeMode="contain"
                 style={styles.emailIcon}></Image>
-              <Text style={styles.userEmail}>jjhbkb@gmail.com</Text>
+              <Text style={styles.userEmail}>{userDetails.email}</Text>
             </View>
 
             <Text style={styles.viewOnTheMap}>View on the map</Text>
