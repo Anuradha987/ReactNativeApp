@@ -244,16 +244,6 @@ const S_Sent = () => {
                   <Text style={styles.noRecords}>
                     There is no any {selectedValue} records.
                   </Text>
-                  <View
-                    style={{
-                      flex: 4,
-                      backgroundColor: "rgba(21,31,40,1)",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <ActivityIndicator size="large" />
-                  </View>
                 </View>
               )}
             </View>
