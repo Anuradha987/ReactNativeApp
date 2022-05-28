@@ -21,6 +21,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ItemsService } from "../../services/customer/Items";
 import { OrderService } from "../../services/customer/Orders";
 import { AuthService } from "../../services/AuthService";
+import { useFocusEffect } from '@react-navigation/native';
 
 //Order history. Item orders that have been sent/ Item that have been bought (items buy)
 const I_Sent = () => {
@@ -37,16 +38,18 @@ const I_Sent = () => {
         poppins700: require('./../../assets/fonts/poppins-700.ttf'),
     });
   
-    useEffect(() => {
+    useFocusEffect( 
+      React.useCallback(() => {
       console.log("I_Sent");
       getSentOrdersByUserId();
-     }, []);
+    }, []));
 
      const getSentOrdersByUserId = () =>{
+       setRefreshing(true);
       OrderService.getOrdersByUserId(AuthService.userId,AuthService.userToken).then((res)=>{
         console.log(res.data);
-        setRefreshing(false);
         setOrders(res.data.data);
+        setRefreshing(false);
       }).catch((error)=>{
         setRefreshing(false);
         console.log(error);
