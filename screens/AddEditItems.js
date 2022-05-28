@@ -337,6 +337,7 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
       setSelectedStatus(item.status);
       setSelectedCategory(item.category);
       setSelectedPaymentMethod(item.trading_method);
+      setBsPimg(item.images);
     }
    }, []);
 
@@ -377,7 +378,7 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
      status: selectedStatus,
      trading_method: selectedPaymentMethod,
      price: data.price_exchage,
-     images: "testimagestring",
+     images: bsPimg,
      location: "testlocation"
     }
 
@@ -508,7 +509,7 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
  {/* open camera or gallery to add images */}
 
           <View style={styles.cameraFrameStack}>
-          {!pimage && (
+          {!bsPimg && (
             <Pressable style={styles.cameraFrame} onPress={() => setModalVisible(true)}>
               <MaterialIconsIcon
                 name="add-a-photo"
@@ -520,7 +521,8 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
 
          {/* Image list is displayed here */}
         
-            {pimage && (
+            {bsPimg && (
+              <>
                                    <Image
                                    source={{uri: `data:image/gif;base64,${bsPimg}`}}
                                   //  resizeMode="cover"
@@ -531,6 +533,12 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
                                      position: 'absolute',
                                    }}
                                  />
+                                 <MaterialIconsIcon
+                                 onPress={()=>setBsPimg(null)}
+                                 name="close"
+                                 style={styles.removeImageIcon}
+                               ></MaterialIconsIcon>
+                               </>
                     )}
 
 {/* {images.length > 0 &&
@@ -805,6 +813,16 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40,
     marginTop: 38, 
+  },
+  removeImageIcon: {
+    color: "rgba(255,0,246,1)",
+    backgroundColor:"white",
+    borderRadius:10,
+    fontSize: 30,
+    height: 30,
+    width: 30,
+    marginTop: 70, 
+    marginLeft:90
   },
   image: {
     top: 0,
