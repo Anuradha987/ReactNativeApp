@@ -122,7 +122,8 @@ function SSentDetailsAfterAccepting({ route, navigation }) {
                       {user.to === "" ? (
                         <Text style={styles.toWhome}>Public</Text>
                       ) : (
-                        <Text style={styles.toWhome}>{user.to.username}</Text>
+                        // <Text style={styles.toWhome}>{user.to.username}</Text>
+                        <Text style={styles.toWhome}>yay!</Text>
                       )}
                     </View>
 
@@ -150,7 +151,7 @@ function SSentDetailsAfterAccepting({ route, navigation }) {
 
                       <View style={styles.postedDateColumn}>
                         <Text style={styles.postedDate}>{created_date.toISOString().substring(0, 10)}</Text>
-                        <Text style={styles.acceptedBy}>{user.to} name</Text>
+                        <Text style={styles.acceptedBy}>{user.to.username} name</Text>
                         {user.accept_date ? <Text style={styles.acceptedDate}>{accept_date.toISOString().substring(0, 10)}</Text> : null}
                         {user.complete_date ? <Text style={styles.completedDate}>{complete_date.toISOString().substring(0, 10)}</Text> : null}
                       </View>

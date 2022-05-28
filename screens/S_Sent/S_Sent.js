@@ -218,7 +218,7 @@ const S_Sent = () => {
 
                         <View style={styles.sentToColumnRow}>
                           <View style={styles.sentToColumn}>
-                            <Text style={styles.sentTo}>To: {item.to}</Text>
+                            <Text style={styles.sentTo}>To: {item.to.username}</Text>
                             <Text style={styles.reqStatus}>
                               Status: {item.status}
                             </Text>
