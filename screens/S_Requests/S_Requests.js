@@ -19,6 +19,8 @@ import { RequestService } from "../../services/customer/Requests";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthService } from "../../services/AuthService";
 import { ToastAndroid } from "react-native";
+import IoniconsIcon from "react-native-vector-icons/Ionicons";
+
 
 const S_Requests = (props) => {
   const navigation = useNavigation();
@@ -157,11 +159,11 @@ const S_Requests = (props) => {
                       }
                     >
                       <View style={styles.senderImageRow}>
-                        <Image
+                        {/* <Image
                           source={item.senderImage}
                           resizeMode="contain"
                           style={styles.senderImage}
-                        ></Image>
+                        ></Image> */}
                         <View style={styles.sendingDateStackColumn}>
                           <View style={styles.sendingDateStack}>
                             <Text style={styles.sendingDate}>
@@ -184,12 +186,16 @@ const S_Requests = (props) => {
                       <Text style={styles.reqTitle}>{item.title}</Text>
 
                       <View style={styles.cateIconRow}>
-                        <Image
+                        {/* <Image
                           source={item.cateIcon}
                           resizeMode="contain"
                           style={styles.cateIcon}
-                        ></Image>
-                        <Text style={styles.cateName}>{item.category}</Text>
+                        ></Image> */}
+                        {/* <IoniconsIcon
+                          name="list-circle"
+                          style={styles.cateIcon}
+                        ></IoniconsIcon> */}
+                        <Text style={styles.cateName}>Category: {item.category}</Text>
                       </View>
 
                       <View style={styles.reqDeleteBtnRow}>
@@ -243,7 +249,7 @@ const S_Requests = (props) => {
             {otherRequests.length ? (
               <View>
                 <View style={styles.rect3}>
-            <Text style={styles.otherRequests}>Other Requests</Text>
+                  <Text style={styles.otherRequests}>Other Requests</Text>
 
                   <View style={styles.otherRequestsFiller}></View>
                   <TouchableOpacity style={styles.filterBtn}>
@@ -292,16 +298,16 @@ const S_Requests = (props) => {
                             </TouchableOpacity>
                           </View>
                           <Text style={styles.sendingDateOther}>
-                            {d.toISOString().substring(0, 10)}
+                            Created date: {d.toISOString().substring(0, 10)}
                           </Text>
                           <Text style={styles.CateNameOther}>
-                            {item.category}
+                            Category: {item.category}
                           </Text>
-                          <Image
+                          {/* <Image
                             source={item.cateIconOthers}
                             resizeMode="contain"
                             style={styles.cateIconOthers}
-                          ></Image>
+                          ></Image> */}
                           {/* <View style={styles.priorityDotOther}></View> */}
                           {item.priority === "High" ? (
                             <View style={styles.highCardDot}></View>
@@ -354,6 +360,12 @@ const styles = StyleSheet.create({
     shadowOffset: {
       width: 3,
       height: 3,
+    },
+    cateIcon: {
+      color: "rgba(220,162,76,1)",
+      fontSize: 15,
+      height: 18,
+      width: 18,
     },
     elevation: 0,
     shadowOpacity: 1,
@@ -537,7 +549,7 @@ const styles = StyleSheet.create({
     fontFamily: "poppinsregular",
     color: "rgba(235,214,112,1)",
     fontSize: 11,
-    marginLeft: 9,
+    marginLeft: 0,
     marginTop: 1,
   },
   cateIconRow: {

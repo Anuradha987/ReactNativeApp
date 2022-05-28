@@ -1265,7 +1265,10 @@ const serviceProviderPopUpBox =[
 },
 ]
 
+let userImage = require('../assets/images/istockphoto-523147245-612x612.jpg')
+
 export default {
+    userImage,
     myProfile,
     categories,    
     transactionMethod,
