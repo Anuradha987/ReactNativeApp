@@ -1,6 +1,6 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component, useEffect,useState } from 'react';
 import {
-  View, Text, TouchableOpacity, Image, TextInput, FlatList, StyleSheet, ImageBackground, ScrollView,
+  View,  RefreshControl, Text, TouchableOpacity, Image, TextInput, FlatList, StyleSheet, ImageBackground, ScrollView,
   ActivityIndicator
 } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
@@ -17,12 +17,15 @@ import * as RootNavigation from '../navigation/rootNavigation';
 import { OrderService } from '../services/customer/Orders';
 import { AuthService } from '../services/AuthService';
 import {RequestService} from '../services/customer/Requests';
+import { ToastAndroid } from "react-native";
+import { useFocusEffect } from '@react-navigation/native';
 
 const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) => {
   const navigation = useNavigation();
 
   const [recievedRequests, setRecievedRequests] = React.useState([]);
   const [recievedOrders, setRecievedOrders] = React.useState([]);
+  const [refreshing, setRefreshing] = useState(true);
   //set a title for first loading the app
   //    React.useEffect(()=> {
   //     setSelectedTab(constants.screens.DB_MainLayout)
@@ -36,12 +39,16 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
     poppins700: require('./../assets/fonts/poppins-700.ttf'),
   });
 
-  useEffect(() => {
+  useFocusEffect( 
+    React.useCallback(() => {
     console.log("DB_MainLayout");
-    loadData();
-  }, []);
+    if(!recievedOrders.length && !recievedRequests.length){
+      loadData();
+    }
+  }, []));
 
   const loadData = () =>{
+    setRefreshing(true);
     OrderService.getRecievedOrders(AuthService.userId,"Pending", AuthService.userToken).then((res)=>{
       console.log(res.data);
       setRecievedOrders(res.data.data);
@@ -52,8 +59,10 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
     RequestService.filterRecievedRequestsByUserIdAndStatus(AuthService.userId,"Pending",AuthService.userToken).then((res)=>{
       console.log(res.data);
       setRecievedRequests(res.data.data);
+      setRefreshing(false);
     }).catch((error)=>{
       console.log(error);
+      setRefreshing(false);
     });
   }
 
@@ -66,6 +75,21 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
       console.log(res.data);
       const updatedPendingOrders = pendingOrders.filter((order)=>order._id !== order_id);
       setRecievedOrders(updatedPendingOrders);
+      ToastAndroid.show("done...",ToastAndroid.SHORT);
+    }).catch((error)=>{
+      console.log(error);
+    });
+  }
+
+  const acceptRejectRequest = (req_id,req,action) =>{
+    const data = {
+      ...req, status:action
+    }
+    ToastAndroid.show("please wait...",ToastAndroid.SHORT);
+    RequestService.EditRequest(req_id,data,AuthService.userToken).then((res)=>{
+      console.log(res.data);
+      const updatedPendingReqs = recievedRequests.filter((req)=>req._id !== req_id);
+      setRecievedRequests(updatedPendingReqs);
       ToastAndroid.show("done...",ToastAndroid.SHORT);
     }).catch((error)=>{
       console.log(error);
@@ -124,6 +148,9 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
         <FlatList
           listKey='1.2'
           showsVerticalScrollIndicator={true}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={loadData} />
+          }
           ListHeaderComponent={
             <View>
               <Text style={styles.helloName}>Hi, {dummyData.myProfile?.name}.👋</Text>
@@ -264,7 +291,7 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
                             </View>
                             <View style={styles.toPublicOrMeRow}>
                               <Text style={styles.toPublicOrMe}>To: Public /Me</Text>
-                              <TouchableOpacity style={styles.acceptReqBtn}>
+                              <TouchableOpacity style={styles.acceptReqBtn} onPress={()=>acceptRejectRequest(item._id,item,"Accepted")}>
                                 <Text style={styles.accept}>Accept</Text>
                               </TouchableOpacity>
                             </View>
@@ -294,7 +321,7 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
                     keyExtractor={(item) => `${item._id}`}
                     style={styles.scrollAreaItemOrders}
                     renderItem={({ item, index }) => {
-                      const d= new Date(item.order_created_date); 
+                      // const d= new Date(item.order_created_date); 
                       return (
                         <TouchableOpacity style={styles.ordersBox}>
                           <View style={styles.itemImageRow}>
@@ -314,7 +341,7 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
                                   </View>
                                   <View style={styles.amounttxtColumn}>
                                     <Text style={styles.amounttxt}>{item.amount}</Text>
-                                    <Text style={styles.returningDateOrBarterFortxt}>{d.toISOString().substring(0,10)}</Text>
+                                    <Text style={styles.returningDateOrBarterFortxt}>{item.order_created_date.substring(0,10)}</Text>
                                   </View>
                                 </View>
 

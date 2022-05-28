@@ -422,8 +422,8 @@ const styles = StyleSheet.create({
     marginLeft: 11,
   },
   cateIcon: {
-    color: "rgba(220,162,76,1)",
-    fontSize: 15,
+    // color: "rgba(220,162,76,1)",
+    // fontSize: 15,
     height: 18,
     width: 18,
   },
