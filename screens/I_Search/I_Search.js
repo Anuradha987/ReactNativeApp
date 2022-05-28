@@ -34,6 +34,7 @@ const I_Search = () => {
   const [refreshing, setRefreshing] = useState(true);
 
 const searchUsers = (value) =>{
+  console.log(value);
   const filteredUsers = this.state.users.filter(
     user=>{
       let userLowercase = (dummyData.itemsSearchList).toLowercase()

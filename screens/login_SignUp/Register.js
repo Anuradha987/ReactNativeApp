@@ -186,11 +186,11 @@ const openCamera = async () => {
     if(bsCimg && bsPimg){
 
     const userdata = {
-      name: data.name,
+      name: data.username,
       email: data.email,
       phone: data.phoneNo,
       location: data.location,
-      username: data.username,
+      username: data.name,
       userType: "Customer",
       password: data.password,
       profile_img:bsPimg,
