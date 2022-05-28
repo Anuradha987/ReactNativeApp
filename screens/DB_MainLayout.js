@@ -23,6 +23,8 @@ import { useFocusEffect } from '@react-navigation/native';
 const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) => {
   const navigation = useNavigation();
 
+  const { toggleDrawer } = navigation;
+
   const [recievedRequests, setRecievedRequests] = React.useState([]);
   const [recievedOrders, setRecievedOrders] = React.useState([]);
   const [refreshing, setRefreshing] = useState(true);
@@ -119,7 +121,7 @@ const DB_MainLayout = ({ drawerAnimationStyle, selectedTab, setSelectedTab }) =>
 
           leftComponent={
             <TouchableOpacity style={{ width: 40, height: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: COLORS.gray2, borderRadius: SIZES.radius }}
-              onPress={() => navigation.openDrawer()}
+              onPress={() => navigation.toggleDrawer()}
             >
               <Image source={icons.menu} />
             </TouchableOpacity>
