@@ -361,7 +361,7 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
       ToastAndroid.show("Item Added...",ToastAndroid.SHORT);
       navigation.goBack();
     }).catch((error)=>{
-      ToastAndroid.show(error,ToastAndroid.SHORT);
+      ToastAndroid.show("Item adding failed...",ToastAndroid.SHORT);
       console.log(error)
     })
    }

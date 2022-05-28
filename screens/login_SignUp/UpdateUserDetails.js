@@ -212,7 +212,7 @@ const openCamera = async () => {
         console.log(res.data);
         navigation.goBack();
       }).catch((error)=>{
-        ToastAndroid.show(error,ToastAndroid.SHORT);
+        ToastAndroid.show("Update failed...",ToastAndroid.SHORT);
         console.log(error);
       });
     }else{
