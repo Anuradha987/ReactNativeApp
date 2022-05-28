@@ -31,7 +31,7 @@ function PendingReq({navigation}) {
     });
 
     useEffect(() => {
-      // console.log("SSentDetailsAfterAccepting");
+      console.log("s approvals");
      }, []);
   
   return (

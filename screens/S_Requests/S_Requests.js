@@ -239,11 +239,12 @@ const S_Requests = (props) => {
 
             {/* <Text style={styles.requestsForMe}>Requests for public</Text> */}
             {/* other requests */}
-            <Text style={styles.otherRequests}>Other Requests</Text>
 
             {otherRequests.length ? (
               <View>
                 <View style={styles.rect3}>
+            <Text style={styles.otherRequests}>Other Requests</Text>
+
                   <View style={styles.otherRequestsFiller}></View>
                   <TouchableOpacity style={styles.filterBtn}>
                     <View style={styles.filterIconFiller}></View>
@@ -317,7 +318,7 @@ const S_Requests = (props) => {
               </View>
             ) : (
               <View>
-                <View
+                {/* <View
                   style={{
                     flex: 4,
                     backgroundColor: "rgba(21,31,40,1)",
@@ -326,7 +327,7 @@ const S_Requests = (props) => {
                   }}
                 >
                   <ActivityIndicator size="large" />
-                </View>
+                </View> */}
               </View>
             )}
           </View>
