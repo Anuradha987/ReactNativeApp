@@ -87,7 +87,7 @@ function Register({ navigation }) {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [1, 1],
-      quality: 1,
+      quality: 0.1,
     });
 
     console.log(result);
@@ -186,11 +186,11 @@ const openCamera = async () => {
     if(bsCimg && bsPimg){
 
     const userdata = {
-      name: data.name,
+      name: data.username,
       email: data.email,
       phone: data.phoneNo,
       location: data.location,
-      username: data.username,
+      username: data.name,
       userType: "Customer",
       password: data.password,
       profile_img:bsPimg,

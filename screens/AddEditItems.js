@@ -10,6 +10,8 @@ import {
   Text,
   FlatList, 
   TextInput,
+  SafeAreaView,
+  Modal,
   Pressable, 
   Dimensions,
   ActivityIndicator
@@ -35,6 +37,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { ItemsService } from "../services/customer/Items";
 import { AuthService } from "../services/AuthService";
 import { ToastAndroid } from "react-native";
+import * as FileSystem from 'expo-file-system';
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -69,6 +72,14 @@ const renderHeader =()=>{
 
   const [availability, setAvailability] = React.useState(null);
   const [chosenOption, setChosenOption] = useState('Available');
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const [cimage, setcimage] = React.useState(null);
+  const [pimage, setpimage] = React.useState(null);
+
+  const [bsCimg, setBsCimg] = React.useState(null);
+  const [bsPimg, setBsPimg] = React.useState(null);
   const [refreshing, setRefreshing] = useState(true);
 const available=[
   { value: 'Available', label: 'Available'}, 
@@ -219,6 +230,55 @@ const available=[
       }
     };
 
+    const openCamera = async () => {
+      // Ask the user for the permission to access the camera
+      const permissionResult = await ImagePicker.requestCameraPermissionsAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,
+          aspect: [1, 1],
+          quality: 1,
+          cropping: true
+      });
+    
+      if (permissionResult.granted === false) {
+        alert("You've refused to allow this appp to access your camera!");
+        return;
+      }
+    
+      const result = await ImagePicker.launchCameraAsync();
+    
+      // Explore the result
+      console.log(result);
+    
+      if (!result.cancelled) {
+        setpimage(result.uri);
+        console.log(result.uri);
+        setModalVisible(!modalVisible)
+      }
+    }
+
+    const profileImage = async () => {
+      // No permissions request is necessary for launching the image library
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0.1,
+      });
+  
+      console.log(result.base64);
+      setModalVisible(!modalVisible)
+  
+      if (!result.cancelled) {
+        setpimage(result.uri);
+        FileSystem.readAsStringAsync(result.uri, { encoding: 'base64' }).then((res)=>{
+          console.log(res);
+          // setpimage(res);
+          setBsPimg(res);
+        });
+      }
+    };
+
 
   //image picker
   const [itemImage, setItemImage] = React.useState(null);
@@ -291,7 +351,7 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
       status: selectedStatus,
       trading_method: selectedPaymentMethod,
       price: data.price_exchage,
-      images: "testimagestring",
+      images: bsPimg,
       location: "testlocation"
      }
     
@@ -301,7 +361,7 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
       ToastAndroid.show("Item Added...",ToastAndroid.SHORT);
       navigation.goBack();
     }).catch((error)=>{
-  
+      ToastAndroid.show(error,ToastAndroid.SHORT);
       console.log(error)
     })
    }
@@ -368,7 +428,36 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
         <ActivityIndicator size="large" />
       </View>
     ):
-    (<View style={styles.container}>
+    (
+      <SafeAreaView style={styles.container}>
+                      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}>
+           <View style={{ flex: 1, justifyContent: "center",  }}>
+            <View style={styles.panel}>
+      <View style={{alignItems: 'center'}}>
+        <Text style={styles.panelTitle}>Upload Photo</Text>
+        <Text style={styles.panelSubtitle}>Choose Your Item Picture</Text>
+      </View>
+      {/* <TouchableOpacity style={styles.panelButton} onPress={openCamera} >
+        <Text style={styles.panelButtonTitle}>Take Photo</Text>
+      </TouchableOpacity> */}
+      <TouchableOpacity style={styles.panelButton} onPress={profileImage}>
+        <Text style={styles.panelButtonTitle}>Choose From Library</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.panelButton} onPress={() => setModalVisible(!modalVisible)}>
+        <Text style={styles.panelButtonTitle}>Cancel</Text>
+      </TouchableOpacity>
+    </View>
+    </View>
+      </Modal>
+    <View style={styles.container}>
+
       <FlatList showsVerticalScrollIndicator={true}
         listKey="28.1"
         refreshControl={
@@ -417,31 +506,32 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
       <View style={styles.itemImagesScrollArea}>
 
  {/* open camera or gallery to add images */}
+
           <View style={styles.cameraFrameStack}>
-            <Pressable style={styles.cameraFrame} onPress={() => {}}>
+          {!pimage && (
+            <Pressable style={styles.cameraFrame} onPress={() => setModalVisible(true)}>
               <MaterialIconsIcon
                 name="add-a-photo"
                 style={styles.cameraIcon}
               ></MaterialIconsIcon>
                   
-            </Pressable>
+            </Pressable>)}
+            
+
          {/* Image list is displayed here */}
         
-            {/* {itemImage && (
-                      <Image
-                        source={{ uri: pimage }}
-                        resizeMode="cover"
-                        style={{
-                          right: 0,
-                          top: 0,
-                          left: 0,
-                          width: 110,
-                          height: 110,
-                          borderRadius: 50,
-                          position: 'absolute',
-                        }}
-                      />
-                    )} */}
+            {pimage && (
+                                   <Image
+                                   source={{uri: `data:image/gif;base64,${bsPimg}`}}
+                                  //  resizeMode="cover"
+                                   style={{
+                                     width: 110,
+                                     height: 110,
+                                     borderRadius: 50,
+                                     position: 'absolute',
+                                   }}
+                                 />
+                    )}
 
 {/* {images.length > 0 &&
     images.map(image => (
@@ -634,7 +724,8 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
 
     }/>
 
-    </View>)
+    </View>
+    </SafeAreaView>)
   );
 }
 
@@ -654,6 +745,14 @@ const styles = StyleSheet.create({
     color: '#BBBDC1',
     fontSize: 20,
     marginRight: 2,
+  },
+  profileImage: {
+    top: 134,
+    left: 14,
+    width: 118,
+    height: 118,
+    position: 'absolute',
+    borderRadius: 80,
   },
   backBtn: {
     width: 40,
@@ -679,8 +778,8 @@ const styles = StyleSheet.create({
     letterSpacing: 0,
   },
   itemImagesScrollArea: {
-    borderWidth: 1,
-    borderColor: "#000000",
+    // borderWidth: 1,
+    // borderColor: "#000000",
     marginTop: 20,
     marginHorizontal: 15, 
   },
@@ -925,6 +1024,46 @@ const styles = StyleSheet.create({
     fontSize: 10,
     marginTop: 25,
     marginRight: 28,
+  },
+  panelTitle: {
+    fontSize: 27,
+    height: 35,
+    fontFamily: 'poppinsregular',
+  },
+  panelSubtitle: {
+    fontSize: 14,
+    color: 'gray',
+    height: 30,
+    marginBottom: 10,
+    fontFamily: 'poppinsregular',
+  },
+  panelButton: {
+    padding: 13,
+    borderRadius: 10,
+    backgroundColor: 'rgba(123,0,255,1)',
+    alignItems: 'center',
+    marginVertical: 7,
+    marginHorizontal:10, 
+  },
+  panelButtonTitle: {
+    fontSize: 15,
+    color: 'white',
+    fontFamily: 'poppins700',
+    letterSpacing:0.2
+  },
+  panel: {
+    padding: 20,
+    backgroundColor: '#FFFFFF',
+    paddingTop: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    borderRadius: 20,
+    marginHorizontal:15,
   },
 });
 

@@ -95,37 +95,48 @@ const I_SalesHistory = () => {
                   showsVerticalScrollIndicator={true}
                   //onPress = {()=> naviga}
                   renderItem={({ item, index }) => {
-                      return (
-                        <View>
-                          {/* open I_My */}
-                          <TouchableOpacity style={styles.itemCardStack} onPress={() => { }}>
-                            <View style={styles.itemCard}>
-                              <Text numberOfLines={1} style={styles.itemTitle}>{item.item_id.name}</Text>
+                    return (
+                      <View>
+                        {/* open I_My */}
+                        <TouchableOpacity style={styles.itemCardStack} onPress={() => { }}>
+                          <View style={styles.itemCard}>
+                            <Text numberOfLines={1} style={styles.itemTitle}>{item.item_id.name}</Text>
 
-                              <View style={styles.cateNameStack}>
-                                <Text style={styles.cateName}>
-                                  <Image
-                                    source={dummyData.itemSalesHistory[0].cateIcon}
-                                    resizeMode="contain"
-                                    style={styles.cateIcon}
-                                  ></Image>
-                                  {item.item_id.category}</Text>
+                            <View style={styles.cateNameStack}>
+                              <Text style={styles.cateName}>
 
-                              </View>
+                                <Image
+                                  source={dummyData.itemSalesHistory[0].cateIcon}
+                                  resizeMode="contain"
+                                  style={styles.cateIcon}
+                                ></Image>
 
-                              <View style={styles.priceperUnitStack}>
-                                <Text numberOfLines={1} style={styles.priceperUnit}>{item.item_id.price} / {item.amount}</Text>
-                                <Text numberOfLines={1} style={styles.transactionMethod}>{item.order_type}</Text>
-                              </View>
+                                {item.item_id.category}</Text>
+
                             </View>
+
+                            <View style={styles.priceperUnitStack}>
+                              <Text numberOfLines={1} style={styles.priceperUnit}>{item.item_id.price} / {item.amount}</Text>
+                              <Text numberOfLines={1} style={styles.transactionMethod}>{item.order_type}</Text>
+                            </View>
+                          </View>
+                          {item.item_id.images.length > 30 ?
+
+                            <Image
+                              source={{ uri: `data:image/gif;base64,${item.item_id.images}` }}
+                              resizeMode="cover"
+                              style={styles.itemImage}
+                            ></Image>
+                            :
                             <Image
                               source={dummyData.itemSalesHistory[0].itemImage}
                               resizeMode="cover"
                               style={styles.itemImage}
                             ></Image>
-                          </TouchableOpacity>
-                        </View>
-                      )
+                          }
+                        </TouchableOpacity>
+                      </View>
+                    )
                   }} />
 
               </View>

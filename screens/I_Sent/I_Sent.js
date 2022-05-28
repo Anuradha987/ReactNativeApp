@@ -11,7 +11,7 @@ import {
   FlatList,
   ActivityIndicator
 } from "react-native";
-import {Picker} from '@react-native-picker/picker';
+import { Picker } from '@react-native-picker/picker';
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -32,174 +32,181 @@ const I_Sent = () => {
   const [orders, setOrders] = useState([]);
   const [orderItems, setOrderItems] = useState([]);
 
-      //poppins insert
-      const [loaded] = useFonts({
-        poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
-        poppins700: require('./../../assets/fonts/poppins-700.ttf'),
-    });
-  
-    useFocusEffect( 
-      React.useCallback(() => {
+  //poppins insert
+  const [loaded] = useFonts({
+    poppinsregular: require('./../../assets/fonts/Poppins-Regular.ttf'),
+    poppins700: require('./../../assets/fonts/poppins-700.ttf'),
+  });
+
+  useFocusEffect(
+    React.useCallback(() => {
       console.log("I_Sent");
       getSentOrdersByUserId();
     }, []));
 
-     const getSentOrdersByUserId = () =>{
-       setRefreshing(true);
-      OrderService.getOrdersByUserId(AuthService.userId,AuthService.userToken).then((res)=>{
-        console.log(res.data);
-        setOrders(res.data.data);
-        setRefreshing(false);
-      }).catch((error)=>{
-        setRefreshing(false);
-        console.log(error);
-      });
-     }
+  const getSentOrdersByUserId = () => {
+    setRefreshing(true);
+    OrderService.getOrdersByUserId(AuthService.userId, AuthService.userToken).then((res) => {
+      console.log(res.data);
+      setOrders(res.data.data);
+      setRefreshing(false);
+    }).catch((error) => {
+      setRefreshing(false);
+      console.log(error);
+    });
+  }
 
   return (
-    (!loaded)?
-    (
-      <View
-        style={{
-          flex: 4,
-          backgroundColor: 'rgba(21,31,40,1)',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        {/* https://github.com/n4kz/react-native-indicators */}
-        <ActivityIndicator size="large" />
-      </View>
-    ):
-    (<View style={styles.container}>
-      <FlatList
-        listKey="14.1"
-        showsVerticalScrollIndicator={true}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={()=>getSentOrdersByUserId()} />
-        }
-        ListHeaderComponent={
-          <View>
-            <View style={styles.searchingBarColumn}>
-              {/* search bar */}
-              <View style={styles.searchingBar}>
-                <TextInput
-                  placeholder="Search a service..."
-                  returnKeyType="go"
-                  placeholderTextColor="#9c8df0"
-                  selectionColor="rgba(250,245,245,1)"
-                  clearButtonMode="while-editing"
-                  style={styles.serviceSearch}
-                ></TextInput>
-                <EvilIconsIcon
-                  name="search"
-                  style={styles.searchIcon}
-                ></EvilIconsIcon>
-              </View>
-
-              <View style={styles.requestStatusRow}>
-                <View style={styles.requestStatus}>
-                  <Picker itemStyle={{ backgroundColor: '#000' }}
-                    selectedValue={orderStatus}
-                    dropdownIconColor={'#DDDDDD'}
-                    style={{ color: '#DDDDDD', bottom: 7, left: 5 }}
-                    onValueChange={(itemValue, itemIndex) => setOrderStatus(itemValue)}
-                  >
-                    {/* https://reactnative.dev/docs/picker */}
-                    <Picker.Item label="All" value="All" />
-                    <Picker.Item label="Accepted" value="Accepted" />
-                    <Picker.Item label="Pending" value="Pending" />
-                    <Picker.Item label="Rejected" value="Rejected" />
-                    <Picker.Item label="Completed" value="Completed" />
-                    <Picker.Item label="Cancelled" value="Cancelled" />
-                    <Picker.Item label="Cancelled By Me" value="Cancelled By Me" />
-                  </Picker>
+    (!loaded) ?
+      (
+        <View
+          style={{
+            flex: 4,
+            backgroundColor: 'rgba(21,31,40,1)',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          {/* https://github.com/n4kz/react-native-indicators */}
+          <ActivityIndicator size="large" />
+        </View>
+      ) :
+      (<View style={styles.container}>
+        <FlatList
+          listKey="14.1"
+          showsVerticalScrollIndicator={true}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={() => getSentOrdersByUserId()} />
+          }
+          ListHeaderComponent={
+            <View>
+              <View style={styles.searchingBarColumn}>
+                {/* search bar */}
+                <View style={styles.searchingBar}>
+                  <TextInput
+                    placeholder="Search a service..."
+                    returnKeyType="go"
+                    placeholderTextColor="#9c8df0"
+                    selectionColor="rgba(250,245,245,1)"
+                    clearButtonMode="while-editing"
+                    style={styles.serviceSearch}
+                  ></TextInput>
+                  <EvilIconsIcon
+                    name="search"
+                    style={styles.searchIcon}
+                  ></EvilIconsIcon>
                 </View>
-                <View style={styles.requestStatusFiller}></View>
+
+                <View style={styles.requestStatusRow}>
+                  <View style={styles.requestStatus}>
+                    <Picker itemStyle={{ backgroundColor: '#000' }}
+                      selectedValue={orderStatus}
+                      dropdownIconColor={'#DDDDDD'}
+                      style={{ color: '#DDDDDD', bottom: 7, left: 5 }}
+                      onValueChange={(itemValue, itemIndex) => setOrderStatus(itemValue)}
+                    >
+                      {/* https://reactnative.dev/docs/picker */}
+                      <Picker.Item label="All" value="All" />
+                      <Picker.Item label="Accepted" value="Accepted" />
+                      <Picker.Item label="Pending" value="Pending" />
+                      <Picker.Item label="Rejected" value="Rejected" />
+                      <Picker.Item label="Completed" value="Completed" />
+                      <Picker.Item label="Cancelled" value="Cancelled" />
+                      <Picker.Item label="Cancelled By Me" value="Cancelled By Me" />
+                    </Picker>
+                  </View>
+                  <View style={styles.requestStatusFiller}></View>
 
 
-                {/* edit btn */}
-                <View style={styles.editBtnRow}>
-                  {/* <TouchableOpacity style={styles.editBtn}>
+                  {/* edit btn */}
+                  <View style={styles.editBtnRow}>
+                    {/* <TouchableOpacity style={styles.editBtn}>
                     <View style={styles.editReqIconFiller}></View>
                     <FeatherIcon name="edit" style={styles.editReqIcon}></FeatherIcon>
                   </TouchableOpacity> */}
-                  {/* delete btn */}
-                  {/* <TouchableOpacity style={styles.deleteBtn}>
+                    {/* delete btn */}
+                    {/* <TouchableOpacity style={styles.deleteBtn}>
                     <View style={styles.delReqIconFiller}></View>
                     <MaterialCommunityIconsIcon
                       name="delete-sweep"
                       style={styles.delReqIcon}
                     ></MaterialCommunityIconsIcon>
                   </TouchableOpacity> */}
+                  </View>
                 </View>
               </View>
-            </View>
 
 
-            <View style={styles.scrollArea}>
-              <FlatList
-                listKey="14.2"
-                data={orders}
-                keyExtractor={(item) => `${item._id}`}
-                showsVerticalScrollIndicator={true}
-                renderItem={({ item, index }) => {
-                  if(item.status === orderStatus || orderStatus === "All"){
-                    // const itemDetails = orderItems.filter((orderItem)=>item.item_id === orderItem._id);
-                    // console.log(itemDetails);
-                    // if(itemDetails[0]){
+              <View style={styles.scrollArea}>
+                <FlatList
+                  listKey="14.2"
+                  data={orders}
+                  keyExtractor={(item) => `${item._id}`}
+                  showsVerticalScrollIndicator={true}
+                  renderItem={({ item, index }) => {
+                    if (item.status === orderStatus || orderStatus === "All") {
+                      // const itemDetails = orderItems.filter((orderItem)=>item.item_id === orderItem._id);
+                      // console.log(itemDetails);
+                      // if(itemDetails[0]){
                       //  const category = dummyData.itemOrdersSent.filter((item)=>(item.cateName == itemDetails[0].category));
-                       const d = new Date(item.order_created_date); 
+                      const d = new Date(item.order_created_date);
                       return (
                         // <View style={styles.scrollArea_contentContainerStyle}>
-                     <View >
-                       {/* item details  */}
-                       <TouchableOpacity style={styles.itemDetailsCardStack}
-                                         onPress={()=>navigation.navigate("ViewItems", {item:item.item_id, from:"sent",to:item.to})}  //open viewitems
-                                         onLongPress={()=>{}} //edit,cancel or delete order popup boxes
-                       >
-                         <View style={styles.itemDetailsCard}>
-                           {/* item name */}
-                           <Text numberOfLines={1} style={styles.reqTitle}>{item.item_id.name}</Text>
-  
-                           <View style={styles.cateNameStack}>
-                             {/* item category */}
-                             <Text style={styles.cateName}>
-                               {/* <Image
+                        <View >
+                          {/* item details  */}
+                          <TouchableOpacity style={styles.itemDetailsCardStack}
+                            onPress={() => navigation.navigate("ViewItems", { item: item.item_id, from: "sent", to: item.to })}  //open viewitems
+                            onLongPress={() => { }} //edit,cancel or delete order popup boxes
+                          >
+                            <View style={styles.itemDetailsCard}>
+                              {/* item name */}
+                              <Text numberOfLines={1} style={styles.reqTitle}>{item.item_id.name}</Text>
+
+                              <View style={styles.cateNameStack}>
+                                {/* item category */}
+                                <Text style={styles.cateName}>
+                                  {/* <Image
                              source={ null}
                              resizeMode="contain"
                              style={styles.cateIcon}
                            ></Image>  */}
-                            {item.item_id.category}</Text>                 
-                           </View>
-                      
-                           
-  
-                           <Text style={styles.reqStatus}>{item.status}</Text>
-                           <Text style={styles.priceperUnit}>{item.item_id.price} / {item.item_id.amount}</Text>
-                           <Text style={styles.transactionMethod}>{item.order_type}</Text>
-                         </View>
-                         {/* item image */}
-                         <Image
-                           source={dummyData.itemOrdersSent[0].itemImage}
-                           resizeMode="cover"
-                           style={styles.itemImage}
-                         ></Image>
-                         <View style={styles.orderDetails}>
-                           <View style={styles.amountReturningDateFiller}></View>
-                           <Text style={styles.amountReturningDate}>
-                             {d.toISOString().substring(0,10)+'   '+d.toISOString().substring(11,16)}
-                           </Text>
-                         </View>
-                       </TouchableOpacity>
-                     </View>
-                   )
+                                  {item.item_id.category}</Text>
+                              </View>
+
+
+
+                              <Text style={styles.reqStatus}>{item.status}</Text>
+                              <Text style={styles.priceperUnit}>{item.item_id.price} / {item.item_id.amount}</Text>
+                              <Text style={styles.transactionMethod}>{item.order_type}</Text>
+                            </View>
+                            {/* item image */}
+                            {item.item_id.images.length > 30 ? <Image
+                              source={{ uri: `data:image/gif;base64,${item.item_id.images}` }}
+                              resizeMode="cover"
+                              style={styles.itemImage}
+                            ></Image> :
+                              <Image
+                                source={dummyData.itemOrdersSent[0].itemImage}
+                                resizeMode="cover"
+                                style={styles.itemImage}
+                              ></Image>
+                            }
+
+                            <View style={styles.orderDetails}>
+                              <View style={styles.amountReturningDateFiller}></View>
+                              <Text style={styles.amountReturningDate}>
+                                {d.toISOString().substring(0, 10) + '   ' + d.toISOString().substring(11, 16)}
+                              </Text>
+                            </View>
+                          </TouchableOpacity>
+                        </View>
+                      )
                     }
                   }
-                }/>
-            </View>
-            <View style={{ marginTop: 130 }}></View>
-          </View>} />
-    </View>)
+                  } />
+              </View>
+              <View style={{ marginTop: 130 }}></View>
+            </View>} />
+      </View>)
   );
 }
 
@@ -353,7 +360,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 6,
     right: 0,
-    alignItems: "flex-end", 
+    alignItems: "flex-end",
   },
   reqTitle: {
     fontFamily: "poppinsregular",
@@ -378,9 +385,9 @@ const styles = StyleSheet.create({
   cateNameStack: {
     //width: 166,
     height: 20,
-    top:1,
+    top: 1,
     marginTop: -8,
-    marginRight: 9, 
+    marginRight: 9,
   },
   reqStatus: {
     fontFamily: "poppinsregular",
@@ -396,8 +403,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 12,
     alignSelf: "flex-start",
-    marginTop: 0, 
-    marginLeft:12
+    marginTop: 0,
+    marginLeft: 12
   },
   transactionMethod: {
     fontFamily: "poppinsregular",
@@ -405,8 +412,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 13,
     alignSelf: "flex-start",
-    marginLeft: 13, 
-    marginTop:-3,
+    marginLeft: 13,
+    marginTop: -3,
   },
   itemImage: {
     top: 0,
@@ -424,9 +431,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#9c8df0",
     right: 1,
     flexDirection: "row",
-    borderBottomRightRadius:15,
-    borderTopLeftRadius:15, 
-    paddingRight:5
+    borderBottomRightRadius: 15,
+    borderTopLeftRadius: 15,
+    paddingRight: 5
   },
   amountReturningDateFiller: {
     flex: 1,
@@ -437,11 +444,11 @@ const styles = StyleSheet.create({
     color: "rgba(255,255,255,1)",
     textAlign: "center",
     marginRight: 1,
-    marginTop: 11, 
+    marginTop: 11,
     width: 220,
   },
   itemDetailsCardStack: {
-    height: 178, marginBottom:10
+    height: 178, marginBottom: 10
   }
 });
 export default I_Sent

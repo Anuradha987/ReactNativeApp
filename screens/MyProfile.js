@@ -30,6 +30,7 @@ import { ToastAndroid } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ReportService } from '../services/customer/Report';
 import { AuthService } from '../services/AuthService';
+import { useFocusEffect } from '@react-navigation/native';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
@@ -48,12 +49,13 @@ function MyProfile() {
 
   const [userDetails, setUserDetails]=React.useState(null);
 
-  useEffect(() => {
+  useFocusEffect( 
+    React.useCallback(() => {
     if(!userDetails){
     loadUserDetails();
     }
     console.log(userDetails);
-  }, []);
+  }, []));
 
   const deleteAccount = () =>{
     ReportService.deleteUserById(AuthService.userId,AuthService.userToken).then((res)=>{
@@ -159,8 +161,7 @@ function MyProfile() {
             </View>
 
             <Text style={styles.descriptionAboutUser}>
-              I am an executive supporter at Dialog Axiata. i can help things
-              related to dialog services. Small description of my self.
+              {userDetails.description}
             </Text>
 
             {/* Email here*/}
@@ -168,7 +169,7 @@ function MyProfile() {
                 <Image source={icons.email}
                 resizeMode="contain"
                 style={styles.emailIcon}></Image>
-              <Text style={styles.userEmail}>jjhbkb@gmail.com</Text>
+              <Text style={styles.userEmail}>{userDetails.email}</Text>
             </View>
 
             <Text style={styles.viewOnTheMap}>View on the map</Text>
@@ -194,7 +195,7 @@ function MyProfile() {
 
 
 {/* my services and items that have published. (S_My and I_My) */}
-            <NavigationContainer independent={true} style={{ marginTop: 769 }}>
+            {/* <NavigationContainer independent={true} style={{ marginTop: 769 }}>
               <Tab.Navigator
                 screenOptions={{
                   tabBarActiveTintColor: '#9c8df0',
@@ -217,7 +218,7 @@ function MyProfile() {
                 <Tab.Screen name="My Services" component={S_My} />
                 <Tab.Screen name="My Items" component={I_My} />
               </Tab.Navigator>
-            </NavigationContainer>
+            </NavigationContainer> */}
 
 {/* account actions */}
             <View style={styles.profileSettings}>
@@ -230,7 +231,7 @@ function MyProfile() {
                 </View>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.editUserBar} onPress={()=>navigation.navigate('UpdateUserDetails')}>
+              <TouchableOpacity style={styles.editUserBar} onPress={()=>navigation.navigate('UpdateUserDetails', {user:userDetails})}>
                 <View style={styles.editIconRow}>
                   <FontAwesomeIcon
                     name="edit"

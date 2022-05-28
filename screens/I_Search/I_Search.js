@@ -34,6 +34,7 @@ const I_Search = () => {
   const [refreshing, setRefreshing] = useState(true);
 
 const searchUsers = (value) =>{
+  console.log(value);
   const filteredUsers = this.state.users.filter(
     user=>{
       let userLowercase = (dummyData.itemsSearchList).toLowercase()
@@ -203,7 +204,7 @@ onBlur = {()=> setSearchBarFocused(false)}
                       {/* </ImageBackground> */}
                     </LinearGradient>
                     <ImageBackground
-                      source={item.itemImage}
+                      source={{uri: `data:image/gif;base64,${item.images}`}}
                       resizeMode="cover"
                       style={styles.productImage1}
                       imageStyle={styles.productImage1_imageStyle}

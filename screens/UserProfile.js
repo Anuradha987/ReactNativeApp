@@ -100,11 +100,19 @@ function UserProfile({navigation, route}) {
           </TouchableOpacity>
 
           </ImageBackground>
+          {userDetails.profile_img.length >30?
+                    <Image
+                    source={{uri: `data:image/gif;base64,${userDetails.profile_img}`}}
+                    resizeMode="contain"
+                    style={styles.profileImage}
+                  ></Image>
+          :
           <Image
-            source={require("../assets/images/_110435139_parsa.jpg")}
-            resizeMode="contain"
-            style={styles.profileImage}
-          ></Image>
+          source={require("../assets/images/_110435139_parsa.jpg")}
+          resizeMode="contain"
+          style={styles.profileImage}
+        ></Image>
+          }
         </View>
         <Text numberOfLines={1} style={styles.personName}>{userDetails ? userDetails.username : "Test"}</Text>
         <FontAwesomeIcon name="star" style={styles.icon1}></FontAwesomeIcon>
@@ -130,15 +138,14 @@ function UserProfile({navigation, route}) {
 
 
       <Text style={styles.descriptionAboutUser}>
-        I am a executive supporter at Dialog Axiata. i can help things related
-        to dialog services. Small description of my self.
+        {userDetails.description}
       </Text>
 
       <View style={styles.emailRow}>
       <Image source={icons.email}
                 resizeMode="contain"
                 style={styles.emailIcon}></Image>
-              <Text style={styles.userEmail}>jjhbkb@gmail.com</Text>
+              <Text style={styles.userEmail}>{userDetails.email}</Text>
             </View>
 
       <View style={styles.contactGroups}>
@@ -182,7 +189,7 @@ function UserProfile({navigation, route}) {
 <View style={{alignItems:'center', textAlign: 'center', marginHorizontal:26}}>
       <Text style={styles.ratingText1}>How was your experience with </Text>
     <View style={{flexDirection:'row', }}>
-      <Text style={styles.ratingText2}>Sankalpa De Silva</Text>
+      <Text style={styles.ratingText2}>{userDetails.username}</Text>
       <Text>?</Text>
     </View>
     <AirbnbRating
