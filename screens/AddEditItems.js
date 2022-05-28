@@ -385,12 +385,15 @@ const [selectedCategory, setSelectedCategory] = useState("Agriculture");
     console.log(AuthService.userId);
     console.log(AuthService.userToken);
     console.log(item._id);
+    ToastAndroid.show("please wait...",ToastAndroid.SHORT);
 
     ItemsService.updateItem(item._id,AuthService.userToken,payload).then((res)=>{
       console.log(res.data);
+      ToastAndroid.show("Item edited successfully...",ToastAndroid.SHORT);
       navigation.goBack();
     }).catch((error)=>{
       console.log(error);
+      ToastAndroid.show("Item edit failed...",ToastAndroid.SHORT);
     });
    }
 
