@@ -8,6 +8,11 @@ export class ServicesService{
         return res;
     }
 
+    static async UpdateService(serviceId,data,token){
+        const res = await axiosInstance.post(`/update_service/?service_id=${serviceId}`,data,{headers: { Authorization: `Bearer ${token}` }});
+        return res;
+    }
+
     static async getServicesByUserId(userId,token){
         const res = await axiosInstance.get(`/services?user_id=${userId}`,{headers: { Authorization: `Bearer ${token}` }});
         return res;

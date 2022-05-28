@@ -46,7 +46,7 @@ const S_Sent = () => {
   }, [selectedValue]);
 
   const loadSentRequests = () => {
-    RequestService.getSentRequestsByUserId(
+    RequestService.getSentPrivateRequestsByUserId(
       AuthService.userId,
       AuthService.userToken
     )

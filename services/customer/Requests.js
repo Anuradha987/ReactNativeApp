@@ -12,8 +12,13 @@ export class RequestService{
         return res;
     }
 
-    static async getSentRequestsByUserId(userId,token){
-        const res = await axiosInstance.get(`/get_sent_requests?user_id=${userId}`,{headers: { Authorization: `Bearer ${token}` }});
+    static async getSentPublicRequestsByUserId(userId,token){
+        const res = await axiosInstance.get(`/get_sent_public_requests?user_id=${userId}`,{headers: { Authorization: `Bearer ${token}` }});
+        return res;
+    }
+
+    static async getSentPrivateRequestsByUserId(userId,token){
+        const res = await axiosInstance.get(`/get_sent_private_requests?user_id=${userId}`,{headers: { Authorization: `Bearer ${token}` }});
         return res;
     }
 
