@@ -139,7 +139,7 @@ const S_My = () => {
                         resizeMode="contain"
                         style={styles.cateIcon}
                       ></Image>
-                      <Text style={styles.cateName}>{item.category}</Text>
+                      <Text style={styles.cateName}>Category:{item.category}</Text>
                     </View>
                   </LinearGradient>
                 );
