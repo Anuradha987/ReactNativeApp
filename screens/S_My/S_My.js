@@ -2,6 +2,7 @@ import React, { Component, useEffect, useState } from "react";
 import {
   RefreshControl,
   StyleSheet,
+
   View,
   ImageBackground,
   Text,
@@ -24,6 +25,7 @@ import { useFonts } from "expo-font";
 import { AuthService } from "../../services/AuthService";
 import { ServicesService } from "../../services/customer/Services";
 
+
 //only 5 services can add in a once.
 
 const S_My = () => {
@@ -31,6 +33,7 @@ const S_My = () => {
 
   const [refreshing, setRefreshing] = useState(true);
   const [myServices, setMyServices] = React.useState([]);
+
   //poppins insert
   const [loaded] = useFonts({
     poppinsregular: require("./../../assets/fonts/Poppins-Regular.ttf"),
@@ -42,8 +45,11 @@ const S_My = () => {
     console.log("------S_my---");
     console.log(AuthService.userId);
     console.log(AuthService.userToken);
+
     getMyServices();
   }, []);
+
+
 
   const getMyServices = () => {
     ServicesService.getServicesByUserId(

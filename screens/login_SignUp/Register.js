@@ -1,10 +1,11 @@
-import React, { Component, useRef, useState } from 'react';
+import React, { Component, useRef, useState, useEffect } from 'react';
 import {
   StyleSheet,
   View,
   Image,
   ImageBackground,
   Text,
+  Platform,
   TextInput,
   TouchableOpacity,
   FlatList,
@@ -22,6 +23,7 @@ import { icons } from '../../constants';
 import * as ImagePicker from 'expo-image-picker';
 import { AuthService } from '../../services/AuthService';
 import * as FileSystem from 'expo-file-system';
+import * as Location from 'expo-location';
 
 // https://github.com/RafaelAugustoS/react-native-popup-ui
 
@@ -184,13 +186,16 @@ const openCamera = async () => {
     // console.log(bsPimage);
     // console.log(bsCimage);
 
-    if(bsCimg && bsPimg){
+    if(bsCimg && bsPimg && location){
 
     const userdata = {
       name: data.username,
       email: data.email,
       phone: data.phoneNo,
-      location: data.location,
+      location: {
+        lat: location.coords.latitude,
+        lon: location.coords.longitude
+      },
       username: data.name,
       userType: "Customer",
       password: data.password,
@@ -211,6 +216,8 @@ const openCamera = async () => {
         console.log(error);
         ToastAndroid.show("registration failed...",ToastAndroid.SHORT);
       });
+    } else if(!location){
+      ToastAndroid.show("Location Needed...", ToastAndroid.SHORT);
     }
   };
 
@@ -452,6 +459,41 @@ const openCamera = async () => {
       });
     }
   };
+
+  const [location, setLocation] = useState(null);
+  const [locationBtnText, setLocationBtnText] = useState('Add Location');
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  const getLocation = async () => {
+
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+
+      if(location){
+        setLocation(location);
+        setLocationBtnText('Location Added');
+        console.log(location);
+        console.log(location.coords.latitude);
+        console.log(location.coords.longitude);
+      }
+  }
+
+  useEffect(() => {
+
+  }, [])
+  
+
+  let text = 'Waiting..';
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (location) {
+    text = JSON.stringify(location);
+  }
 
   //poppins insert
   const [loaded] = useFonts({
@@ -754,6 +796,12 @@ const openCamera = async () => {
                 </View>
 
                 <TouchableOpacity
+                  style={styles.locationBtn}
+                  onPress={getLocation}>
+                  <Text style={styles.signIn}>{locationBtnText}</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
                   style={styles.signInBtn}
                   onPress={updateSecureTextEntry}>
                   <Text style={styles.signIn}>Create Account</Text>
@@ -1039,6 +1087,14 @@ const styles = StyleSheet.create({
   signInBtn: {
     height: 47,
     backgroundColor: 'rgba(123,0,255,1)',
+    borderRadius: 8,
+    marginTop: 60,
+    marginLeft: 23,
+    marginRight: 15,
+  },
+  locationBtn: {
+    height: 47,
+    backgroundColor: 'purple',
     borderRadius: 8,
     marginTop: 60,
     marginLeft: 23,

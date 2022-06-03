@@ -4,6 +4,7 @@ import {
   View,
   // ScrollView,
   Image,
+  Platform,
   ImageBackground,
   TouchableOpacity,
   Text,
@@ -34,6 +35,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { ServicesService } from "../services/customer/Services";
 import { AuthService } from "../services/AuthService";
 import { useNavigation } from '@react-navigation/native';
+import * as Location from 'expo-location';
 
 
 const screenHeight = Dimensions.get("window").height;
@@ -99,6 +101,9 @@ const AddEditServices = ({ navigation }) => {
 
   const [selectedValue, setSelectedValue] = useState("Agriculture");
 
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+
   //name validation
   const textInputChangeTitle = (val) => {
     if (val.trim().length >= 1) {
@@ -157,6 +162,16 @@ const AddEditServices = ({ navigation }) => {
 
   useEffect(() => {
     console.log("AddEditItems", AuthService.userToken);
+    // (async () => {
+    //   let { status } = await Location.requestForegroundPermissionsAsync();
+    //   if (status !== 'granted') {
+    //     setErrorMsg('Permission to access location was denied');
+    //     return;
+    //   }
+
+    //   let location = await Location.getCurrentPositionAsync({});
+    //   setLocation(location);
+    // })();
   }, []);
 
   const setChangedCategory = (itemValue) => {
@@ -245,6 +260,7 @@ const AddEditServices = ({ navigation }) => {
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
+                   {/* <Text style={styles.namelbl}>{text}</Text> */}
               <Text style={styles.namelbl}>Title *</Text>
               {data.isValidTitle ? null : (
                 <Text style={styles.errMsg}>Please enter the valid title</Text>

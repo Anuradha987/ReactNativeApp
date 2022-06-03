@@ -217,6 +217,8 @@ const [selectedPlace, setSelectedPlace] = React.useState(null)
                 <View style={styles.badgeRibbonNeg140} />
               </Animated.View>
             </Marker> 
+
+            
             {/* )})} */}
             
         </MapView>
