@@ -18,8 +18,15 @@ export class ServicesService{
         return res;
     }
 
+    static async getAllServices(token){
+        const res = await axiosInstance.get(`/get_services`,{headers: { Authorization: `Bearer ${token}` }});
+        return res;
+    }
+
     static async getUserDetailsByUserId(userId,token){
         const res = await axiosInstance.get(`/user_details?user_id=${userId}`,{headers: { Authorization: `Bearer ${token}` }});
         return res;
     }
+
+
 }

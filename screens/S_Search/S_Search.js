@@ -22,6 +22,8 @@ import { dummyData} from '../../constants';
 import { useFonts } from 'expo-font';
 import { useNavigation } from '@react-navigation/native';
 import {serviceProviderPopUpBox} from '../../constants/dummyData'
+import {ServicesService} from '../../services/customer/Services'
+import {AuthService} from '../../services/AuthService'
 
   // https://www.youtube.com/watch?v=2vILzRmEqGI
 const S_Search = () => {
@@ -35,6 +37,7 @@ const S_Search = () => {
 // }
 // const [state, setState] = React.useState(initialMapState.region)
 
+  const [services, setServices] = React.useState([]);
 
   const navigation = useNavigation();
 
@@ -68,6 +71,16 @@ const [selectedPlace, setSelectedPlace] = React.useState(null)
   this.setState({users:filteredUsers})
 }
 
+const getAllServices = () => {
+  ServicesService.getAllServices(AuthService.userToken).then((res)=>{
+    console.log(res);
+    setServices(res.data.data);
+  }).catch((error)=>{
+    console.log(error);
+  });
+}
+
+
 // const searchUsers = (text) => {
 //   if(text){  
 //       const newData = data.filter(item => {
@@ -93,6 +106,7 @@ const [selectedPlace, setSelectedPlace] = React.useState(null)
 
       useEffect(() => {
         console.log("S_Search");
+        getAllServices();
        }, []);
     
   return (
@@ -196,27 +210,30 @@ const [selectedPlace, setSelectedPlace] = React.useState(null)
           {/* {dummyData.serviceProviderPopUpBox.map((marker, index) =>{ 
           // {selectedPlace?.serviceProviderPopUpBox.map((hotel, index) => {
         return( */}
-           <Marker 
-           coordinate={{
-            latitude: 37.78825,
-            longitude: -122.4324,}} 
-            // coordinate={marker.coordinate} 
-            //         identifier={marker.id}
-            // key={index} 
-            
-            onPress={() =>{}} >
-              {/* marker */}
-              <Animated.View style={{height:50}}>
-                <View style={styles.badgeRibbonCircle}>
-                <Image
-                source={require("./../../assets/images/_110435139_parsa.jpg")}
-                resizeMode="cover"
-                style={styles.image2}
-              ></Image>
-                </View>
-                <View style={styles.badgeRibbonNeg140} />
-              </Animated.View>
-            </Marker> 
+        {services.map((service)=>{
+     <Marker 
+     coordinate={{
+      latitude: service.user_id.location.lat,
+      longitude: service.user_id.location.lon}} 
+      // coordinate={marker.coordinate} 
+      //         identifier={marker.id}
+      // key={index} 
+      
+      onPress={() =>{}} >
+        {/* marker */}
+        <Animated.View style={{height:50}}>
+          <View style={styles.badgeRibbonCircle}>
+          <Image
+          source={require("./../../assets/images/_110435139_parsa.jpg")}
+          resizeMode="cover"
+          style={styles.image2}
+        ></Image>
+          </View>
+          <View style={styles.badgeRibbonNeg140} />
+        </Animated.View>
+      </Marker> 
+        })}
+      
 
             
             {/* )})} */}
