@@ -236,7 +236,8 @@ const S_Search = () => {
           // {selectedPlace?.serviceProviderPopUpBox.map((hotel, index) => {
         return( */}
             {services.map((service) => {
-              return <Marker
+              if(service.user_id._id !== AuthService.userId){
+                return <Marker
                 coordinate={{
                   latitude: service.user_id.location.lat,
                   longitude: service.user_id.location.lon
@@ -258,6 +259,8 @@ const S_Search = () => {
                   <View style={styles.badgeRibbonNeg140} />
                 </Animated.View>
               </Marker>
+              }
+  
             })}
 
 
