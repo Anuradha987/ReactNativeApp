@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -24,6 +24,7 @@ import { useNavigation } from '@react-navigation/native';
 import {serviceProviderPopUpBox} from '../../constants/dummyData'
 import {ServicesService} from '../../services/customer/Services'
 import {AuthService} from '../../services/AuthService'
+import * as Location from 'expo-location';
 
   // https://www.youtube.com/watch?v=2vILzRmEqGI
 const S_Search = () => {
@@ -73,7 +74,7 @@ const [selectedPlace, setSelectedPlace] = React.useState(null)
 
 const getAllServices = () => {
   ServicesService.getAllServices(AuthService.userToken).then((res)=>{
-    console.log(res);
+    console.log(res.data.data);
     setServices(res.data.data);
   }).catch((error)=>{
     console.log(error);
@@ -107,10 +108,34 @@ const getAllServices = () => {
       useEffect(() => {
         console.log("S_Search");
         getAllServices();
+        getLocation()
        }, []);
+
+       const [location, setLocation] = useState(null);
+       const [locationBtnText, setLocationBtnText] = useState('Add Location');
+       const [errorMsg, setErrorMsg] = useState(null);
+
+       const getLocation = async () => {
+
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          setErrorMsg('Permission to access location was denied');
+          return;
+        }
+  
+        let location = await Location.getCurrentPositionAsync({});
+  
+        if(location){
+          setLocation(location);
+          setLocationBtnText('Location Added');
+          console.log(location);
+          console.log(location.coords.latitude);
+          console.log(location.coords.longitude);
+        }
+    }
     
   return (
-    (!loaded)?
+    (!loaded || location === null)?
     (
       <View
         style={{
@@ -196,8 +221,8 @@ const getAllServices = () => {
         <MapView
           provider={MapView.PROVIDER_GOOGLE}
           initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421
           }}
@@ -211,7 +236,7 @@ const getAllServices = () => {
           // {selectedPlace?.serviceProviderPopUpBox.map((hotel, index) => {
         return( */}
         {services.map((service)=>{
-     <Marker 
+   return  <Marker 
      coordinate={{
       latitude: service.user_id.location.lat,
       longitude: service.user_id.location.lon}} 
