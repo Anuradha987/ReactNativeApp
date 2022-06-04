@@ -245,7 +245,7 @@ const S_Search = () => {
                 //         identifier={marker.id}
                 // key={index} 
 
-                onPress={() => { }} >
+                onPress={() => {navigation.navigate("UserProfile",{userDetails:service.user_id}) }} >
                 {/* marker */}
                 <Animated.View style={{ height: 50 }}>
                   <View style={styles.badgeRibbonCircle}>
