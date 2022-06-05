@@ -31,6 +31,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ReportService } from '../services/customer/Report';
 import { AuthService } from '../services/AuthService';
 import { useFocusEffect } from '@react-navigation/native';
+import { ItemsService } from '../services/customer/Items';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
@@ -45,12 +46,17 @@ function MyProfile() {
   });
 
   const { sendUserToken,logout } = React.useContext(AuthContext);
+
+  const [myServices, setMyServices] = React.useState([]);
+  const [myItems, setMyItems] = React.useState([]);
   
 
   const [userDetails, setUserDetails]=React.useState(null);
 
   useFocusEffect( 
     React.useCallback(() => {
+      getMyItems();
+      getMyServices();
     if(!userDetails){
     loadUserDetails();
     }
@@ -64,6 +70,34 @@ function MyProfile() {
     }).catch((error)=>{
       console.log(error);
     });
+  }
+
+  const getMyServices = () => {
+    ServicesService.getServicesByUserId(
+      AuthService.userId,
+      AuthService.userToken
+    )
+      .then((res) => {
+        const services = res.data.data;
+        console.log(services);
+        setMyServices(services);
+        setRefreshing(false);
+      })
+      .catch((error) => {
+        setRefreshing(false);
+        console.log(error);
+      });
+  };
+
+  const getMyItems = () => {
+    ItemsService.getItemsByUserId(AuthService.userId, AuthService.userToken).then((res) => {
+      const items = res.data.data;
+      console.log(items);
+      setMyItems(items);
+      setRefreshing(false);
+    }).catch((error) => {
+      setRefreshing(false);
+    })
   }
 
   const loadUserDetails = ()=>{
@@ -149,14 +183,14 @@ function MyProfile() {
                 <Text style={styles.totalServiceProvidedlbl}>
                   Total Service {'\n'}Provided
                 </Text>
-                <Text style={styles.noOfServices}>18</Text>
+                <Text style={styles.noOfServices}>{myServices.length ? myServices.length : "-"}</Text>
               </View>
               <View style={styles.servicesGroupFiller}></View>
               <View style={styles.tradeGroup}>
                 <Text style={styles.totalItemsProductsTraded}>
                   Total Items/{'\n'}Products Traded
                 </Text>
-                <Text style={styles.noOfItems}>18</Text>
+                <Text style={styles.noOfItems}>{myItems.length ? myItems.length : "-"}</Text>
               </View>
             </View>
 

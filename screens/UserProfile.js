@@ -26,6 +26,8 @@ import S_My from './S_My/S_My';
 import { ReportService } from '../services/customer/Report';
 import { AuthService } from '../services/AuthService';
 import { ToastAndroid } from 'react-native';
+import { ServicesService } from '../services/customer/Services';
+import { ItemsService } from '../services/customer/Items';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
@@ -39,6 +41,9 @@ function UserProfile({navigation, route}) {
 
   const { userDetails } = route.params;
 
+  const [myServices, setMyServices] = React.useState([]);
+  const [myItems, setMyItems] = React.useState([]);
+
     //poppins insert
   const [loaded] = useFonts({
     poppinsregular: require('../assets/fonts/Poppins-Regular.ttf'),
@@ -47,6 +52,8 @@ function UserProfile({navigation, route}) {
 
   useEffect(() => {
    console.log("User Profile");
+   getMyItems();
+   getMyServices();
   }, []);
 
   const reportUser = () =>{
@@ -61,6 +68,34 @@ function UserProfile({navigation, route}) {
     }).catch((error)=>{
       console.log(error);
     });
+  }
+
+  const getMyServices = () => {
+    ServicesService.getServicesByUserId(
+      AuthService.userId,
+      AuthService.userToken
+    )
+      .then((res) => {
+        const services = res.data.data;
+        console.log(services);
+        setMyServices(services);
+        setRefreshing(false);
+      })
+      .catch((error) => {
+        setRefreshing(false);
+        console.log(error);
+      });
+  };
+
+  const getMyItems = () => {
+    ItemsService.getItemsByUserId(AuthService.userId, AuthService.userToken).then((res) => {
+      const items = res.data.data;
+      console.log(items);
+      setMyItems(items);
+      setRefreshing(false);
+    }).catch((error) => {
+      setRefreshing(false);
+    })
   }
 
   return (
@@ -125,14 +160,14 @@ function UserProfile({navigation, route}) {
           <Text style={styles.totalServiceProvidedlbl}>
             Total Service {"\n"}Provided
           </Text>
-          <Text style={styles.noOfServices}>18</Text>
+          <Text style={styles.noOfServices}>{myServices.length ? myServices.length : "-"}</Text>
         </View>
         <View style={styles.servicesGroupFiller}></View>
         <View style={styles.tradeGroup}>
           <Text style={styles.totalItemsProductsTraded}>
             Total Items/{"\n"}Products Traded
           </Text>
-          <Text style={styles.noOfItems}>18</Text>
+          <Text style={styles.noOfItems}>{myItems.length ? myItems.length : "-"}</Text>
         </View>
       </View>
 
@@ -165,7 +200,7 @@ function UserProfile({navigation, route}) {
 
       <Text style={styles.viewOnTheMap}>View on the map</Text>
       <View style={styles.mapViewStack}>
-        <MapView
+        {/* <MapView
           provider={MapView.PROVIDER_GOOGLE}
           initialRegion={{
             latitude: userDetails.location.lat,
@@ -174,7 +209,7 @@ function UserProfile({navigation, route}) {
             longitudeDelta: 0.0421,
           }}
           customMapStyle={[]}
-          style={styles.mapView}></MapView>
+          style={styles.mapView}></MapView> */}
         <EntypoIcon
           name="location-pin"
           style={styles.locationIcon}
