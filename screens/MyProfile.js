@@ -7,13 +7,14 @@ import {
   Image,
   ImageBackground,
   FlatList,
+  Animated,
   ActivityIndicator,
   SafeAreaView,
 } from 'react-native';
 
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import MaterialIconsIcon from 'react-native-vector-icons/MaterialIcons';
 import Icon from "react-native-vector-icons/SimpleLineIcons";
@@ -81,10 +82,10 @@ function MyProfile() {
         const services = res.data.data;
         console.log(services);
         setMyServices(services);
-        setRefreshing(false);
+        // setRefreshing(false);
       })
       .catch((error) => {
-        setRefreshing(false);
+        // setRefreshing(false);
         console.log(error);
       });
   };
@@ -94,9 +95,9 @@ function MyProfile() {
       const items = res.data.data;
       console.log(items);
       setMyItems(items);
-      setRefreshing(false);
+      // setRefreshing(false);
     }).catch((error) => {
-      setRefreshing(false);
+      // setRefreshing(false);
     })
   }
 
@@ -217,14 +218,35 @@ function MyProfile() {
                   longitudeDelta: 0.0421,
                 }}
                 customMapStyle={[]}
-                style={styles.mapView}></MapView>
-              <EntypoIcon
+                style={styles.mapView}>
+                  <Marker
+                coordinate={{
+                  latitude: userDetails.location.lat,
+                  longitude: userDetails.location.lon
+                }}
+                // coordinate={marker.coordinate} 
+                //         identifier={marker.id} 
+                onPress={() => {}} >
+                {/* marker */}
+                <Animated.View style={{ height: 50 }}>
+                  <View style={styles.badgeRibbonCircle}>
+                    <Image
+                      source={{uri: `data:image/gif;base64,${userDetails.profile_img}`}}
+                      resizeMode="cover"
+                      style={styles.image2}
+                    ></Image>
+                  </View>
+                  <View style={styles.badgeRibbonNeg140} />
+                </Animated.View>
+              </Marker>
+                </MapView>
+              {/* <EntypoIcon
                 name="location-pin"
                 style={styles.locationIcon}></EntypoIcon>
               <Image
                 source={require('./../assets/images/_110435139_parsa.jpg')}
                 resizeMode="contain"
-                style={styles.userLocation}></Image>
+                style={styles.userLocation}></Image> */}
             </View>
 
 
@@ -346,6 +368,35 @@ const styles = StyleSheet.create({
     fontFamily: 'poppinsregular',
     color: 'rgba(255,255,255,1)',
     fontSize: 22,
+  },
+  badgeRibbonCircle: {
+    width: 38,
+    height: 38,
+    backgroundColor: "rgba(172,96,220,1)",
+    borderRadius: 20,
+  },
+  image2: {
+    width: 33,
+    height: 33,
+    position: "absolute",
+    borderRadius: 18,
+    marginTop: 2,
+    marginLeft: 2.5,
+  },
+  badgeRibbonNeg140: {
+    backgroundColor: "transparent",
+    borderBottomWidth: 15,
+    borderBottomColor: 'rgba(172,96,220,1)',
+    borderLeftWidth: 7,
+    borderLeftColor: "transparent",
+    borderRightWidth: 7,
+    borderRightColor: "transparent",
+    position: "absolute",
+    top: 35,
+    left: 12,
+    //height:35, 
+    //width:35, 
+    transform: [{ rotate: "-180deg" }],
   },
   icon1: {
     left: 146,

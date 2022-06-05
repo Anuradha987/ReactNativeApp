@@ -5,13 +5,14 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  ImageBackground, 
+  ImageBackground,
+  Animated, 
   FlatList
   , ActivityIndicator
 } from "react-native";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import FeatherIcon from "react-native-vector-icons/Feather";
-import MapView from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 import { useFonts } from 'expo-font';
@@ -79,10 +80,10 @@ function UserProfile({navigation, route}) {
         const services = res.data.data;
         console.log(services);
         setMyServices(services);
-        setRefreshing(false);
+        // setRefreshing(false);
       })
       .catch((error) => {
-        setRefreshing(false);
+        // setRefreshing(false);
         console.log(error);
       });
   };
@@ -92,9 +93,9 @@ function UserProfile({navigation, route}) {
       const items = res.data.data;
       console.log(items);
       setMyItems(items);
-      setRefreshing(false);
+      // setRefreshing(false);
     }).catch((error) => {
-      setRefreshing(false);
+      // setRefreshing(false);
     })
   }
 
@@ -197,10 +198,12 @@ function UserProfile({navigation, route}) {
         ></FontAwesomeIcon>
       </View>
 
-
-      <Text style={styles.viewOnTheMap}>View on the map</Text>
+      {userDetails.location && userDetails.location.lat && userDetails.lon ? 
+      <>
+    <Text style={styles.viewOnTheMap}>View on the map</Text>
       <View style={styles.mapViewStack}>
-        {/* <MapView
+     
+                 <MapView
           provider={MapView.PROVIDER_GOOGLE}
           initialRegion={{
             latitude: userDetails.location.lat,
@@ -209,17 +212,13 @@ function UserProfile({navigation, route}) {
             longitudeDelta: 0.0421,
           }}
           customMapStyle={[]}
-          style={styles.mapView}></MapView> */}
-        <EntypoIcon
-          name="location-pin"
-          style={styles.locationIcon}
-        ></EntypoIcon>
-        <Image
-          source={require("../assets/images/_110435139_parsa.jpg")}
-          resizeMode="contain"
-          style={styles.userLocation}
-        ></Image>
-      </View>
+          style={styles.mapView}></MapView> 
+ 
+
+
+      </View></>         
+      :null
+      }
 
 <View style={{alignItems:'center', textAlign: 'center', marginHorizontal:26}}>
       <Text style={styles.ratingText1}>How was your experience with </Text>
@@ -404,6 +403,35 @@ rect1Row: { height: 43, marginTop: 769 },
     marginTop: 39,
     marginLeft: 39,
     marginRight: 32
+  },
+  badgeRibbonCircle: {
+    width: 38,
+    height: 38,
+    backgroundColor: "rgba(172,96,220,1)",
+    borderRadius: 20,
+  },
+  image2: {
+    width: 33,
+    height: 33,
+    position: "absolute",
+    borderRadius: 18,
+    marginTop: 2,
+    marginLeft: 2.5,
+  },
+  badgeRibbonNeg140: {
+    backgroundColor: "transparent",
+    borderBottomWidth: 15,
+    borderBottomColor: 'rgba(172,96,220,1)',
+    borderLeftWidth: 7,
+    borderLeftColor: "transparent",
+    borderRightWidth: 7,
+    borderRightColor: "transparent",
+    position: "absolute",
+    top: 35,
+    left: 12,
+    //height:35, 
+    //width:35, 
+    transform: [{ rotate: "-180deg" }],
   },
   descriptionAboutUser: {
     fontFamily: "poppinsregular",
