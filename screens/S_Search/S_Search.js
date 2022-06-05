@@ -244,8 +244,7 @@ const S_Search = () => {
                 }}
                 // coordinate={marker.coordinate} 
                 //         identifier={marker.id}
-                // key={index} 
-
+                key={service._id} 
                 onPress={() => {navigation.navigate("UserProfile",{userDetails:service.user_id}) }} >
                 {/* marker */}
                 <Animated.View style={{ height: 50 }}>
@@ -260,7 +259,6 @@ const S_Search = () => {
                 </Animated.View>
               </Marker>
               }
-  
             })}
 
 
