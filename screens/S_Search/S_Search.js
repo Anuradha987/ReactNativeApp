@@ -251,7 +251,7 @@ const S_Search = () => {
                 <Animated.View style={{ height: 50 }}>
                   <View style={styles.badgeRibbonCircle}>
                     <Image
-                      source={require("./../../assets/images/_110435139_parsa.jpg")}
+                      source={{uri: `data:image/gif;base64,${service.user_id.profile_img}`}}
                       resizeMode="cover"
                       style={styles.image2}
                     ></Image>
@@ -270,7 +270,7 @@ const S_Search = () => {
           </MapView>
 
           {/* expert pop up box */}
-          <View style={styles.button}>
+          {/* <View style={styles.button}>
             <View style={styles.imageRowRowColumn}>
               <View style={styles.imageRowRow}>
                 <View style={styles.imageRow} >
@@ -296,7 +296,7 @@ const S_Search = () => {
 
               <View style={styles.rect}>
                 <View style={styles.iconRow}>
-                  {/* rate */}
+             
                   <FontAwesomeIcon
                     name="star"
                     style={styles.icon}
@@ -305,14 +305,14 @@ const S_Search = () => {
                 </View>
                 <View style={styles.iconRowFiller}></View>
                 <View style={styles.icon2Row}>
-                  {/* expert contact */}
+       
                   <FeatherIcon name="phone" style={styles.callIcon}></FeatherIcon>
                   <FeatherIcon name="message-square" style={styles.messageIcon}></FeatherIcon>
                   <FontAwesomeIcon name="share-square-o" style={styles.requestIcon}></FontAwesomeIcon>
                 </View>
               </View>
             </View>
-          </View>
+          </View> */}
 
         </View>
 
