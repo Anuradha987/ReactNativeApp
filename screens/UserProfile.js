@@ -168,8 +168,8 @@ function UserProfile({navigation, route}) {
         <MapView
           provider={MapView.PROVIDER_GOOGLE}
           initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
+            latitude: userDetails.location.lat,
+            longitude: userDetails.location.lon,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
@@ -557,8 +557,8 @@ rect1Row: { height: 43, marginTop: 769 },
     marginRight: -1
   },
   thumbsaDownIcon: {
-    color: "rgba(255,102,102,1)",
-    fontSize: 24,
+    // color: "rgba(255,102,102,1)",
+    // fontSize: 24,
     height: 24,
     width: 24,
     marginTop: 2
