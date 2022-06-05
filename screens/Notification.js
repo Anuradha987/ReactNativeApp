@@ -81,7 +81,7 @@ const Notification = () => {
           onPress={() => navigation.goBack()}>
           <Icon name="arrow-left" style={styles.backIcon}></Icon>
         </TouchableOpacity>
-        <Text style={styles.title}>REQUEST DETAILS</Text>
+        <Text style={styles.title}>NOTIFICATIONS</Text>
       </View>
 
       <LinearGradient
@@ -99,7 +99,10 @@ const Notification = () => {
           }
           style={{ height: 500}}
           ListHeaderComponent={
+            (!notificationsReq.length && !notificationsOrder.length) ?
+              <Text style={styles.noData}>New notifications not avaiable</Text>:
             <View   style={{ height: 500}}>
+
 
       {/* content */}
       {notificationsReq.length ? 
@@ -199,6 +202,7 @@ const Notification = () => {
                     }} />
                     </>
                  : null}
+                 
 </View>}/>
 
     </View>)
@@ -239,6 +243,14 @@ const styles = StyleSheet.create({
     marginTop: 7,
     color: '#9c8df0',
     fontSize: 17,
+    letterSpacing: 0,
+  },
+  noData: {
+    fontFamily: 'poppins700',
+    textAlign: 'center',
+    marginTop: 7,
+    color: 'white',
+    fontSize: 14,
     letterSpacing: 0,
   },
   helloName: {
